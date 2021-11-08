@@ -59,16 +59,19 @@ class Account(AbstractBaseUser):
     def __str__(self):
         return self.email
 
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
+
     def has_perm(self, perm, obj=None):
         return self.is_admin
 
     def has_module_perms(self, add_label):
         return True
 
-"""class UserProfile(models.Model):
+class UserProfile(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
     overview = models.CharField(blank=True, max_length=100)
-    avatar = models.ImageField(null=True, default="avatar.svg")
+    photo_profile = models.ImageField(null=True, upload_to='userprofile/%Y/%m/%d', default="avatar.jpg")
     experience_title = models.CharField(blank=True, max_length=100)
     experience_description = models.TextField(blank=True, max_length=100)
     education_title = models.CharField(blank=True, max_length=100)
@@ -83,4 +86,4 @@ class Account(AbstractBaseUser):
         return self.user.first_name
 
     def full_year(self):
-        return f'{self.education_year_start} - d{self.education_year_end}'"""
+        return f'{self.education_year_start} - d{self.education_year_end}'
