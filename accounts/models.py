@@ -71,7 +71,7 @@ class Account(AbstractBaseUser):
 class UserProfile(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
     overview = models.CharField(blank=True, max_length=100)
-    photo_profile = models.ImageField(null=True, upload_to='userprofile/%Y/%m/%d', default="avatar.jpg")
+    photo_profile = models.ImageField(null=True, upload_to='userprofile/%Y/%m/%d', default="avatar/avatar.jpg")
     experience_title = models.CharField(blank=True, max_length=100)
     experience_description = models.TextField(blank=True, max_length=100)
     education_title = models.CharField(blank=True, max_length=100)
