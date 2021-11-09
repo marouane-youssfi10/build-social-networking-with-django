@@ -29,14 +29,14 @@ $(window).on("load", function() {
 
     //  ============= SIGNIN CONTROL FUNCTION =========
 
-    $('.sign-control li').on("click", function(){
+    /*$('.sign-control li').on("click", function(){
         var tab_id = $(this).attr('data-tab');
         $('.sign-control li').removeClass('current');
         $('.sign_in_sec').removeClass('current');
         $(this).addClass('current animated fadeIn');
         $("#"+tab_id).addClass('current animated fadeIn');
         return false;
-    });
+    });*/
 
     //  ============= SIGNIN TAB FUNCTIONALITY =========
 
