@@ -80,6 +80,11 @@ class Tags(models.Model):
     def __str__(self):
         return self.tag
 
+class Experience_user(models.Model):
+    experince_user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    experince_title = models.CharField(max_length=100)
+    experince_description = models.CharField(max_length=100, blank=True)
+
 class UserProfile(models.Model):
     STATUS_CHOICES = (
         ('part time', 'part time'),
@@ -88,8 +93,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
     overview = models.TextField(blank=True)
     photo_profile = models.ImageField(null=True, upload_to='userprofile/%Y/%m/%d', default="avatar/avatar.jpg")
-    experience_title = models.CharField(blank=True, max_length=100)
-    experience_description = models.TextField(blank=True)
+    experience = models.ForeignKey(Experience_user, on_delete=models.CASCADE)
     education_title = models.CharField(blank=True, max_length=100)
     education_year_start = models.IntegerField()
     education_year_end = models.IntegerField()
@@ -99,6 +103,12 @@ class UserProfile(models.Model):
     skills_tags = models.ManyToManyField(Tags, blank=True)
     hourly_work = models.IntegerField(blank=True)
     type_work = models.CharField(blank=True, choices=STATUS_CHOICES, max_length=50)
+
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-updated', '-created']
 
     def __str__(self):
         return self.user.first_name
