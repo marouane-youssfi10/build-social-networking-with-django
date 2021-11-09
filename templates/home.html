@@ -25,8 +25,8 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="forum-questions">
+                            {% for info in user_profile %}
                             <div class="usr-question">
-                                {% for info in user_profile %}
                                     <div class="usr_img">
                                         <img src="{{ info.photo_profile.url }}" alt="">
                                     </div>
@@ -45,9 +45,11 @@
                                             {% endfor %}
                                         </ul>
                                     </div>
-                                    <span class="quest-posted-time"><i class="fa fa-clock-o"></i>{{ info.updated | timesince }} ago</span>
-                                {% endfor %}
+                                    <span class="quest-posted-time">
+                                        <i class="fa fa-clock-o"></i>{{ info.updated | timesince }} ago
+                                    </span>
                             </div><!--usr-question end-->
+                            {% endfor %}
                         </div><!--forum-questions end-->
 
                         <!-- =============== Pagination =============== -->
@@ -69,30 +71,21 @@
                         <div class="widget widget-user">
                             <h3 class="title-wd">Top User of the Week</h3>
                             <ul>
-                                <li>
-                                    <div class="usr-msg-details">
-                                        <div class="usr-ms-img">
-                                            <img src="http://via.placeholder.com/50x50" alt="">
-                                        </div>
-                                        <div class="usr-mg-info">
-                                            <h3>Jessica William</h3>
-                                            <p>Graphic Designer </p>
-                                        </div><!--usr-mg-info end-->
-                                    </div>
-                                    <span><img src="images/price1.png" alt="">1185</span>
-                                </li>
-                                <li>
-                                    <div class="usr-msg-details">
-                                        <div class="usr-ms-img">
-                                            <img src="http://via.placeholder.com/50x50" alt="">
-                                        </div>
-                                        <div class="usr-mg-info">
-                                            <h3>John Doe</h3>
-                                            <p>PHP Developer</p>
-                                        </div><!--usr-mg-info end-->
-                                    </div>
-                                    <span><img src="images/price2.png" alt="">1165</span>
-                                </li>
+                                  {% for info in user_profile %}
+                                        <li>
+                                            <div class="usr-msg-details">
+                                                <div class="usr-ms-img">
+                                                    <img src="{{ info.photo_profile.url }}" alt="">
+                                                </div>
+
+                                                <div class="usr-mg-info">
+                                                    <h3>{{ info.user.full_name }}</h3>
+                                                    <p>{{ info.experience.experince_title }} </p>
+                                                </div><!--usr-mg-info end-->
+                                            </div>
+                                            <span><img src="images/price1.png" alt="">1185</span>
+                                        </li>
+                                  {% endfor %}
                             </ul>
                         </div><!--widget-user end-->
 
