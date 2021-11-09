@@ -3,8 +3,11 @@ from django.shortcuts import render
 # Create your views here.
 
 
-def register(request):
+def registerPage(request):
     return render(request, 'accounts/register.html')
 
-def login(request):
-    return render(request, 'accounts/login.html')
+def loginPage(request):
+    return render(request, 'accounts/login_register.html')
+
+def logoutUser(request):
+    return render(request, 'accounts/logout.html')
