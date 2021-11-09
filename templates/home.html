@@ -38,11 +38,15 @@
                                             <li><a href="#" title=""><i class="fa fa-eye"></i> Views  50</a></li>
                                         </ul>
                                         <ul class="quest-tags">
-                                            <li><a href="" title="">{{ info.skills_tags }}</a></li>
+                                            {% for tag in info.skills_tags.all %}
+                                                <li>
+                                                    <a href="" title=""> {{ tag }}</a>
+                                                </li>
+                                            {% endfor %}
                                         </ul>
                                     </div>
+                                    <span class="quest-posted-time"><i class="fa fa-clock-o"></i>{{ info.updated | timesince }} ago</span>
                                 {% endfor %}
-                                <span class="quest-posted-time"><i class="fa fa-clock-o"></i>3 min ago</span>
                             </div><!--usr-question end-->
                         </div><!--forum-questions end-->
 

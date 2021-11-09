@@ -22,10 +22,10 @@ class AccountAdmin(UserAdmin):
     fieldsets = ()
 
 class TagsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'tag')
+    list_display = ('id', 'user_tags', 'tag')
 
 class ExperienceUserAdmin(admin.ModelAdmin):
-    list_display = ('experince_user', 'experince_title', 'experince_description')
+    list_display = ('id', 'experience_user', 'experince_title')
 
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(Account, AccountAdmin)

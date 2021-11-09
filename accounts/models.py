@@ -71,6 +71,7 @@ class Account(AbstractBaseUser):
 
 
 class Tags(models.Model):
+    user_tags = models.ForeignKey(Account, on_delete=models.CASCADE)
     tag = models.CharField(max_length=100, blank=True)
 
     class Meta:
@@ -81,9 +82,12 @@ class Tags(models.Model):
         return self.tag
 
 class Experience_user(models.Model):
-    experince_user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    experience_user = models.ForeignKey(Account, on_delete=models.CASCADE)
     experince_title = models.CharField(max_length=100)
-    experince_description = models.CharField(max_length=100, blank=True)
+    experince_description = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.experince_title
 
 class UserProfile(models.Model):
     STATUS_CHOICES = (
@@ -93,7 +97,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
     overview = models.TextField(blank=True)
     photo_profile = models.ImageField(null=True, upload_to='userprofile/%Y/%m/%d', default="avatar/avatar.jpg")
-    experience = models.ForeignKey(Experience_user, on_delete=models.CASCADE)
+    experience = models.ForeignKey(Experience_user, on_delete=models.CASCADE, blank=True)
     education_title = models.CharField(blank=True, max_length=100)
     education_year_start = models.IntegerField()
     education_year_end = models.IntegerField()
