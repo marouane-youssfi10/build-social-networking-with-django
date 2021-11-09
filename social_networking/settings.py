@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'accounts.apps.AccountsConfig'
 ]
 
 MIDDLEWARE = [
@@ -68,6 +70,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'social_networking.wsgi.application'
+
+
+# Tell setting we are using custom user model
+AUTH_USER_MODEL = 'accounts.Account'
 
 
 # Database

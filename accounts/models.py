@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+import datetime
 
-# Create your models here.
 class MyAccountManager(BaseUserManager):
 
     def create_user(self, first_name, last_name, username, email, password=None):
@@ -57,7 +57,7 @@ class Account(AbstractBaseUser):
     objects = MyAccountManager()
 
     def __str__(self):
-        return self.email
+        return self.first_name
 
     def full_name(self):
         return f'{self.first_name} {self.last_name}'
@@ -68,19 +68,31 @@ class Account(AbstractBaseUser):
     def has_module_perms(self, add_label):
         return True
 
+
+
+class Tags(models.Model):
+    tag = models.CharField(max_length=100, blank=True)
+
+    class Meta:
+        verbose_name = 'tag'
+        verbose_name_plural = 'tags'
+
+    def __str__(self):
+        return self.tag
+
 class UserProfile(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
-    overview = models.CharField(blank=True, max_length=100)
+    overview = models.TextField(blank=True)
     photo_profile = models.ImageField(null=True, upload_to='userprofile/%Y/%m/%d', default="avatar/avatar.jpg")
     experience_title = models.CharField(blank=True, max_length=100)
-    experience_description = models.TextField(blank=True, max_length=100)
+    experience_description = models.TextField(blank=True)
     education_title = models.CharField(blank=True, max_length=100)
-    education_year_start = models.CharField(blank=True, max_length=100)
-    education_year_end = models.CharField(blank=True, max_length=100)
-    education_description = models.TextField(blank=True, max_length=100,)
+    education_year_start = models.IntegerField()
+    education_year_end = models.IntegerField()
+    education_description = models.TextField(blank=True)
     location_country = models.CharField(blank=True, max_length=100)
-    location_street = models.CharField(blank=True, max_length=100)
-    skills_tags = models.CharField(blank=True, max_length=20)
+    location_city = models.CharField(blank=True, max_length=100)
+    skills_tags = models.ManyToManyField(Tags, blank=True)
 
     def __str__(self):
         return self.user.first_name
