@@ -68,8 +68,6 @@ class Account(AbstractBaseUser):
     def has_module_perms(self, add_label):
         return True
 
-
-
 class Tags(models.Model):
     user_tags = models.ForeignKey(Account, on_delete=models.CASCADE)
     tag = models.CharField(max_length=100, blank=True)

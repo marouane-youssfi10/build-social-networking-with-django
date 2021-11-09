@@ -1,8 +1,7 @@
 from django.shortcuts import render
-from accounts.models import UserProfile, Experience_user, Tags
+from accounts.models import UserProfile
 
 def home(request):
-    print('request.user = ', request.user)
     user_profile = UserProfile.objects.all()
 
     context = {
