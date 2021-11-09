@@ -17,24 +17,23 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}">
     </head>
-
-
-    {% include 'includes/navbar.html' %}
-
-    <!-- body -->
-    {% block content %}
-
-    {% endblock content %}
-
-    {% include 'includes/footer.html' %}
-
     <body>
+        <!-- navbar -->
+        {% include 'includes/navbar.html' %}
+
+            <!-- body -->
+            {% block content %}
+
+            {% endblock content %}
+
+        <!-- footer -->
+        {% include 'includes/footer.html' %}
+
         <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/popper.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/jquery.mCustomScrollbar.js' %}"></script>
         <script type="text/javascript" src="{% static 'lib/slick/slick.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
-
     </body>
 </html>
