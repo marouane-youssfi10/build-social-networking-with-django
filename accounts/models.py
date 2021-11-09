@@ -81,6 +81,10 @@ class Tags(models.Model):
         return self.tag
 
 class UserProfile(models.Model):
+    STATUS_CHOICES = (
+        ('part time', 'part time'),
+        ('full time', 'full time'),
+    )
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
     overview = models.TextField(blank=True)
     photo_profile = models.ImageField(null=True, upload_to='userprofile/%Y/%m/%d', default="avatar/avatar.jpg")
@@ -93,6 +97,8 @@ class UserProfile(models.Model):
     location_country = models.CharField(blank=True, max_length=100)
     location_city = models.CharField(blank=True, max_length=100)
     skills_tags = models.ManyToManyField(Tags, blank=True)
+    hourly_work = models.IntegerField(blank=True)
+    type_work = models.CharField(blank=True, choices=STATUS_CHOICES, max_length=50)
 
     def __str__(self):
         return self.user.first_name
