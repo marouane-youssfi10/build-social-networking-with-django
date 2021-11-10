@@ -5,7 +5,7 @@
 			<div class="container">
 				<div class="header-data">
 					<div class="logo">
-						<a href="index.html" title=""><img src="images/logo.png" alt=""></a>
+						<a href="index.html" title=""><img src="{% static 'images/logo.png' %}" alt=""></a>
 					</div><!--logo end-->
 					<div class="search-bar">
 						<form>
@@ -161,7 +161,7 @@
 					<div class="user-account">
 						<div class="user-info">
 							<img src="http://via.placeholder.com/30x30" alt="">
-							<a href="#" title="">John</a>
+							<a href="#" title="">{{ request.user.first_name }} </a>
 							<i class="la la-sort-down"></i>
 						</div>
 						<div class="user-account-settingss">
@@ -186,21 +186,11 @@
 									</div>
 								</li>
 							</ul>
-							<h3>Custom Status</h3>
-							<div class="search_form">
-								<form>
-									<input type="text" name="search">
-									<button type="submit">Ok</button>
-								</form>
-							</div><!--search_form end-->
 							<h3>Setting</h3>
 							<ul class="us-links">
 								<li><a href="profile-account-setting.html" title="">Account Setting</a></li>
-								<li><a href="#" title="">Privacy</a></li>
-								<li><a href="#" title="">Faqs</a></li>
-								<li><a href="#" title="">Terms & Conditions</a></li>
 							</ul>
-							<h3 class="tc"><a href="sign-in.html" title="">Logout</a></h3>
+							<h3 class="tc"><a href="{% url 'logout' %}" title="">Logout</a></h3>
 						</div><!--user-account-settingss end-->
 					</div>
 				</div><!--header-data end-->
@@ -217,7 +207,7 @@
 						<h2>Forum</h2>
 						<ul>
 							<li><a href="#" title="">Tags</a></li>
-									<li><a href="#" title="">Users</a></li>
+							<li><a href="#" title="">Users</a></li>
 							<li><a href="#" title="" class="ask-question">Ask a question</a></li>
 						</ul>
 					</div><!--search-bar end-->
