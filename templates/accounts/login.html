@@ -1,5 +1,6 @@
 <h3>Sign in</h3><br>
 {% include 'includes/alerts.html' %}
+<br>
 <form method="POST" action="{% url 'login' %}">
     {% csrf_token %}
     <div class="row">
