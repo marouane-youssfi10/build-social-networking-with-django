@@ -9,10 +9,10 @@
 
                 {% if form.email.errors %}
                     {{ form.email.errors }}
-                {% endif %}
-
-                {% if form.non_field_errors %}
+                {% elif form.non_field_errors %}
                     {{ form.non_field_errors }}
+                {% else %}
+                    {{ message }}
                 {% endif %}
 
             {% else %}

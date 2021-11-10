@@ -23,7 +23,6 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}">
     </head>
-
     <body class="sign-in">
         <div class="wrapper">
             <div class="sign-in-page">
@@ -43,14 +42,6 @@
                             <!-- Login -->
                             <div class="col-lg-6">
                                 <div class="login-sec">
-
-                                    <!--
-                                    <ul class="sign-control">
-                                        <li data-tab="tab-1" class="current"><a href="{% url 'login' %}">Sign in</a></li>
-                                        <li data-tab="tab-2"><a href="{% url 'register' %}">Sign up</a></li>
-                                    </ul>
-                                    -->
-
                                     <ul class="sign-control no-pdd">
                                        <a href="{% url 'login' %}" >
                                            <button class="{% if '/accounts/login' in request.path %}

@@ -34,6 +34,24 @@ def registerPage(request):
     return render(request, 'accounts/register.html', context)
 
 def loginPage(request):
+
+    # check user is is_authenticated
+    if request.user.is_authenticated:
+        return redirect('home')
+
+
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+        user = auth.authenticate(email=email, password=password)
+
+        if user is not None:
+            auth.login(request, user)
+            messages.success(request, 'You are Now Logged in.')
+            return redirect('home')
+        else:
+            messages.error(request, 'Username Or password does not exists')
+
     return render(request, 'accounts/register.html')
 
 def logoutUser(request):
