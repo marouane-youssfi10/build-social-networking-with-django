@@ -5402,3 +5402,29 @@ a:hover {
     transform: scale(1.0);
   }
 }
+/* button */
+/*:root {
+  --button-color: #fff;
+  --button-background-color: #ff7f00;
+}
+.btn-primary {
+  color: var(--button-color);
+  background-color: #ff7f00;
+  border-radius: 10px;
+  color:white;
+}
+
+.btn-primary:hover {
+  box-shadow: #ff7f00;
+}
+
+.btn-primary:active {
+  box-shadow: #ff7f00 ;
+}
+
+.btn-primary:disabled,
+.btn-primary.is-disabled {
+  opacity: .5;
+}
+
+*/

@@ -2,7 +2,13 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>WorkWise Html Template</title>
+        <title>
+            {% if '/accounts/login' in request.path %}
+               Account Login
+            {% else %}
+                Account Register
+            {% endif %}
+        </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="" />
         <meta name="keywords" content="" />
@@ -45,24 +51,35 @@
                                     </ul>
                                     -->
 
-                                    <ul class="sign-control">
-                                        <a href="{% url 'login' %}" class="current">Sign in</a>
-                                        //
-                                        <a href="{% url 'register' %}">Sign up</a>
+                                    <ul class="sign-control no-pdd">
+                                       <a href="{% url 'login' %}" >
+                                           <button class="{% if '/accounts/login' in request.path %}
+                                                            btn btn-primary
+                                                        {% else %}
+                                                            btn btn-outline-primary
+                                                        {% endif %}">
+                                           Sign in
+                                           </button>
+                                       </a>
+                                        <a href="{% url 'register' %}">
+                                            <button class="{% if '/accounts/register' in request.path %}
+                                                                btn btn-primary
+                                                            {% else %}
+                                                                btn btn-outline-primary
+                                                            {% endif %}">
+                                                Sign up
+                                            </button>
+                                        </a>
                                     </ul>
 
                                     {% if '/accounts/login' in request.path %}
                                         <!-- Login -->
-                                        <h1>baby login</h1>
-                                        {% block login %}
-                                        {% endblock login %}
+                                        {% include 'accounts/login.html' %}
                                     {% else %}
                                         <!-- Register -->
-                                        <h1>baby register</h1>
                                         {% block register %}
                                         {% endblock register %}
                                     {% endif %}
-
 
                                 </div>
                             </div>
