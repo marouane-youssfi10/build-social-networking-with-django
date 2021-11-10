@@ -37,7 +37,7 @@ def loginPage(request):
 
     # check user is is_authenticated
     if request.user.is_authenticated:
-        return redirect('home_login')
+        return redirect('home')
 
 
     if request.method == 'POST':
@@ -48,7 +48,7 @@ def loginPage(request):
         if user is not None:
             auth.login(request, user)
             messages.success(request, 'You are Now Logged in.')
-            return redirect('home_login')
+            return redirect('home')
         else:
             messages.error(request, 'Username Or password does not exists')
 

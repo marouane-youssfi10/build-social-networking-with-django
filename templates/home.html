@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% if request.user.is_authenticated %}
+        {% include 'body_content/home_login.html' %}
+    {% else %}
+        {% include 'body_content/home_not_login.html' %}
+    {% endif %}
+
+
+{% endblock content %}

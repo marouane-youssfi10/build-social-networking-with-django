@@ -7,4 +7,4 @@ def home(request):
     context = {
         'user_profile': user_profile,
     }
-    return render(request, 'home_not_login.html', context)
+    return render(request, 'home.html', context)
