@@ -6,9 +6,19 @@
                 <span aria-hidden="true">&times;</span>
             </button>
             {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-                Error:
+
+                {% if form.email.errors %}
+                    {{ form.email.errors }}
+                {% endif %}
+
+                {% if form.non_field_errors %}
+                    {{ form.non_field_errors }}
+                {% endif %}
+
+            {% else %}
+                {{ message }}
             {% endif %}
-            {{ message }}
+
         </div>
     </div>
     {% endfor %}
