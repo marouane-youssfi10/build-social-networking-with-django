@@ -17,13 +17,13 @@
 						<ul>
 							<li>
 								<a href="index.html" title="">
-									<span><img src="images/icon1.png" alt=""></span>
+									<span><img src="{% static 'images/icon1.png' %} " alt=""></span>
 									Home
 								</a>
 							</li>
 							<li>
 								<a href="companies.html" title="">
-									<span><img src="images/icon2.png" alt=""></span>
+									<span><img src="{% static 'images/icon2.png' %} " alt=""></span>
 									Companies
 								</a>
 								<ul>
@@ -33,13 +33,13 @@
 							</li>
 							<li>
 								<a href="projects.html" title="">
-									<span><img src="images/icon3.png" alt=""></span>
+									<span><img src="{% static 'images/icon3.png' %} " alt=""></span>
 									Projects
 								</a>
 							</li>
 							<li>
 								<a href="profiles.html" title="">
-									<span><img src="images/icon4.png" alt=""></span>
+									<span><img src="{% static 'images/icon4.png' %} " alt=""></span>
 									Profiles
 								</a>
 								<ul>
@@ -49,13 +49,13 @@
 							</li>
 							<li>
 								<a href="jobs.html" title="">
-									<span><img src="images/icon5.png" alt=""></span>
+									<span><img src="{% static 'images/icon5.png' %} " alt=""></span>
 									Jobs
 								</a>
 							</li>
 							<li>
 								<a href="#" title="" class="not-box-open">
-									<span><img src="images/icon6.png" alt=""></span>
+									<span><img src="{% static 'images/icon6.png' %} " alt=""></span>
 									Messages
 								</a>
 								<div class="notification-box msg">
@@ -66,7 +66,7 @@
 									<div class="nott-list">
 										<div class="notfication-details">
 							  				<div class="noty-user-img">
-							  					<img src="images/resources/ny-img1.png" alt="">
+							  					<img src="{% static 'images/resources/ny-img1.png' %} " alt="">
 							  				</div>
 							  				<div class="notification-info">
 							  					<h3><a href="messages.html" title="">Jassica William</a> </h3>
@@ -76,7 +76,7 @@
 						  				</div>
 						  				<div class="notfication-details">
 							  				<div class="noty-user-img">
-							  					<img src="images/resources/ny-img2.png" alt="">
+							  					<img src="{% static 'images/resources/ny-img2.png' %} " alt="">
 							  				</div>
 							  				<div class="notification-info">
 							  					<h3><a href="messages.html" title="">Jassica William</a></h3>
@@ -86,7 +86,7 @@
 						  				</div>
 						  				<div class="notfication-details">
 							  				<div class="noty-user-img">
-							  					<img src="images/resources/ny-img3.png" alt="">
+							  					<img src="{% static 'images/resources/ny-img3.png' %} " alt="">
 							  				</div>
 							  				<div class="notification-info">
 							  					<h3><a href="messages.html" title="">Jassica William</a></h3>
@@ -102,7 +102,7 @@
 							</li>
 							<li>
 								<a href="#" title="" class="not-box-open">
-									<span><img src="images/icon7.png" alt=""></span>
+									<span><img src="{% static 'images/icon7.png' %} " alt=""></span>
 									Notification
 								</a>
 								<div class="notification-box">
@@ -113,7 +113,7 @@
 									<div class="nott-list">
 										<div class="notfication-details">
 							  				<div class="noty-user-img">
-							  					<img src="images/resources/ny-img1.png" alt="">
+							  					<img src="{% static 'images/resources/ny-img1.png' %} " alt="">
 							  				</div>
 							  				<div class="notification-info">
 							  					<h3><a href="#" title="">Jassica William</a> Comment on your project.</h3>
@@ -122,7 +122,7 @@
 						  				</div>
 						  				<div class="notfication-details">
 							  				<div class="noty-user-img">
-							  					<img src="images/resources/ny-img2.png" alt="">
+							  					<img src="{% static 'images/resources/ny-img2.png' %} " alt="">
 							  				</div>
 							  				<div class="notification-info">
 							  					<h3><a href="#" title="">Jassica William</a> Comment on your project.</h3>
@@ -131,7 +131,7 @@
 						  				</div>
 						  				<div class="notfication-details">
 							  				<div class="noty-user-img">
-							  					<img src="images/resources/ny-img3.png" alt="">
+							  					<img src="{% static 'images/resources/ny-img3.png' %} " alt="">
 							  				</div>
 							  				<div class="notification-info">
 							  					<h3><a href="#" title="">Jassica William</a> Comment on your project.</h3>
@@ -140,7 +140,7 @@
 						  				</div>
 						  				<div class="notfication-details">
 							  				<div class="noty-user-img">
-							  					<img src="images/resources/ny-img2.png" alt="">
+							  					<img src="{% static 'images/resources/ny-img2.png' %} " alt="">
 							  				</div>
 							  				<div class="notification-info">
 							  					<h3><a href="#" title="">Jassica William</a> Comment on your project.</h3>
@@ -160,9 +160,8 @@
 					</div><!--menu-btn end-->
 					<div class="user-account">
 						<div class="user-info">
-							<img src="http://via.placeholder.com/30x30" alt="">
-							<a href="#" title="">{{ request.user.first_name }} </a>
-							<i class="la la-sort-down"></i>
+							<img src="http://via.placeholder.com/30x30">
+							<a href="#">{{ request.user.first_name }} </a>
 						</div>
 						<div class="user-account-settingss">
 							<h3>Online Status</h3>
