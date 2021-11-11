@@ -10,11 +10,11 @@
 										<div class="user-profile">
 											<div class="username-dt">
 												<div class="usr-pic">
-													<img src="http://via.placeholder.com/100x100" alt="">
+													<img src="{{ user_profile.photo_profile.url }}" alt="">
 												</div>
 											</div><!--username-dt end-->
 											<div class="user-specs">
-												<h3>John Doe</h3>
+												<h3>{{ user_profile.user.first_name}}</h3>
 												<span>Graphic Designer at Self Employed</span>
 											</div>
 										</div><!--user-profile end-->
