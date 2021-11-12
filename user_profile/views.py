@@ -5,13 +5,16 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='login')
 def index(request):
-
     if request.user.is_authenticated:
         user_profile = UserProfile.objects.get(user=request.user)
-
+        all_user_profile = UserProfile.objects.all()
     else:
         return redirect('home')
     context = {
-        'user_profile': user_profile
+        'user_profile': user_profile,
+        'all_user_profile': all_user_profile
     }
     return render(request, 'home.html', context)
+
+def user_profile(request):
+    pass
