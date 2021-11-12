@@ -527,13 +527,13 @@ nav > ul > li > a:hover {
 	float: right;
 	width: 110px;
 	border-left: 1px solid #dd3e2b;
-	border-right: 1px solid #dd3e2b;
+	border-right: 0px solid #dd3e2b;
 	box-sizing: border-box;
 	position: relative;
 }
 .user-info {
 	float: left;
-	width: 100%;
+	width: 130%;
 	padding: 13px 10px;
 	position: relative;
 }
@@ -5402,29 +5402,3 @@ a:hover {
     transform: scale(1.0);
   }
 }
-/* button */
-/*:root {
-  --button-color: #fff;
-  --button-background-color: #ff7f00;
-}
-.btn-primary {
-  color: var(--button-color);
-  background-color: #ff7f00;
-  border-radius: 10px;
-  color:white;
-}
-
-.btn-primary:hover {
-  box-shadow: #ff7f00;
-}
-
-.btn-primary:active {
-  box-shadow: #ff7f00 ;
-}
-
-.btn-primary:disabled,
-.btn-primary.is-disabled {
-  opacity: .5;
-}
-
-*/
