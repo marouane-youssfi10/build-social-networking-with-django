@@ -8,8 +8,8 @@ class UserProfileAdmin(admin.ModelAdmin):
     def thumbnail(self, object):
         return format_html('<img src="{}" width="60" style="border-radius: 50px;" />'.format(object.photo_profile.url))
 
-    list_display = ['user', 'education_title', 'education_year_start', 'education_year_end',
-                    'location_country', 'location_city', 'hourly_work', 'type_work', 'thumbnail']
+    list_display = ['user', 'experience', 'education_title', 'location_country', 'location_city',
+                    'hourly_work', 'type_work', 'thumbnail']
 
 class AccountAdmin(UserAdmin):
     list_display = ('email', 'first_name', 'last_name', 'username', 'last_login', 'date_joined', 'is_active')
