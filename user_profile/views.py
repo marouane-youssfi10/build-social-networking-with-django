@@ -17,5 +17,6 @@ def index(request):
     }
     return render(request, 'home.html', context)
 
+@login_required(login_url='login')
 def user_profile(request):
-    pass
+    return render(request, 'profile_user/user_profile.html')
