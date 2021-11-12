@@ -80,8 +80,8 @@ class Tags(models.Model):
 
 class Experience_user(models.Model):
     experience_user = models.ForeignKey(Account, on_delete=models.CASCADE)
-    experince_title = models.CharField(max_length=100)
-    experince_description = models.TextField(blank=True)
+    experince_title = models.CharField(max_length=100, null=True, blank=True)
+    experince_description = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.experince_title
