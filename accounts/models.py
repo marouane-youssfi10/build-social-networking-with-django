@@ -103,7 +103,7 @@ class UserProfile(models.Model):
     location_city = models.CharField(blank=True, max_length=100)
     skills_tags = models.ManyToManyField(Tags, blank=True)
     hourly_work = models.IntegerField(blank=True)
-    type_work = models.CharField(blank=True, choices=STATUS_CHOICES, max_length=50, null=True)
+    type_work = models.CharField(blank=True, choices=STATUS_CHOICES, max_length=50, null=True, default=None)
 
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
