@@ -69,22 +69,15 @@
 										</div><!--star-descp end-->
 										<div class="tab-feed">
 											<ul>
-												<li data-tab="info-dd">
+												<li data-tab="info-dd" class="active">
 													<a href="#" title="">
 														<img src="{% static 'images/ic2.png' %}" alt="">
 														<span>Info</span>
 													</a>
 												</li>
-												<li data-tab="feed-dd" class="active">
-													<a href="#" title="">
-														<img src="{% static 'images/ic1.png' %}" alt="Update-profile">
-														<span>Update-profile</span>
-													</a>
-												</li>
-
 												<li data-tab="portfolio-dd">
 													<a href="#" title="">
-														<img src="{% static 'images/ic3.png' %}" alt="">
+														<img src="{% static 'images/ic3.png' %}">
 														<span>Portfolio</span>
 													</a>
 												</li>
@@ -93,18 +86,13 @@
 									</div>
 									<!--user-tab-sec end-->
 
-									<div class="product-feed-tab current" id="feed-dd">
-										{% include 'profile_user/edit_profile.html' %}
-									</div>
-									<!--product-feed-tab end-->
-
-									<div class="product-feed-tab" id="info-dd">
-										{% include 'profile_user/info.html' %}
-									</div>
-									<!--product-feed-tab end-->
-
 									<div class="product-feed-tab" id="portfolio-dd">
 										{% include 'profile_user/portfolio.html' %}
+									</div>
+									<!--product-feed-tab end-->
+
+									<div class="product-feed-tab current" id="info-dd">
+										{% include 'profile_user/info.html' %}
 									</div>
 									<!--product-feed-tab end-->
 								</div><!--main-ws-sec end-->
