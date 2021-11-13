@@ -20,3 +20,7 @@ def index(request):
 @login_required(login_url='login')
 def user_profile(request):
     return render(request, 'profile_user/user_profile.html')
+
+@login_required(login_url='login')
+def edit_profile(request):
+    return render(request, 'profile_user/user_profile.html')
