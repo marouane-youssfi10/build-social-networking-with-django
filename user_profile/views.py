@@ -47,5 +47,5 @@ def edit_profile(request):
 
     return render(request, 'profile_user/edit_profile.html', context)
 
-def change_profile(request):
-    pass
+def change_password(request):
+    return render(request, 'profile_user/change_password.html')

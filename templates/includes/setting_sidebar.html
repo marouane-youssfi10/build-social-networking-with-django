@@ -1,0 +1,18 @@
+
+
+<div class="col-lg-3">
+    <div class="acc-leftbar">
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link {% if '/edit-profile' in request.path %}active{% endif %}"
+               href="{% url 'edit-profile' %}" aria-selected="true">
+                <i class="la la-cogs"></i>
+                Edit profile
+            </a>
+            <a class="nav-item nav-link {% if '/change-password' in request.path %}active{% endif %}"
+               href="{% url 'change-password' %}" aria-selected="false">
+                <i class="fa fa-lock"></i>
+                Change Password
+            </a>
+          </div>
+    </div><!--acc-leftbar end-->
+</div>
