@@ -1,6 +1,7 @@
 {% load static %}
 <div class="wrapper">
 	<main>
+		{% include 'includes/alerts.html' %}
 		<div class="main-section">
 			<div class="container">
 				<div class="main-section-data">
@@ -47,7 +48,7 @@
 							<div class="main-ws-sec">
 								<div class="post-topbar">
 									<div class="user-picy">
-										<img src="http://via.placeholder.com/100x100" alt="">
+										<img src="{{ user_profile.photo_profile.url }}" alt="">
 									</div>
 									<div class="post-st">
 										<ul>

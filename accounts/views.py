@@ -33,7 +33,7 @@ def registerPage(request):
 
             # create user into Tags
             tags = Tags()
-            tags.user_tags_id = user.id
+            tags.tags_user_id = user.id
             tags.save()
 
             # create user into UserProfile
@@ -42,8 +42,6 @@ def registerPage(request):
                 experience=experience_user
                     )
             user_profile.save()
-
-
             messages.success(request, 'Congratulations! Your account is activated.')
             return redirect('login')
         else:
@@ -55,11 +53,6 @@ def registerPage(request):
     return render(request, 'accounts/register.html', context)
 
 def loginPage(request):
-
-    # check user is is_authenticated
-    if request.user.is_authenticated:
-        return redirect('index')
-
 
     if request.method == 'POST':
         email = request.POST['email']
