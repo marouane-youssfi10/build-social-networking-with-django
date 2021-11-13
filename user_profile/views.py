@@ -46,3 +46,6 @@ def edit_profile(request):
     }
 
     return render(request, 'profile_user/edit_profile.html', context)
+
+def change_profile(request):
+    pass

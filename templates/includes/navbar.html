@@ -5,7 +5,7 @@
 			<div class="container">
 				<div class="header-data">
 					<div class="logo">
-						<a href="index.html" title=""><img src="{% static 'images/logo.png' %}" alt=""></a>
+						<a href="{% url 'index' %}" title=""><img src="{% static 'images/logo.png' %}" alt=""></a>
 					</div><!--logo end-->
 					<div class="search-bar">
 						<form>
@@ -74,7 +74,7 @@
 							</ul>
 							<h3>Setting</h3>
 							<ul class="us-links">
-								<li><a href="profile-account-setting.html" title="">Account Setting</a></li>
+								<li><a href="{% url 'edit-profile' %}" title="">Account Setting</a></li>
 							</ul>
 							<h3 class="tc"><a href="{% url 'logout' %}" title="">Logout</a></h3>
 						</div><!--user-account-settingss end-->
@@ -87,7 +87,7 @@
 			<div class="container">
 				<div class="header-data">
 					<div class="logo pd-btm">
-						<a href="index.html" title=""><img src="{% static 'images/logo.png' %}" alt=""></a>
+						<a href="{% url 'home' %}" title=""><img src="{% static 'images/logo.png' %}" alt=""></a>
 					</div><!--logo end-->
 					<div class="forum-bar">
 						<h2>Forum</h2>

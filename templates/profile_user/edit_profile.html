@@ -1,3 +1,85 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<section class="profile-account-setting">
+			<div class="container">
+				<div class="account-tabs-setting">
+					<div class="row">
+						<div class="col-lg-3">
+							<div class="acc-leftbar">
+								<div class="nav nav-tabs" id="nav-tab" role="tablist">
+								    <a class="nav-item nav-link active" id="nav-acc-tab" data-toggle="tab" href="#nav-acc" role="tab" aria-controls="nav-acc" aria-selected="true">
+                                        <i class="la la-cogs"></i>
+                                        Edit profile
+                                    </a>
+								    <a class="nav-item nav-link" id="nav-password-tab" data-toggle="tab" href="#nav-password" role="tab" aria-controls="nav-password" aria-selected="false">
+                                        <i class="fa fa-lock"></i>
+                                        Change Password
+                                    </a>
+								  </div>
+							</div><!--acc-leftbar end-->
+						</div>
+						<div class="col-lg-9">
+							<div class="tab-content" id="nav-tabContent">
+								<div class="tab-pane fade show active" id="nav-acc" role="tabpanel" aria-labelledby="nav-acc-tab">
+									<div class="acc-setting">
+										<h3>Edit profile</h3>
+										<form>
+
+										</form>
+									</div><!--acc-setting end-->
+								</div>
+							  	<div class="tab-pane fade" id="nav-password" role="tabpanel" aria-labelledby="nav-password-tab">
+							  		<div class="acc-setting">
+										<h3>Change Password</h3>
+
+                                        <!-- start change password-->
+										<form>
+											<div class="cp-field">
+												<h5>Old Password</h5>
+												<div class="cpp-fiel">
+													<input type="text" name="old-password" placeholder="Old Password">
+													<i class="fa fa-lock"></i>
+												</div>
+											</div>
+											<div class="cp-field">
+												<h5>New Password</h5>
+												<div class="cpp-fiel">
+													<input type="text" name="new-password" placeholder="New Password">
+													<i class="fa fa-lock"></i>
+												</div>
+											</div>
+											<div class="cp-field">
+												<h5>Repeat Password</h5>
+												<div class="cpp-fiel">
+													<input type="text" name="repeat-password" placeholder="Repeat Password">
+													<i class="fa fa-lock"></i>
+												</div>
+											</div>
+											<div class="cp-field">
+												<h5><a href="#" title="">Forgot Password?</a></h5>
+											</div>
+											<div class="save-stngs pd2">
+												<ul>
+													<li><button type="submit">Save Setting</button></li>
+													<li><button type="submit">Restore Setting</button></li>
+												</ul>
+											</div>
+										</form>
+                                        <!-- end change password-->
+									</div><!--acc-setting end-->
+							  	</div>
+							</div>
+						</div>
+					</div>
+				</div><!--account-tabs-setting end-->
+			</div>
+		</section>
+
+{% endblock content %}
+
+<!-- ---------------------------------------------- -->
 <div class="user-profile-ov">
     <form action="{% url 'user-profile' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
