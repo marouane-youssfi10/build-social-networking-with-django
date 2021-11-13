@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm
-from .models import Account, UserProfile, Experience_user
+from .models import Account, UserProfile, Experience_user, Tags
 from django.contrib import messages, auth
 # Create your views here.
 
@@ -19,19 +19,31 @@ def registerPage(request):
             password = form.cleaned_data['password']
             username = email.split('@')[0]
 
-            # create user
+            # create user and save the information user
             user = Account.objects.create_user(first_name=first_name, last_name=last_name,
                                                email=email, username=username, password=password)
             user.phone_number = phone_number
-
-            # create user in user_profile & experience_user
-            user_profile = UserProfile.objects.create(user=user)
-            experience_user = Experience_user.objects.create(experience_user=user)
-
-            # save the user into accounts & experience_user & user_profile
             user.save()
-            user_profile.save()
+
+            print('\nuser = ', user, '\n')
+            # create user into Experience_user
+            experience_user = Experience_user()
+            experience_user.experience_user_id = user.id
             experience_user.save()
+
+            # create user into Tags
+            tags = Tags()
+            tags.user_tags_id = user.id
+            tags.save()
+
+            # create user into UserProfile
+            user_profile = UserProfile.objects.create(
+                user=user, photo_profile='avatar/avatar.png',
+                experience=experience_user
+                    )
+            user_profile.save()
+
+
             messages.success(request, 'Congratulations! Your account is activated.')
             return redirect('login')
         else:

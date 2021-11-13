@@ -56,7 +56,7 @@ class Account(AbstractBaseUser):
     objects = MyAccountManager()
 
     def __str__(self):
-        return self.first_name
+        return self.first_name if self.first_name else ''
 
     def full_name(self):
         return f'{self.first_name} {self.last_name}'
@@ -68,7 +68,7 @@ class Account(AbstractBaseUser):
         return True
 
 class Tags(models.Model):
-    user_tags = models.ForeignKey(Account, on_delete=models.CASCADE)
+    tags_user = models.ForeignKey(Account, on_delete=models.CASCADE)
     tag = models.CharField(max_length=100, blank=True)
 
     class Meta:
@@ -76,7 +76,7 @@ class Tags(models.Model):
         verbose_name_plural = 'tags'
 
     def __str__(self):
-        return self.tag
+        return self.tag if self.tag else ''
 
 class Experience_user(models.Model):
     experience_user = models.ForeignKey(Account, on_delete=models.CASCADE)
@@ -84,7 +84,7 @@ class Experience_user(models.Model):
     experince_description = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return self.experince_title
+        return self.experince_title if self.experince_title else ''
 
 class UserProfile(models.Model):
     STATUS_CHOICES = (
@@ -112,7 +112,7 @@ class UserProfile(models.Model):
         ordering = ['-updated', '-created']
 
     def __str__(self):
-        return self.user.first_name
+        return self.user.first_name if self.user.first_name else ''
 
     def full_year(self):
         return f'{self.education_year_start} - d{self.education_year_end}'

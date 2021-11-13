@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url='login')
 def index(request):
     if request.user.is_authenticated:
-        # if request.user == request.user.u
+        # if request.user == request.user
         user_profile = UserProfile.objects.get(user=request.user)
         all_user_profile = UserProfile.objects.all()
     else:

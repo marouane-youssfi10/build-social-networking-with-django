@@ -22,7 +22,7 @@ class AccountAdmin(UserAdmin):
     fieldsets = ()
 
 class TagsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user_tags', 'tag')
+    list_display = ('id', 'tags_user', 'tag')
 
 class ExperienceUserAdmin(admin.ModelAdmin):
     list_display = ('id', 'experience_user', 'experince_title')
