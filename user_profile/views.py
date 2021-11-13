@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from accounts.models import UserProfile
 from django.contrib.auth.decorators import login_required
+from accounts.forms import RegistrationForm
 # Create your views here.
 
 @login_required(login_url='login')
@@ -23,4 +24,5 @@ def user_profile(request):
 
 @login_required(login_url='login')
 def edit_profile(request):
+
     return render(request, 'profile_user/user_profile.html')
