@@ -23,9 +23,12 @@ def index(request):
 def user_profile(request):
     return render(request, 'profile_user/user_profile.html')
 
+
 @login_required(login_url='login')
 def edit_profile(request):
+
     userprofile = get_object_or_404(UserProfile, user=request.user)
+    print('\nuserprofile = ', userprofile, '\n')
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
@@ -33,10 +36,15 @@ def edit_profile(request):
             user_form.save()
             profile_form.save()
             messages.success(request, 'Your profile has been updated.')
-            return redirect('edit_profile')
+
+            context = {
+                'userprofile': userprofile,
+            }
+            return render(request, 'edit_profile.html', context)
     else:
         user_form = UserForm(instance=request.user)
         profile_form = UserProfileForm(instance=userprofile)
+
 
     print('\n-------------- edit_profile --------------------\n')
     context = {

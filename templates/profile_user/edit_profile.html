@@ -12,7 +12,7 @@
                                 <div class="acc-setting">
                                     <h3>Edit profile</h3>
                                     <div class="user-profile-ov">
-                                        <form action="{% url 'user-profile' %}" method="POST" enctype="multipart/form-data">
+                                        <form action="{% url 'edit-profile' %}" method="POST" enctype="multipart/form-data">
                                             {% csrf_token %}
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
@@ -31,6 +31,50 @@
                                                     <label>Photo profile</label>
                                                     {{ profile_form.photo_profile }}
                                                 </div>
+
+                                                 <div class="form-group col-md-6">
+                                                    <label>experience</label>
+                                                    {{ profile_form.experience }}
+                                                </div>
+                                                 <div class="form-group col-md-6">
+                                                    <label>education title</label>
+                                                    {{ profile_form.education_title }}
+                                                </div>
+                                                 <div class="form-group col-md-6">
+                                                    <label>education year star</label>
+                                                    {{ profile_form.education_year_start }}
+                                                </div>
+
+                                                <div class="form-group col-md-6">
+                                                    <label>education year star</label>
+                                                    {{ profile_form.education_year_end }}
+                                                </div>
+
+                                                 <div class="form-group col-md-6">
+                                                    <label>education description</label>
+                                                    {{ profile_form.education_description }}
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label>location country</label>
+                                                    {{ profile_form.location_country }}
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label>location_city</label>
+                                                    {{ profile_form.location_city }}
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label>tags</label>
+                                                    {{ profile_form.skills_tags }}
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label>hourly work</label>
+                                                    {{ profile_form.hourly_work }}
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label>type work</label>
+                                                    {{ profile_form.type_work }}
+                                                </div>
+                                                <input type="submit" value="Save" class="btn btn-primary">
                                             </div>
                                         </form>
                                     </div>
@@ -45,21 +89,3 @@
 
 {% endblock content %}
 
-<!-- ---------------------------------------------- -->
-<!--
-<div class="user-profile-ov">
-    <form action="{% url 'user-profile' %}" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label>First Name</label>
-                {{ user_form.first_name }}
-            </div>
-            <div class="form-group col-md-6">
-                <label>Last Name</label>
-                {{ user_form.last_name }}
-            </div>
-        </div>
-    </form>
-</div>
--->
