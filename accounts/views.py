@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import RegistrationForm
 from .models import Account, UserProfile, Experience_user, Tags
 from django.contrib import messages, auth
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -60,14 +61,17 @@ def loginPage(request):
         user = auth.authenticate(email=email, password=password)
 
         if user is not None:
+            print('\n--- if user ---', request.user, '\n')
             auth.login(request, user)
             messages.success(request, 'You are Now Logged in.')
             return redirect('index')
         else:
+            print('\n--- else user ---', request.user, '\n')
             messages.error(request, 'Username Or password does not exists')
 
     return render(request, 'accounts/register.html')
 
+@login_required(login_url='login')
 def logoutUser(request):
     auth.logout(request)
     messages.success(request, 'You are logged out.')

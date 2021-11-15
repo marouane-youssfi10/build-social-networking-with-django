@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from accounts.models import UserProfile
+
 
 def home(request):
     user_profile = UserProfile.objects.all()

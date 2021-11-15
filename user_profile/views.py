@@ -52,7 +52,6 @@ def edit_profile(request):
         user_form = UserForm(instance=request.user)
         profile_form = UserProfileForm(instance=userprofile)
 
-
     print('\n-------------- edit_profile --------------------\n')
     context = {
         'user_form': user_form,
