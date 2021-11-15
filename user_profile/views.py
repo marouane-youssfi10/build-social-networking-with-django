@@ -28,8 +28,8 @@ def index(request):
 
 @login_required(login_url='login')
 def user_profile(request):
-    
     user_profile = UserProfile.objects.get(user=request.user)
+
     context = {
         'user_profile': user_profile,
     }
