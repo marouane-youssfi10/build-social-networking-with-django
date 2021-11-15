@@ -1,37 +1,28 @@
-<div class="user-profile-ov">
-    <h3>Overview</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tempor aliquam felis, nec condimentum ipsum commodo id. Vivamus sit amet augue nec urna efficitur tincidunt. Vivamus consectetur aliquam lectus commodo viverra. Nunc eu augue nec arcu efficitur faucibus. Aliquam accumsan ac magna convallis bibendum. Quisque laoreet augue eget augue fermentum scelerisque. Vivamus dignissim mollis est dictum blandit. Nam porta auctor neque sed congue. Nullam rutrum eget ex at maximus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget vestibulum lorem.</p>
-</div><!--user-profile-ov end-->
-<div class="user-profile-ov st2">
-    <h3>Experience</h3>
-    <h4>Web designer</h4>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tempor aliquam felis, nec condimentum ipsum commodo id. Vivamus sit amet augue nec urna efficitur tincidunt. Vivamus consectetur aliquam lectus commodo viverra. </p>
-    <h4>UI / UX Designer</h4>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tempor aliquam felis, nec condimentum ipsum commodo id.</p>
-    <h4>PHP developer</h4>
-    <p class="no-margin">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tempor aliquam felis, nec condimentum ipsum commodo id. Vivamus sit amet augue nec urna efficitur tincidunt. Vivamus consectetur aliquam lectus commodo viverra. </p>
-</div><!--user-profile-ov end-->
-<div class="user-profile-ov">
-    <h3>Education</h3>
-    <h4>Master of Computer Science</h4>
-    <span>2015 - 2018</span>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tempor aliquam felis, nec condimentum ipsum commodo id. Vivamus sit amet augue nec urna efficitur tincidunt. Vivamus consectetur aliquam lectus commodo viverra. </p>
-</div><!--user-profile-ov end-->
-<div class="user-profile-ov">
-    <h3>Location</h3>
-    <h4>India</h4>
-    <p>151/4 BT Chownk, Delhi </p>
-</div><!--user-profile-ov end-->
-<div class="user-profile-ov">
-    <h3>Skills</h3>
-    <ul>
-        <li><a href="#" title="">HTML</a></li>
-        <li><a href="#" title="">PHP</a></li>
-        <li><a href="#" title="">CSS</a></li>
-        <li><a href="#" title="">Javascript</a></li>
-        <li><a href="#" title="">Wordpress</a></li>
-        <li><a href="#" title="">Photoshop</a></li>
-        <li><a href="#" title="">Illustrator</a></li>
-        <li><a href="#" title="">Corel Draw</a></li>
-    </ul>
-</div><!--user-profile-ov end-->
+    <div class="user-profile-ov">
+        <h3>Overview</h3>
+        <p>{{ user_profile.overview }}</p>
+    </div><!--user-profile-ov end-->
+    <div class="user-profile-ov st2">
+        <h3>Experience</h3>
+        <h4>{{ user_profile.experience.experince_title }}</h4>
+        <p>{{ user_profile.experience.experince_description }}</p>
+    </div>
+    <div class="user-profile-ov">
+        <h3>Education</h3>
+        <h4>{{ user_profile.education_title }}</h4>
+        <span>{{ user_profile.full_year }}</span>
+        <p>{{ user_profile.education_description }}</p>
+    </div><!--user-profile-ov end-->
+    <div class="user-profile-ov">
+        <h3>Location</h3>
+        <h4>{{ user_profile.location_country }}</h4>
+        <p>{{ user_profile.location_city }}</p>
+    </div><!--user-profile-ov end-->
+    <div class="user-profile-ov">
+        <h3>Skills</h3>
+        <ul>
+            {% for tag in user_profile.skills_tags.all %}
+                <li><a href="#">{{ tag }}</a></li>
+            {% endfor %}
+        </ul>
+    </div><!--user-profile-ov end-->

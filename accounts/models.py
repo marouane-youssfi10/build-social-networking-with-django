@@ -116,4 +116,4 @@ class UserProfile(models.Model):
         return self.user.first_name if self.user.first_name else ''
 
     def full_year(self):
-        return f'{self.education_year_start} - d{self.education_year_end}'
+        return f'{self.education_year_start} - {self.education_year_end}'
