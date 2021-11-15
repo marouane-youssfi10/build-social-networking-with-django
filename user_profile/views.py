@@ -28,38 +28,47 @@ def index(request):
 
 @login_required(login_url='login')
 def user_profile(request):
-    return render(request, 'profile_user/user_profile.html')
+    
+    user_profile = UserProfile.objects.get(user=request.user)
+    context = {
+        'user_profile': user_profile,
+    }
+    return render(request, 'profile_user/user_profile.html', context)
 
 
 @login_required(login_url='login')
 def edit_profile(request):
 
-    userprofile = get_object_or_404(UserProfile, user=request.user)
-    print('\nuserprofile = ', userprofile, '\n')
+    user_profile = get_object_or_404(UserProfile, user=request.user)
+    print('\nuserprofile = ', user_profile, '\n')
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
-        profile_form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
             messages.success(request, 'Your profile has been updated.')
 
             context = {
-                'userprofile': userprofile,
+                'userprofile': user_profile,
             }
             return render(request, 'edit_profile.html', context)
     else:
         user_form = UserForm(instance=request.user)
-        profile_form = UserProfileForm(instance=userprofile)
+        profile_form = UserProfileForm(instance=user_profile)
 
     print('\n-------------- edit_profile --------------------\n')
     context = {
         'user_form': user_form,
         'profile_form': profile_form,
-        'userprofile': userprofile,
+        'user_profile': user_profile,
     }
 
     return render(request, 'profile_user/edit_profile.html', context)
 
 def change_password(request):
-    return render(request, 'profile_user/change_password.html')
+    user_profile = UserProfile.objects.get(user=request.user)
+    context = {
+        'user_profile': user_profile,
+    }
+    return render(request, 'profile_user/change_password.html', context)
