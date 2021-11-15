@@ -3,7 +3,7 @@
 
 {% block content %}
         <section class="cover-sec">
-			<img src="http://via.placeholder.com/1600x400" alt="">
+			<img src="{{ user_profile.photo_cover.url }}" width="1600" height="400">
 		</section>
 
 		<main>
@@ -63,9 +63,9 @@
 							<div class="col-lg-6">
 								<div class="main-ws-sec">
 									<div class="user-tab-sec">
-										<h3>John Doe title</h3>
+										<h3>{{ user_profile.user.full_name }}</h3>
 										<div class="star-descp">
-											<span>Graphic Designer at Self Employed -- title</span>
+											<span>{{ user_profile.experience.experince_title }}</span>
 										</div><!--star-descp end-->
 										<div class="tab-feed">
 											<ul>
