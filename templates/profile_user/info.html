@@ -1,4 +1,4 @@
-    <!-- overview -->
+	<!-- overview -->
     <div class="user-profile-ov">
         <h3>
             <a href="{% url 'edit-profile' %}" class="overview-open">Overview</a>
@@ -7,7 +7,6 @@
             </a>
         </h3>
         <p>{{ user_profile.overview }}</p>
-
     </div>
 
     <!-- experience -->
@@ -65,8 +64,6 @@
 
     <!-- -------------- edit ---------------------------- -->
     <!-- -------------- edit ---------------------------- -->
-    <!-- -------------- edit ---------------------------- -->
-    <!-- -------------- edit ---------------------------- -->
 
 	<!-- edit overview -->
     <div class="overview-box" id="overview-box">
@@ -75,7 +72,7 @@
             <span>5000 character left</span>
             <form action="{% url 'user-profile' %}" method="POST">
 				{% csrf_token %}
-				{{ profile_form.overview }}
+				<textarea name="edit_overview"></textarea>
                 <button type="submit" class="save">Save</button>
             </form>
             <a href="#" title="" class="close-box"><i class="la la-close"></i></a>
@@ -92,7 +89,7 @@
             </form>
             <a href="#" title="" class="close-box"><i class="la la-close"></i></a>
         </div><!--overview-edit end-->
-    </div><!--overview-box end-->
+    </div>
 
     <div class="overview-box" id="education-box">
 			<div class="overview-edit">
@@ -120,9 +117,9 @@
 				</form>
 				<a href="#" title="" class="close-box"><i class="la la-close"></i></a>
 			</div><!--overview-edit end-->
-		</div><!--overview-box end-->
+		</div>
 
-		<div class="overview-box" id="location-box">
+	<div class="overview-box" id="location-box">
 			<div class="overview-edit">
 				<h3>Location</h3>
 				<form>
@@ -138,9 +135,9 @@
 				</form>
 				<a href="#" title="" class="close-box"><i class="la la-close"></i></a>
 			</div><!--overview-edit end-->
-		</div><!--overview-box end-->
+		</div>
 
-		<div class="overview-box" id="skills-box">
+	<div class="overview-box" id="skills-box">
 			<div class="overview-edit user-profile-ov">
 				<h3>Skills</h3>
 				<ul>
@@ -157,4 +154,4 @@
 				</form>
 				<a href="#" title="" class="close-box"><i class="la la-close"></i></a>
 			</div><!--overview-edit end-->
-		</div><!--overview-box end-->
+		</div>
