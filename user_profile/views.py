@@ -8,11 +8,18 @@ from django.contrib import messages
 @login_required(login_url='login')
 def index(request):
     if request.user.is_authenticated:
-        # if request.user == request.user
+        print('\n-------------------- if --------------------')
         user_profile = UserProfile.objects.get(user=request.user)
         all_user_profile = UserProfile.objects.all()
     else:
+        print('\n------------------- else -------------------')
         return redirect('home')
+
+    print('\n-----------------------------------------------------------------------')
+    print('user_profile ', user_profile)
+    print('all_user_profile = ', all_user_profile)
+    print('\n-----------------------------------------------------------------------')
+
     context = {
         'user_profile': user_profile,
         'all_user_profile': all_user_profile
