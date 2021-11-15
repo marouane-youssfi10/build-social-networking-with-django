@@ -15,62 +15,85 @@
                                         <form action="{% url 'edit-profile' %}" method="POST" enctype="multipart/form-data">
                                             {% csrf_token %}
                                             <div class="form-row">
+                                                <!-- first_name  -->
                                                 <div class="form-group col-md-6">
                                                     <label>First Name</label>
                                                     {{ user_form.first_name }}
                                                 </div>
+
+                                                <!-- last_name -->
                                                 <div class="form-group col-md-6">
                                                     <label>Last Name</label>
                                                     {{ user_form.last_name }}
                                                 </div>
+
+                                                <!-- phone_number -->
                                                 <div class="form-group col-md-6">
                                                     <label>Phone Number</label>
                                                     {{ user_form.phone_number }}
                                                 </div>
+
+                                                <!-- photo_profile -->
                                                 <div class="form-group col-md-6">
                                                     <label>Photo profile</label>
                                                     {{ profile_form.photo_profile }}
                                                 </div>
 
-                                                 <div class="form-group col-md-6">
+                                                <!-- experience  -->
+                                                <div class="form-group col-md-6">
                                                     <label>experience</label>
                                                     {{ profile_form.experience }}
                                                 </div>
-                                                 <div class="form-group col-md-6">
+
+                                                <!-- experience -->
+                                                <div class="form-group col-md-6">
+                                                    <label>education description</label>
+                                                    {{ profile_form.education_description }}
+                                                </div>
+
+                                                <!-- education_title -->
+                                                <div class="form-group col-md-4">
                                                     <label>education title</label>
                                                     {{ profile_form.education_title }}
                                                 </div>
-                                                 <div class="form-group col-md-6">
+
+                                                <!-- education_year_start -->
+                                                <div class="form-group col-md-4">
                                                     <label>education year star</label>
                                                     {{ profile_form.education_year_start }}
                                                 </div>
 
-                                                <div class="form-group col-md-6">
-                                                    <label>education year star</label>
+                                                <!-- education_year_end -->
+                                                <div class="form-group col-md-4">
+                                                    <label>education year end</label>
                                                     {{ profile_form.education_year_end }}
                                                 </div>
 
-                                                 <div class="form-group col-md-6">
-                                                    <label>education description</label>
-                                                    {{ profile_form.education_description }}
-                                                </div>
-                                                <div class="form-group col-md-6">
+                                                <!-- skills_tags -->
+                                                <div class="form-group col-md-12">
                                                     <label>tags</label>
                                                     {{ profile_form.skills_tags }}
                                                 </div>
+
+                                                <!-- location_city -->
                                                 <div class="form-group col-md-6">
                                                     <label>location_city</label>
                                                     {{ profile_form.location_city }}
                                                 </div>
+
+                                                <!-- location_country -->
                                                 <div class="form-group col-md-6">
                                                     <label>location country</label>
                                                     {{ profile_form.location_country }}
                                                 </div>
 
+                                                <!-- hourly_work -->
                                                 <div class="form-group col-md-6">
                                                     <label>hourly work</label>
                                                     {{ profile_form.hourly_work }}
                                                 </div>
+
+                                                <!-- type_work -->
                                                 <div class="form-group col-md-6">
                                                     <label>type work</label>
                                                     {{ profile_form.type_work }}

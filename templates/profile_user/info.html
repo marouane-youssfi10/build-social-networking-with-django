@@ -1,28 +1,49 @@
+    <!-- overview -->
     <div class="user-profile-ov">
-        <h3>Overview</h3>
+        <a href="" class="overview-open">Overview</a>
+        <a href="#" title="" class="overview-open">
+            <i class="fa fa-pencil"></i>
+        </a>
         <p>{{ user_profile.overview }}</p>
-    </div><!--user-profile-ov end-->
+
+    </div>
+
+    <!-- <h3>
+        <a href="#" title="" class="overview-open">Overview</a>
+        <a href="#" title="" class="overview-open">
+            <i class="fa fa-pencil"></i>
+        </a>
+    </h3> -->
+    <!-- experience -->
     <div class="user-profile-ov st2">
         <h3>Experience</h3>
         <h4>{{ user_profile.experience.experince_title }}</h4>
         <p>{{ user_profile.experience.experince_description }}</p>
     </div>
+
+    <!-- eduction -->
     <div class="user-profile-ov">
         <h3>Education</h3>
         <h4>{{ user_profile.education_title }}</h4>
         <span>{{ user_profile.full_year }}</span>
         <p>{{ user_profile.education_description }}</p>
-    </div><!--user-profile-ov end-->
+    </div>
+
+    <!-- location -->
     <div class="user-profile-ov">
         <h3>Location</h3>
         <h4>{{ user_profile.location_country }}</h4>
         <p>{{ user_profile.location_city }}</p>
-    </div><!--user-profile-ov end-->
+    </div>
+
+    <!-- tags -->
     <div class="user-profile-ov">
         <h3>Skills</h3>
+        <a href="" class="ed-opts-open">Edit</a>
         <ul>
             {% for tag in user_profile.skills_tags.all %}
-                <li><a href="#">{{ tag }}</a></li>
+                <li><a>{{ tag }}</a></li>
             {% endfor %}
         </ul>
+
     </div><!--user-profile-ov end-->
