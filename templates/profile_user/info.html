@@ -1,29 +1,38 @@
     <!-- overview -->
     <div class="user-profile-ov">
-        <a href="" class="overview-open">Overview</a>
-        <a href="#" title="" class="overview-open">
-            <i class="fa fa-pencil"></i>
-        </a>
+        <h3>
+            <a href="" class="overview-open">Overview</a>
+            <a href="#" title="" class="overview-open">
+                <i class="fa fa-pencil"></i>
+            </a>
+        </h3>
         <p>{{ user_profile.overview }}</p>
 
     </div>
 
-    <!-- <h3>
-        <a href="#" title="" class="overview-open">Overview</a>
-        <a href="#" title="" class="overview-open">
-            <i class="fa fa-pencil"></i>
-        </a>
-    </h3> -->
     <!-- experience -->
     <div class="user-profile-ov st2">
-        <h3>Experience</h3>
-        <h4>{{ user_profile.experience.experince_title }}</h4>
+        <h3>
+            <a href="#" title="" class="exp-bx-open">Experience </a>
+            <a href="#" title="" class="exp-bx-open"><i class="fa fa-pencil"></i></a>
+            <a href="#" title="" class="exp-bx-open"><i class="fa fa-plus-square"></i></a>
+        </h3>
+        <h4>
+            {{ user_profile.experience.experince_title }}
+            <a href="#" title="">
+                <i class="fa fa-pencil"></i>
+            </a>
+        </h4>
         <p>{{ user_profile.experience.experince_description }}</p>
     </div>
 
     <!-- eduction -->
     <div class="user-profile-ov">
-        <h3>Education</h3>
+        <h3>
+			<a href="#" title="" class="ed-box-open">Education</a>
+			<a href="#" title="" class="ed-box-open"><i class="fa fa-pencil"></i></a>
+			<a href="#" title=""><i class="fa fa-plus-square"></i></a>
+		</h3>
         <h4>{{ user_profile.education_title }}</h4>
         <span>{{ user_profile.full_year }}</span>
         <p>{{ user_profile.education_description }}</p>
@@ -31,19 +40,120 @@
 
     <!-- location -->
     <div class="user-profile-ov">
-        <h3>Location</h3>
+        <h3>
+			<a href="#" title="" class="lct-box-open">Location</a>
+			<a href="#" title="" class="lct-box-open"><i class="fa fa-pencil"></i></a>
+		</h3>
         <h4>{{ user_profile.location_country }}</h4>
         <p>{{ user_profile.location_city }}</p>
     </div>
 
     <!-- tags -->
     <div class="user-profile-ov">
-        <h3>Skills</h3>
-        <a href="" class="ed-opts-open">Edit</a>
+        <h3>
+			<a href="#" title="" class="skills-open">Skills</a>
+			<a href="#" title="" class="skills-open"><i class="fa fa-pencil"></i></a>
+			<a href="#"><i class="fa fa-plus-square"></i></a>
+		</h3>
         <ul>
             {% for tag in user_profile.skills_tags.all %}
                 <li><a>{{ tag }}</a></li>
             {% endfor %}
         </ul>
-
     </div><!--user-profile-ov end-->
+
+
+    <!-- -------------- edit ---------------------------- -->
+
+    <div class="overview-box" id="overview-box">
+        <div class="overview-edit">
+            <h3>Overview</h3>
+            <span>5000 character left</span>
+            <form>
+                <textarea></textarea>
+                <button type="submit" class="save">Save</button>
+            </form>
+            <a href="#" title="" class="close-box"><i class="la la-close"></i></a>
+        </div><!--overview-edit end-->
+    </div><!--overview-box end-->
+
+    <div class="overview-box" id="experience-box">
+        <div class="overview-edit">
+            <h3>Experience</h3>
+            <form>
+                <input type="text" name="subject" placeholder="Subject">
+                <textarea></textarea>
+                <button type="submit" class="save">Save</button>
+            </form>
+            <a href="#" title="" class="close-box"><i class="la la-close"></i></a>
+        </div><!--overview-edit end-->
+    </div><!--overview-box end-->
+
+    <div class="overview-box" id="education-box">
+			<div class="overview-edit">
+				<h3>Education</h3>
+				<form>
+					<input type="text" name="school" placeholder="School / University">
+					<div class="datepicky">
+						<div class="row">
+							<div class="col-lg-6 no-left-pd">
+								<div class="datefm">
+									<input type="text" name="from" placeholder="From" class="datepicker">
+									<i class="fa fa-calendar"></i>
+								</div>
+							</div>
+							<div class="col-lg-6 no-righ-pd">
+								<div class="datefm">
+									<input type="text" name="to" placeholder="To" class="datepicker">
+									<i class="fa fa-calendar"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+					<input type="text" name="degree" placeholder="Degree">
+					<textarea placeholder="Description"></textarea>
+					<button type="submit" class="save">Save</button>
+				</form>
+				<a href="#" title="" class="close-box"><i class="la la-close"></i></a>
+			</div><!--overview-edit end-->
+		</div><!--overview-box end-->
+
+		<div class="overview-box" id="location-box">
+			<div class="overview-edit">
+				<h3>Location</h3>
+				<form>
+					<div class="datefm">
+						<input type="text" placeholder="Country">
+						<i class="fa fa-globe"></i>
+					</div>
+					<div class="datefm">
+						<input type="text" placeholder="City">
+						<i class="fa fa-map-marker"></i>
+					</div>
+					<button type="submit" class="save">Save</button>
+					<button type="submit" class="cancel">Cancel</button>
+				</form>
+				<a href="#" title="" class="close-box"><i class="la la-close"></i></a>
+			</div><!--overview-edit end-->
+		</div><!--overview-box end-->
+
+		<div class="overview-box" id="skills-box">
+			<div class="overview-edit user-profile-ov">
+				<h3>Skills</h3>
+				<ul>
+					{% for tag in user_profile.skills_tags.all %}
+						<li>
+							<a href="">{{ tag }}<i class="la la-close"></i></a>
+						</li>
+					{% endfor %}
+				</ul>
+
+				<form>
+					<input type="text" name="skills" placeholder="Skills">
+					<button type="submit" class="save">Save</button>
+					<button type="submit" class="save-add">Save & Add More</button>
+					<button type="submit" class="cancel">Cancel</button>
+				</form>
+				<a href="#" title="" class="close-box"><i class="la la-close"></i></a>
+			</div><!--overview-edit end-->
+		</div><!--overview-box end-->
