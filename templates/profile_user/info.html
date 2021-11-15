@@ -1,8 +1,8 @@
     <!-- overview -->
     <div class="user-profile-ov">
         <h3>
-            <a href="" class="overview-open">Overview</a>
-            <a href="#" title="" class="overview-open">
+            <a href="{% url 'edit-profile' %}" class="overview-open">Overview</a>
+            <a href="{% url 'edit-profile' %}" class="overview-open">
                 <i class="fa fa-pencil"></i>
             </a>
         </h3>
@@ -64,13 +64,18 @@
 
 
     <!-- -------------- edit ---------------------------- -->
+    <!-- -------------- edit ---------------------------- -->
+    <!-- -------------- edit ---------------------------- -->
+    <!-- -------------- edit ---------------------------- -->
 
+	<!-- edit overview -->
     <div class="overview-box" id="overview-box">
         <div class="overview-edit">
             <h3>Overview</h3>
             <span>5000 character left</span>
-            <form>
-                <textarea></textarea>
+            <form action="{% url 'user-profile' %}" method="POST">
+				{% csrf_token %}
+				{{ profile_form.overview }}
                 <button type="submit" class="save">Save</button>
             </form>
             <a href="#" title="" class="close-box"><i class="la la-close"></i></a>

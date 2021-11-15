@@ -39,6 +39,7 @@ def user_profile(request):
 @login_required(login_url='login')
 def edit_profile(request):
 
+    print('\n---------- Piw Piw ----------\n')
     user_profile = get_object_or_404(UserProfile, user=request.user)
     print('\nuserprofile = ', user_profile, '\n')
     if request.method == 'POST':
