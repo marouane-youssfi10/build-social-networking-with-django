@@ -2,7 +2,7 @@
     <div class="acc-leftbar">
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
             <a class="nav-item nav-link {% if '/edit-profile' in request.path %}active{% endif %}"
-               href="{% url 'edit-profile' user_profile.user.id %}" aria-selected="true">
+               href="{% url 'edit-profile' %}" aria-selected="true">
                 <i class="la la-cogs"></i>
                 Edit profile
             </a>

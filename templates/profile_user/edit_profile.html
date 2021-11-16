@@ -15,7 +15,9 @@
                                     <div class="user-profile-ov">
                                         <p>request.user == {{request.user}}</p>
                                         <p>user_profile.user.first_name == {{user_profile.user.first_name}}</p>
-                                        <form action="{% url 'edit-profile' user_profile.user.id %}" method="POST" enctype="multipart/form-data">
+                                        <p>user_profile.user == {{user_profile.user}}</p><br><br>
+                                        {% if request.user == user_profile.user %}
+                                            <form action="{% url 'edit-profile' %}" method="POST" enctype="multipart/form-data">
                                             {% csrf_token %}
                                                 <div class="form-row">
                                                 <!-- first_name  -->
@@ -111,6 +113,9 @@
                                             </div>
                                                 <br>
                                         </form>
+                                        {% else %}
+                                            <p>no baby</p>
+                                        {% endif %}
                                     </div>
                                 </div><!--acc-setting end-->
                             </div>
