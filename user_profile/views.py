@@ -49,19 +49,19 @@ def edit_profile(request):
             user_form = UserForm(request.POST, request.FILES, instance=request.user)
             experience_form = ExperienceUserForm(request.POST, request.FILES, instance=user_experience)
             profile_form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
+            user_experience.experience_user_id = user_profile.id
+
             print('\n user_form = ', user_form.is_valid(), '\n ')
             # print('\n user_form = ', user_form, '\n ')
             # print('\n experience_form = ', experience_form, '\n ')
             print('\n experience_form = ', experience_form.is_valid(), '\n ')
             print('\n profile_form = ', profile_form.is_valid(), '\n ')
-            # print('-------------------------------------------------------------------------')
-            # print('\n --profile_form-- = ', profile_form, '\n ')
-            # print('-------------------------------------------------------------------------')
+
+
             if user_form.is_valid() and profile_form.is_valid() and experience_form.is_valid():
                 print('\n ---- oh yeah baby ---\n')
 
-                profile_form.experience = profile_form.cleaned_data['experience_user']
-
+                print('\n ---- user_experience = ', user_experience, '\n')
                 user_form.save()
                 experience_form.save()
                 profile_form.save()

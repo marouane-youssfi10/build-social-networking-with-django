@@ -10,6 +10,7 @@ class UserProfileAdmin(admin.ModelAdmin):
 
     list_display = ['id', 'user', 'experience', 'education_title', 'location_country', 'location_city',
                     'hourly_work', 'type_work', 'thumbnail']
+    prepopulated_fields = {'slug': ('user',)}
 
 class AccountAdmin(UserAdmin):
     list_display = ('email', 'first_name', 'last_name', 'username', 'last_login', 'date_joined', 'is_active')
