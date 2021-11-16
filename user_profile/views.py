@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from accounts.models import UserProfile
+from accounts.models import UserProfile, Experience_user
 from django.contrib.auth.decorators import login_required
-from .forms import UserForm, UserProfileForm
+from .forms import UserForm, UserProfileForm, ExperienceUserForm
 from django.contrib import messages
 # Create your views here.
 
@@ -39,14 +39,25 @@ def user_profile(request):
 @login_required(login_url='login')
 def edit_profile(request):
 
+    # get request user
     user_profile = get_object_or_404(UserProfile, user=request.user)
-    print('\nuserprofile = ', user_profile, '\n')
+    user_experience = get_object_or_404(Experience_user, id=request.user.id)
+    # print('\n userprofile = ', user_profile, '\n')
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
+        experience_form = ExperienceUserForm(request.POST, request.FILES, instance=user_experience)
         profile_form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
-        print('\n', profile_form, '\n')
-        if user_form.is_valid() and profile_form.is_valid():
+        # print('\n', profile_form, '\n')
+
+        if user_form.is_valid() and profile_form.is_valid() and experience_form.is_valid():
+            experience_form.experience_user_id = user_experience.id
+            """ user_profile = UserProfile.objects.create(
+                user=user, photo_profile='avatar/avatar.png',
+                experience=experience_user )"""
+            profile_form.experience.user_experience = user_experience.id
+
             user_form.save()
+            experience_form.save()
             profile_form.save()
             messages.success(request, 'Your profile has been updated.')
 
@@ -57,11 +68,13 @@ def edit_profile(request):
     else:
         user_form = UserForm(instance=request.user)
         profile_form = UserProfileForm(instance=user_profile)
+        experience_form = ExperienceUserForm(instance=user_experience)
 
     print('\n-------------- edit_profile --------------------\n')
     context = {
         'user_form': user_form,
         'profile_form': profile_form,
+        'experience_form': experience_form,
         'user_profile': user_profile,
     }
 

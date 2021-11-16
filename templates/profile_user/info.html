@@ -1,8 +1,8 @@
 	<!-- overview -->
     <div class="user-profile-ov">
         <h3>
-            <a href="{% url 'edit-profile' %}" class="overview-open">Overview</a>
-            <a href="{% url 'edit-profile' %}" class="overview-open">
+            <a>Overview</a>
+            <a href="{% url 'edit-profile' %}">
                 <i class="fa fa-pencil"></i>
             </a>
         </h3>
@@ -12,9 +12,9 @@
     <!-- experience -->
     <div class="user-profile-ov st2">
         <h3>
-            <a href="#" title="" class="exp-bx-open">Experience </a>
-            <a href="#" title="" class="exp-bx-open"><i class="fa fa-pencil"></i></a>
-            <a href="#" title="" class="exp-bx-open"><i class="fa fa-plus-square"></i></a>
+            <a>Experience </a>
+            <a href="{% url 'edit-profile' %}"><i class="fa fa-pencil"></i></a>
+            <a href="#"><i class="fa fa-plus-square"></i></a>
         </h3>
         <h4>
             {{ user_profile.experience.experince_title }}
@@ -28,9 +28,8 @@
     <!-- eduction -->
     <div class="user-profile-ov">
         <h3>
-			<a href="#" title="" class="ed-box-open">Education</a>
-			<a href="#" title="" class="ed-box-open"><i class="fa fa-pencil"></i></a>
-			<a href="#" title=""><i class="fa fa-plus-square"></i></a>
+			<a class="ed-box-open">Education</a>
+			<a href="{% url 'edit-profile' %}"><i class="fa fa-pencil"></i></a>
 		</h3>
         <h4>{{ user_profile.education_title }}</h4>
         <span>{{ user_profile.full_year }}</span>
@@ -40,8 +39,8 @@
     <!-- location -->
     <div class="user-profile-ov">
         <h3>
-			<a href="#" title="" class="lct-box-open">Location</a>
-			<a href="#" title="" class="lct-box-open"><i class="fa fa-pencil"></i></a>
+			<a>Location</a>
+			<a href="{% url 'edit-profile' %}"><i class="fa fa-pencil"></i></a>
 		</h3>
         <h4>{{ user_profile.location_country }}</h4>
         <p>{{ user_profile.location_city }}</p>
