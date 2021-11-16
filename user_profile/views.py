@@ -42,23 +42,31 @@ def edit_profile(request):
     try:
         user_profile = get_object_or_404(UserProfile, user=request.user)
         user_experience = get_object_or_404(Experience_user, experience_user=request.user)
-        print('user_profile = ', user_profile, '--', user_profile.pk)
-        print('user_experience = ', user_experience, '--', user_experience.pk, '\n')
+        print('user_profile = ', user_profile, '--', 'id = ', user_profile.pk)
+        print('user_experience = ', user_experience, '--', 'id = ', user_experience.pk, '\n')
 
         if request.method == 'POST':
-            user_form = UserForm(request.POST, instance=request.user)
+            user_form = UserForm(request.POST, request.FILES, instance=request.user)
             experience_form = ExperienceUserForm(request.POST, request.FILES, instance=user_experience)
             profile_form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
-
+            print('\n user_form = ', user_form.is_valid(), '\n ')
+            # print('\n user_form = ', user_form, '\n ')
+            # print('\n experience_form = ', experience_form, '\n ')
+            print('\n experience_form = ', experience_form.is_valid(), '\n ')
+            print('\n profile_form = ', profile_form.is_valid(), '\n ')
+            # print('-------------------------------------------------------------------------')
+            # print('\n --profile_form-- = ', profile_form, '\n ')
+            # print('-------------------------------------------------------------------------')
             if user_form.is_valid() and profile_form.is_valid() and experience_form.is_valid():
-                experience_form.experience_user_id = user_experience.id
-                profile_form.experience.user_experience = user_experience.id
+                print('\n ---- oh yeah baby ---\n')
+
+                profile_form.experience = profile_form.cleaned_data['experience_user']
 
                 user_form.save()
                 experience_form.save()
                 profile_form.save()
-                messages.success(request, 'Your profile has been updated.')
 
+                messages.success(request, 'Your profile has been updated.')
                 context = {
                     'userprofile': user_profile,
                 }
