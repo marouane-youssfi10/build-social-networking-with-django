@@ -2,7 +2,7 @@
     <div class="user-profile-ov">
         <h3>
             <a>Overview</a>
-            <a href="{% url 'edit-profile' %}">
+            <a href="{% url 'edit-profile' user_profile.user.id %}">
                 <i class="fa fa-pencil"></i>
             </a>
         </h3>
@@ -13,7 +13,7 @@
     <div class="user-profile-ov st2">
         <h3>
             <a>Experience </a>
-            <a href="{% url 'edit-profile' %}"><i class="fa fa-pencil"></i></a>
+            <a href="{% url 'edit-profile' user_profile.user.id %}"><i class="fa fa-pencil"></i></a>
             <a href="#"><i class="fa fa-plus-square"></i></a>
         </h3>
         <h4>
@@ -29,7 +29,7 @@
     <div class="user-profile-ov">
         <h3>
 			<a class="ed-box-open">Education</a>
-			<a href="{% url 'edit-profile' %}"><i class="fa fa-pencil"></i></a>
+			<a href="{% url 'edit-profile' user_profile.user.id %}}"><i class="fa fa-pencil"></i></a>
 		</h3>
         <h4>{{ user_profile.education_title }}</h4>
         <span>{{ user_profile.full_year }}</span>
@@ -40,7 +40,7 @@
     <div class="user-profile-ov">
         <h3>
 			<a>Location</a>
-			<a href="{% url 'edit-profile' %}"><i class="fa fa-pencil"></i></a>
+			<a href="{% url 'edit-profile' user_profile.user.id %}"><i class="fa fa-pencil"></i></a>
 		</h3>
         <h4>{{ user_profile.location_country }}</h4>
         <p>{{ user_profile.location_city }}</p>

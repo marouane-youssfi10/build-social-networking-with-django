@@ -13,9 +13,11 @@
                                 <div class="acc-setting">
                                     <h3>Edit profile</h3>
                                     <div class="user-profile-ov">
-                                        <form action="{% url 'edit-profile' %}" method="POST" enctype="multipart/form-data">
+                                        <p>request.user == {{request.user}}</p>
+                                        <p>user_profile.user.first_name == {{user_profile.user.first_name}}</p>
+                                        <form action="{% url 'edit-profile' user_profile.user.id %}" method="POST" enctype="multipart/form-data">
                                             {% csrf_token %}
-                                            <div class="form-row">
+                                                <div class="form-row">
                                                 <!-- first_name  -->
                                                 <div class="form-group col-md-6">
                                                     <label>First Name</label>
@@ -107,6 +109,7 @@
                                                 </div>
                                                 <input type="submit" value="Save" class="btn btn-primary">
                                             </div>
+                                                <br>
                                         </form>
                                     </div>
                                 </div><!--acc-setting end-->

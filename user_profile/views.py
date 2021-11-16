@@ -37,23 +37,21 @@ def user_profile(request):
 
 
 @login_required(login_url='login')
-def edit_profile(request):
+def edit_profile(request, pk):
 
     # get request user
-    user_profile = get_object_or_404(UserProfile, user=request.user)
-    user_experience = get_object_or_404(Experience_user, id=request.user.id)
-    # print('\n userprofile = ', user_profile, '\n')
+    user_profile = get_object_or_404(UserProfile, id=pk)
+    user_experience = get_object_or_404(Experience_user, id=pk)
+    print('\n user_profile = ', user_profile, '--', user_profile.id, '\n')
+    print('\n user_experience = ', user_experience, '--', user_experience.id, '\n')
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         experience_form = ExperienceUserForm(request.POST, request.FILES, instance=user_experience)
         profile_form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
-        # print('\n', profile_form, '\n')
 
         if user_form.is_valid() and profile_form.is_valid() and experience_form.is_valid():
+            print('\nbaby\n')
             experience_form.experience_user_id = user_experience.id
-            """ user_profile = UserProfile.objects.create(
-                user=user, photo_profile='avatar/avatar.png',
-                experience=experience_user )"""
             profile_form.experience.user_experience = user_experience.id
 
             user_form.save()
@@ -70,12 +68,12 @@ def edit_profile(request):
         profile_form = UserProfileForm(instance=user_profile)
         experience_form = ExperienceUserForm(instance=user_experience)
 
-    print('\n-------------- edit_profile --------------------\n')
+    # print('\n-------------- edit_profile --------------------\n')
     context = {
         'user_form': user_form,
         'profile_form': profile_form,
         'experience_form': experience_form,
-        'user_profile': user_profile,
+        'user_profile': user_profile
     }
 
     return render(request, 'profile_user/edit_profile.html', context)
