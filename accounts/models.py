@@ -95,7 +95,7 @@ class UserProfile(models.Model):
     slug = models.SlugField(max_length=100, unique=True)
     overview = models.TextField(blank=True)
     photo_profile = models.ImageField(null=True, upload_to='userprofile/%Y/%m/%d', default="avatar/avatar.png")
-    photo_cover = models.ImageField(null=True, upload_to='cover/%Y/%m/%d', blank=True)
+    photo_cover = models.ImageField(null=True, upload_to='cover/%Y/%m/%d', blank=True, default="avatar/cover.png")
     experience = models.ForeignKey(Experience_user, on_delete=models.CASCADE, blank=True)
     education_title = models.CharField(blank=True, max_length=100)
     education_year_start = models.IntegerField(blank=True, null=True)

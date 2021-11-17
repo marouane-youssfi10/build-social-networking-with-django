@@ -41,51 +41,44 @@ def user_profile(request):
 @login_required(login_url='login')
 def edit_profile(request):
     try:
+        print()
         user_profile = get_object_or_404(UserProfile, user=request.user)
-        user_experience = get_object_or_404(Experience_user, experience_user=request.user)
+        # user_experience = get_object_or_404(Experience_user, experience_user=user_profile.user)
         print('user_profile = ', user_profile, '--', 'id = ', user_profile.id)
-        print('user_experience = ', user_experience, '--', 'id =', user_experience.id, '-- descr =', user_experience.experince_description)
-        print('experience_user = ', user_experience.experience_user, '\n')
-        print('request.user.id = ', request.user.id, '\n')
-        print('user_experience.id = ', user_experience.id, '\n')
+        """print('user_experience = ', user_experience, '--', 'id =', user_experience.id, '-- descr =', user_experience.experince_description)
+        print('experience_user = ', user_experience.experience_user, '\n')"""
+
+        # print('request.user.id = ', request.user.id, '\n')
+        # print('user_experience.id = ', user_experience.id, '\n')
         if request.method == 'POST':
             user_form = UserForm(request.POST, request.FILES, instance=request.user)
             profile_form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
-            experience_form = ExperienceUserForm(request.POST, request.FILES, instance=user_experience)
-
-            print('--------------------------------------------------------------------')
-            print('user_form = ', user_form)
-            print('--------------------------------------------------------------------')
+            # experience_form = ExperienceUserForm(request.POST, request.FILES, instance=user_experience)
 
             print('user_form = ', user_form.is_valid())
             print('profile_form = ', profile_form.is_valid())
-            print('experience_form = ', experience_form.is_valid(), '\n ')
+            # print('experience_form = ', experience_form.is_valid(), '\n ')
 
 
-            if user_form.is_valid() and profile_form.is_valid() and experience_form.is_valid():
-                print('\n ---- user_experience = ', user_experience, '\n')
+            if user_form.is_valid() and profile_form.is_valid(): # and experience_form.is_valid():
                 user_form.save()
-                experience_form.save()
-
-                profile_form.user_id = request.user.id
-                profile_form.experience_id = user_experience.id
+                # experience_form.save()
+                # profile_form.user_id = request.user.id
+                # profile_form.experience_id = user_experience.id
                 profile_form.save()
 
                 messages.success(request, 'Your profile has been updated.')
-                context = {
-                    'userprofile': user_profile,
-                }
-                return render(request, 'profile_user/edit_profile.html', context)
+                return redirect('/')
         else:
             user_form = UserForm(instance=request.user)
             profile_form = UserProfileForm(instance=user_profile)
-            experience_form = ExperienceUserForm(instance=user_experience)
+            # experience_form = ExperienceUserForm(instance=user_experience)
 
         # print('\n-------------- edit_profile --------------------\n')
         context = {
             'user_form': user_form,
             'profile_form': profile_form,
-            'experience_form': experience_form,
+            # 'experience_form': experience_form,
             'user_profile': user_profile
         }
 

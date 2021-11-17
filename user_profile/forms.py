@@ -26,7 +26,7 @@ class UserProfileForm(forms.ModelForm):
     photo_profile = forms.ImageField(required=False, error_messages={'invalid': "Image files only"}, widget=forms.FileInput)
     class Meta:
         model = UserProfile
-        fields = ('overview', 'photo_profile', 'experience', 'education_title', 'education_year_start',
+        fields = ('overview', 'photo_profile', 'education_title', 'education_year_start',
                   'education_year_end', 'education_description', 'location_country', 'location_city', 'skills_tags',
                   'hourly_work', 'type_work')
 
