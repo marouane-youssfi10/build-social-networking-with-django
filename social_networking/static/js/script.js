@@ -282,9 +282,11 @@ $(window).on("load", function() {
 
     });
 
+    // ================ Message ===============
 
-
-
+    setTimeout(function(){
+      $('#message').fadeOut('slow')
+    }, 4000)
 
 });
 
