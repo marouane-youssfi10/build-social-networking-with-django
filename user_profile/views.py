@@ -57,7 +57,7 @@ def edit_profile(request):
                 profile_form.save()
 
                 messages.success(request, 'Your profile has been updated.')
-                return redirect('/')
+                return redirect('/feed/accounts-setting/edit-profile/', request.user)
         else:
             user_form = UserForm(instance=request.user)
             profile_form = UserProfileForm(instance=user_profile)
@@ -91,7 +91,7 @@ def edit_experience_user(request):
                 # save the information updated
                 user_experience_form.save()
                 messages.success(request, 'Your profile has been updated.')
-                return redirect('/')
+                return redirect('/feed/accounts-setting/edit-profile/', request.user)
         else:
             user_experience_form = UserProfileForm(instance=user_experience)
 
@@ -126,7 +126,7 @@ def create_tags_user(request):
                 user_profile.skills_tags.add(tag)
                 tag.save()
                 messages.success(request, 'your tags has been created')
-                return redirect('/')
+                return redirect('/feed/accounts-setting/edit-profile/', request.user)
         else:
             user_tags_form = TagsUserForm(instance=request.user)
 
@@ -144,7 +144,7 @@ def delete_tags_user(request, pk):
     tag = Tags.objects.get(id=pk, tags_user=user_profile.user)
     tag.delete()
     messages.success(request, 'your tag is delete')
-    return redirect('/')
+    return redirect('/feed/accounts-setting/edit-profile/', request.user)
 
 
 def change_password(request):
