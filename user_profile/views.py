@@ -137,6 +137,10 @@ def create_tags_user(request):
     except ObjectDoesNotExist:
         pass
 
+@login_required(login_url='login')
+def delete_tags_user(request):
+    pass
+
 
 def change_password(request):
     user_profile = UserProfile.objects.get(user=request.user)
