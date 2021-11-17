@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse
 from accounts.models import UserProfile, Experience_user, Tags
 from django.contrib.auth.decorators import login_required
 from .forms import UserForm, UserProfileForm, ExperienceUserForm, TagsUserForm
@@ -138,8 +139,12 @@ def create_tags_user(request):
         pass
 
 @login_required(login_url='login')
-def delete_tags_user(request):
-    pass
+def delete_tags_user(request, pk):
+    user_profile = UserProfile.objects.get(user=request.user)
+    tag = Tags.objects.get(id=pk, tags_user=user_profile.user)
+    tag.delete()
+    messages.success(request, 'your tag is delete')
+    return redirect('/')
 
 
 def change_password(request):

@@ -172,7 +172,7 @@
                                                     <ul>
                                                         {% for tag in user_tags %}
                                                             <li>
-                                                                <a href="">{{ tag }}<i class="la la-close"></i></a>
+                                                                <a href="{% url 'delete-user-tags' tag.id %}">{{ tag }}<i class="la la-close"></i></a>
                                                             </li>
                                                         {% endfor %}
 
