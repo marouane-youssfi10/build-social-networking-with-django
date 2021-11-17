@@ -104,14 +104,12 @@ def edit_experience_user(request):
     except ObjectDoesNotExist:
         pass
 
-
 @login_required(login_url='login')
 def create_tags_user(request):
     try:
-        # get user_tags & user_profile
+        # get user_profile to add new tag
         user_profile = UserProfile.objects.get(user=request.user)
-        skills_tags = Tags.objects.filter(tags_user=request.user)
-        # user_profile_tags = user_tags.user_tags.all()
+
         if request.method == 'POST':
             # get information of usertags
             user_tags_form = TagsUserForm(request.POST, request.FILES, instance=request.user)
@@ -124,8 +122,7 @@ def create_tags_user(request):
                     tags_user=request.user,
                     tag=user_tags_form.cleaned_data['tag']
                 )
-                user_profile.skills_tags.add(request.user)
-                #  room.participants.add(request.user)
+                user_profile.skills_tags.add(tag)
                 tag.save()
                 messages.success(request, 'Your profile has been updated.')
                 return redirect('/')
@@ -134,7 +131,6 @@ def create_tags_user(request):
 
         context = {
             'user_tags_form': user_tags_form,
-            'user_tags': user_tags
         }
         return render(request, 'profile_user/edit_profile.html', context)
 
