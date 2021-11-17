@@ -1,5 +1,5 @@
 from django import forms
-from accounts.models import Account, UserProfile, Experience_user
+from accounts.models import Account, UserProfile, Experience_user, Tags
 
 
 class ExperienceUserForm(forms.ModelForm):
@@ -9,6 +9,16 @@ class ExperienceUserForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ExperienceUserForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'form-control'
+
+class TagsUserForm(forms.ModelForm):
+    class Meta:
+        model = Tags
+        fields = ('tag',)
+
+    def __init__(self, *args, **kwargs):
+        super(TagsUserForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
 
@@ -27,7 +37,7 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('overview', 'photo_profile', 'education_title', 'education_year_start',
-                  'education_year_end', 'education_description', 'location_country', 'location_city', 'skills_tags',
+                  'education_year_end', 'education_description', 'location_country', 'location_city',
                   'hourly_work', 'type_work')
 
     def __init__(self, *args, **kwargs):

@@ -169,13 +169,16 @@
                                             <div class="form-row">
                                                 <!-- title  -->
                                                 <div class="form-group col-md-12">
-                                                    <label class="topic_label">title</label>
-                                                    {{ user_experience_form.experince_title }}
-                                                </div>
+                                                    <ul>
+                                                        {% for tag in user_tags %}
+                                                            <li>
+                                                                <a href="">{{ tag }}<i class="la la-close"></i></a>
+                                                            </li>
+                                                        {% endfor %}
 
-                                                <div class="form-group col-md-12">
-                                                    <label class="topic_label">description</label>
-                                                    {{ user_experience_form.experince_description }}
+                                                    </ul>
+                                                    <label class="topic_label">Add tag</label>
+                                                    {{ user_tags_form.tag }}
                                                 </div>
 
                                                 <!-- save experience informations -->

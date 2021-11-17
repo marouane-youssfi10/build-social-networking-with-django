@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from accounts.models import UserProfile, Experience_user
+from accounts.models import UserProfile, Experience_user, Tags
 from django.contrib.auth.decorators import login_required
-from .forms import UserForm, UserProfileForm, ExperienceUserForm
+from .forms import UserForm, UserProfileForm, ExperienceUserForm, TagsUserForm
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
@@ -48,6 +48,10 @@ def edit_profile(request):
         user_experience = get_object_or_404(Experience_user, experience_user=request.user)
         user_experience_form = ExperienceUserForm(instance=user_experience)
 
+        # get user_tags
+        user_tags = Tags.objects.filter(tags_user=request.user)
+        user_tags_form = TagsUserForm(instance=request.user)
+
         if request.method == 'POST':
             # get information of userform & userprofile
             user_form = UserForm(request.POST, request.FILES, instance=request.user)
@@ -69,6 +73,8 @@ def edit_profile(request):
             'user_form': user_form,
             'profile_form': profile_form,
             'user_experience_form': user_experience_form,
+            'user_tags_form': user_tags_form,
+            'user_tags': user_tags,
             'user_profile': user_profile
         }
 
