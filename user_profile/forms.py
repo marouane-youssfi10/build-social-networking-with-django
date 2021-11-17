@@ -5,7 +5,7 @@ from accounts.models import Account, UserProfile, Experience_user
 class ExperienceUserForm(forms.ModelForm):
     class Meta:
         model = Experience_user
-        fields = ('experience_user', 'experince_title', 'experince_description')
+        fields = ('experince_title', 'experince_description')
 
     def __init__(self, *args, **kwargs):
         super(ExperienceUserForm, self).__init__(*args, **kwargs)
@@ -21,7 +21,6 @@ class UserForm(forms.ModelForm):
         super(UserForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
-
 
 class UserProfileForm(forms.ModelForm):
     photo_profile = forms.ImageField(required=False, error_messages={'invalid': "Image files only"}, widget=forms.FileInput)

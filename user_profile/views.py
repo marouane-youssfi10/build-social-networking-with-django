@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 
+
 @login_required(login_url='login')
 def index(request):
     if request.user.is_authenticated:
@@ -42,28 +43,32 @@ def edit_profile(request):
     try:
         user_profile = get_object_or_404(UserProfile, user=request.user)
         user_experience = get_object_or_404(Experience_user, experience_user=request.user)
-        print('user_profile = ', user_profile, '--', 'id = ', user_profile.pk)
-        print('user_experience = ', user_experience, '--', 'id = ', user_experience.pk, '\n')
-
+        print('user_profile = ', user_profile, '--', 'id = ', user_profile.id)
+        print('user_experience = ', user_experience, '--', 'id =', user_experience.id, '-- descr =', user_experience.experince_description)
+        print('experience_user = ', user_experience.experience_user, '\n')
+        print('request.user.id = ', request.user.id, '\n')
+        print('user_experience.id = ', user_experience.id, '\n')
         if request.method == 'POST':
             user_form = UserForm(request.POST, request.FILES, instance=request.user)
-            experience_form = ExperienceUserForm(request.POST, request.FILES, instance=user_experience)
             profile_form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
-            user_experience.experience_user_id = user_profile.id
+            experience_form = ExperienceUserForm(request.POST, request.FILES, instance=user_experience)
 
-            print('\n user_form = ', user_form.is_valid(), '\n ')
-            # print('\n user_form = ', user_form, '\n ')
-            # print('\n experience_form = ', experience_form, '\n ')
-            print('\n experience_form = ', experience_form.is_valid(), '\n ')
-            print('\n profile_form = ', profile_form.is_valid(), '\n ')
+            print('--------------------------------------------------------------------')
+            print('user_form = ', user_form)
+            print('--------------------------------------------------------------------')
+
+            print('user_form = ', user_form.is_valid())
+            print('profile_form = ', profile_form.is_valid())
+            print('experience_form = ', experience_form.is_valid(), '\n ')
 
 
             if user_form.is_valid() and profile_form.is_valid() and experience_form.is_valid():
-                print('\n ---- oh yeah baby ---\n')
-
                 print('\n ---- user_experience = ', user_experience, '\n')
                 user_form.save()
                 experience_form.save()
+
+                profile_form.user_id = request.user.id
+                profile_form.experience_id = user_experience.id
                 profile_form.save()
 
                 messages.success(request, 'Your profile has been updated.')
