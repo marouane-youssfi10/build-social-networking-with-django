@@ -5,102 +5,101 @@
     <section class="profile-account-setting">
         <div class="container">
             <div class="account-tabs-setting">
+
+                <!-- profile user -->
                 <div class="row">
-                    {% include 'includes/setting_sidebar.html' %}
+                    {% include 'includes/setting_sidebar.html' %} <!-- "col-lg-3" -->
                     <div class="col-lg-9">
                         <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active">
                                 <div class="acc-setting">
                                     <h3>Edit profile</h3>
                                     <div class="user-profile-ov">
-
-                                        <p>request.user == {{request.user}}</p>
-                                        <p>user_profile.user.first_name == {{user_profile.user.first_name}}</p>
-                                        <p>user_profile.user == {{user_profile.user}}</p><br><br>
-
                                         {% if request.user == user_profile.user %}
                                             <form action="{% url 'edit-profile' %}" method="POST" enctype="multipart/form-data">
                                             {% csrf_token %}
                                                 <div class="form-row">
                                                     <!-- first_name  -->
-                                                    <div class="form-group col-md-6">
-                                                        <label>First Name</label>
+                                                    <div class="form-group col-md-4">
+                                                        <label class="topic_label">First Name</label>
                                                         {{ user_form.first_name }}
                                                     </div>
 
                                                     <!-- last_name -->
-                                                    <div class="form-group col-md-6">
-                                                        <label>Last Name</label>
+                                                    <div class="form-group col-md-4">
+                                                        <label class="topic_label">Last Name</label>
                                                         {{ user_form.last_name }}
                                                     </div>
 
                                                     <!-- phone_number -->
-                                                    <div class="form-group col-md-6">
-                                                        <label>Phone Number</label>
+                                                    <div class="form-group col-md-4">
+                                                        <label class="topic_label">Phone Number</label>
                                                         {{ user_form.phone_number }}
                                                     </div>
 
                                                     <!-- photo_profile -->
-                                                    <div class="form-group col-md-6">
-                                                        <label>Photo profile</label>
+                                                    <div class="form-group col-md-8">
+                                                        <label class="topic_label">Photo profile</label>
                                                         {{ profile_form.photo_profile }}
                                                     </div>
 
-                                                    <!-- education -->
-                                                    <div class="form-group col-md-6">
-                                                        <label>education description</label>
-                                                        {{ profile_form.education_description }}
-                                                    </div>
-
-                                                    <!-- education_title -->
-                                                    <div class="form-group col-md-4">
-                                                        <label>education title</label>
-                                                        {{ profile_form.education_title }}
-                                                    </div>
-
                                                     <!-- education_year_start -->
-                                                    <div class="form-group col-md-4">
-                                                        <label>education year star</label>
+                                                    <div class="form-group col-md-2">
+                                                        <label class="topic_label">start year</label>
                                                         {{ profile_form.education_year_start }}
                                                     </div>
 
                                                     <!-- education_year_end -->
-                                                    <div class="form-group col-md-4">
-                                                        <label>education year end</label>
+                                                    <div class="form-group col-md-2">
+                                                        <label class="topic_label">end year</label>
                                                         {{ profile_form.education_year_end }}
                                                     </div>
 
-                                                    <!-- skills_tags -->
-                                                    <!--
-                                                    <div class="form-group col-md-12">
-                                                        <label>tags</label>
-                                                        {{ profile_form.skills_tags }}
-                                                    </div> -->
+                                                    <!-- education_title -->
+                                                    <div class="form-group col-md-6">
+                                                        <label class="topic_label">education title</label>
+                                                        {{ profile_form.education_title }}
+                                                    </div>
 
                                                     <!-- location_city -->
-                                                    <div class="form-group col-md-6">
-                                                        <label>location_city</label>
+                                                    <div class="form-group col-md-3">
+                                                        <label class="topic_label">City</label>
                                                         {{ profile_form.location_city }}
                                                     </div>
 
                                                     <!-- location_country -->
-                                                    <div class="form-group col-md-6">
-                                                        <label>location country</label>
+                                                    <div class="form-group col-md-3">
+                                                        <label class="topic_label">Country</label>
                                                         {{ profile_form.location_country }}
                                                     </div>
 
                                                     <!-- hourly_work -->
                                                     <div class="form-group col-md-6">
-                                                        <label>hourly work</label>
+                                                        <label class="topic_label">hourly work</label>
                                                         {{ profile_form.hourly_work }}
                                                     </div>
 
                                                     <!-- type_work -->
                                                     <div class="form-group col-md-6">
-                                                        <label>type work</label>
+                                                        <label class="topic_label">type work</label>
                                                         {{ profile_form.type_work }}
                                                     </div>
-                                                    <input type="submit" value="Save" class="btn btn-primary">
+
+                                                    <!-- education description -->
+                                                    <div class="form-group col-md-12">
+                                                        <label class="topic_label">education description</label>
+                                                        {{ profile_form.education_description }}
+                                                    </div>
+
+                                                    <!-- education Overview -->
+                                                    <div class="form-group col-md-12">
+                                                        <label class="topic_label">Overview</label>
+                                                        {{ profile_form.overview }}
+                                                    </div>
+
+                                                    <div class="form-group col-md-10">
+                                                        <input type="submit" value="Save" class="btn btn-primary">
+                                                    </div>
                                                 </div>
                                                 <br>
                                         </form>
@@ -108,12 +107,93 @@
                                             <p>no baby</p>
                                         {% endif %}
                                     </div>
-                                </div><!--acc-setting end-->
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div><!--account-tabs-setting end-->
+
+                <br><br>
+
+                <!-- experience user -->
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-9">
+                        <div class="tab-pane fade show active">
+                            <div class="acc-setting">
+                                <h3>Edit experience</h3>
+                                <div class="user-profile-ov">
+                                    {% if request.user == user_profile.user %}
+                                        <form action="{% url 'edit-user-experience' %}" method="POST" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="form-row">
+                                                <!-- title  -->
+                                                <div class="form-group col-md-12">
+                                                    <label class="topic_label">title</label>
+                                                    {{ user_experience_form.experince_title }}
+                                                </div>
+
+                                                <div class="form-group col-md-12">
+                                                    <label class="topic_label">description</label>
+                                                    {{ user_experience_form.experince_description }}
+                                                </div>
+
+                                                <!-- save experience informations -->
+                                                <div class="form-group col-md-10">
+                                                    <input type="submit" value="Save" class="btn btn-primary">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    {% else %}
+                                        <p>no baby</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br><br>
+
+                <!-- tags user -->
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-9">
+                        <div class="tab-pane fade show active">
+                            <div class="acc-setting">
+                                <h3>Edit Tags</h3>
+                                <div class="user-profile-ov">
+                                    {% if request.user == user_profile.user %}
+                                        <form action="{% url 'edit-user-tags' %}" method="POST" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="form-row">
+                                                <!-- title  -->
+                                                <div class="form-group col-md-12">
+                                                    <label class="topic_label">title</label>
+                                                    {{ user_experience_form.experince_title }}
+                                                </div>
+
+                                                <div class="form-group col-md-12">
+                                                    <label class="topic_label">description</label>
+                                                    {{ user_experience_form.experince_description }}
+                                                </div>
+
+                                                <!-- save experience informations -->
+                                                <div class="form-group col-md-10">
+                                                    <input type="submit" value="Save" class="btn btn-primary">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    {% else %}
+                                        <p>no baby</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
 

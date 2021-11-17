@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse
 from accounts.models import UserProfile, Experience_user
 from django.contrib.auth.decorators import login_required
 from .forms import UserForm, UserProfileForm, ExperienceUserForm
@@ -37,12 +38,15 @@ def user_profile(request):
     }
     return render(request, 'profile_user/user_profile.html', context)
 
-
 @login_required(login_url='login')
 def edit_profile(request):
     try:
         # get userprofile
         user_profile = get_object_or_404(UserProfile, user=request.user)
+
+        # get user_experience
+        user_experience = get_object_or_404(Experience_user, experience_user=request.user)
+        user_experience_form = ExperienceUserForm(instance=user_experience)
 
         if request.method == 'POST':
             # get information of userform & userprofile
@@ -64,6 +68,7 @@ def edit_profile(request):
         context = {
             'user_form': user_form,
             'profile_form': profile_form,
+            'user_experience_form': user_experience_form,
             'user_profile': user_profile
         }
 
@@ -71,6 +76,40 @@ def edit_profile(request):
 
     except ObjectDoesNotExist:
         pass
+
+@login_required(login_url='login')
+def edit_experience_user(request):
+    try:
+        # get userexperience
+        user_experience = get_object_or_404(Experience_user, experience_user=request.user)
+        if request.method == 'POST':
+            # get information of userform & userprofile
+            user_experience_form = ExperienceUserForm(request.POST, request.FILES, instance=user_experience)
+
+            # check user_form & profile_form is valid
+            if user_experience_form.is_valid():
+
+                # save the information updated
+                user_experience_form.save()
+                messages.success(request, 'Your profile has been updated.')
+                return redirect('/')
+        else:
+            user_experience_form = UserProfileForm(instance=user_experience)
+
+        context = {
+            'user_experience_form': user_experience_form,
+            'user_experience': user_experience
+        }
+
+        return render(request, 'profile_user/edit_profile.html', context)
+
+    except ObjectDoesNotExist:
+        pass
+    return HttpResponse('Edit User')
+
+@login_required(login_url='login')
+def edit_tags_user(request):
+    pass
 
 
 def change_password(request):

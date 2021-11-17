@@ -5402,3 +5402,6 @@ a:hover {
     transform: scale(1.0);
   }
 }
+.topic_label{
+    padding:5px;
+}
