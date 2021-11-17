@@ -164,7 +164,7 @@
                                 <h3>Edit Tags</h3>
                                 <div class="user-profile-ov">
                                     {% if request.user == user_profile.user %}
-                                        <form action="{% url 'edit-user-tags' %}" method="POST" enctype="multipart/form-data">
+                                        <form action="{% url 'create-user-tags' %}" method="POST" enctype="multipart/form-data">
                                             {% csrf_token %}
                                             <div class="form-row">
                                                 <!-- title  -->
