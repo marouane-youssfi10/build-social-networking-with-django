@@ -125,7 +125,7 @@ def create_tags_user(request):
                 )
                 user_profile.skills_tags.add(tag)
                 tag.save()
-                messages.success(request, 'Your profile has been updated.')
+                messages.success(request, 'your tags has been created')
                 return redirect('/')
         else:
             user_tags_form = TagsUserForm(instance=request.user)
