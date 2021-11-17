@@ -78,7 +78,7 @@
                                                         <label class="topic_label">City</label>
                                                         {{ profile_form.location_city }}
                                                     </div>
-                                                    
+
                                                     <!-- hourly_work -->
                                                     <div class="form-group col-md-2">
                                                         <label class="topic_label">hourly work</label>
@@ -175,14 +175,15 @@
                                             <div class="form-row">
                                                 <!-- title  -->
                                                 <div class="form-group col-md-12">
+                                                    {% if user_tags %}
                                                     <ul>
                                                         {% for tag in user_tags %}
                                                             <li>
                                                                 <a href="{% url 'delete-user-tags' tag.id %}">{{ tag }}<i class="la la-close"></i></a>
                                                             </li>
                                                         {% endfor %}
-
                                                     </ul>
+                                                    {% endif %}
                                                     <label class="topic_label">Add tag</label>
                                                     {{ user_tags_form.tag }}
                                                 </div>

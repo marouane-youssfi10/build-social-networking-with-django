@@ -47,19 +47,20 @@
     </div>
 
     <!-- tags -->
-    <div class="user-profile-ov">
-        <h3>
-			<a>Skills</a>
-			<a href="{% url 'edit-profile' %}"><i class="fa fa-pencil"></i></a>
-			<a href="{% url 'edit-profile' %}"><i class="fa fa-plus-square"></i></a>
-		</h3>
-        <ul>
+	{% if user_profile.skills_tags.all %}
+		<div class="user-profile-ov">
+			<h3>
+				<a>Skills</a>
+				<a href="{% url 'edit-profile' %}"><i class="fa fa-pencil"></i></a>
+				<a href="{% url 'edit-profile' %}"><i class="fa fa-plus-square"></i></a>
+			</h3>
+			<ul>
 				{% for tag in user_profile.skills_tags.all %}
-                <li><a>{{ tag }}</a></li>
-            {% endfor %}
-        </ul>
-    </div><!--user-profile-ov end-->
-
+					<li><a>{{ tag }}</a></li>
+				{% endfor %}
+			</ul>
+		</div><!--user-profile-ov end-->
+	{% endif %}
 
     <!-- -------------- edit ---------------------------- -->
     <!-- -------------- edit ---------------------------- -->
