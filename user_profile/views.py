@@ -23,7 +23,9 @@ def index(request):
     return render(request, 'home.html', context)
 
 @login_required(login_url='login')
-def user_profile(request):
+def user_profile(request, slug_user):
+    print('\nslug_user = ', slug_user)
+    print('request.user = ', request.user, '\n')
     user_profile = UserProfile.objects.get(user=request.user)
 
     context = {
