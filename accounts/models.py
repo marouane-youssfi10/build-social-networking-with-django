@@ -69,7 +69,7 @@ class Account(AbstractBaseUser):
 
 class Tags(models.Model):
     tags_user = models.ForeignKey(Account, on_delete=models.CASCADE)
-    tag = models.CharField(max_length=100, blank=True)
+    tag = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         verbose_name = 'tag'
