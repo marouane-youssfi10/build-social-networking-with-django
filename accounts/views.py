@@ -39,7 +39,8 @@ def registerPage(request):
 
             # create user into UserProfile
             user_profile = UserProfile.objects.create(
-                user=user, photo_profile='avatar/avatar.png',
+                user=user, slug=user,
+                photo_profile='avatar/avatar.png',
                 experience=experience_user
                     )
             user_profile.save()

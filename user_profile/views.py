@@ -7,7 +7,6 @@ from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 
-
 @login_required(login_url='login')
 def index(request):
     if request.user.is_authenticated:
@@ -26,10 +25,12 @@ def index(request):
 def user_profile(request, slug_user):
     print('\nslug_user = ', slug_user)
     print('request.user = ', request.user, '\n')
-    user_profile = UserProfile.objects.get(user=request.user)
+    user_profile_photo = UserProfile.objects.get(user=request.user)
+    user_profile = UserProfile.objects.get(user__first_name=slug_user)
 
     context = {
         'user_profile': user_profile,
+        'user_profile_photo': user_profile_photo,
     }
     return render(request, 'profile_user/user_profile.html', context)
 
@@ -59,7 +60,7 @@ def edit_profile(request):
                 profile_form.save()
 
                 messages.success(request, 'Your profile has been updated.')
-                return redirect('/feed/accounts-setting/edit-profile/', request.user)
+                return redirect('/accounts-setting/edit-profile/', request.user)
         else:
             user_form = UserForm(instance=request.user)
             profile_form = UserProfileForm(instance=user_profile)
@@ -93,7 +94,7 @@ def edit_experience_user(request):
                 # save the information updated
                 user_experience_form.save()
                 messages.success(request, 'Your profile has been updated.')
-                return redirect('/feed/accounts-setting/edit-profile/', request.user)
+                return redirect('/accounts-setting/edit-profile/', request.user)
         else:
             user_experience_form = UserProfileForm(instance=user_experience)
 
@@ -128,7 +129,7 @@ def create_tags_user(request):
                 user_profile.skills_tags.add(tag)
                 tag.save()
                 messages.success(request, 'your tags has been created')
-                return redirect('/feed/accounts-setting/edit-profile/', request.user)
+                return redirect('/accounts-setting/edit-profile/', request.user)
         else:
             user_tags_form = TagsUserForm(instance=request.user)
 
@@ -146,7 +147,7 @@ def delete_tags_user(request, pk):
     tag = Tags.objects.get(id=pk, tags_user=user_profile.user)
     tag.delete()
     messages.success(request, 'your tag is delete')
-    return redirect('/feed/accounts-setting/edit-profile/', request.user)
+    return redirect('/accounts-setting/edit-profile/', request.user)
 
 
 def change_password(request):

@@ -1,8 +1,9 @@
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
-    path('', views.index, name="index"),
+    path('feed/', views.index, name="index"),
     path('/<slug:slug_user>/', views.user_profile, name="user-profile"),
 
     path('accounts-setting/change-password/', views.change_password, name="change-password"),

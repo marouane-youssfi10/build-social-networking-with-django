@@ -31,7 +31,9 @@
 											<div class="suggestion-usd">
 												<img src="{{ user_profile.photo_profile.url }}" width="35" height="35">
 												<div class="sgt-text">
-													<h4>{{ user_profile.user.full_name }}</h4>
+													<a href="{% url 'user-profile' user_profile.user %}">
+														<h4>{{ user_profile.user.full_name }}</h4>
+													</a>
 													<span>{{ user_profile.experience.experince_title }}</span>
 												</div>
 												<span><i class="la la-plus"></i></span>
