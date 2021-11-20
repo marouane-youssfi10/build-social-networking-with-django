@@ -176,11 +176,12 @@
                                             <div class="form-row">
                                                 <!-- title  -->
                                                 <div class="form-group col-md-12">
+                                                    <!-- display if user_tags exists -->
                                                     {% if user_tags %}
                                                     <ul>
                                                         {% for tag in user_tags %}
-                                                            <!-- if tags exists the display it-->
-                                                            {% if tag != '' %}
+                                                            <!-- if tag has null value the ignore it-->
+                                                            {% if tag.tag %}
                                                                 <li>
                                                                     <a href="{% url 'delete-user-tags' tag.id %}">{{ tag }}<i class="la la-close"></i></a>
                                                                 </li>
