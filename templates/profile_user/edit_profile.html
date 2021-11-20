@@ -179,9 +179,12 @@
                                                     {% if user_tags %}
                                                     <ul>
                                                         {% for tag in user_tags %}
-                                                            <li>
-                                                                <a href="{% url 'delete-user-tags' tag.id %}">{{ tag }}<i class="la la-close"></i></a>
-                                                            </li>
+                                                            <!-- if tags exists the display it-->
+                                                            {% if tag != '' %}
+                                                                <li>
+                                                                    <a href="{% url 'delete-user-tags' tag.id %}">{{ tag }}<i class="la la-close"></i></a>
+                                                                </li>
+                                                            {% endif %}
                                                         {% endfor %}
                                                     </ul>
                                                     {% endif %}

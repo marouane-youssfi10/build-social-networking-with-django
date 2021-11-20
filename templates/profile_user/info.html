@@ -34,7 +34,6 @@
                 {% endif %}
             {% endif %}
         </h4>
-
         {% if user_profile.experience.experince_description %}
             <p>{{ user_profile.experience.experince_description }}</p>
         {% endif %}
@@ -66,23 +65,22 @@
     </div>
 
     <!-- tags -->
+    <!-- if user_profile has tag then display it else don't show it -->
 	{% if user_profile.skills_tags.all %}
 		<div class="user-profile-ov">
 			<h3>
 				<a>Skills</a>
+                <!-- if request.user in his profile then show him the modification links -->
                 {% if request.user == user_profile.user %}
 				    <a href="{% url 'edit-profile' %}"><i class="fa fa-pencil"></i></a>
 				    <a href="{% url 'edit-profile' %}"><i class="fa fa-plus-square"></i></a>
                 {% endif %}
 			</h3>
 			<ul>
+                <!-- display tags if exits -->
 				{% for tag in user_profile.skills_tags.all %}
 					<li><a>{{ tag }}</a></li>
 				{% endfor %}
 			</ul>
 		</div><!--user-profile-ov end-->
 	{% endif %}
-
-    <!-- -------------- edit ---------------------------- -->
-    <!-- -------------- edit ---------------------------- -->
-
