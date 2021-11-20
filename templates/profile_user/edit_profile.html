@@ -180,10 +180,13 @@
                                                     {% if user_tags %}
                                                     <ul>
                                                         {% for tag in user_tags %}
-                                                            <!-- if tag has null value the ignore it-->
+                                                            <!-- if tag has null value then ignore it-->
                                                             {% if tag.tag %}
                                                                 <li>
-                                                                    <a href="{% url 'delete-user-tags' tag.id %}">{{ tag }}<i class="la la-close"></i></a>
+                                                                    <a href="{% url 'delete-user-tags' tag.id %}">
+                                                                        {{ tag }}
+                                                                        <i class="la la-close"></i>
+                                                                    </a>
                                                                 </li>
                                                             {% endif %}
                                                         {% endfor %}
