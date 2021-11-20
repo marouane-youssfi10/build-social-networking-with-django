@@ -56,7 +56,7 @@ class Account(AbstractBaseUser):
     objects = MyAccountManager()
 
     def __str__(self):
-        return self.first_name + ' ' + self.last_name if self.first_name else ''
+        return self.first_name if self.first_name else ''
 
     def full_name(self):
         return f'{self.first_name} {self.last_name}'
@@ -114,7 +114,7 @@ class UserProfile(models.Model):
         ordering = ['-updated', '-created']
 
     def __str__(self):
-        return self.user.first_name + '-' + self.user.last_name if self.user.first_name else ''
+        return self.user.first_name
 
     def full_year(self):
         return f'{self.education_year_start} - {self.education_year_end}'

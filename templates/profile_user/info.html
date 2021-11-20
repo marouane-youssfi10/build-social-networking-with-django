@@ -1,10 +1,13 @@
-	<!-- overview -->
+
+    <!-- overview -->
     <div class="user-profile-ov">
         <h3>
             <a>Overview</a>
+            {% if request.user == user_profile.user %}
             <a href="{% url 'edit-profile' %}">
                 <i class="fa fa-pencil"></i>
             </a>
+            {% endif %}
         </h3>
         <p>{{ user_profile.overview }}</p>
     </div>
@@ -13,14 +16,18 @@
     <div class="user-profile-ov st2">
         <h3>
             <a>Experience </a>
+            {% if request.user == user_profile.user %}
             <a href="{% url 'edit-profile' %}"><i class="fa fa-pencil"></i></a>
             <a href="{% url 'edit-profile' %}"><i class="fa fa-plus-square"></i></a>
+            {% endif %}
         </h3>
         <h4>
             {{ user_profile.experience.experince_title }}
+            {% if request.user == user_profile.user %}
             <a href="{% url 'edit-profile' %}" title="">
                 <i class="fa fa-pencil"></i>
             </a>
+            {% endif %}
         </h4>
         <p>{{ user_profile.experience.experince_description }}</p>
     </div>
@@ -29,7 +36,9 @@
     <div class="user-profile-ov">
         <h3>
 			<a class="ed-box-open">Education</a>
+            {% if request.user == user_profile.user %}
 			<a href="{% url 'edit-profile'  %}}"><i class="fa fa-pencil"></i></a>
+            {% endif %}
 		</h3>
         <h4>{{ user_profile.education_title }}</h4>
         <span>{{ user_profile.full_year }}</span>
@@ -40,7 +49,9 @@
     <div class="user-profile-ov">
         <h3>
 			<a>Location</a>
+            {% if request.user == user_profile.user %}
 			<a href="{% url 'edit-profile'  %}"><i class="fa fa-pencil"></i></a>
+            {% endif %}
 		</h3>
         <h4>{{ user_profile.location_country }}</h4>
         <p>{{ user_profile.location_city }}</p>
@@ -51,8 +62,10 @@
 		<div class="user-profile-ov">
 			<h3>
 				<a>Skills</a>
+                {% if request.user == user_profile.user %}
 				<a href="{% url 'edit-profile' %}"><i class="fa fa-pencil"></i></a>
 				<a href="{% url 'edit-profile' %}"><i class="fa fa-plus-square"></i></a>
+                {% endif %}
 			</h3>
 			<ul>
 				{% for tag in user_profile.skills_tags.all %}
