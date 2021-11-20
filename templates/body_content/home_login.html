@@ -17,7 +17,9 @@
 										</div><!--username-dt end-->
 										<div class="user-specs">
 											<h3>{{ user_profile.user.first_name}}</h3>
-											<span>{{ user_profile.experience.experince_title }}</span>
+											{% if user_profile.experience.experince_title %}
+												<span>{{ user_profile.experience.experince_title }}</span>
+											{% endif %}
 										</div>
 									</div><!--user-profile end-->
 								</div><!--user-data end-->
@@ -34,7 +36,9 @@
 													<a href="{% url 'user-profile' user_profile.user %}">
 														<h4>{{ user_profile.user.full_name }}</h4>
 													</a>
-													<span>{{ user_profile.experience.experince_title }}</span>
+													{% if user_profile.experience.experince_title%}
+														<span>{{ user_profile.experience.experince_title }}</span>
+													{% endif %}
 												</div>
 												<span><i class="la la-plus"></i></span>
 											</div>
