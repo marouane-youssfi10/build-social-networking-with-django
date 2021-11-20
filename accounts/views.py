@@ -26,7 +26,6 @@ def registerPage(request):
             user.phone_number = phone_number
             user.save()
 
-            print('\nuser = ', user, '\n')
             # create user into Experience_user
             experience_user = Experience_user()
             experience_user.experience_user_id = user.id
