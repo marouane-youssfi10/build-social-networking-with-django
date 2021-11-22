@@ -136,7 +136,7 @@ def create_tags_user(request):
                     tag=user_tags_form.cleaned_data['tag']
                 )
                 tag_name = tag.tag
-                user_profile.skills_tags.add(tag)
+                user_profile.skills_tags_user.add(tag)
                 tag.save()
                 messages.success(request, 'your tag "'+ tag_name + '" has been created')
                 return redirect('/accounts-setting/edit-profile/', request.user)

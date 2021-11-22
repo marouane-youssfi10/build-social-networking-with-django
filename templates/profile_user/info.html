@@ -66,7 +66,7 @@
 
     <!-- tags -->
     <!-- if user_profile has tag then display it else don't show it -->
-	{% if user_profile.skills_tags.all %}
+	{% if user_profile.skills_tags_user.all %}
 		<div class="user-profile-ov">
 			<h3>
 				<a>Skills</a>
@@ -78,7 +78,7 @@
 			</h3>
 			<ul>
                 <!-- display tags if exits -->
-				{% for tag in user_profile.skills_tags.all %}
+				{% for tag in user_profile.skills_tags_user.all %}
 					<li><a>{{ tag }}</a></li>
 				{% endfor %}
 			</ul>

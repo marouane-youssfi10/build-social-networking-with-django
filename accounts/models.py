@@ -104,7 +104,7 @@ class UserProfile(models.Model):
     education_description = models.TextField(blank=True, null=True)
     location_country = models.CharField(blank=True, max_length=100)
     location_city = models.CharField(blank=True, max_length=100)
-    skills_tags = models.ManyToManyField(TagsUser, blank=True, null=True)
+    skills_tags_user = models.ManyToManyField(TagsUser, blank=True, null=True)
 
 
     hourly_work = models.IntegerField(blank=True, null=True)
