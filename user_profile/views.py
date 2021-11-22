@@ -31,6 +31,9 @@ def user_profile(request, slug_user, pk):
     # get request user for display photo in his navbar img tag
     request_user_profile = UserProfile.objects.get(user=request.user)
 
+    # get all user_profile for Suggestions div
+    all_user_profile = UserProfile.objects.all()[0:5]
+
     print('\nslug_user = ', slug_user, '\n')
     # get all experience to request.user
     user_experience = Experience_user.objects.filter(experience_user=pk)
@@ -46,6 +49,7 @@ def user_profile(request, slug_user, pk):
         'user_profile': user_profile,
         'request_user_profile': request_user_profile,
         'user_experience': user_experience,
+        'all_user_profile': all_user_profile
     }
     return render(request, 'profile_user/user_profile.html', context)
 
