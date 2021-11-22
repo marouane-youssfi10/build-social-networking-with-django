@@ -9,7 +9,16 @@ def home(request):
 
     user_profile = UserProfile.objects.all()
 
+    print('\nuser_profile = ', user_profile, '\n')
+
+    print(request.user)
+    if request.user.is_authenticated:
+        print('request.user.is_authenticated')
+    else:
+        print('request.user.is_not_authenticated -- AnonymousUser')
+    print()
+
     context = {
-        'user_profile': user_profile,
+        'user_profile': user_profile
     }
     return render(request, 'home.html', context)

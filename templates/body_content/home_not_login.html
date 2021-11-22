@@ -20,7 +20,7 @@
                     <div class="col-lg-8">
                         <div class="forum-questions">
                             {% for info in user_profile %}
-                            <div class="usr-question">
+                                <div class="usr-question">
                                     <div class="usr_img">
                                         <img src="{{ info.photo_profile.url }}" alt="">
                                     </div>
@@ -34,7 +34,7 @@
                                         <ul class="quest-tags">
                                             {% for tag in info.skills_tags.all %}
                                                 <li>
-                                                    <a href="" title=""> {{ tag }}</a>
+                                                    <a href=""> {{ tag }}</a>
                                                 </li>
                                             {% endfor %}
                                         </ul>
@@ -42,7 +42,7 @@
                                     <span class="quest-posted-time">
                                         <i class="fa fa-clock-o"></i>{{ info.updated | timesince }} ago
                                     </span>
-                            </div><!--usr-question end-->
+                                </div><!--usr-question end-->
                             {% endfor %}
                         </div><!--forum-questions end-->
 
@@ -74,7 +74,7 @@
                                                     <p>{{ info.experience.experince_title }} </p>
                                                 </div><!--usr-mg-info end-->
                                             </div>
-                                            <span><img src="images/price1.png" alt="">1185</span>
+                                            <span><img src="images/price1.png">1185</span>
                                         </li>
                                   {% endfor %}
                             </ul>

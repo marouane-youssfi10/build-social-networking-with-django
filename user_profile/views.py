@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
 from accounts.models import UserProfile, Experience_user, Tags
 from django.contrib.auth.decorators import login_required
 from .forms import UserForm, UserProfileForm, ExperienceUserForm, TagsUserForm
@@ -10,38 +9,31 @@ from django.core.exceptions import ObjectDoesNotExist
 @login_required(login_url='login')
 def index(request):
     # print('\n index : request.user.first_name = ', request.user.first_name, '\n')
-    request_user_profile = UserProfile.objects.get(user=request.user)
     if request.user.is_authenticated:
         user_profile = UserProfile.objects.get(user=request.user)
-        all_user_profile = UserProfile.objects.all()
+        all_user_profile = UserProfile.objects.all()[0:5]
     else:
         return redirect('home')
 
     context = {
         'user_profile': user_profile,
         'all_user_profile': all_user_profile,
-        'request_user_profile': request_user_profile
     }
     return render(request, 'home.html', context)
 
 @login_required(login_url='login')
 def user_profile(request, slug_user):
-    # print('\n slug_user = ', slug_user)
-    # print('request.user = ', request.user, '\n')
     # get request user photo profile
-    request_user_profile = UserProfile.objects.get(user=request.user)
     # get currently user profile
     user_profile = UserProfile.objects.get(user__first_name=slug_user)
 
     context = {
         'user_profile': user_profile,
-        'request_user_profile': request_user_profile,
     }
     return render(request, 'profile_user/user_profile.html', context)
 
 @login_required(login_url='login')
 def edit_profile(request):
-    request_user_profile = UserProfile.objects.get(user=request.user)
     try:
         # get userprofile
         user_profile = get_object_or_404(UserProfile, user=request.user)
@@ -78,7 +70,6 @@ def edit_profile(request):
             'user_tags_form': user_tags_form,
             'user_tags': user_tags,
             'user_profile': user_profile,
-            'request_user_profile': request_user_profile,
         }
 
         return render(request, 'profile_user/edit_profile.html', context)
@@ -155,7 +146,6 @@ def delete_tags_user(request, pk):
     tag.delete()
     messages.success(request, 'your tag is delete')
     return redirect('/accounts-setting/edit-profile/', request.user)
-
 
 def change_password(request):
     user_profile = UserProfile.objects.get(user=request.user)
