@@ -8,6 +8,9 @@ from django.core.exceptions import ObjectDoesNotExist
 
 @login_required(login_url='login')
 def index(request):
+    # get request user for display photo in his navbar img tag
+    request_user_profile = UserProfile.objects.get(user=request.user)
+
     # print('\n index : request.user.first_name = ', request.user.first_name, '\n')
     if request.user.is_authenticated:
         user_profile = UserProfile.objects.get(user=request.user)
@@ -18,6 +21,7 @@ def index(request):
     context = {
         'user_profile': user_profile,
         'all_user_profile': all_user_profile,
+        'request_user_profile': request_user_profile
     }
     return render(request, 'home.html', context)
 
@@ -98,7 +102,7 @@ def edit_experience_user(request):
 
                 # save the information updated
                 user_experience_form.save()
-                messages.success(request, 'Your profile has been updated.')
+                messages.success(request, 'Your profile experience has been updated.')
                 return redirect('/accounts-setting/edit-profile/', request.user)
         else:
             user_experience_form = UserProfileForm(instance=user_experience)
