@@ -11,9 +11,9 @@
             <label class="topic_label">experience</label>
             {{ user_experience_form.experince_description }}
             <br>
+            <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-primary">Go Back</a>
             <input type="submit" class="btn btn-primary" value="Update">
             <br><br><br><br><br><br><br><br><br><br><br>
-
         </form>
     </div>
 {% endblock content %}

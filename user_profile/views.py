@@ -97,6 +97,8 @@ def edit_profile(request):
 
 @login_required(login_url='login')
 def edit_experience_user(request, pk):
+    # get request user for display photo in his navbar img tag
+    request_user_profile = UserProfile.objects.get(user=request.user)
     try:
         # get userexperience
         user_experience = Experience_user.objects.get(id=pk)
@@ -119,7 +121,8 @@ def edit_experience_user(request, pk):
 
         context = {
             'user_experience_form': user_experience_form,
-            'user_experience': user_experience
+            'user_experience': user_experience,
+            'request_user_profile': request_user_profile
         }
 
         return render(request, 'profile_user/change_experience.html', context)
