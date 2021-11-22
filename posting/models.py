@@ -21,7 +21,7 @@ class PostProject(models.Model):
     end_price = models.CharField(max_length=100, blank=False, null=False)
     description_project = models.TextField(blank=False, null=False)
 
-    skills_tags_projects = models.ForeignKey(TagsProjects, on_delete=models.CASCADE, blank=False, null=False)
+    skills_tags_projects = models.ManyToManyField(TagsProjects, blank=False, null=False)
 
     def __str__(self):
         return self.name_project
