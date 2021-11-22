@@ -21,7 +21,8 @@ class PostProject(models.Model):
     end_price = models.IntegerField(blank=False, null=False)
     description_project = models.TextField(blank=False, null=False)
 
-    skills_tags_projects = models.ManyToManyField(TagsProjects, blank=False)
+    skills_tags_projects = models.ManyToManyField(TagsProjects, blank=True)
+  # skills_tags_user     = models.ManyToManyField(TagsUser    , blank=True)
 
     class Meta:
         verbose_name = 'project'
