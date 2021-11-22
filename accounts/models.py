@@ -73,7 +73,7 @@ class TagsUser(models.Model):
 
     class Meta:
         verbose_name = 'tag'
-        verbose_name_plural = 'tags'
+        verbose_name_plural = 'tagUsers'
 
     def __str__(self):
         return self.tag if self.tag else ''
