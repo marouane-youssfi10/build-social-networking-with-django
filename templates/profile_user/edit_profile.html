@@ -135,15 +135,22 @@
                                             {% csrf_token %}
                                             <div class="form-row">
                                                 <!-- title  -->
-                                                <div class="form-group col-md-12">
-                                                    <label class="topic_label">title</label>
-                                                    {{ user_experience_form.experince_title }}
-                                                </div>
+                                                {{ user_experience_form.experince_title }}
+                                                {{ user_experience_form.experince_description }}
+                                                <div class="form-group col-md-12"><hr><hr></div>
+                                                {% for i in user_experience_form %}
+                                                    <div class="form-group col-md-12">
+                                                        <label class="topic_label">title</label>
+                                                        {{ i.experince_title }}
+                                                    </div>
 
-                                                <div class="form-group col-md-12">
-                                                    <label class="topic_label">description</label>
-                                                    {{ user_experience_form.experince_description }}
-                                                </div>
+                                                    <div class="form-group col-md-12">
+                                                        <label class="topic_label">description</label>
+                                                        {{ i.experince_description }}
+                                                    </div>
+                                                    <div class="form-group col-md-12"><hr></div>
+
+                                                {% endfor %}
 
                                                 <!-- save experience informations -->
                                                 <div class="form-group col-md-10">

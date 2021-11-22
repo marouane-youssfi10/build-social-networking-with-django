@@ -30,12 +30,16 @@ def user_profile(request, slug_user):
     # get request user for display photo in his navbar img tag
     request_user_profile = UserProfile.objects.get(user=request.user)
 
+    # get all experience to request.user
+    user_experience = Experience_user.objects.filter(experience_user=request.user)
+
     # get currently user profile
     user_profile = UserProfile.objects.get(user__first_name=slug_user)
 
     context = {
         'user_profile': user_profile,
-        'request_user_profile': request_user_profile
+        'request_user_profile': request_user_profile,
+        'user_experience': user_experience,
     }
     return render(request, 'profile_user/user_profile.html', context)
 
@@ -49,8 +53,8 @@ def edit_profile(request):
         user_profile = get_object_or_404(UserProfile, user=request.user)
 
         # get user_experience
-        user_experience = get_object_or_404(Experience_user, experience_user=request.user)
-        user_experience_form = ExperienceUserForm(instance=user_experience)
+        user_experience = Experience_user.objects.filter(experience_user=request.user)
+        user_experience_form = ExperienceUserForm(instance=request.user)
 
         # get user_tags
         user_tags = TagsUser.objects.filter(tags_user=request.user)
@@ -78,7 +82,9 @@ def edit_profile(request):
             'profile_form': profile_form,
             'user_experience_form': user_experience_form,
             'user_tags_form': user_tags_form,
+
             'user_tags': user_tags,
+            'user_experience': user_experience,
             'user_profile': user_profile,
             'request_user_profile': request_user_profile,
         }
