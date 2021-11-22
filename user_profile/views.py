@@ -27,13 +27,18 @@ def index(request):
     return render(request, 'home.html', context)
 
 @login_required(login_url='login')
-def user_profile(request, slug_user):
+def user_profile(request, slug_user, pk):
     # get request user for display photo in his navbar img tag
     request_user_profile = UserProfile.objects.get(user=request.user)
 
+    print('\nslug_user = ', slug_user, '\n')
     # get all experience to request.user
-    user_experience = Experience_user.objects.filter(experience_user=request.user)
+    user_experience = Experience_user.objects.filter(experience_user=pk)
 
+    for i in user_experience:
+        print('ok')
+        print('experince_title = ', i.experince_title)
+        print('experince_description = ', i.experince_description, '\n')
     # get currently user profile
     user_profile = UserProfile.objects.get(user__first_name=slug_user)
 

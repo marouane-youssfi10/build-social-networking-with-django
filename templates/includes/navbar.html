@@ -28,7 +28,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="{% url 'user-profile' request.user.first_name %}" title="">
+								<a href="{% url 'user-profile' request.user.first_name request.user.id %}" title="">
 									<span><img src="{% static 'images/icon4.png' %} "></span>
 									Profiles
 								</a>

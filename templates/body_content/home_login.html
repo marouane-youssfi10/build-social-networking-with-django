@@ -30,18 +30,20 @@
 									</div><!--sd-title end-->
 									<div class="suggestions-list">
 										{%  for user_profile in all_user_profile %}
-											<div class="suggestion-usd">
-												<img src="{{ user_profile.photo_profile.url }}" width="35" height="35">
-												<div class="sgt-text col-8">
-													<a href="{% url 'user-profile' user_profile.user %}">
-														<h4>{{ user_profile.user.full_name }}</h4>
-													</a>
-													{% if user_profile.experience.experince_title%}
-														<span class="col-0">{{ user_profile.experience.experince_title }}</span>
-													{% endif %}
+											{% if request.user != user_profile.user %} <!-- display all user without request.user-->
+												<div class="suggestion-usd">
+													<img src="{{ user_profile.photo_profile.url }}" width="35" height="35">
+													<div class="sgt-text col-8">
+														<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
+															<h4>{{ user_profile.user.full_name }}</h4>
+														</a>
+														{% if user_profile.experience.experince_title%}
+															<span class="col-0">{{ user_profile.experience.experince_title }}</span>
+														{% endif %}
+													</div>
+													<span><i class="la la-plus"></i></span>
 												</div>
-												<span><i class="la la-plus"></i></span>
-											</div>
+												{% endif %}
 										{% endfor %}
 										<div class="view-more">
 											<a href="#" title="">View More</a>
