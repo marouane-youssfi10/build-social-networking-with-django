@@ -23,18 +23,24 @@ def index(request):
 
 @login_required(login_url='login')
 def user_profile(request, slug_user):
-    # get request user photo profile
+    # get request user for display photo in his navbar img tag
+    request_user_profile = UserProfile.objects.get(user=request.user)
+
     # get currently user profile
     user_profile = UserProfile.objects.get(user__first_name=slug_user)
 
     context = {
         'user_profile': user_profile,
+        'request_user_profile': request_user_profile
     }
     return render(request, 'profile_user/user_profile.html', context)
 
 @login_required(login_url='login')
 def edit_profile(request):
     try:
+        # get request user for display photo in his navbar img tag
+        request_user_profile = UserProfile.objects.get(user=request.user)
+
         # get userprofile
         user_profile = get_object_or_404(UserProfile, user=request.user)
 
@@ -70,6 +76,7 @@ def edit_profile(request):
             'user_tags_form': user_tags_form,
             'user_tags': user_tags,
             'user_profile': user_profile,
+            'request_user_profile': request_user_profile,
         }
 
         return render(request, 'profile_user/edit_profile.html', context)
@@ -148,8 +155,8 @@ def delete_tags_user(request, pk):
     return redirect('/accounts-setting/edit-profile/', request.user)
 
 def change_password(request):
-    user_profile = UserProfile.objects.get(user=request.user)
     request_user_profile = UserProfile.objects.get(user=request.user)
+
     context = {
         'user_profile': user_profile,
         'request_user_profile': request_user_profile,
