@@ -21,10 +21,10 @@ class PostProject(models.Model):
     end_price = models.IntegerField(blank=False, null=False)
     description_project = models.TextField(blank=False, null=False)
 
-    skills_tags_projects = models.ManyToManyField(TagsProjects, blank=False, null=False)
+    skills_tags_projects = models.ManyToManyField(TagsProjects, blank=False)
 
     class Meta:
-        verbose_name = 'Post projects'
+        verbose_name = 'project'
         verbose_name_plural = 'Projects'
 
     def __str__(self):
