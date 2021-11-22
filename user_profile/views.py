@@ -131,9 +131,10 @@ def create_tags_user(request):
                     tags_user=request.user,
                     tag=user_tags_form.cleaned_data['tag']
                 )
+                tag_name = tag.tag
                 user_profile.skills_tags.add(tag)
                 tag.save()
-                messages.success(request, 'your tags has been created')
+                messages.success(request, 'your tag "'+ tag_name + '" has been created')
                 return redirect('/accounts-setting/edit-profile/', request.user)
         else:
             user_tags_form = TagsUserForm(instance=request.user)
@@ -150,8 +151,9 @@ def create_tags_user(request):
 def delete_tags_user(request, pk):
     user_profile = UserProfile.objects.get(user=request.user)
     tag = Tags.objects.get(id=pk, tags_user=user_profile.user)
+    tag_name = tag.tag
     tag.delete()
-    messages.success(request, 'your tag is delete')
+    messages.success(request, 'your tag "' + tag_name + '" is delete')
     return redirect('/accounts-setting/edit-profile/', request.user)
 
 def change_password(request):
