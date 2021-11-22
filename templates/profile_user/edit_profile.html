@@ -134,7 +134,6 @@
                                         <form action="{% url 'edit-profile' %}" method="POST" enctype="multipart/form-data">
                                             {% csrf_token %}
                                             <div class="form-row">
-
                                                 <!-- title  -->
                                                 {% for experience in user_experience %}
                                                     <div class="form-group col-md-4">
