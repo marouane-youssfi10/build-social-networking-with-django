@@ -88,8 +88,9 @@ class Experience_user(models.Model):
 
 class UserProfile(models.Model):
     STATUS_CHOICES = (
-        ('part time', 'part time'),
-        ('full time', 'full time'),
+        ('Hourly', 'Hourly'),
+        ('Part time', 'Part time'),
+        ('Full time', 'Full time'),
     )
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=100, unique=True)
@@ -104,6 +105,8 @@ class UserProfile(models.Model):
     location_country = models.CharField(blank=True, max_length=100)
     location_city = models.CharField(blank=True, max_length=100)
     skills_tags = models.ManyToManyField(Tags, blank=True, null=True)
+
+
     hourly_work = models.IntegerField(blank=True, null=True)
     type_work = models.CharField(blank=True, choices=STATUS_CHOICES, max_length=50, null=True, default=None)
 
