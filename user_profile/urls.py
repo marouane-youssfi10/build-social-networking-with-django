@@ -11,5 +11,5 @@ urlpatterns = [
     path('accounts-setting/edit-profile/edit_experience/', views.edit_experience_user, name="edit-user-experience"),
 
     path('accounts-setting/edit-profile/<int:pk>/', views.delete_tags_user, name="delete-user-tags"),
-    path('accounts-setting/edit-profile/create_tags/', views.create_tags_user, name="create-user-tags"),
+    path('accounts-setting/edit-profile/create_tags/', views.create_tags_user, name="create-user-tags")
 ]

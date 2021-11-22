@@ -67,7 +67,7 @@ class Account(AbstractBaseUser):
     def has_module_perms(self, add_label):
         return True
 
-class Tags(models.Model):
+class TagsUser(models.Model):
     tags_user = models.ForeignKey(Account, on_delete=models.CASCADE)
     tag = models.CharField(max_length=100, blank=True, null=True)
 
@@ -104,7 +104,7 @@ class UserProfile(models.Model):
     education_description = models.TextField(blank=True, null=True)
     location_country = models.CharField(blank=True, max_length=100)
     location_city = models.CharField(blank=True, max_length=100)
-    skills_tags = models.ManyToManyField(Tags, blank=True, null=True)
+    skills_tags = models.ManyToManyField(TagsUser, blank=True, null=True)
 
 
     hourly_work = models.IntegerField(blank=True, null=True)

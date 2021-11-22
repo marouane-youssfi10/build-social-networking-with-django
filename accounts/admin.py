@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserProfile, Account, Tags, Experience_user
+from .models import UserProfile, Account, TagsUser, Experience_user
 from django.contrib.auth.admin import UserAdmin
 from django.utils.html import format_html
 # Register your models here.
@@ -22,7 +22,7 @@ class AccountAdmin(UserAdmin):
     list_filter = ()
     fieldsets = ()
 
-class TagsAdmin(admin.ModelAdmin):
+class TagsUserAdmin(admin.ModelAdmin):
     list_display = ('id', 'tags_user', 'tag')
 
 class ExperienceUserAdmin(admin.ModelAdmin):
@@ -30,5 +30,5 @@ class ExperienceUserAdmin(admin.ModelAdmin):
 
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(Account, AccountAdmin)
-admin.site.register(Tags, TagsAdmin)
+admin.site.register(TagsUser, TagsUserAdmin)
 admin.site.register(Experience_user, ExperienceUserAdmin)

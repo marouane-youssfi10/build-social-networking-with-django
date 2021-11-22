@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm
-from .models import Account, UserProfile, Experience_user, Tags
+from .models import Account, UserProfile, Experience_user, TagsUser
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -32,7 +32,7 @@ def registerPage(request):
             experience_user.save()
 
             # create user into Tags
-            tags = Tags()
+            tags = TagsUser()
             tags.tags_user_id = user.id
             tags.save()
 

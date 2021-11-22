@@ -1,5 +1,5 @@
 from django import forms
-from accounts.models import Account, UserProfile, Experience_user, Tags
+from accounts.models import Account, UserProfile, Experience_user, TagsUser
 
 
 class ExperienceUserForm(forms.ModelForm):
@@ -14,7 +14,7 @@ class ExperienceUserForm(forms.ModelForm):
 
 class TagsUserForm(forms.ModelForm):
     class Meta:
-        model = Tags
+        model = TagsUser
         fields = ('tag',)
 
     def __init__(self, *args, **kwargs):

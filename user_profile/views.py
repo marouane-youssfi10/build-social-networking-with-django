@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from accounts.models import UserProfile, Experience_user, Tags
+from accounts.models import UserProfile, Experience_user, TagsUser
 from django.contrib.auth.decorators import login_required
 from .forms import UserForm, UserProfileForm, ExperienceUserForm, TagsUserForm
 from django.contrib import messages
@@ -53,7 +53,7 @@ def edit_profile(request):
         user_experience_form = ExperienceUserForm(instance=user_experience)
 
         # get user_tags
-        user_tags = Tags.objects.filter(tags_user=request.user)
+        user_tags = TagsUser.objects.filter(tags_user=request.user)
         user_tags_form = TagsUserForm(instance=request.user)
 
         if request.method == 'POST':
@@ -131,7 +131,7 @@ def create_tags_user(request):
             # check user_form & profile_form is valid
             if user_tags_form.is_valid():
                 # save the information updated
-                tag = Tags.objects.create(
+                tag = TagsUser.objects.create(
                     tags_user=request.user,
                     tag=user_tags_form.cleaned_data['tag']
                 )
@@ -154,7 +154,7 @@ def create_tags_user(request):
 @login_required(login_url='login')
 def delete_tags_user(request, pk):
     user_profile = UserProfile.objects.get(user=request.user)
-    tag = Tags.objects.get(id=pk, tags_user=user_profile.user)
+    tag = TagsUser.objects.get(id=pk, tags_user=user_profile.user)
     tag_name = tag.tag
     tag.delete()
     messages.success(request, 'your tag "' + tag_name + '" is delete')
