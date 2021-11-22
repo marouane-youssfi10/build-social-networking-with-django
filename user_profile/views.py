@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserForm, UserProfileForm, ExperienceUserForm, TagsUserForm
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponse
 # Create your views here.
 
 @login_required(login_url='login')
@@ -54,7 +55,7 @@ def edit_profile(request):
 
         # get user_experience
         user_experience = Experience_user.objects.filter(experience_user=request.user)
-        user_experience_form = ExperienceUserForm(instance=request.user)
+        # user_experience_form = ExperienceUserForm(instance=request.user)
 
         # get user_tags
         user_tags = TagsUser.objects.filter(tags_user=request.user)
@@ -80,45 +81,48 @@ def edit_profile(request):
         context = {
             'user_form': user_form,
             'profile_form': profile_form,
-            'user_experience_form': user_experience_form,
+            # 'user_experience_form': user_experience_form,
             'user_tags_form': user_tags_form,
 
             'user_tags': user_tags,
             'user_experience': user_experience,
             'user_profile': user_profile,
+
             'request_user_profile': request_user_profile,
         }
-
         return render(request, 'profile_user/edit_profile.html', context)
 
     except ObjectDoesNotExist:
         pass
 
 @login_required(login_url='login')
-def edit_experience_user(request):
+def edit_experience_user(request, pk):
     try:
         # get userexperience
-        user_experience = get_object_or_404(Experience_user, experience_user=request.user)
+        user_experience = Experience_user.objects.get(id=pk)
+        print('\nuser_experience = ', user_experience, '-- user_experience.id', user_experience.id,'\n')
         if request.method == 'POST':
+            print('\nif\n')
             # get information of userform & userprofile
             user_experience_form = ExperienceUserForm(request.POST, request.FILES, instance=user_experience)
 
-            # check user_form & profile_form is valid
+            # check user_experience_form
             if user_experience_form.is_valid():
-
                 # save the information updated
                 user_experience_form.save()
+                # user_experience_form.id = pk
+                # user_experience_form.save()
                 messages.success(request, 'Your profile experience has been updated.')
                 return redirect('/accounts-setting/edit-profile/', request.user)
         else:
-            user_experience_form = UserProfileForm(instance=user_experience)
+            user_experience_form = ExperienceUserForm(instance=user_experience)
 
         context = {
             'user_experience_form': user_experience_form,
             'user_experience': user_experience
         }
 
-        return render(request, 'profile_user/edit_profile.html', context)
+        return render(request, 'profile_user/change_experience.html', context)
 
     except ObjectDoesNotExist:
         pass

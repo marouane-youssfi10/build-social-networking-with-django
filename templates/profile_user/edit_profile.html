@@ -111,7 +111,7 @@
                                                 <br>
                                         </form>
                                         {% else %}
-                                            <p>no baby</p>
+                                            <p>no</p>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -131,31 +131,26 @@
                                 <h3>Edit experience</h3>
                                 <div class="user-profile-ov">
                                     {% if request.user == user_profile.user %}
-                                        <form action="{% url 'edit-user-experience' %}" method="POST" enctype="multipart/form-data">
+                                        <form action="{% url 'edit-profile' %}" method="POST" enctype="multipart/form-data">
                                             {% csrf_token %}
                                             <div class="form-row">
+
                                                 <!-- title  -->
-                                                {{ user_experience_form.experince_title }}
-                                                {{ user_experience_form.experince_description }}
-                                                <div class="form-group col-md-12"><hr><hr></div>
-                                                {% for i in user_experience_form %}
-                                                    <div class="form-group col-md-12">
-                                                        <label class="topic_label">title</label>
-                                                        {{ i.experince_title }}
+                                                {% for experience in user_experience %}
+                                                    <div class="form-group col-md-4">
+                                                        <h1>title</h1>
+                                                        <p>{{ experience.experince_title }}</p>
                                                     </div>
 
-                                                    <div class="form-group col-md-12">
-                                                        <label class="topic_label">description</label>
-                                                        {{ i.experince_description }}
+                                                    <div class="form-group col-md-8">
+                                                        <h1>description</h1>
+                                                        <p>{{ experience.experince_description }}</p>
                                                     </div>
+                                                    <a href="{% url 'edit-user-experience' experience.id %}" class="btn btn-primary">
+                                                        Update
+                                                    </a>
                                                     <div class="form-group col-md-12"><hr></div>
-
                                                 {% endfor %}
-
-                                                <!-- save experience informations -->
-                                                <div class="form-group col-md-10">
-                                                    <input type="submit" value="Save" class="btn btn-primary">
-                                                </div>
                                             </div>
                                         </form>
                                     {% else %}

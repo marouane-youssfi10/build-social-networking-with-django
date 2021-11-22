@@ -1,0 +1,8 @@
+<h1>Experience user</h1>
+<hr>
+
+<form method="POST" action="{% url 'edit-user-experience' user_experience.id %}" >
+    {% csrf_token %}
+    {{ user_experience_form.as_p }}
+    <input type="submit" value="Update">
+</form>
