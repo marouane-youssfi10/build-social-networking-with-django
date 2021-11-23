@@ -208,6 +208,9 @@ def delete_tags_user(request, pk):
 
 @login_required(login_url='login')
 def create_links_media(request):
+    # get request user for display photo in his navbar img tag
+    request_user_profile = UserProfile.objects.get(user=request.user)
+
     user_links_media = SocialMediaForm()
     if request.method == 'POST':
         # get information of links_of_social_media
@@ -231,6 +234,7 @@ def create_links_media(request):
 
     context = {
         'user_links_media': user_links_media,
+        'request_user_profile': request_user_profile
     }
     return render(request, 'profile_user/create_link.html', context)
 

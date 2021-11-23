@@ -10,8 +10,6 @@
         </h3>
         {% if user_profile.overview %}
             <p>{{ user_profile.overview }}</p>
-        {% else %}
-            <p>Enter Overview</p>
         {% endif %}
     </div>
 
@@ -43,9 +41,17 @@
 			    <a href="{% url 'edit-profile'  %}"><i class="fa fa-pencil"></i></a>
             {% endif %}
 		</h3>
-        <h4>{{ user_profile.education_title }}</h4>
-        <span>{{ user_profile.full_year }}</span>
-        <p>{{ user_profile.education_description }}</p>
+        {% if user_profile.education_title != None %}
+            <h4>{{ user_profile.education_title }}</h4>
+        {% endif %}
+
+        {% if user_profile.education_year_start != None and education_year_end != None %}
+            <span>{{ user_profile.full_year }}</span>
+        {% endif %}
+
+        {% if user_profile.education_description != None %}
+            <p>{{ user_profile.education_description }}</p>
+        {% endif %}
     </div>
 
     <!-- location -->

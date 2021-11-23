@@ -236,19 +236,23 @@
                                         <form action="{% url 'create-links-media' %}" method="POST" enctype="multipart/form-data">
                                             {% csrf_token %}
                                             <div class="form-row">
+
                                                 <!-- title  -->
                                                 {% for link in user_links_media %}
-                                                    <div class="form-group col-md-3">
-                                                        <p>{{ link.name }}</p>
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <p>{{ link.link }}</p>
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <a href="{% url 'edit-links-media' link.id %}" class="btn btn-primary">Updated</a>
-                                                        <a href="{% url 'delete-links-media' link.id %}" onclick="return confirm('Are you sure you want te delete this link')" class="btn btn-danger">Delete</a>
-                                                    </div>
+                                                    {% if link.name != None %}
+                                                        <div class="form-group col-md-3">
+                                                            <p>{{ link.name }}</p>
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <p>{{ link.link }}</p>
+                                                        </div>
+                                                        <div class="form-group col-md-3">
+                                                            <a href="{% url 'edit-links-media' link.id %}" class="btn btn-primary">Updated</a>
+                                                            <a href="{% url 'delete-links-media' link.id %}" onclick="return confirm('Are you sure you want te delete this link')" class="btn btn-danger">Delete</a>
+                                                        </div>
+                                                    {% endif %}
                                                 {% endfor %}
+
                                             </div>
                                         </form>
                                         <a href="{% url 'create-links-media' %}" class="btn btn-primary">Create</a>
