@@ -193,7 +193,6 @@ def create_tags_user(request):
     }
     return render(request, 'profile_user/edit_profile.html', context)
 
-
 @login_required(login_url='login')
 def delete_tags_user(request, pk):
     user_profile = UserProfile.objects.get(user=request.user)

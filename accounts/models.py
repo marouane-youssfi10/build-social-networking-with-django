@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from user_profile.models import Experience_user, TagsUser, Social_media
 
 class MyAccountManager(BaseUserManager):
 
@@ -67,26 +68,6 @@ class Account(AbstractBaseUser):
     def has_module_perms(self, add_label):
         return True
 
-
-class TagsUser(models.Model):
-    tags_user = models.ForeignKey(Account, on_delete=models.CASCADE)
-    tag = models.CharField(max_length=100, blank=True, null=True)
-
-    class Meta:
-        verbose_name = 'tag'
-        verbose_name_plural = 'tagUsers'
-
-    def __str__(self):
-        return self.tag if self.tag else ''
-
-class Experience_user(models.Model):
-    experience_user = models.ForeignKey(Account, on_delete=models.CASCADE)
-    experince_title = models.CharField(max_length=100, null=True, blank=True)
-    experince_description = models.TextField(blank=True, null=True)
-
-    def __str__(self):
-        return self.experince_title if self.experince_title else ''
-
 class UserProfile(models.Model):
     STATUS_CHOICES = (
         ('Hourly', 'Hourly'),
@@ -109,6 +90,10 @@ class UserProfile(models.Model):
 
     hourly_work = models.IntegerField(blank=True, null=True)
     type_work = models.CharField(blank=True, choices=STATUS_CHOICES, max_length=50, null=True, default=None)
+
+    links_media = models.ForeignKey(Social_media, on_delete=models.CASCADE, blank=True)
+
+
 
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)

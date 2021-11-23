@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm
-from .models import Account, UserProfile, Experience_user, TagsUser
+from .models import Account, UserProfile
+from user_profile.models import Experience_user, TagsUser, Social_media
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -31,6 +32,11 @@ def registerPage(request):
             experience_user.experience_user_id = user.id
             experience_user.save()
 
+            # create user into Social_media
+            social_media = Social_media()
+            social_media.social_media_user_id = user.id
+            social_media.save()
+
             # create user into Tags
             tags = TagsUser()
             tags.tags_user_id = user.id
@@ -40,9 +46,11 @@ def registerPage(request):
             user_profile = UserProfile.objects.create(
                 user=user, slug=user.id,
                 photo_profile='avatar/avatar.png',
-                experience=experience_user
+                experience=experience_user,
+                links_media=social_media,
                     )
             user_profile.save()
+
             messages.success(request, 'Congratulations! Your account is activated.')
             return redirect('login')
         else:
