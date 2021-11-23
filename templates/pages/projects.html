@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 <div class="search-sec">
         <div class="container">
@@ -135,7 +135,7 @@
 													<img src="{{ project.user_profile.photo_profile.url }}" width="50" height="50">
 													<div class="usy-name">
 														<h3>{{ project.user_profile }}</h3>
-														<span><img src="images/clock.png" alt="">{{ project.created_project | timesince }} ago</span>
+														<span><img src="{% static 'images/clock.png' %}" alt="">{{ project.created_project | timesince }} ago</span>
 													</div>
 												</div>
 												<div class="ed-opts">
@@ -151,8 +151,8 @@
 											</div>
 											<div class="epi-sec">
 												<ul class="descp">
-													<li><img src="images/icon8.png" alt=""><span>Front End Developer</span></li>
-													<li><img src="images/icon9.png" alt=""><span>India</span></li>
+													<li><img src="{% static 'images/icon8.png' %}" alt=""><span>Front End Developer</span></li>
+													<li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ project.location }}</span></li>
 												</ul>
 												<ul class="bk-links">
 													<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
@@ -179,10 +179,10 @@
 												<ul class="like-com">
 													<li>
 														<a href="#" title="" class="active"><i class="la la-heart"></i> Like</a>
-														<img src="images/liked-img.png" alt="">
+														<img src="{% static 'images/liked-img.png' %}" alt="">
 														<span>25</span>
 													</li>
-													<li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
+													<li><a href="#" title="" class="com"><img src="{% static 'images/com.png' %}" alt=""> Comment 15</a></li>
 												</ul>
 												<a><i class="la la-eye"></i>Views 50</a>
 											</div>
@@ -194,7 +194,7 @@
 							<div class="col-lg-3">
 								<div class="right-sidebar">
 									<div class="widget widget-about">
-										<img src="images/wd-logo.png" alt="">
+										<img src="{% static 'images/wd-logo.png' %}" alt="">
 										<h3>Track Time on Workwise</h3>
 										<span>Pay only for the Hours worked</span>
 										<div class="sign_link">

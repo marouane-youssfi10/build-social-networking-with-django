@@ -17,6 +17,7 @@ class PostProject(models.Model):
     # user = models.OneToOneField(Account, on_delete=models.CASCADE)
     user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     name_project = models.CharField(max_length=100, blank=False, null=False)
+    location = models.CharField(max_length=100, blank=False, null=False)
     start_price = models.IntegerField(blank=False, null=False)
     end_price = models.IntegerField(blank=False, null=False)
     description_project = models.TextField(blank=False, null=False)
