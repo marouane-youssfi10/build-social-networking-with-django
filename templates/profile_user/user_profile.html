@@ -36,10 +36,12 @@
 										</div><!--user_pro_status end-->
 										<ul class="social_links">
 											{% for link in links_media %}
-												{% if link.name == 'facebook' %}
-													<li><a href="{{link.link}}" title=""><i class="fa fa-{{link.name}}-square"></i> {{ link.link }}</a></li>
-												{% else %}
-													<li><a href="{{link.link}}" title=""><i class="fa fa-{{link.name}}"></i> {{ link.link }}</a></li>
+												{% if link.name != None %}
+													{% if link.name == 'facebook' %}
+														<li><a href="{{link.link}}" title=""><i class="fa fa-{{link.name}}-square"></i> {{ link.link }}</a></li>
+													{% else %}
+														<li><a href="{{link.link}}" title=""><i class="fa fa-{{link.name}}"></i> {{ link.link }}</a></li>
+													{% endif %}
 												{% endif %}
 											{% endfor %}
 										</ul>

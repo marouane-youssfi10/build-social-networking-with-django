@@ -37,8 +37,8 @@
 														<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
 															<h4>{{ user_profile.user.full_name }}</h4>
 														</a>
-														{% if user_profile.experience.experince_title %}
-															<span class="col-0">{{ user_profile.experience.experince_title }}</span>
+														{% if user_profile.title %}
+															<span class="col-0">{{ user_profile.title }}</span>
 														{% endif %}
 													</div>
 													<span><i class="la la-plus"></i></span>
@@ -61,7 +61,7 @@
 									<div class="post-st">
 										<ul>
 											<li><a class="post_project" href="#" title="">Post a Project</a></li>
-											<li><a class="post-jb active" href="#" title="">Post a Job</a></li>
+											<li><a class="post-jb" href="#" title="">Post a Job</a></li>
 										</ul>
 									</div><!--post-st end-->
 								</div><!--post-topbar end-->
