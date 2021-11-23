@@ -230,6 +230,34 @@ def create_links_media(request):
     }
     return render(request, 'profile_user/create_link.html', context)
 
+@login_required(login_url='login')
+def edit_links_media(request, pk):
+    # get request user for display photo in his navbar img tag
+    request_user_profile = UserProfile.objects.get(user=request.user)
+
+    # get link of your social network or your website
+    user_links_media = Social_media.objects.get(id=pk)
+    if request.method == 'POST':
+        print('\nif\n')
+        # get information of userform & userprofile
+        link_media_form = SocialMediaForm(request.POST, request.FILES, instance=user_links_media)
+
+        # check user_experience_form
+        if link_media_form.is_valid():
+            # save the information updated
+            link_media_form.save()
+            messages.success(request, 'Your link has been updated')
+            return redirect('/accounts-setting/edit-profile/', request.user)
+    else:
+        link_media_form = SocialMediaForm(instance=user_links_media)
+
+    context = {
+        'link_media_form': link_media_form,
+        'user_links_media': user_links_media,
+        'request_user_profile': request_user_profile
+    }
+
+    return render(request, 'profile_user/edit_link.html', context)
 def change_password(request):
     request_user_profile = UserProfile.objects.get(user=request.user)
 
