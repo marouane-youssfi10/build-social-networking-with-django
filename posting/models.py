@@ -22,11 +22,15 @@ class PostProject(models.Model):
     description_project = models.TextField(blank=False, null=False)
 
     skills_tags_projects = models.ManyToManyField(TagsProjects, blank=True)
-  # skills_tags_user     = models.ManyToManyField(TagsUser    , blank=True)
+
+    updated_project = models.DateTimeField(auto_now=True)
+    created_project = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = 'project'
         verbose_name_plural = 'Projects'
+        ordering = ['-updated_project', '-created_project']
+
 
     def __str__(self):
         return self.name_project
