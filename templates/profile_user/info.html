@@ -25,13 +25,10 @@
             {% endif %}
         </h3>
         {% for experience in user_experience %}
-            <h4>
-                {% if user_profile.experience.experince_title %}
+            {% if experience.experince_title != None %}
+                <h4>
                     {{ experience.experince_title }}
-
-                {% endif %}
-            </h4>
-            {% if user_profile.experience.experince_description %}
+                </h4>
                 <p>{{ experience.experince_description }}</p>
             {% endif %}
         {% endfor %}

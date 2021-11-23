@@ -12,6 +12,7 @@ class ExperienceUserForm(forms.ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
 
+
 class TagsUserForm(forms.ModelForm):
     class Meta:
         model = TagsUser
@@ -21,6 +22,7 @@ class TagsUserForm(forms.ModelForm):
         super(TagsUserForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
+            self.fields[field].required = True
 
 class UserForm(forms.ModelForm):
     class Meta:
