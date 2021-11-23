@@ -144,17 +144,17 @@
                                                 <!-- title  -->
                                                 {% for experience in user_experience %}
                                                     {% if experience.experince_title != None %}
-                                                        <div class="form-group col-md-4">
+                                                        <div class="form-group col-md-2">
                                                             <h1>title</h1>
                                                             <p>{{ experience.experince_title }}</p>
                                                         </div>
 
-                                                        <div class="form-group col-md-8">
+                                                        <div class="form-group col-md-7">
                                                             <h1>description</h1>
                                                             <p>{{ experience.experince_description }}</p>
                                                         </div>
 
-                                                        <div class="form-group col-md-8">
+                                                        <div class="form-group col-md-3">
                                                             <a href="{% url 'delete-user-experience' experience.id %}" onclick="return confirm('Are you sure')" class="btn btn-danger">Delete</a>
                                                             <a href="{% url 'edit-user-experience' experience.id %}" class="btn btn-primary">Update</a>
                                                         </div>
@@ -237,18 +237,24 @@
                                             {% csrf_token %}
                                             <div class="form-row">
                                                 <!-- title  -->
-                                                <div class="form-group col-md-12">
-
-                                                </div>
-
+                                                {% for i in user_links_media %}
+                                                    <div class="form-group col-md-3">
+                                                        <p>{{ i.name }}</p>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <p>{{ i.link }}</p>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <a href="" class="btn btn-primary">Updated</a>
+                                                        <a href="" class="btn btn-danger">Delete</a>
+                                                    </div>
+                                                {% endfor %}
                                                 <!-- save experience informations -->
                                                 <div class="form-group col-md-10">
                                                     <input type="submit" value="Save" class="btn btn-primary">
                                                 </div>
                                             </div>
                                         </form>
-                                    {% else %}
-                                        <p>no baby</p>
                                     {% endif %}
                                 </div>
                             </div>

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from accounts.models import UserProfile, Experience_user, TagsUser
+from accounts.models import UserProfile, Experience_user, TagsUser, Social_media
 from django.contrib.auth.decorators import login_required
-from .forms import UserForm, UserProfileForm, ExperienceUserForm, TagsUserForm
+from .forms import UserForm, UserProfileForm, ExperienceUserForm, TagsUserForm, SocialMediaForm
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
@@ -62,13 +62,12 @@ def edit_profile(request):
         # get user_experience
         user_experience = Experience_user.objects.filter(experience_user=request.user)
 
-
         # get user_tags
         user_tags = TagsUser.objects.filter(tags_user=request.user)
         user_tags_form = TagsUserForm(instance=request.user)
 
-        for i in user_tags:
-            print('\nuser_tags = ', i, '\n')
+        # get link social media
+        user_links_media = Social_media.objects.filter(social_media_user=request.user)
 
         if request.method == 'POST':
             # get information of userform & userprofile
@@ -95,6 +94,7 @@ def edit_profile(request):
             'user_tags': user_tags,
             'user_experience': user_experience,
             'user_profile': user_profile,
+            'user_links_media': user_links_media,
 
             'request_user_profile': request_user_profile,
         }
@@ -206,7 +206,29 @@ def delete_tags_user(request, pk):
 
 @login_required(login_url='login')
 def create_links_media(request):
-    pass
+    if request.method == 'POST':
+        # get information of links_of_social_media
+        user_links_media = SocialMediaForm(request.POST, request.FILES, instance=request.user)
+
+        # check user_form & profile_form is valid
+        if user_links_media.is_valid():
+            # save the information updated
+            link = Social_media.objects.create(
+                social_media_user=request.user,
+                name=user_links_media.cleaned_data['name'],
+                link=user_links_media.cleaned_data['link']
+            )
+            link_name = link.name
+            link.save()
+            messages.success(request, 'your link "' + link_name + '" has been created')
+            return redirect('/accounts-setting/edit-profile/', request.user)
+    else:
+        user_links_media = SocialMediaForm(request.FILES, instance=request.user)
+
+    context = {
+        'user_links_media': user_links_media,
+    }
+    return render(request, 'profile_user/edit_profile.html', context)
 
 def change_password(request):
     request_user_profile = UserProfile.objects.get(user=request.user)
