@@ -132,7 +132,7 @@ def edit_experience_user(request, pk):
             'request_user_profile': request_user_profile
         }
 
-        return render(request, 'profile_user/change_experience.html', context)
+        return render(request, 'profile_user/edit_experience.html', context)
 
     except ObjectDoesNotExist:
         pass
