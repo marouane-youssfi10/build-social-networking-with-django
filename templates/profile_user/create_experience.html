@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container col-lg-6">
+        <form method="POST" action="{% url 'create-user-experience' %}">
+            {% csrf_token %}
+            <label class="topic_label">title</label>
+            {{ form_experience.experince_title }}
+
+            <label class="topic_label">experience</label>
+            {{ form_experience.experince_description }}<br>
+            <input type="submit" value="create" class="btn btn-primary">
+            <br><br><br><br><br><br><br><br>
+        </form>
+    </div>
+{% endblock content %}

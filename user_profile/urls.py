@@ -8,7 +8,10 @@ urlpatterns = [
 
     path('accounts-setting/change-password/', views.change_password, name="change-password"),
     path('accounts-setting/edit-profile/', views.edit_profile, name="edit-profile"),
+
     path('accounts-setting/edit-profile/<int:pk>/', views.edit_experience_user, name="edit-user-experience"),
+    path('accounts-setting/edit-profile/create_experience/', views.create_experience_user, name="create-user-experience"),
+    path('accounts-setting/edit-profile/delete_experience/<int:pk>/', views.delete_experience_user, name="delete-user-experience"),
 
     path('accounts-setting/edit-profile/?delete-tag=<int:pk>/', views.delete_tags_user, name="delete-user-tags"),
     path('accounts-setting/edit-profile/create_tags/', views.create_tags_user, name="create-user-tags")

@@ -43,7 +43,7 @@
         <h3>
 			<a class="ed-box-open">Education</a>
             {% if request.user == user_profile.user %}
-			    <a href="{% url 'edit-profile'  %}}"><i class="fa fa-pencil"></i></a>
+			    <a href="{% url 'edit-profile'  %}"><i class="fa fa-pencil"></i></a>
             {% endif %}
 		</h3>
         <h4>{{ user_profile.education_title }}</h4>

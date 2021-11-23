@@ -64,7 +64,6 @@ def edit_profile(request):
 
         # get user_experience
         user_experience = Experience_user.objects.filter(experience_user=request.user)
-        # user_experience_form = ExperienceUserForm(instance=request.user)
 
         # get user_tags
         user_tags = TagsUser.objects.filter(tags_user=request.user)
@@ -90,7 +89,6 @@ def edit_profile(request):
         context = {
             'user_form': user_form,
             'profile_form': profile_form,
-            # 'user_experience_form': user_experience_form,
             'user_tags_form': user_tags_form,
 
             'user_tags': user_tags,
@@ -111,7 +109,6 @@ def edit_experience_user(request, pk):
     try:
         # get userexperience
         user_experience = Experience_user.objects.get(id=pk)
-        print('\nuser_experience = ', user_experience, '-- user_experience.id', user_experience.id,'\n')
         if request.method == 'POST':
             print('\nif\n')
             # get information of userform & userprofile
@@ -121,9 +118,7 @@ def edit_experience_user(request, pk):
             if user_experience_form.is_valid():
                 # save the information updated
                 user_experience_form.save()
-                # user_experience_form.id = pk
-                # user_experience_form.save()
-                messages.success(request, 'Your profile experience has been updated.')
+                messages.success(request, 'Your profile experience has been updated')
                 return redirect('/accounts-setting/edit-profile/', request.user)
         else:
             user_experience_form = ExperienceUserForm(instance=user_experience)
@@ -140,38 +135,64 @@ def edit_experience_user(request, pk):
         pass
 
 @login_required(login_url='login')
+def create_experience_user(request):
+    form_experience = ExperienceUserForm()
+    if request.method == 'POST':
+        form_experience = ExperienceUserForm(request.POST)
+        if form_experience.is_valid():
+            experince_title = form_experience.cleaned_data['experince_title']
+            experince_description = form_experience.cleaned_data['experince_description']
+
+            form_experience = Experience_user.objects.create(
+                experience_user=request.user,
+                experince_title=experince_title,
+                experince_description=experince_description
+            )
+            form_experience.save()
+            messages.success(request, 'Your profile experience has been updated')
+            return redirect('/accounts-setting/edit-profile/', request.user)
+    context = {
+        'form_experience': form_experience
+    }
+    return render(request, 'profile_user/create_experience.html', context)
+
+@login_required(login_url='login')
+def delete_experience_user(request, pk):
+    experience = Experience_user.objects.get(id=pk)
+    experience.delete()
+    messages.success(request, 'your experience is deleted')
+    return redirect('/accounts-setting/edit-profile/', request.user)
+
+@login_required(login_url='login')
 def create_tags_user(request):
-    try:
-        # get user_profile to add new tag
-        user_profile = UserProfile.objects.get(user=request.user)
+    # get user_profile to add new tag
+    user_profile = UserProfile.objects.get(user=request.user)
 
-        if request.method == 'POST':
-            # get information of usertags
-            user_tags_form = TagsUserForm(request.POST, request.FILES, instance=request.user)
+    if request.method == 'POST':
+        # get information of usertags
+        user_tags_form = TagsUserForm(request.POST, request.FILES, instance=request.user)
 
-            print('\nuser_tags_form.is_valid() = ', user_tags_form.is_valid(), '\n')
-            # check user_form & profile_form is valid
-            if user_tags_form.is_valid():
-                # save the information updated
-                tag = TagsUser.objects.create(
-                    tags_user=request.user,
-                    tag=user_tags_form.cleaned_data['tag']
-                )
-                tag_name = tag.tag
-                user_profile.skills_tags_user.add(tag)
-                tag.save()
-                messages.success(request, 'your tag "'+ tag_name + '" has been created')
-                return redirect('/accounts-setting/edit-profile/', request.user)
-        else:
-            user_tags_form = TagsUserForm(instance=request.user)
+        print('\nuser_tags_form.is_valid() = ', user_tags_form.is_valid(), '\n')
+        # check user_form & profile_form is valid
+        if user_tags_form.is_valid():
+            # save the information updated
+            tag = TagsUser.objects.create(
+                tags_user=request.user,
+                tag=user_tags_form.cleaned_data['tag']
+            )
+            tag_name = tag.tag
+            user_profile.skills_tags_user.add(tag)
+            tag.save()
+            messages.success(request, 'your tag "'+ tag_name + '" has been created')
+            return redirect('/accounts-setting/edit-profile/', request.user)
+    else:
+        user_tags_form = TagsUserForm(instance=request.user)
 
-        context = {
-            'user_tags_form': user_tags_form,
-        }
-        return render(request, 'profile_user/edit_profile.html', context)
+    context = {
+        'user_tags_form': user_tags_form,
+    }
+    return render(request, 'profile_user/edit_profile.html', context)
 
-    except ObjectDoesNotExist:
-        pass
 
 @login_required(login_url='login')
 def delete_tags_user(request, pk):

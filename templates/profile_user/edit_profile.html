@@ -136,24 +136,27 @@
                                             <div class="form-row">
                                                 <!-- title  -->
                                                 {% for experience in user_experience %}
-                                                    <div class="form-group col-md-4">
-                                                        <h1>title</h1>
-                                                        <p>{{ experience.experince_title }}</p>
-                                                    </div>
+                                                    {% if experience.experince_title != None %}
+                                                        <div class="form-group col-md-4">
+                                                            <h1>title</h1>
+                                                            <p>{{ experience.experince_title }}</p>
+                                                        </div>
 
-                                                    <div class="form-group col-md-8">
-                                                        <h1>description</h1>
-                                                        <p>{{ experience.experince_description }}</p>
-                                                    </div>
-                                                    <a href="{% url 'edit-user-experience' experience.id %}" class="btn btn-primary">
-                                                        Update
-                                                    </a>
-                                                    <div class="form-group col-md-12"><hr></div>
+                                                        <div class="form-group col-md-8">
+                                                            <h1>description</h1>
+                                                            <p>{{ experience.experince_description }}</p>
+                                                        </div>
+
+                                                        <div class="form-group col-md-8">
+                                                            <a href="{% url 'delete-user-experience' experience.id %}" class="btn btn-danger">Delete</a>
+                                                            <a href="{% url 'edit-user-experience' experience.id %}" class="btn btn-primary">Update</a>
+                                                        </div>
+                                                        <div class="form-group col-md-12"><hr></div>
+                                                    {% endif %}
                                                 {% endfor %}
+                                                <a href="{% url 'create-user-experience' %}" class="btn btn-primary">Create</a>
                                             </div>
                                         </form>
-                                    {% else %}
-                                        <p>no baby</p>
                                     {% endif %}
                                 </div>
                             </div>
