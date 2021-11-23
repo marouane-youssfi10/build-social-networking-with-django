@@ -204,6 +204,10 @@ def delete_tags_user(request, pk):
     messages.success(request, 'your tag "' + tag_name + '" is delete')
     return redirect('/accounts-setting/edit-profile/', request.user)
 
+@login_required(login_url='login')
+def create_links_media(request):
+    pass
+
 def change_password(request):
     request_user_profile = UserProfile.objects.get(user=request.user)
 

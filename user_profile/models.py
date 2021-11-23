@@ -20,8 +20,16 @@ class Experience_user(models.Model):
         return self.experince_title if self.experince_title else ''
 
 class Social_media(models.Model):
+    STATUS_CHOICES = (
+        ('facebook', 'facebook'),
+        ('linkedin', 'linkedin'),
+        ('instagram', 'instagram'),
+        ('youtube', 'youtube'),
+        ('twitter', 'youtube'),
+    )
+
     social_media_user = models.ForeignKey("accounts.Account", on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, null=True, blank=True)
+    name = models.CharField(max_length=100, null=True, blank=True, choices=STATUS_CHOICES, default=None)
     link = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
