@@ -40,11 +40,15 @@ def user_profile(request, slug_user, pk):
     # get currently user profile
     user_profile = UserProfile.objects.get(user__first_name=slug_user)
 
+    # get all links of social networking
+    links_media = Social_media.objects.filter(social_media_user=user_profile.user)[0:5]
+
     context = {
         'user_profile': user_profile,
         'request_user_profile': request_user_profile,
         'user_experience': user_experience,
-        'all_user_profile': all_user_profile
+        'all_user_profile': all_user_profile,
+        'links_media': links_media
     }
     return render(request, 'profile_user/user_profile.html', context)
 
@@ -258,6 +262,17 @@ def edit_links_media(request, pk):
     }
 
     return render(request, 'profile_user/edit_link.html', context)
+
+@login_required(login_url='login')
+def delete_links_media(request, pk):
+    user_profile = UserProfile.objects.get(user=request.user)
+    links = Social_media.objects.get(id=pk, social_media_user=user_profile.user)
+
+    link_name = links.link
+    links.delete()
+    messages.success(request, 'your link "' + link_name + '" is delete')
+    return redirect('/accounts-setting/edit-profile/', request.user)
+
 def change_password(request):
     request_user_profile = UserProfile.objects.get(user=request.user)
 
