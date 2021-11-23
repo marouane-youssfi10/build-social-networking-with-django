@@ -237,24 +237,21 @@
                                             {% csrf_token %}
                                             <div class="form-row">
                                                 <!-- title  -->
-                                                {% for i in user_links_media %}
+                                                {% for link in user_links_media %}
                                                     <div class="form-group col-md-3">
-                                                        <p>{{ i.name }}</p>
+                                                        <p>{{ link.name }}</p>
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <p>{{ i.link }}</p>
+                                                        <p>{{ link.link }}</p>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <a href="" class="btn btn-primary">Updated</a>
                                                         <a href="" class="btn btn-danger">Delete</a>
                                                     </div>
                                                 {% endfor %}
-                                                <!-- save experience informations -->
-                                                <div class="form-group col-md-10">
-                                                    <input type="submit" value="Save" class="btn btn-primary">
-                                                </div>
                                             </div>
                                         </form>
+                                        <a href="{% url 'create-links-media' %}" class="btn btn-primary">Create</a>
                                     {% endif %}
                                 </div>
                             </div>

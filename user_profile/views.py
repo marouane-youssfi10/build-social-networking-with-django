@@ -34,8 +34,6 @@ def user_profile(request, slug_user, pk):
     # get all user_profile for Suggestions div
     all_user_profile = UserProfile.objects.all()[0:5]
 
-    print('\nslug_user = ', slug_user, '\n')
-    print('\nslug_user = ', pk, '\n')
     # get all experience to request.user
     user_experience = Experience_user.objects.filter(experience_user=pk)
 
@@ -96,7 +94,7 @@ def edit_profile(request):
             'user_profile': user_profile,
             'user_links_media': user_links_media,
 
-            'request_user_profile': request_user_profile,
+            'request_user_profile': request_user_profile
         }
         return render(request, 'profile_user/edit_profile.html', context)
 
@@ -206,29 +204,31 @@ def delete_tags_user(request, pk):
 
 @login_required(login_url='login')
 def create_links_media(request):
+    user_links_media = SocialMediaForm()
     if request.method == 'POST':
         # get information of links_of_social_media
-        user_links_media = SocialMediaForm(request.POST, request.FILES, instance=request.user)
+        social_media_form = SocialMediaForm(request.POST)
 
         # check user_form & profile_form is valid
-        if user_links_media.is_valid():
+        if social_media_form.is_valid():
+            name = social_media_form.cleaned_data['name']
+            link = social_media_form.cleaned_data['link']
+
             # save the information updated
             link = Social_media.objects.create(
                 social_media_user=request.user,
-                name=user_links_media.cleaned_data['name'],
-                link=user_links_media.cleaned_data['link']
+                name=name, link=link
             )
-            link_name = link.name
+            # link_name = link.name
             link.save()
-            messages.success(request, 'your link "' + link_name + '" has been created')
+            # messages.success(request, 'your link "' + link_name + '" has been created')
+            messages.success(request, 'your link has been created')
             return redirect('/accounts-setting/edit-profile/', request.user)
-    else:
-        user_links_media = SocialMediaForm(request.FILES, instance=request.user)
 
     context = {
         'user_links_media': user_links_media,
     }
-    return render(request, 'profile_user/edit_profile.html', context)
+    return render(request, 'profile_user/create_link.html', context)
 
 def change_password(request):
     request_user_profile = UserProfile.objects.get(user=request.user)
