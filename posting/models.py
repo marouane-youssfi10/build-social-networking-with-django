@@ -14,7 +14,7 @@ class TagsProjects(models.Model):
         return self.tag if self.tag else ''
 
 class PostProject(models.Model):
-    user = models.OneToOneField(Account, on_delete=models.CASCADE)
+    # user = models.OneToOneField(Account, on_delete=models.CASCADE)
     user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     name_project = models.CharField(max_length=100, blank=False, null=False)
     start_price = models.IntegerField(blank=False, null=False)

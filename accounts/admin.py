@@ -22,11 +22,5 @@ class AccountAdmin(UserAdmin):
     list_filter = ()
     fieldsets = ()
 
-class TagsUserAdmin(admin.ModelAdmin):
-    list_display = ('id', 'tags_user', 'tag')
-
-class ExperienceUserAdmin(admin.ModelAdmin):
-    list_display = ('id', 'experience_user', 'experince_title', 'experince_description')
-
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(Account, AccountAdmin)

@@ -35,13 +35,10 @@ def user_profile(request, slug_user, pk):
     all_user_profile = UserProfile.objects.all()[0:5]
 
     print('\nslug_user = ', slug_user, '\n')
+    print('\nslug_user = ', pk, '\n')
     # get all experience to request.user
     user_experience = Experience_user.objects.filter(experience_user=pk)
 
-    for i in user_experience:
-        print('ok')
-        print('experince_title = ', i.experince_title)
-        print('experince_description = ', i.experince_description, '\n')
     # get currently user profile
     user_profile = UserProfile.objects.get(user__first_name=slug_user)
 
@@ -65,9 +62,13 @@ def edit_profile(request):
         # get user_experience
         user_experience = Experience_user.objects.filter(experience_user=request.user)
 
+
         # get user_tags
         user_tags = TagsUser.objects.filter(tags_user=request.user)
         user_tags_form = TagsUserForm(instance=request.user)
+
+        for i in user_tags:
+            print('\nuser_tags = ', i, '\n')
 
         if request.method == 'POST':
             # get information of userform & userprofile
@@ -197,6 +198,7 @@ def create_tags_user(request):
 def delete_tags_user(request, pk):
     user_profile = UserProfile.objects.get(user=request.user)
     tag = TagsUser.objects.get(id=pk, tags_user=user_profile.user)
+
     tag_name = tag.tag
     tag.delete()
     messages.success(request, 'your tag "' + tag_name + '" is delete')
