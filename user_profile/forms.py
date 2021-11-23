@@ -1,5 +1,5 @@
 from django import forms
-from accounts.models import Account, UserProfile, Experience_user, TagsUser
+from accounts.models import Account, UserProfile, Experience_user, TagsUser, Social_media
 
 
 class ExperienceUserForm(forms.ModelForm):
@@ -23,6 +23,16 @@ class TagsUserForm(forms.ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].required = True
+
+class SocialMediaForm(forms.ModelForm):
+    class Meta:
+        model = Social_media
+        fields = ('name', 'link')
+
+    def __init__(self, *args, **kwargs):
+        super(SocialMediaForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'form-control'
 
 class UserForm(forms.ModelForm):
     class Meta:
