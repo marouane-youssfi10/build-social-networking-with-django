@@ -25,7 +25,7 @@ class Social_media(models.Model):
         ('linkedin', 'linkedin'),
         ('instagram', 'instagram'),
         ('youtube', 'youtube'),
-        ('twitter', 'youtube'),
+        ('twitter', 'twitter'),
     )
 
     social_media_user = models.ForeignKey("accounts.Account", on_delete=models.CASCADE)
