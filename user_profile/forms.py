@@ -36,9 +36,10 @@ class SocialMediaForm(forms.ModelForm):
             self.fields[field].required = True
 
 class UserForm(forms.ModelForm):
+    photo_profile = forms.ImageField(required=False, error_messages={'invalid': "Image files only"}, widget=forms.FileInput)
     class Meta:
         model = Account
-        fields = ('first_name', 'last_name', 'phone_number')
+        fields = ('first_name', 'last_name', 'phone_number', 'photo_profile')
 
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
@@ -46,11 +47,10 @@ class UserForm(forms.ModelForm):
             self.fields[field].widget.attrs['class'] = 'form-control'
 
 class UserProfileForm(forms.ModelForm):
-    photo_profile = forms.ImageField(required=False, error_messages={'invalid': "Image files only"}, widget=forms.FileInput)
     photo_cover = forms.ImageField(required=False, error_messages={'invalid': "Image files only"}, widget=forms.FileInput)
     class Meta:
         model = UserProfile
-        fields = ('overview', 'title', 'photo_profile', 'photo_cover', 'education_title', 'education_year_start',
+        fields = ('overview', 'title', 'photo_cover', 'education_title', 'education_year_start',
                   'education_year_end', 'education_description', 'location_country', 'location_city',
                   'hourly_work', 'type_work')
 
