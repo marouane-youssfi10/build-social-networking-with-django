@@ -130,7 +130,9 @@
 								<div class="main-ws-sec">
 									<div class="posts-section">
                                         {% for user_profile in all_user_profile %}
-										    <div class="post-bar">
+                                            <!-- check if the user has the title & overview & country & hourly work or not -->
+                                            {% if user_profile.title and user_profile.overview and user_profile.location_country and user_profile.hourly_work %}
+										        <div class="post-bar">
 											<div class="post_topbar">
 												<div class="usy-dt">
 													<img src="{{ user_profile.user.photo_profile.url }}" width="50" height="50">
@@ -187,6 +189,7 @@
 												<a><i class="la la-eye"></i>Views 50</a>
 											</div>
 										</div>
+                                            {% endif %}
                                         {% endfor %}
 									</div><!--posts-section end-->
 								</div><!--main-ws-sec end-->
@@ -208,15 +211,19 @@
 										</div>
 										<div class="jobs-list">
                                             {% for user_profile in all_user_profile %}
-											    <div class="job-info">
-												<div class="job-details">
-													<h3>{{ user_profile.title }}</h3>
-													<p>{{ user_profile.overview | truncatechars:50 }}</p>
-												</div>
-												<div class="hr-rate">
-													<span>${{ user_profile.hourly_work }}/hr</span>
-												</div>
-											</div><!--job-info end-->
+                                                {% if request.user != user_profile.user %}<!-- display all user without request.user-->
+                                                    <div class="job-info">
+                                                        <div class="job-details">
+                                                            <a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
+                                                                <h3>{{ user_profile.title }}</h3>
+                                                            </a>
+                                                            <p>{{ user_profile.overview | truncatechars:50 }}</p>
+                                                        </div>
+                                                        <div class="hr-rate">
+                                                            <span>${{ user_profile.hourly_work }}/hr</span>
+                                                        </div>
+                                                    </div><!--job-info end-->
+                                                {% endif %}
                                             {% endfor %}
 										</div><!--jobs-list end-->
 									</div><!--widget-jobs end-->

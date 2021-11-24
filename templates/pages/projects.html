@@ -211,15 +211,20 @@
 										</div>
 										<div class="jobs-list">
 											{% for user_profile in all_user_profile %}
-												<div class="job-info">
-												<div class="job-details">
-													<h3>{{ user_profile.title }}</h3>
-													<p>{{ user_profile.overview | truncatechars:50 }}</p>
-												</div>
-												<div class="hr-rate">
-													<span>${{ user_profile.hourly_work }}/hr</span>
-												</div>
-											</div><!--job-info end-->
+												{% if request.user !=  user_profile.user %}
+													<div class="job-info">
+														<div class="job-details">
+															<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
+																<h3>{{ user_profile.title }}</h3>
+															</a>
+															<p>{{ user_profile.overview | truncatechars:50 }}</p>
+
+														</div>
+														<div class="hr-rate">
+															<span>${{ user_profile.hourly_work }}/hr</span>
+														</div>
+													</div><!--job-info end-->
+												{% endif %}
 											{% endfor %}
 										</div><!--jobs-list end-->
 									</div><!--widget-jobs end-->

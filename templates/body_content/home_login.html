@@ -16,7 +16,7 @@
 											</div>
 										</div><!--username-dt end-->
 										<div class="user-specs">
-											<h3>{{ user_profile.user.first_name}}</h3>
+											<h3>{{ user_profile.user.full_name}}</h3>
 											{% if user_profile.title %}
 												<span>{{ user_profile.title }}</span>
 											{% endif %}
@@ -70,7 +70,8 @@
 
 									<!-- post all profile user -->
 									{% for user_profile in all_user_profile %}
-										<div class="post-bar">
+										{% if user_profile.title and user_profile.overview and user_profile.location_country and user_profile.hourly_work %}
+											<div class="post-bar">
 										<div class="post_topbar">
 											<div class="usy-dt">
 												<img src="{{ user_profile.user.photo_profile.url }}" width="50" height="50">
@@ -134,6 +135,7 @@
 											<a><i class="la la-eye"></i>Views 50</a>
 										</div>
 									</div>
+										{% endif %}
 										<!--post-bar end-->
 									{% endfor %}
 
@@ -276,18 +278,25 @@
 										<h3>Top Jobs</h3>
 										<i class="la la-ellipsis-v"></i>
 									</div>
+									<!-- display all user profile into Top Jobs -->
 									{% for user_profile in all_user_profile %}
-										<div class="jobs-list">
-											<div class="job-info">
-												<div class="job-details">
-													<h3>{{ user_profile.title }}</h3>
-													<p>{{ user_profile.overview | truncatechars:50 }}</p>
-												</div>
-												<div class="hr-rate">
-													<span>${{ user_profile.hourly_work }}/hr</span>
-												</div>
-											</div><!--job-info end-->
-										</div><!--jobs-list end-->
+										{% if request.user != user_profile.user %} <!-- display only other users-->
+											<div class="jobs-list">
+												<div class="job-info">
+													<div class="job-details">
+
+														<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
+															<h3>{{ user_profile.title }}</h3>
+														</a>
+														<p>{{ user_profile.overview | truncatechars:50 }}</p>
+
+													</div>
+													<div class="hr-rate">
+														<span>${{ user_profile.hourly_work }}/hr</span>
+													</div>
+												</div><!--job-info end-->
+											</div><!--jobs-list end-->
+										{% endif %}
 									{% endfor %}
 								</div><!--widget-jobs end-->
 								<div class="widget widget-jobs">
@@ -316,14 +325,18 @@
 									</div><!--sd-title end-->
 									<div class="suggestions-list">
 										{% for user_profile in all_user_profile %}
-											<div class="suggestion-usd">
-												<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
-												<div class="sgt-text">
-													<h4>{{ user_profile.user.full_name }}</h4>
+											{% if request.user != user_profile.user %}<!-- display all user without request.user-->
+												<div class="suggestion-usd">
+													<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
+													<div class="sgt-text">
+														<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
+															<h4>{{ user_profile.user.full_name }}</h4>
+														</a>
 														<span>{{ user_profile.title }}</span>
+													</div>
+													<span><i class="la la-plus"></i></span>
 												</div>
-												<span><i class="la la-plus"></i></span>
-											</div>
+											{% endif %}
 										{% endfor %}
 										<div class="view-more">
 											<a href="#" title="">View More</a>
