@@ -9,9 +9,6 @@ from django.http import HttpResponse
 
 @login_required(login_url='login')
 def index(request):
-    # get request user for display photo in his navbar img tag
-    request_user_profile = UserProfile.objects.get(user=request.user)
-
     # print('\n index : request.user.first_name = ', request.user.first_name, '\n')
     if request.user.is_authenticated:
         user_profile = UserProfile.objects.get(user=request.user)
@@ -22,7 +19,6 @@ def index(request):
     context = {
         'user_profile': user_profile,
         'all_user_profile': all_user_profile,
-        'request_user_profile': request_user_profile
     }
     return render(request, 'home.html', context)
 
