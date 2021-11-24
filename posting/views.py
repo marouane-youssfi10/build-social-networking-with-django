@@ -48,9 +48,9 @@ def post_projects(request):
     return render(request, 'post/post_project.html', context)
 
 def post_job(request):
-    projects = PostProject.objects.all()
+    all_user_profile = UserProfile.objects.all()
 
     context = {
-        'projects': projects,
+        'all_user_profile': all_user_profile,
     }
     return render(request, 'post/post_job.html', context)

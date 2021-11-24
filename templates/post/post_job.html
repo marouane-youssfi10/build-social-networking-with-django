@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
@@ -128,17 +129,17 @@
 							<div class="col-lg-6">
 								<div class="main-ws-sec">
 									<div class="posts-section">
-                                        {% for project in projects %}
+                                        {% for user_profile in all_user_profile %}
 										    <div class="post-bar">
 											<div class="post_topbar">
 												<div class="usy-dt">
-													<img src="{{ project.user.photo_profile.url }}" width="50" height="50">
+													<img src="{{ user_profile.user.photo_profile.url }}" width="50" height="50">
 													<div class="usy-name">
-														<h3>{{ project.user.full_name }}</h3>
-														<span><img src="images/clock.png" alt="">{{ project.created_project | timesince }} ago</span>
+														<h3>{{ user_profile.user.full_name }}</h3>
+														<span><img src="images/clock.png" alt="">{{ user_profile.created | timesince }} ago</span>
 													</div>
 												</div>
-                                                {% if request.user == project.user %}
+                                                {% if request.user == user_profile.user %}
                                                     <div class="ed-opts">
                                                         <a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
                                                         <ul class="ed-options">
@@ -154,7 +155,7 @@
 											<div class="epi-sec">
 												<ul class="descp">
 													<li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
-													<li><img src="images/icon9.png" alt=""><span>India</span></li>
+													<li><img src="images/icon9.png" alt=""><span>{{ user_profile.location_country }}</span></li>
 												</ul>
 												<ul class="bk-links">
 													<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
@@ -162,25 +163,23 @@
 												</ul>
 											</div>
 											<div class="job_descp">
-												<h3>Senior Wordpress Developer</h3>
+												<h3>{{ user_profile.title }}</h3>
 												<ul class="job-dt">
-													<li><a href="#" title="">Full Time</a></li>
-													<li><span>$30 / hr</span></li>
+													<li><a href="#" title="">{{ user_profile.type_work }}</a></li>
+													<li><span>${{ user_profile.hourly_work }} / hr</span></li>
 												</ul>
-												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet... <a href="#" title="">view more</a></p>
+												<p>{{ user_profile.overview | truncatechars:150 }}<a href="#" title="">view more</a></p>
 												<ul class="skill-tags">
-													<li><a href="#" title="">HTML</a></li>
-													<li><a href="#" title="">PHP</a></li>
-													<li><a href="#" title="">CSS</a></li>
-													<li><a href="#" title="">Javascript</a></li>
-													<li><a href="#" title="">Wordpress</a></li>
+                                                    {% for tag in user_profile.skills_tags_user.all %}
+													    <li><a href="#" title="">{{ tag }}</a></li>
+                                                    {% endfor %}
 												</ul>
 											</div>
 											<div class="job-status-bar">
 												<ul class="like-com">
 													<li>
 														<a href="#"><i class="la la-heart"></i> Like</a>
-														<img src="images/liked-img.png" alt="">
+														<img src="{% static 'images/liked-img.png' %}   " alt="">
 														<span>25</span>
 													</li>
 													<li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
@@ -206,83 +205,29 @@
 									<div class="widget widget-jobs">
 										<div class="sd-title">
 											<h3>Top Jobs</h3>
-											<i class="la la-ellipsis-v"></i>
 										</div>
 										<div class="jobs-list">
-											<div class="job-info">
+                                            {% for user_profile in all_user_profile %}
+											    <div class="job-info">
 												<div class="job-details">
-													<h3>Senior Product Designer</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+													<h3>{{ user_profile.title }}</h3>
+													<p>{{ user_profile.overview | truncatechars:50 }}</p>
 												</div>
 												<div class="hr-rate">
-													<span>$25/hr</span>
+													<span>${{ user_profile.hourly_work }}/hr</span>
 												</div>
 											</div><!--job-info end-->
-											<div class="job-info">
-												<div class="job-details">
-													<h3>Senior UI / UX Designer</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-												</div>
-												<div class="hr-rate">
-													<span>$25/hr</span>
-												</div>
-											</div><!--job-info end-->
-											<div class="job-info">
-												<div class="job-details">
-													<h3>Junior Seo Designer</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-												</div>
-												<div class="hr-rate">
-													<span>$25/hr</span>
-												</div>
-											</div><!--job-info end-->
-											<div class="job-info">
-												<div class="job-details">
-													<h3>Senior PHP Designer</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-												</div>
-												<div class="hr-rate">
-													<span>$25/hr</span>
-												</div>
-											</div><!--job-info end-->
-											<div class="job-info">
-												<div class="job-details">
-													<h3>Senior Developer Designer</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-												</div>
-												<div class="hr-rate">
-													<span>$25/hr</span>
-												</div>
-											</div><!--job-info end-->
+                                            {% endfor %}
 										</div><!--jobs-list end-->
 									</div><!--widget-jobs end-->
 									<div class="widget widget-jobs">
 										<div class="sd-title">
 											<h3>Most Viewed This Week</h3>
-											<i class="la la-ellipsis-v"></i>
 										</div>
 										<div class="jobs-list">
 											<div class="job-info">
 												<div class="job-details">
 													<h3>Senior Product Designer</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-												</div>
-												<div class="hr-rate">
-													<span>$25/hr</span>
-												</div>
-											</div><!--job-info end-->
-											<div class="job-info">
-												<div class="job-details">
-													<h3>Senior UI / UX Designer</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-												</div>
-												<div class="hr-rate">
-													<span>$25/hr</span>
-												</div>
-											</div><!--job-info end-->
-											<div class="job-info">
-												<div class="job-details">
-													<h3>Junior Seo Designer</h3>
 													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
 												</div>
 												<div class="hr-rate">
