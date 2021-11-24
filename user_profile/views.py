@@ -41,7 +41,7 @@ def user_profile(request, slug_user, pk):
     user_profile = UserProfile.objects.get(user__first_name=slug_user)
 
     # get all links of social networking
-    links_media = Social_media.objects.filter(social_media_user=user_profile.user)[0:5]
+    links_media = Social_media.objects.filter(social_media_user=user_profile.user)[0:8]
 
     context = {
         'user_profile': user_profile,
