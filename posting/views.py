@@ -6,16 +6,11 @@ from .forms import PostProjectForm
 # Create your views here.
 
 def index(request):
-
     # get all user who posting projects
     projects = PostProject.objects.all()
 
-    # get request user for display photo in his navbar img tag
-    request_user_profile = UserProfile.objects.get(user=request.user)
-
     context = {
         'projects': projects,
-        'request_user_profile': request_user_profile
     }
     return render(request, 'pages/projects.html', context)
 
@@ -53,4 +48,9 @@ def post_projects(request):
     return render(request, 'post/post_project.html', context)
 
 def post_job(request):
-    return render(request, 'post/post_job.html')
+    projects = PostProject.objects.all()
+
+    context = {
+        'projects': projects,
+    }
+    return render(request, 'post/post_job.html', context)

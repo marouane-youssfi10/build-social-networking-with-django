@@ -74,7 +74,7 @@
 												<img src="{{ user_profile.user.photo_profile.url }}" width="50" height="50">
 												<div class="usy-name">
 													<h3>{{ user_profile.user.full_name }}</h3>
-													<span><img src="images/clock.png" alt="">{{ user_profile.updated | timesince }} ago</span>
+													<span><img src="images/clock.png" alt="">{{ user_profile.created | timesince }} ago</span>
 												</div>
 											</div>
 											{% if request.user == user_profile.user %}
