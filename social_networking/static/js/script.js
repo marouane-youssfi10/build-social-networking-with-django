@@ -2,7 +2,7 @@ $(window).on("load", function() {
     "use strict";
 
     //  ============= POST PROJECT POPUP FUNCTION =========
-
+    /*
     $(".post_project").on("click", function(){
         $(".post-popup.pst-pj").addClass("active");
         $(".wrapper").addClass("overlay");
@@ -25,7 +25,7 @@ $(window).on("load", function() {
         $(".post-popup.job_post").removeClass("active");
         $(".wrapper").removeClass("overlay");
         return false;
-    });
+    });*/
 
     //  ============= SIGNIN CONTROL FUNCTION =========
 
