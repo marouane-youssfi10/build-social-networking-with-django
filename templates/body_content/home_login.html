@@ -67,7 +67,7 @@
 								</div><!--post-topbar end-->
 								<div class="posts-section">
 
-									{% for user_profile in all_user_profile%}
+									{% for user_profile in all_user_profile %}
 										<div class="post-bar">
 										<div class="post_topbar">
 											<div class="usy-dt">
@@ -272,26 +272,19 @@
 										<h3>Top Jobs</h3>
 										<i class="la la-ellipsis-v"></i>
 									</div>
-									<div class="jobs-list">
-										<div class="job-info">
-											<div class="job-details">
-												<h3>Senior Product Designer</h3>
-												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-											</div>
-											<div class="hr-rate">
-												<span>$25/hr</span>
-											</div>
-										</div><!--job-info end-->
-										<div class="job-info">
-											<div class="job-details">
-												<h3>Senior UI / UX Designer</h3>
-												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-											</div>
-											<div class="hr-rate">
-												<span>$25/hr</span>
-											</div>
-										</div><!--job-info end-->
-									</div><!--jobs-list end-->
+									{% for user_profile in all_user_profile %}
+										<div class="jobs-list">
+											<div class="job-info">
+												<div class="job-details">
+													<h3>{{ user_profile.title }}</h3>
+													<p>{{ user_profile.overview | truncatechars:50 }}</p>
+												</div>
+												<div class="hr-rate">
+													<span>${{ user_profile.hourly_work }}/hr</span>
+												</div>
+											</div><!--job-info end-->
+										</div><!--jobs-list end-->
+									{% endfor %}
 								</div><!--widget-jobs end-->
 								<div class="widget widget-jobs">
 									<div class="sd-title">
@@ -318,22 +311,16 @@
 										<i class="la la-ellipsis-v"></i>
 									</div><!--sd-title end-->
 									<div class="suggestions-list">
-										<div class="suggestion-usd">
-											<img src="http://via.placeholder.com/35x35" alt="">
-											<div class="sgt-text">
-												<h4>Jessica William</h4>
-												<span>Graphic Designer</span>
+										{% for user_profile in all_user_profile %}
+											<div class="suggestion-usd">
+												<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
+												<div class="sgt-text">
+													<h4>{{ user_profile.user.full_name }}</h4>
+														<span>{{ user_profile.title }}</span>
+												</div>
+												<span><i class="la la-plus"></i></span>
 											</div>
-											<span><i class="la la-plus"></i></span>
-										</div>
-										<div class="suggestion-usd">
-											<img src="http://via.placeholder.com/35x35" alt="">
-											<div class="sgt-text">
-												<h4>John Doe</h4>
-												<span>PHP Developer</span>
-											</div>
-											<span><i class="la la-plus"></i></span>
-										</div>
+										{% endfor %}
 										<div class="view-more">
 											<a href="#" title="">View More</a>
 										</div>
