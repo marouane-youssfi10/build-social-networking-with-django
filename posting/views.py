@@ -21,17 +21,16 @@ def index(request):
     return render(request, 'pages/projects.html', context)
 
 def post_projects(request):
-    print('\n post_projects \n')
     if request.method == 'POST':
-        form_post_projects = PostProjectForm(request.POST)
-        print('form_post_projects.is_valid() = ', form_post_projects.is_valid())
-        if form_post_projects.is_valid():
-            name_project = form_post_projects.cleaned_data['name_project']
-            type_work_project = form_post_projects.cleaned_data['type_work_project']
-            location = form_post_projects.cleaned_data['location']
-            start_price = form_post_projects.cleaned_data['start_price']
-            end_price = form_post_projects.cleaned_data['end_price']
-            description_project = form_post_projects.cleaned_data['description_project']
+        form_post_project = PostProjectForm(request.POST)
+        print('form_post_projects.is_valid() = ', form_post_project.is_valid())
+        if form_post_project.is_valid():
+            name_project = form_post_project.cleaned_data['name_project']
+            type_work_project = form_post_project.cleaned_data['type_work_project']
+            location = form_post_project.cleaned_data['location']
+            start_price = form_post_project.cleaned_data['start_price']
+            end_price = form_post_project.cleaned_data['end_price']
+            description_project = form_post_project.cleaned_data['description_project']
 
             form_post_projects = PostProject.objects.create(
                 user_profile=request.user,
@@ -43,13 +42,16 @@ def post_projects(request):
                 description_project=description_project,
             )
             form_post_projects.save()
-            messages.success(request, 'Your Projects is created')
+            messages.success(request, 'Your Project is created')
             print('\n if \n')
             return redirect('post-projects')
     else:
-        form_post_projects = PostProjectForm()
+        form_post_project = PostProjectForm()
 
     context = {
-        'form_post_projects': form_post_projects
+        'form_post_project': form_post_project
     }
     return render(request, 'post/post_project.html', context)
+
+def post_job(request):
+    return render(request, 'post/post_job.html')

@@ -1823,6 +1823,7 @@ main {
 	float: left;
 	width: 100%;
 	position: relative;
+	left: 25%; /* -- */
 }
 .post-project h3 {
 	float: left;
@@ -1839,6 +1840,7 @@ main {
 	width: 100%;
 	padding: 30px 20px;
 	background-color: #fff;
+	margin-bottom:20; /* -- */
 }
 .post-project-fields form {
 	float: left;
