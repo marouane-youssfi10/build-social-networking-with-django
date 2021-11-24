@@ -1,13 +1,11 @@
 from django import forms
-from accounts.models import Account, UserProfile, Experience_user, TagsUser, Social_media
 from .models import PostProject, TagsProjects
-
 
 class PostProjectForm(forms.ModelForm):
     class Meta:
         model = PostProject
-        fields = ('name_project', 'type_work_project', 'location', 'start_price', 'end_price',
-                  'description_project')
+        fields = '__all__'
+        exclude = ['user_profile', 'skills_tags_projects', 'updated_project', 'created_project']
 
     def __init__(self, *args, **kwargs):
         super(PostProjectForm, self).__init__(*args, **kwargs)

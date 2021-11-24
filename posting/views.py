@@ -47,6 +47,7 @@ def post_projects(request):
             return redirect('post-projects')
     else:
         form_post_project = PostProjectForm()
+        print('\nform_post_project = ', form_post_project, '\n')
 
     context = {
         'form_post_project': form_post_project

@@ -15,7 +15,7 @@ class TagsProjects(models.Model):
 
 class PostProject(models.Model):
     # user = models.OneToOneField(Account, on_delete=models.CASCADE)
-    user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    user_profile = models.ForeignKey(Account, on_delete=models.CASCADE)
     name_project = models.CharField(max_length=100, blank=False, null=False)
     type_work_project = models.CharField(max_length=100, blank=False, null=False)
     location = models.CharField(max_length=100, blank=False, null=False)
