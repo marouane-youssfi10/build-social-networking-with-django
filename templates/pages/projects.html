@@ -2,6 +2,7 @@
 {% load static %}
 {% block content %}
 <div class="search-sec">
+
         <div class="container">
             <div class="search-box">
                 <form>
@@ -12,10 +13,10 @@
 			</div>
 		</div><!--search-sec end-->
 
-
-		<main>
+			<main>
 			<div class="main-section">
 				<div class="container">
+					{% include 'includes/alerts.html' %}
 					<div class="main-section-data">
 						<div class="row">
 							<div class="col-lg-3">
@@ -132,22 +133,24 @@
 											<div class="post-bar">
 											<div class="post_topbar">
 												<div class="usy-dt">
-													<img src="{{ get_image }}" width="50" height="50">
+													<img src="{{ project.user.photo_profile.url }}" width="50" height="50">
 													<div class="usy-name">
-														<h3>{{ project.user_profile }}</h3>
+														<h3>{{ project.user.first_name }}</h3>
 														<span><img src="{% static 'images/clock.png' %}" alt="">{{ project.created_project | timesince }} ago</span>
 													</div>
 												</div>
-												<div class="ed-opts">
-													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-													<ul class="ed-options">
-														<li><a href="#" title="">Edit Post</a></li>
-														<li><a href="#" title="">Unsaved</a></li>
-														<li><a href="#" title="">Unbid</a></li>
-														<li><a href="#" title="">Close</a></li>
-														<li><a href="#" title="">Hide</a></li>
-													</ul>
-												</div>
+												{% if project.user == request.user %}
+													<div class="ed-opts">
+														<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+														<ul class="ed-options">
+															<li><a href="#" title="">Edit Post</a></li>
+															<li><a href="#" title="">Unsaved</a></li>
+															<li><a href="#" title="">Unbid</a></li>
+															<li><a href="#" title="">Close</a></li>
+															<li><a href="#" title="">Hide</a></li>
+														</ul>
+													</div>
+												{% endif %}
 											</div>
 											<div class="epi-sec">
 												<ul class="descp">
@@ -161,7 +164,7 @@
 												</ul>
 											</div>
 											<div class="job_descp">
-												<h3>Simple Classified Site</h3>
+												<h3>{{ project.name_project }}</h3>
 												<ul class="job-dt">
 													<li><span>${{ project.start_price }} - ${{ project.end_price }}</span></li>
 												</ul>

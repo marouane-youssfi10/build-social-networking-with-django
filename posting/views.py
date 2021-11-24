@@ -32,7 +32,7 @@ def post_projects(request):
             description_project = form_post_project.cleaned_data['description_project']
 
             form_post_projects = PostProject.objects.create(
-                user_profile=request.user,
+                user=request.user,
                 name_project=name_project,
                 type_work_project=type_work_project,
                 location=location,
@@ -43,10 +43,9 @@ def post_projects(request):
             form_post_projects.save()
             messages.success(request, 'Your Project is created')
             print('\n if \n')
-            return redirect('/')
+            return redirect('/projects/')
     else:
         form_post_project = PostProjectForm()
-        print('\nform_post_project = ', form_post_project, '\n')
 
     context = {
         'form_post_project': form_post_project
