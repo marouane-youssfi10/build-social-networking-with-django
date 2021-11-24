@@ -8,9 +8,11 @@ from .forms import PostProjectForm
 def index(request):
     # get all user who posting projects
     projects = PostProject.objects.all()
+    all_user_profile = UserProfile.objects.all()
 
     context = {
         'projects': projects,
+        'all_user_profile': all_user_profile,
     }
     return render(request, 'pages/projects.html', context)
 

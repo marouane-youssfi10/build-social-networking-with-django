@@ -29,7 +29,6 @@
 										<div class="filter-dd">
 											<div class="filter-ttl">
 												<h3>Skills</h3>
-												<a href="#" title="">Clear</a>
 											</div>
 											<form>
 												<input type="text" name="search-skills" placeholder="Search skills">
@@ -38,7 +37,6 @@
 										<div class="filter-dd">
 											<div class="filter-ttl">
 												<h3>Availabilty</h3>
-												<a href="#" title="">Clear</a>
 											</div>
 											<ul class="avail-checks">
 												<li>
@@ -67,7 +65,6 @@
 										<div class="filter-dd">
 											<div class="filter-ttl">
 												<h3>Job Type</h3>
-												<a href="#" title="">Clear</a>
 											</div>
 											<form class="job-tp">
 												<select>
@@ -82,7 +79,6 @@
 										<div class="filter-dd">
 											<div class="filter-ttl">
 												<h3>Pay Rate / Hr ($)</h3>
-												<a href="#" title="">Clear</a>
 											</div>
 											<div class="rg-slider">
 			                                    <input class="rn-slider slider-input" type="hidden" value="5,50" />
@@ -95,7 +91,6 @@
 										<div class="filter-dd">
 											<div class="filter-ttl">
 												<h3>Experience Level</h3>
-												<a href="#" title="">Clear</a>
 											</div>
 											<form class="job-tp">
 												<select>
@@ -110,7 +105,6 @@
 										<div class="filter-dd">
 											<div class="filter-ttl">
 												<h3>Countries</h3>
-												<a href="#" title="">Clear</a>
 											</div>
 											<form class="job-tp">
 												<select>
@@ -129,6 +123,8 @@
 								<div class="main-ws-sec">
 									<div class="posts-section">
                                         <!--post-bar end-->
+
+										<!-- display all projects -->
 										{% for project in projects %}
 											<div class="post-bar">
 											<div class="post_topbar">
@@ -139,6 +135,8 @@
 														<span><img src="{% static 'images/clock.png' %}" alt="">{{ project.created_project | timesince }} ago</span>
 													</div>
 												</div>
+
+												<!-- check if request.user == user for not hiding div.ed-opts  -->
 												{% if project.user == request.user %}
 													<div class="ed-opts">
 														<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
@@ -173,6 +171,7 @@
 													<a href="#" title="">view more</a>
 												</p>
 												<ul class="skill-tags">
+													<!-- display all tags of this project-->
 													{% for tag in project.skills_tags_projects.all %}
 														<li><a href="#" title="">{{ tag }}</a></li>
 													{% endfor %}
@@ -211,15 +210,17 @@
 											<i class="la la-ellipsis-v"></i>
 										</div>
 										<div class="jobs-list">
-											<div class="job-info">
+											{% for user_profile in all_user_profile %}
+												<div class="job-info">
 												<div class="job-details">
-													<h3>Senior Product Designer</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+													<h3>{{ user_profile.title }}</h3>
+													<p>{{ user_profile.overview | truncatechars:50 }}</p>
 												</div>
 												<div class="hr-rate">
-													<span>$25/hr</span>
+													<span>${{ user_profile.hourly_work }}/hr</span>
 												</div>
 											</div><!--job-info end-->
+											{% endfor %}
 										</div><!--jobs-list end-->
 									</div><!--widget-jobs end-->
 									<div class="widget widget-jobs">

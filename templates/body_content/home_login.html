@@ -29,6 +29,8 @@
 										<i class="la la-ellipsis-v"></i>
 									</div><!--sd-title end-->
 									<div class="suggestions-list">
+
+										<!-- display all user to home page -->
 										{%  for user_profile in all_user_profile %}
 											{% if request.user != user_profile.user %} <!-- display all user without request.user-->
 												<div class="suggestion-usd">
@@ -62,10 +64,11 @@
 										<ul>
 											<li><a class="post_project" href="{% url 'post-project' %}">Post a Project</a></li>
 										</ul>
-									</div><!--post-st end-->
-								</div><!--post-topbar end-->
+									</div>
+								</div>
 								<div class="posts-section">
 
+									<!-- post all profile user -->
 									{% for user_profile in all_user_profile %}
 										<div class="post-bar">
 										<div class="post_topbar">
@@ -76,6 +79,8 @@
 													<span><img src="images/clock.png" alt="">{{ user_profile.created | timesince }} ago</span>
 												</div>
 											</div>
+
+											<!-- check if request.user = user for not hiding div.ed-opts -->
 											{% if request.user == user_profile.user %}
 												<div class="ed-opts">
 													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
