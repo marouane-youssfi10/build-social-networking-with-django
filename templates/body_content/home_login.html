@@ -17,8 +17,8 @@
 										</div><!--username-dt end-->
 										<div class="user-specs">
 											<h3>{{ user_profile.user.first_name}}</h3>
-											{% if user_profile.experience.experince_title %}
-												<span>{{ user_profile.experience.experince_title }}</span>
+											{% if user_profile.title %}
+												<span>{{ user_profile.title }}</span>
 											{% endif %}
 										</div>
 									</div><!--user-profile end-->
@@ -60,8 +60,8 @@
 									</div>
 									<div class="post-st">
 										<ul>
-											<li><a class="post_project" href="#" title="">Post a Project</a></li>
-											<li><a class="post-jb" href="#" title="">Post a Job</a></li>
+											<li><a class="post_project">Post a Project</a></li>
+											<li><a class="post-jb">Post a Job</a></li>
 										</ul>
 									</div><!--post-st end-->
 								</div><!--post-topbar end-->
@@ -351,20 +351,13 @@
 		<div class="post-project">
 			<h3>Post a project</h3>
 			<div class="post-project-fields">
-				<form>
+				<form method="POST" action="{% url 'post-projects' %}">
 					<div class="row">
 						<div class="col-lg-12">
 							<input type="text" name="title" placeholder="Title">
 						</div>
 						<div class="col-lg-12">
-							<div class="inp-field">
-								<select>
-									<option>Category</option>
-									<option>Category 1</option>
-									<option>Category 2</option>
-									<option>Category 3</option>
-								</select>
-							</div>
+							<input type="text" name="title" placeholder="Type Work">
 						</div>
 						<div class="col-lg-12">
 							<input type="text" name="skills" placeholder="Skills">
