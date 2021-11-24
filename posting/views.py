@@ -47,6 +47,9 @@ def post_projects(request):
             print('\n if \n')
             return redirect('post-projects')
     else:
-        messages.error(request, 'Your Projects is not created')
-        print('\n else \n')
-        return redirect('post-projects')
+        form_post_projects = PostProjectForm()
+
+    context = {
+        'form_post_projects': form_post_projects
+    }
+    return render(request, 'post/post_project.html', context)
