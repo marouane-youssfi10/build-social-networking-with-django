@@ -132,7 +132,7 @@
 											<div class="post-bar">
 											<div class="post_topbar">
 												<div class="usy-dt">
-													<img src="{{ project.user_profile.photo_profile.url }}" width="50" height="50">
+													<img src="{{ get_image }}" width="50" height="50">
 													<div class="usy-name">
 														<h3>{{ project.user_profile }}</h3>
 														<span><img src="{% static 'images/clock.png' %}" alt="">{{ project.created_project | timesince }} ago</span>

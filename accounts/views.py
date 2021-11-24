@@ -25,6 +25,7 @@ def registerPage(request):
             user = Account.objects.create_user(first_name=first_name, last_name=last_name,
                                                email=email, username=username, password=password)
             user.phone_number = phone_number
+            # user.photo_profile = 'avatar/avatar.png',
             user.save()
 
             # create user into Experience_user
@@ -45,7 +46,7 @@ def registerPage(request):
             # create user into UserProfile
             user_profile = UserProfile.objects.create(
                 user=user, slug=user.id,
-                photo_profile='avatar/avatar.png',
+                # photo_profile='avatar/avatar.png',
                 experience=experience_user,
                 links_media=social_media,
                     )

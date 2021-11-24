@@ -12,7 +12,7 @@
 									<div class="user-profile">
 										<div class="username-dt">
 											<div class="usr-pic">
-												<img src="{{ user_profile.photo_profile.url }}" alt="">
+												<img src="{{ user_profile.user.photo_profile.url }}" alt="">
 											</div>
 										</div><!--username-dt end-->
 										<div class="user-specs">
@@ -32,7 +32,7 @@
 										{%  for user_profile in all_user_profile %}
 											{% if request.user != user_profile.user %} <!-- display all user without request.user-->
 												<div class="suggestion-usd">
-													<img src="{{ user_profile.photo_profile.url }}" width="35" height="35">
+													<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
 													<div class="sgt-text col-8">
 														<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
 															<h4>{{ user_profile.user.full_name }}</h4>
@@ -56,7 +56,7 @@
 							<div class="main-ws-sec">
 								<div class="post-topbar">
 									<div class="user-picy">
-										<img src="{{ user_profile.photo_profile.url }}" alt="">
+										<img src="{{ user_profile.user.photo_profile.url }}" alt="">
 									</div>
 									<div class="post-st">
 										<ul>

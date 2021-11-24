@@ -5,15 +5,18 @@ from django.utils.html import format_html
 # Register your models here.
 
 class UserProfileAdmin(admin.ModelAdmin):
-    def thumbnail(self, object):
-        return format_html('<img src="{}" width="60" style="border-radius: 50px;" />'.format(object.photo_profile.url))
+    """def thumbnail(self, object):
+        return format_html('<img src="{}" width="60" style="border-radius: 50px;" />'.format(object.photo_profile.url))"""
 
     list_display = ['id', 'user', 'title', 'experience', 'education_title', 'location_country', 'location_city',
-                    'hourly_work', 'type_work', 'thumbnail']
+                    'hourly_work', 'type_work']
     prepopulated_fields = {'slug': ('user',)}
 
 class AccountAdmin(UserAdmin):
-    list_display = ('id', 'email', 'first_name', 'last_name', 'username', 'last_login', 'date_joined', 'is_active')
+    def thumbnail(self, object):
+        return format_html('<img src="{}" width="60" style="border-radius: 50px;" />'.format(object.photo_profile.url))
+
+    list_display = ('id', 'email', 'first_name', 'last_name', 'username', 'last_login', 'date_joined', 'is_active', 'thumbnail')
     list_display_links = ('email', 'first_name', 'last_name', 'username')
     readonly_fields = ('last_login', 'date_joined')
     ordering = ('-date_joined',)

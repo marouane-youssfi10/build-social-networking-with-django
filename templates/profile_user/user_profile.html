@@ -16,7 +16,7 @@
 								<div class="main-left-sidebar">
 									<div class="user_profile">
 										<div class="user-pro-img">
-											<img src="{{ user_profile.photo_profile.url }}" width="170" height="170">
+											<img src="{{ user_profile.user.photo_profile.url }}" width="170" height="170">
 											<a href="#" title=""><i class="fa fa-camera"></i></a>
 										</div><!--user-pro-img end-->
 										<div class="user_pro_status">
@@ -55,7 +55,7 @@
 										{% for user_profile in all_user_profile %}
 											{% if request.user != user_profile.user %}<!-- display all user without request.user-->
 												<div class="suggestion-usd">
-													<img src="{{ user_profile.photo_profile.url}}" width="35" height="35">
+													<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
 													<div class="sgt-text col-8">
 														<a class="sgt-text" href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
 															<h4>{{ user_profile.user.full_name }}</h4>

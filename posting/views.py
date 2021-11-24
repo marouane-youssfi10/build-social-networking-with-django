@@ -15,7 +15,6 @@ def index(request):
 
     context = {
         'projects': projects,
-
         'request_user_profile': request_user_profile
     }
     return render(request, 'pages/projects.html', context)
@@ -44,7 +43,7 @@ def post_projects(request):
             form_post_projects.save()
             messages.success(request, 'Your Project is created')
             print('\n if \n')
-            return redirect('post-projects')
+            return redirect('/')
     else:
         form_post_project = PostProjectForm()
         print('\nform_post_project = ', form_post_project, '\n')

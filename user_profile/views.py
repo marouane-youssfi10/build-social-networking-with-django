@@ -56,7 +56,7 @@ def user_profile(request, slug_user, pk):
 def edit_profile(request):
     try:
         # get request user for display photo in his navbar img tag
-        request_user_profile = UserProfile.objects.get(user=request.user)
+        # request_user_profile = UserProfile.objects.get(user=request.user)
 
         # get userprofile
         user_profile = get_object_or_404(UserProfile, user=request.user)
@@ -98,7 +98,7 @@ def edit_profile(request):
             'user_profile': user_profile,
             'user_links_media': user_links_media,
 
-            'request_user_profile': request_user_profile
+            # 'request_user_profile': request_user_profile
         }
         return render(request, 'profile_user/edit_profile.html', context)
 
