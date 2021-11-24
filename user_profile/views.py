@@ -139,6 +139,9 @@ def edit_experience_user(request, pk):
 
 @login_required(login_url='login')
 def create_experience_user(request):
+    # get request user for display photo in his navbar img tag
+    request_user_profile = UserProfile.objects.get(user=request.user)
+
     form_experience = ExperienceUserForm()
     if request.method == 'POST':
         form_experience = ExperienceUserForm(request.POST)
@@ -155,7 +158,8 @@ def create_experience_user(request):
             messages.success(request, 'Your profile experience has been updated')
             return redirect('/accounts-setting/edit-profile/', request.user)
     context = {
-        'form_experience': form_experience
+        'form_experience': form_experience,
+        'request_user_profile': request_user_profile
     }
     return render(request, 'profile_user/create_experience.html', context)
 

@@ -47,30 +47,30 @@
 										</ul>
 									</div><!--user_profile end-->
 									<div class="suggestions full-width">
-										<div class="sd-title">
-											<h3>Suggestions</h3>
-											<i class="la la-ellipsis-v"></i>
-										</div><!--sd-title end-->
-										<div class="suggestions-list">
-											{% for user_profile in all_user_profile %}
-												{% if request.user != user_profile.user %}<!-- display all user without request.user-->
-													<div class="suggestion-usd">
-														<img src="{{ user_profile.photo_profile.url}}" width="35" height="35">
-														<div class="sgt-text col-8">
-															<a class="sgt-text" href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
-																<h4>{{ user_profile.user.full_name }}</h4>
-															</a>
-															<span>{{ user_profile.title }}</span>
-														</div>
-														<span><i class="la la-plus"></i></span>
+									<div class="sd-title">
+										<h3>Suggestions</h3>
+										<i class="la la-ellipsis-v"></i>
+									</div><!--sd-title end-->
+									<div class="suggestions-list">
+										{% for user_profile in all_user_profile %}
+											{% if request.user != user_profile.user %}<!-- display all user without request.user-->
+												<div class="suggestion-usd">
+													<img src="{{ user_profile.photo_profile.url}}" width="35" height="35">
+													<div class="sgt-text col-8">
+														<a class="sgt-text" href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
+															<h4>{{ user_profile.user.full_name }}</h4>
+														</a>
+														<span>{{ user_profile.title }}</span>
 													</div>
-												{% endif %}
-											{% endfor %}
-											<div class="view-more">
-												<a href="#" title="">View More</a>
-											</div>
-										</div><!--suggestions-list end-->
-									</div><!--suggestions end-->
+													<span><i class="la la-plus"></i></span>
+												</div>
+											{% endif %}
+										{% endfor %}
+										<div class="view-more">
+											<a href="#" title="">View More</a>
+										</div>
+									</div><!--suggestions-list end-->
+								</div><!--suggestions end-->
 								</div><!--main-left-sidebar end-->
 							</div>
 							<div class="col-lg-6">
