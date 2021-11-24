@@ -55,4 +55,4 @@ def post_job(request):
     context = {
         'all_user_profile': all_user_profile,
     }
-    return render(request, 'post/post_job.html', context)
+    return render(request, 'pages/jobs.html', context)
