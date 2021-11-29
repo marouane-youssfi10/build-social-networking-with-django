@@ -5,7 +5,6 @@ from .forms import UserForm, UserProfileForm, ExperienceUserForm, TagsUserForm, 
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
-# Create your views here.
 
 @login_required(login_url='login')
 def index(request):
@@ -24,9 +23,6 @@ def index(request):
 
 @login_required(login_url='login')
 def user_profile(request, slug_user, pk):
-    # get request user for display photo in his navbar img tag
-    request_user_profile = UserProfile.objects.get(user=request.user)
-
     # get all user_profile for Suggestions div
     all_user_profile = UserProfile.objects.all()[0:5]
 
@@ -41,7 +37,6 @@ def user_profile(request, slug_user, pk):
 
     context = {
         'user_profile': user_profile,
-        'request_user_profile': request_user_profile,
         'user_experience': user_experience,
         'all_user_profile': all_user_profile,
         'links_media': links_media
@@ -51,9 +46,6 @@ def user_profile(request, slug_user, pk):
 @login_required(login_url='login')
 def edit_profile(request):
     try:
-        # get request user for display photo in his navbar img tag
-        # request_user_profile = UserProfile.objects.get(user=request.user)
-
         # get userprofile
         user_profile = get_object_or_404(UserProfile, user=request.user)
 
@@ -103,8 +95,6 @@ def edit_profile(request):
 
 @login_required(login_url='login')
 def edit_experience_user(request, pk):
-    # get request user for display photo in his navbar img tag
-    request_user_profile = UserProfile.objects.get(user=request.user)
     try:
         # get userexperience
         user_experience = Experience_user.objects.get(id=pk)
@@ -125,7 +115,6 @@ def edit_experience_user(request, pk):
         context = {
             'user_experience_form': user_experience_form,
             'user_experience': user_experience,
-            'request_user_profile': request_user_profile
         }
 
         return render(request, 'profile_user/edit_experience.html', context)
@@ -135,9 +124,6 @@ def edit_experience_user(request, pk):
 
 @login_required(login_url='login')
 def create_experience_user(request):
-    # get request user for display photo in his navbar img tag
-    request_user_profile = UserProfile.objects.get(user=request.user)
-
     form_experience = ExperienceUserForm()
     if request.method == 'POST':
         form_experience = ExperienceUserForm(request.POST)
@@ -155,7 +141,6 @@ def create_experience_user(request):
             return redirect('/accounts-setting/edit-profile/', request.user)
     context = {
         'form_experience': form_experience,
-        'request_user_profile': request_user_profile
     }
     return render(request, 'profile_user/create_experience.html', context)
 
@@ -175,18 +160,25 @@ def create_tags_user(request):
         # get information of usertags
         user_tags_form = TagsUserForm(request.POST, request.FILES, instance=request.user)
 
-        print('\nuser_tags_form.is_valid() = ', user_tags_form.is_valid(), '\n')
-        # check user_form & profile_form is valid
+        tags_objs = []
         if user_tags_form.is_valid():
-            # save the information updated
-            tag = TagsUser.objects.create(
-                tags_user=request.user,
-                tag=user_tags_form.cleaned_data['tag']
-            )
-            tag_name = tag.tag
-            user_profile.skills_tags_user.add(tag)
-            tag.save()
-            messages.success(request, 'your tag "'+ tag_name + '" has been created')
+            tags = user_tags_form.cleaned_data['tag']
+            tags_list = list(tags.split(','))
+
+            # add tags to list and check if tag exists of exists.
+            for tag in tags_list:
+                # save the information updated
+                tag, created = TagsUser.objects.get_or_create(tags_user=request.user, tag=tag)
+                tags_objs.append(tag)
+
+            # add tags to UserProfile
+            user_profile.skills_tags_user.set(tags_objs)
+            user_profile.save()
+
+            if len(tags_objs) <= 1:
+                messages.success(request, 'your tag has been created')
+            else:
+                messages.success(request, 'your tags has been created')
             return redirect('/accounts-setting/edit-profile/', request.user)
     else:
         user_tags_form = TagsUserForm(instance=request.user)
@@ -208,9 +200,6 @@ def delete_tags_user(request, pk):
 
 @login_required(login_url='login')
 def create_links_media(request):
-    # get request user for display photo in his navbar img tag
-    request_user_profile = UserProfile.objects.get(user=request.user)
-
     user_links_media = SocialMediaForm()
     if request.method == 'POST':
         # get information of links_of_social_media
@@ -234,15 +223,11 @@ def create_links_media(request):
 
     context = {
         'user_links_media': user_links_media,
-        'request_user_profile': request_user_profile
     }
     return render(request, 'profile_user/create_link.html', context)
 
 @login_required(login_url='login')
 def edit_links_media(request, pk):
-    # get request user for display photo in his navbar img tag
-    request_user_profile = UserProfile.objects.get(user=request.user)
-
     # get link of your social network or your website
     user_links_media = Social_media.objects.get(id=pk)
     if request.method == 'POST':
@@ -262,7 +247,6 @@ def edit_links_media(request, pk):
     context = {
         'link_media_form': link_media_form,
         'user_links_media': user_links_media,
-        'request_user_profile': request_user_profile
     }
 
     return render(request, 'profile_user/edit_link.html', context)
@@ -278,10 +262,8 @@ def delete_links_media(request, pk):
     return redirect('/accounts-setting/edit-profile/', request.user)
 
 def change_password(request):
-    request_user_profile = UserProfile.objects.get(user=request.user)
 
     context = {
         'user_profile': user_profile,
-        'request_user_profile': request_user_profile,
     }
     return render(request, 'profile_user/change_password.html', context)

@@ -22,6 +22,7 @@ class TagsUserForm(forms.ModelForm):
         super(TagsUserForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
+            self.fields[field].widget.attrs['placeholder'] = 'add tags, separated by commas. example: design, programmation, photographe, .....'
             self.fields[field].required = True
 
 class SocialMediaForm(forms.ModelForm):
