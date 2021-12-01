@@ -1,3 +1,4 @@
+    {% load static %}
     <section class="forum-sec">
         <div class="container">
             <div class="forum-links">
@@ -22,7 +23,7 @@
                             {% for info in user_profile %}
                                 <div class="usr-question">
                                     <div class="usr_img">
-                                        <img src="{{ info.photo_profile.url }}" alt="">
+                                        <img src="{{ info.user.photo_profile.url }}" alt="">
                                     </div>
                                     <div class="usr_quest">
                                         <h3>{{ info.overview }}</h3>
@@ -66,7 +67,7 @@
                                         <li>
                                             <div class="usr-msg-details">
                                                 <div class="usr-ms-img">
-                                                    <img src="{{ info.photo_profile.url }}" alt="">
+                                                    <img src="{{ info.user.photo_profile.url }}" alt="">
                                                 </div>
 
                                                 <div class="usr-mg-info">
@@ -74,7 +75,7 @@
                                                     <p>{{ info.experience.experince_title }} </p>
                                                 </div><!--usr-mg-info end-->
                                             </div>
-                                            <span><img src="images/price1.png">1185</span>
+                                            <span><img src="{% static 'images/price1.png' %}">1185</span>
                                         </li>
                                   {% endfor %}
                             </ul>
