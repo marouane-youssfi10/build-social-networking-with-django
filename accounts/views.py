@@ -6,7 +6,6 @@ from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
-
 def registerPage(request):
     form = RegistrationForm()
 
@@ -26,29 +25,6 @@ def registerPage(request):
                                                email=email, username=username, password=password)
             user.phone_number = phone_number
             user.save()
-
-            # create user into Experience_user
-            experience_user = Experience_user()
-            experience_user.experience_user_id = user.id
-            experience_user.save()
-
-            # create user into Social_media
-            social_media = Social_media()
-            social_media.social_media_user_id = user.id
-            social_media.save()
-
-            # create user into Tags
-            tags = TagsUser()
-            tags.tags_user_id = user.id
-            tags.save()
-
-            # create user into UserProfile
-            user_profile = UserProfile.objects.create(
-                user=user, slug=user.id,
-                experience=experience_user,
-                links_media=social_media,
-                    )
-            user_profile.save()
 
             messages.success(request, 'Congratulations! Your account is activated.')
             return redirect('login')

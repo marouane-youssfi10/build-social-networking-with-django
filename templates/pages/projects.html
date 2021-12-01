@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 {% block content %}
 <div class="search-sec">
 
@@ -131,8 +132,8 @@
 												<div class="usy-dt">
 													<img src="{{ project.user.photo_profile.url }}" width="50" height="50">
 													<div class="usy-name">
-														<h3>{{ project.user.first_name }}</h3>
-														<span><img src="{% static 'images/clock.png' %}" alt="">{{ project.created_project | timesince }} ago</span>
+														<h3>{{ project.user.full_name }}</h3>
+														<span><img src="{% static 'images/clock.png' %}" alt="">{{ project.created_project | naturaltime }}</span>
 													</div>
 												</div>
 
