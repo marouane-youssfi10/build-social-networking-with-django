@@ -79,25 +79,22 @@ class UserProfile(models.Model):
     slug = models.SlugField(max_length=100, unique=True)
     title = models.CharField(blank=True, max_length=100)
     overview = models.TextField(blank=True)
-
     photo_cover = models.ImageField(null=True, upload_to='cover/%Y/%m/%d', blank=True, default="avatar/cover.jpg")
-    experience = models.ForeignKey(Experience_user, on_delete=models.CASCADE, blank=True)
     education_title = models.CharField(blank=True, max_length=100)
     education_year_start = models.IntegerField(blank=True, null=True)
     education_year_end = models.IntegerField(blank=True, null=True)
     education_description = models.TextField(blank=True, null=True)
     location_country = models.CharField(blank=True, max_length=100)
     location_city = models.CharField(blank=True, max_length=100)
-
-    skills_tags_user = models.ManyToManyField(TagsUser, blank=True)
-
     hourly_work = models.IntegerField(blank=True, null=True)
     type_work = models.CharField(blank=True, choices=STATUS_CHOICES, max_length=50, null=True, default=None)
-
-    links_media = models.ForeignKey(Social_media, on_delete=models.CASCADE, blank=True)
-
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+
+    skills_tags_user = models.ManyToManyField(TagsUser, blank=True)
+    links_media = models.ForeignKey(Social_media, on_delete=models.CASCADE, blank=True)
+    experience = models.ForeignKey(Experience_user, on_delete=models.CASCADE, blank=True)
+    following = models.ManyToManyField(Account, blank=True,  related_name='following')
 
     class Meta:
         ordering = ['-updated', '-created']
