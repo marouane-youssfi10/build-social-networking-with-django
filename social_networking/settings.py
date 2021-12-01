@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'user_profile.apps.UserProfileConfig',
     'posting.apps.PostingConfig',
+    'follow.apps.FollowConfig',
 ]
 
 MIDDLEWARE = [
