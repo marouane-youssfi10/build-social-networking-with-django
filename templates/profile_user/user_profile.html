@@ -21,7 +21,20 @@
 										</div><!--user-pro-img end-->
 										<div class="user_pro_status">
 											<ul class="flw-hr">
-												<li><a href="#" title="" class="flww"><i class="la la-plus"></i> Follow</a></li>
+												<li>
+													<!-- check if request.user for hide follow button-->
+													{% if request.user != user_profile.user %}
+														{% if request.user in user_profile.following.all %}
+														<a href="{% url 'follow' request.user.id %}" class="flww">
+															<i class="la la-plus"></i> Unfollow
+														</a>
+														{% else %}
+														<a href="{% url 'follow' request.user.id %}" class="flww">
+															<i class="la la-plus"></i> Follow
+														</a>
+														{% endif %}
+													{% endif %}
+												</li>
 											</ul>
 											<ul class="flw-status">
 												<li>
