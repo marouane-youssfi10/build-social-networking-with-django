@@ -23,13 +23,15 @@
 											<ul class="flw-hr">
 												<li>
 													<!-- check if request.user for hide follow button-->
+													{{ follow_user.id }}
+													{{ follow_user.user.full_name }} <br><br>
 													{% if request.user != user_profile.user %}
-														{% if request.user in user_profile.following.all %}
-															<a href="{% url 'follow' user_profile.user.id %}" class="flww bg-danger">
+														{% if request.user in follow_user.following.all %} <!-- sajib in [test1, test2] -->
+															<a href="{% url 'unfollow' follow_user.id %}" class="flww bg-danger">
 																<i class="fa fa-check"></i> Unfollow
 															</a>
 														{% else %}
-															<a href="{% url 'follow' user_profile.user.id %}" class="flww bg-success">
+															<a href="{% url 'follow' follow_user.id %}" class="flww bg-success">
 																<i class="la la-plus"></i> Follow
 															</a>
 														{% endif %}

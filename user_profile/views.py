@@ -1,9 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from accounts.models import UserProfile, Experience_user, TagsUser, Social_media
 from django.contrib.auth.decorators import login_required
-from .forms import UserForm, UserProfileForm, ExperienceUserForm, TagsUserForm, SocialMediaForm
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
+
+# models
+from accounts.models import UserProfile, Experience_user, TagsUser, Social_media
+from follow.models import Follow
+
+# # forms
+from .forms import UserForm, UserProfileForm, ExperienceUserForm, TagsUserForm, SocialMediaForm
+
 
 @login_required(login_url='login')
 def index(request):
@@ -32,6 +38,10 @@ def user_profile(request, slug_user, pk):
     user_profile = UserProfile.objects.get(user__first_name=slug_user)
     print('user_profile.user = ', user_profile.user, "\n")
 
+    # get info of follow user
+    follow_user = Follow.objects.get(user__first_name=slug_user)
+    print('follow_user.id = ', follow_user.id, '--  follow_user.user = ', follow_user.user)
+
     # get all links of social networking
     links_media = Social_media.objects.filter(social_media_user=user_profile.user)[0:8]
 
@@ -39,7 +49,8 @@ def user_profile(request, slug_user, pk):
         'user_profile': user_profile,
         'user_experience': user_experience,
         'all_user_profile': all_user_profile,
-        'links_media': links_media
+        'links_media': links_media,
+        'follow_user': follow_user
     }
     return render(request, 'profile_user/user_profile.html', context)
 
