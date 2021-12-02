@@ -14,7 +14,6 @@ class TagsProjects(models.Model):
         return self.tag if self.tag else ''
 
 class PostProject(models.Model):
-    # user = models.OneToOneField(Account, on_delete=models.CASCADE)
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
     name_project = models.CharField(max_length=100, blank=False, null=False)
     type_work_project = models.CharField(max_length=100, blank=False, null=False)
@@ -22,11 +21,11 @@ class PostProject(models.Model):
     start_price = models.IntegerField(blank=False, null=False)
     end_price = models.IntegerField(blank=False, null=False)
     description_project = models.TextField(blank=False, null=False)
-
-    skills_tags_projects = models.ManyToManyField(TagsProjects, blank=True)
-
     updated_project = models.DateTimeField(auto_now=True)
     created_project = models.DateTimeField(auto_now_add=True)
+
+    skills_tags_projects = models.ManyToManyField(TagsProjects, blank=True)
+    likes = models.ManyToManyField(Account, blank=True, related_name='likes')
 
     class Meta:
         verbose_name = 'project'
