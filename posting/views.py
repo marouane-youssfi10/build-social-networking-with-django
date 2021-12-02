@@ -10,6 +10,7 @@ from accounts.models import UserProfile
 from .forms import PostProjectForm
 
 def index(request):
+    print('-------------index -------------------------')
     # get all user who posting projects
     projects = PostProject.objects.all()
     all_user_profile = UserProfile.objects.all()
@@ -62,7 +63,15 @@ def post_job(request):
     return render(request, 'pages/jobs.html', context)
 
 def search(request):
+    print('-------------search -------------------------')
     q = request.GET.get('q') if request.GET.get('q') is not None else ''
-    rooms = PostProject.objects.filter(
-        Q(topic__name__icontains=q) | Q(name__icontains=q) | Q(description__icontains=q)
-    )
+    if q =='':
+        projects = PostProject.objects.all()
+    else:
+        projects = PostProject.objects.filter(
+            Q(name_project__icontains=q) | Q(skills_tags_projects__tag__icontains=q)
+        )
+    context = {
+        'projects': projects
+    }
+    return render(request, 'pages/projects.html', context)

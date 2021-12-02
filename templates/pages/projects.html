@@ -6,8 +6,8 @@
 
         <div class="container">
             <div class="search-box">
-                <form>
-                    <input type="text" name="search" placeholder="Search keywords">
+                <form method="GET" action="{% url 'search' %}">
+                    <input type="text" name="q" placeholder="Search keywords">
                     <button type="submit">Search</button>
                 </form>
 				</div><!--search-box end-->
@@ -168,13 +168,15 @@
 													<li><span>${{ project.start_price }} - ${{ project.end_price }}</span></li>
 												</ul>
 												<p>
-													{{project.description_project}}.....
+													{{ project.description_project }}.....
 													<a href="#" title="">view more</a>
 												</p>
 												<ul class="skill-tags">
 													<!-- display all tags of this project-->
-													{% for tag in project.skills_tags_projects.all %}
-														<li><a href="#" title="">{{ tag }}</a></li>
+													{% for tags in project.skills_tags_projects.all %}
+														<li>
+															<a href="#">{{ tags }}</a>
+														</li>
 													{% endfor %}
 												</ul>
 											</div>
