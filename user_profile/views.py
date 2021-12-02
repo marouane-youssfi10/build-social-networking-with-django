@@ -45,7 +45,6 @@ def user_profile(request, slug_user, pk):
     following_count =follow_user.following.all().count()
     followers_count =follow_user.followers.all().count()
 
-
     # get all links of social networking
     links_media = Social_media.objects.filter(social_media_user=user_profile.user)[0:8]
 

@@ -20,10 +20,10 @@
 											<a href="#" title=""><i class="fa fa-camera"></i></a>
 										</div><!--user-pro-img end-->
 										<div class="user_pro_status">
-											<ul class="flw-hr">
-												<li>
-													<!-- check if request.user for hide follow button-->
-													{% if request.user != user_profile.user %}
+											{% if request.user != user_profile.user %}
+												<ul class="flw-hr">
+													<li>
+														<!-- check if request.user for hide follow button-->
 														{% if request.user in follow_user.following.all %} <!-- sajib in [test1, test2] -->
 															<a href="{% url 'unfollow' follow_user.id %}" class="flww bg-danger">
 																<i class="fa fa-check"></i> Unfollow
@@ -33,9 +33,10 @@
 																<i class="la la-plus"></i> Follow
 															</a>
 														{% endif %}
-													{% endif %}
-												</li>
-											</ul>
+
+													</li>
+												</ul>
+											{% endif %}
 											<ul class="flw-status">
 												<li>
 													<span>Following</span>
@@ -61,7 +62,7 @@
 									</div><!--user_profile end-->
 									<div class="suggestions full-width">
 									<div class="sd-title">
-										<h3>Suggestions</h3>
+										<h3>Suggestions</h3><br><br>
 										<i class="la la-ellipsis-v"></i>
 									</div><!--sd-title end-->
 									<div class="suggestions-list">
@@ -75,7 +76,6 @@
 														</a>
 														<span>{{ user_profile.title }}</span>
 													</div>
-													<span><i class="la la-plus"></i></span>
 												</div>
 											{% endif %}
 										{% endfor %}
