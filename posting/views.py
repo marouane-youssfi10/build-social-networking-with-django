@@ -22,8 +22,7 @@ def index(request):
     return render(request, 'pages/projects.html', context)
 
 def post_projects(request):
-    pass
-    """if request.method == 'POST':
+    if request.method == 'POST':
         form_post_project = PostProjectForm(request.POST)
         form_tags_post_project = TagsProjectsForm(request.POST)
 
@@ -41,6 +40,12 @@ def post_projects(request):
             # get the value of tags_post_values
             tags_projects = form_tags_post_project.cleaned_data['tag']
 
+            form_post_tags = TagsProjects.objects.create(
+                tags_users_projects=request.user,
+                tag=tags_projects
+            )
+            form_post_tags.save()
+
             form_post_projects = PostProject.objects.create(
                 user=request.user,
                 name_project=name_project,
@@ -52,11 +57,7 @@ def post_projects(request):
             )
             form_post_projects.save()
 
-            form_post_tags = TagsProjects.objects.create(
-                user=request.user,
-                tag=tags_projects
-            )
-            form_post_tags.save()
+
             messages.success(request, 'Your Project is created')
             print('\n if \n')
             return redirect('/projects/')
@@ -68,7 +69,7 @@ def post_projects(request):
         'form_post_project': form_post_project,
         'form_tags_post_project': form_tags_post_project
     }
-    return render(request, 'post/post_project.html', context)"""
+    return render(request, 'post/post_project.html', context)
 
 def post_job(request):
     all_user_profile = UserProfile.objects.all()
