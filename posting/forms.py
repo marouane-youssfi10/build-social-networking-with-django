@@ -2,17 +2,6 @@ from django import forms
 from .models import PostProject, TagsProjects
 
 
-class TagsProjectsForm(forms.ModelForm):
-    class Meta:
-        model = ['tag']
-        fields = TagsProjects
-
-    def __init__(self, *args, **kwargs):
-        super(TagsProjectsForm, self).__init__(*args, **kwargs)
-        self.fields['tags'].widget.attrs['placeholder'] = 'Tags'
-        for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'form-control'
-            self.fields[field].required = True
 
 class PostProjectForm(forms.ModelForm):
     class Meta:
@@ -30,4 +19,17 @@ class PostProjectForm(forms.ModelForm):
         self.fields['description_project'].widget.attrs['placeholder'] = 'Description'
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
+            self.fields[field].required = True
+
+class TagsProjectsForm(forms.ModelForm):
+    class Meta:
+        model = TagsProjects
+        fields = ('tag',)
+
+    def __init__(self, *args, **kwargs):
+        super(TagsProjectsForm, self).__init__(*args, **kwargs)
+        self.fields['tag'].widget.attrs['placeholder'] = 'Tags'
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'form-control'
+            self.fields[field].widget.attrs['placeholder'] = 'add tags, separated by commas. example: design, programmation, photographe, .....'
             self.fields[field].required = True

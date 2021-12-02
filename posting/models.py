@@ -1,12 +1,10 @@
 from django.db import models
 
 # models
-from accounts.models import Account, UserProfile
-
-
+from accounts.models import Account
 
 class TagsProjects(models.Model):
-    tags_users_projects = models.ForeignKey(Account, on_delete=models.CASCADE)
+    tags_users_projects = models.ForeignKey(Account, on_delete=models.CASCADE,  related_name='tags_users_projects')
     tag = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:

@@ -7,7 +7,7 @@ from .models import PostProject, TagsProjects
 from accounts.models import UserProfile
 
 # forms
-from .forms import PostProjectForm, TagsProjectsForm
+from .forms import *
 
 def index(request):
     print('-------------index -------------------------')
@@ -22,11 +22,15 @@ def index(request):
     return render(request, 'pages/projects.html', context)
 
 def post_projects(request):
-    if request.method == 'POST':
+    pass
+    """if request.method == 'POST':
         form_post_project = PostProjectForm(request.POST)
         form_tags_post_project = TagsProjectsForm(request.POST)
-        print('form_post_projects.is_valid() = ', form_post_project.is_valid())
-        if form_post_project.is_valid():
+
+        print('form_post_projects.is_valid()     = ', form_post_project.is_valid())
+        print('form_tags_post_project.is_valid() = ', form_tags_post_project.is_valid())
+        if form_post_project.is_valid() and form_tags_post_project.is_valid():
+            # get the values of post_project
             name_project = form_post_project.cleaned_data['name_project']
             type_work_project = form_post_project.cleaned_data['type_work_project']
             location = form_post_project.cleaned_data['location']
@@ -34,7 +38,8 @@ def post_projects(request):
             end_price = form_post_project.cleaned_data['end_price']
             description_project = form_post_project.cleaned_data['description_project']
 
-            tags_projects = form_tags_post_project.cleaned_data['']
+            # get the value of tags_post_values
+            tags_projects = form_tags_post_project.cleaned_data['tag']
 
             form_post_projects = PostProject.objects.create(
                 user=request.user,
@@ -43,21 +48,27 @@ def post_projects(request):
                 location=location,
                 start_price=start_price,
                 end_price=end_price,
-                description_project=description_project,
+                description_project=description_project
             )
             form_post_projects.save()
 
-            form_post_tags = TagsProjects.objects.create()
+            form_post_tags = TagsProjects.objects.create(
+                user=request.user,
+                tag=tags_projects
+            )
+            form_post_tags.save()
             messages.success(request, 'Your Project is created')
             print('\n if \n')
             return redirect('/projects/')
     else:
         form_post_project = PostProjectForm()
+        form_tags_post_project = TagsProjectsForm()
 
     context = {
-        'form_post_project': form_post_project
+        'form_post_project': form_post_project,
+        'form_tags_post_project': form_tags_post_project
     }
-    return render(request, 'post/post_project.html', context)
+    return render(request, 'post/post_project.html', context)"""
 
 def post_job(request):
     all_user_profile = UserProfile.objects.all()

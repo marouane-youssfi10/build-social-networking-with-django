@@ -183,6 +183,7 @@
 											<div class="job-status-bar">
 												<ul class="like-com">
 													<li>
+														<!-- check the user if do a like -->
 														{% if request.user in project.likes.all %}
 															<a href="{% url 'remove-like' project.id %}" class="active"><i class="la la-heart"></i> Like</a>
 															<img src="{% static 'images/liked-img.png' %}">
