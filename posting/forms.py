@@ -1,6 +1,19 @@
 from django import forms
 from .models import PostProject, TagsProjects
 
+
+class TagsProjectsForm(forms.ModelForm):
+    class Meta:
+        model = ['tag']
+        fields = TagsProjects
+
+    def __init__(self, *args, **kwargs):
+        super(TagsProjectsForm, self).__init__(*args, **kwargs)
+        self.fields['tags'].widget.attrs['placeholder'] = 'Tags'
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'form-control'
+            self.fields[field].required = True
+
 class PostProjectForm(forms.ModelForm):
     class Meta:
         model = PostProject

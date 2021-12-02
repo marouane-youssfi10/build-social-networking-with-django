@@ -7,7 +7,7 @@ from .models import PostProject, TagsProjects
 from accounts.models import UserProfile
 
 # forms
-from .forms import PostProjectForm
+from .forms import PostProjectForm, TagsProjectsForm
 
 def index(request):
     print('-------------index -------------------------')
@@ -24,6 +24,7 @@ def index(request):
 def post_projects(request):
     if request.method == 'POST':
         form_post_project = PostProjectForm(request.POST)
+        form_tags_post_project = TagsProjectsForm(request.POST)
         print('form_post_projects.is_valid() = ', form_post_project.is_valid())
         if form_post_project.is_valid():
             name_project = form_post_project.cleaned_data['name_project']
@@ -32,6 +33,8 @@ def post_projects(request):
             start_price = form_post_project.cleaned_data['start_price']
             end_price = form_post_project.cleaned_data['end_price']
             description_project = form_post_project.cleaned_data['description_project']
+
+            tags_projects = form_tags_post_project.cleaned_data['']
 
             form_post_projects = PostProject.objects.create(
                 user=request.user,
@@ -43,6 +46,8 @@ def post_projects(request):
                 description_project=description_project,
             )
             form_post_projects.save()
+
+            form_post_tags = TagsProjects.objects.create()
             messages.success(request, 'Your Project is created')
             print('\n if \n')
             return redirect('/projects/')
