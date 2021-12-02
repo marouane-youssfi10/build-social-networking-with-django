@@ -2,6 +2,7 @@ from django.shortcuts import redirect
 
 # models
 from .models import Follow
+from posting.models import PostProject
 
 def follow_profile(request, pk):
     my_profile_follow = Follow.objects.get(user=request.user)
@@ -27,5 +28,12 @@ def unfollow_profile(request, pk):
 
     return redirect('user-profile', obj.user, pk) # <slug:slug_user>/<int:pk>
 
-def likes(request):
-    pass
+def add_like(request, pk):
+    project = PostProject.objects.get(id=pk)
+    project.likes.add(request.user)
+    return redirect('projects')
+
+def remove_like(request, pk):
+    project = PostProject.objects.get(id=pk)
+    project.likes.remove(request.user)
+    return redirect('projects')
