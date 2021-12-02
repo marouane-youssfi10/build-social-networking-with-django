@@ -23,14 +23,6 @@
 											<ul class="flw-hr">
 												<li>
 													<!-- check if request.user for hide follow button-->
-													{{ follow_user.id }}
-													{{ follow_user.user.full_name }} <br><br>
-													request.user = {{ request.user }} <br><br>
-													<hr>
-													{% for i in follow_user.following.all %}
-														{{ i }}
-													{% endfor %}
-													<hr>
 													{% if request.user != user_profile.user %}
 														{% if request.user in follow_user.following.all %} <!-- sajib in [test1, test2] -->
 															<a href="{% url 'unfollow' follow_user.id %}" class="flww bg-danger">
@@ -47,11 +39,11 @@
 											<ul class="flw-status">
 												<li>
 													<span>Following</span>
-													<b>34</b>
+													<b>{{ following_count }}</b>
 												</li>
 												<li>
 													<span>Followers</span>
-													<b>155</b>
+													<b>{{ followers_count }}</b>
 												</li>
 											</ul>
 										</div><!--user_pro_status end-->

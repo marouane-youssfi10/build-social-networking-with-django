@@ -40,7 +40,11 @@ def user_profile(request, slug_user, pk):
 
     # get info of follow user
     follow_user = Follow.objects.get(user__first_name=slug_user)
-    print('follow_user.id = ', follow_user.id, '--  follow_user.user = ', follow_user.user)
+    # print('follow_user.id = ', follow_user.id, '--  follow_user.user = ', follow_user.user)
+
+    following_count =follow_user.following.all().count()
+    followers_count =follow_user.followers.all().count()
+
 
     # get all links of social networking
     links_media = Social_media.objects.filter(social_media_user=user_profile.user)[0:8]
@@ -50,7 +54,9 @@ def user_profile(request, slug_user, pk):
         'user_experience': user_experience,
         'all_user_profile': all_user_profile,
         'links_media': links_media,
-        'follow_user': follow_user
+        'follow_user': follow_user,
+        'following_count': following_count,
+        'followers_count': followers_count
     }
     return render(request, 'profile_user/user_profile.html', context)
 
