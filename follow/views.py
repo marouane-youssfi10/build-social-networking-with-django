@@ -26,3 +26,6 @@ def unfollow_profile(request, pk):
     obj.following.remove(my_profile_follow.user)
 
     return redirect('user-profile', obj.user, pk) # <slug:slug_user>/<int:pk>
+
+def likes(request):
+    pass
