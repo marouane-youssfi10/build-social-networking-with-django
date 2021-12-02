@@ -1,9 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.db.models import Q
+
+# models
 from .models import PostProject, TagsProjects
 from accounts.models import UserProfile
+
+# forms
 from .forms import PostProjectForm
-# Create your views here.
 
 def index(request):
     # get all user who posting projects
@@ -56,3 +60,9 @@ def post_job(request):
         'all_user_profile': all_user_profile,
     }
     return render(request, 'pages/jobs.html', context)
+
+def search(request):
+    q = request.GET.get('q') if request.GET.get('q') is not None else ''
+    rooms = PostProject.objects.filter(
+        Q(topic__name__icontains=q) | Q(name__icontains=q) | Q(description__icontains=q)
+    )

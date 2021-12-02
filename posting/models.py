@@ -1,5 +1,8 @@
 from django.db import models
+
+# models
 from accounts.models import Account, UserProfile
+
 
 
 class TagsProjects(models.Model):
