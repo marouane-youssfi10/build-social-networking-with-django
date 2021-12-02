@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserForm, UserProfileForm, ExperienceUserForm, TagsUserForm, SocialMediaForm
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponse
 
 @login_required(login_url='login')
 def index(request):
@@ -31,6 +30,7 @@ def user_profile(request, slug_user, pk):
 
     # get currently user profile
     user_profile = UserProfile.objects.get(user__first_name=slug_user)
+    print('user_profile.user = ', user_profile.user, "\n")
 
     # get all links of social networking
     links_media = Social_media.objects.filter(social_media_user=user_profile.user)[0:8]

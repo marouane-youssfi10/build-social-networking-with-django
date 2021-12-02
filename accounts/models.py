@@ -94,7 +94,7 @@ class UserProfile(models.Model):
     skills_tags_user = models.ManyToManyField(TagsUser, blank=True)
     links_media = models.ForeignKey(Social_media, on_delete=models.CASCADE, blank=True)
     experience = models.ForeignKey(Experience_user, on_delete=models.CASCADE, blank=True)
-    following = models.ManyToManyField(Account, blank=True,  related_name='following')
+    # following = models.ManyToManyField(Account, blank=True,  related_name='following')
 
     class Meta:
         ordering = ['-updated', '-created']

@@ -25,13 +25,13 @@
 													<!-- check if request.user for hide follow button-->
 													{% if request.user != user_profile.user %}
 														{% if request.user in user_profile.following.all %}
-														<a href="{% url 'follow' request.user.id %}" class="flww">
-															<i class="la la-plus"></i> Unfollow
-														</a>
+															<a href="{% url 'follow' user_profile.user.id %}" class="flww bg-danger">
+																<i class="fa fa-check"></i> Unfollow
+															</a>
 														{% else %}
-														<a href="{% url 'follow' request.user.id %}" class="flww">
-															<i class="la la-plus"></i> Follow
-														</a>
+															<a href="{% url 'follow' user_profile.user.id %}" class="flww bg-success">
+																<i class="la la-plus"></i> Follow
+															</a>
 														{% endif %}
 													{% endif %}
 												</li>

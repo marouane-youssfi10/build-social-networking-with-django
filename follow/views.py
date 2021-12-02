@@ -1,25 +1,28 @@
 from django.shortcuts import render, redirect
 from accounts.models import UserProfile
-"""
-if request.method == "POST":
-    my_profile = Profile.objects.get(user=request.user)
-    pk = request.POST.get('profile_pk')
-    obj = Profile.objects.get(pk=pk)
+from .models import Follow
 
+def follow_profile(request, pk):
+    my_profile_follow = Follow.objects.get(user=request.user)
+    obj = Follow.objects.get(id=pk)
+
+    print('my_profile = ', my_profile_follow)
+    print('obj        = ', obj, '-- obj.id = ', obj.id)
+    if obj.user in my_profile_follow.following.all():
+        print('if')
+        my_profile_follow.following.add(obj.user)  # follow
+
+    # request.META.get('HTTP_REFERER')
+    return redirect('/')
+
+def unfollow_profile(request, pk):
+    my_profile = Follow.objects.get(user=request.user)
+    obj = Follow.objects.get(id=pk)
+
+    print('my_profile = ', my_profile)
+    print('obj        = ', obj, '-- obj.id = ', obj.id)
     if obj.user in my_profile.following.all():
-        my_profile.following.remove(obj.user)
-    else:
-        my_profile.following.add(obj.user)
-    return redirect(request.META.get('HTTP_REFERER'))
-return redirect('profiles:profile-list-view')
-"""
-def follow_unfollow_profile(request, pk):
-    my_profile = UserProfile.objects.get(user=request.user)
-    obj = UserProfile.objects.get(id=pk)
+        print('if')
+        my_profile.following.remove(obj.user)  # unfollow
 
-    if obj.user in my_profile.following.all():
-        my_profile.following.remove(obj.user) # unfollow
-    else:
-        my_profile.following.add(obj.user) # follow
-
-    return redirect('user-profile')
+    return redirect('/')
