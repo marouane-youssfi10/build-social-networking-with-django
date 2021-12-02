@@ -69,7 +69,7 @@ def search(request):
         projects = PostProject.objects.all()
     else:
         projects = PostProject.objects.filter(
-            Q(name_project__icontains=q) | Q(skills_tags_projects__tag__icontains=q)
+            Q(name_project__icontains=q) | Q(description_project__icontains=q) | Q(skills_tags_projects__tag__icontains=q)
         )
     context = {
         'projects': projects
