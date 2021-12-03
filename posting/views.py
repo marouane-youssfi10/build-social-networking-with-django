@@ -98,27 +98,33 @@ def filter_project(request):
         if 'search_skills' in request.POST:
             search_skills = request.POST['search_skills']  # dacia
             if search_skills:
+                print('search_skills = ', search_skills)
                 projects = projects.filter(skills_tags_projects__tag__icontains=search_skills)
 
         if 'availabilty' in request.POST:
             availabilty = request.POST['availabilty']
             if availabilty:
+                print('availabilty = ', availabilty)
                 projects = projects.filter(description_project__icontains=availabilty)
 
         if 'min_price' in request.POST:
             min_price = request.POST['min_price']
             max_price = request.POST['max_price']
             if max_price:
+                print('min_price = ', min_price)
+                print('max_price = ', max_price)
                 projects = projects.filter(start_price__gte=min_price, end_price__lte=max_price)
 
         if 'country' in request.POST:
             country = request.POST['country']
             if country:
+                print('country = ', country)
                 projects = projects.filter(location__iexact=country)
 
         if 'experience_level' in request.POST:
-            experience_level = request.POST['country']
+            experience_level = request.POST['experience_level']
             if experience_level:
+                print('experience_level = ', experience_level)
                 projects = projects.filter(description_project__icontains=experience_level)
     else:
         return render(request, 'pages/projects.html')
