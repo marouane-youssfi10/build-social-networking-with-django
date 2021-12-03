@@ -93,4 +93,18 @@ def search(request):
     return render(request, 'pages/projects.html', context)
 
 def filter_project(request):
-    pass
+    if request.method == 'POST':
+        search_skills = request.POST['search_skills']
+        availabilty = request.POST['availabilty']
+        min_price = request.POST['min_price']
+        max_price = request.POST['max_price']
+        experience_level = request.POST['experience_level']
+        country = request.POST['country']
+
+        print('search_skills    = ', search_skills)
+        print('availabilty      = ', availabilty)
+        print('min_price        = ', min_price)
+        print('max_price        = ', max_price)
+        print('experience_level = ', experience_level)
+        print('country          = ', country)
+    return render(request, 'pages/projects.html')
