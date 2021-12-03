@@ -28,6 +28,7 @@ def post_projects(request):
 
         print('form_post_projects.is_valid()     = ', form_post_project.is_valid())
         print('form_tags_post_project.is_valid() = ', form_tags_post_project.is_valid())
+        tags_objs = []
         if form_post_project.is_valid() and form_tags_post_project.is_valid():
             # get the values of post_project
             name_project = form_post_project.cleaned_data['name_project']
@@ -37,14 +38,8 @@ def post_projects(request):
             end_price = form_post_project.cleaned_data['end_price']
             description_project = form_post_project.cleaned_data['description_project']
 
-            # get the value of tags_post_values
-            tags_projects = form_tags_post_project.cleaned_data['tag']
 
-            form_post_tags = TagsProjects.objects.create(
-                tags_users_projects=request.user,
-                tag=tags_projects
-            )
-            form_post_tags.save()
+
 
             form_post_projects = PostProject.objects.create(
                 user=request.user,
@@ -57,9 +52,19 @@ def post_projects(request):
             )
             form_post_projects.save()
 
+            # get the value of tags_post_values
+            tags_projects = form_tags_post_project.cleaned_data['tag']
+            tags_list = list(tags_projects.split(','))
+            for tag in tags_list:
+                # save the information updated
+                tag, created = TagsProjects.objects.get_or_create(tags_users_projects=request.user, tag=tag)
+                tags_objs.append(tag)
+
+            post_project = PostProject.objects.get(user=request.user)
+            post_project.skills_tags_projects.set(tags_objs)
+            post_project.save()
 
             messages.success(request, 'Your Project is created')
-            print('\n if \n')
             return redirect('/projects/')
     else:
         form_post_project = PostProjectForm()

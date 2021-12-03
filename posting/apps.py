@@ -6,4 +6,4 @@ class PostingConfig(AppConfig):
     name = 'posting'
 
     def ready(self):
-        import accounts.signals
+        import posting.signals
