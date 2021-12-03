@@ -91,3 +91,6 @@ def search(request):
         'projects': projects
     }
     return render(request, 'pages/projects.html', context)
+
+def filter_project(request):
+    pass
