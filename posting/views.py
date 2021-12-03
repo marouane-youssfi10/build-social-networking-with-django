@@ -126,8 +126,10 @@ def filter_project(request):
             if experience_level:
                 print('experience_level = ', experience_level)
                 projects = projects.filter(description_project__icontains=experience_level)
-    else:
-        return render(request, 'pages/projects.html')
+
+        if projects.count() == 0:
+            var = 'No result Found'
+            return render(request, 'pages/projects.html', {'var': var})
 
     context = {
         'projects': projects
