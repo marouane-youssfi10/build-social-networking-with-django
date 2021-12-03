@@ -111,32 +111,30 @@ def edit_profile(request):
 
 @login_required(login_url='login')
 def edit_experience_user(request, pk):
-    try:
-        # get userexperience
-        user_experience = Experience_user.objects.get(id=pk)
-        if request.method == 'POST':
-            print('\nif\n')
-            # get information of userform & userprofile
-            user_experience_form = ExperienceUserForm(request.POST, request.FILES, instance=user_experience)
 
-            # check user_experience_form
-            if user_experience_form.is_valid():
-                # save the information updated
-                user_experience_form.save()
-                messages.success(request, 'Your profile experience has been updated')
-                return redirect('/accounts-setting/edit-profile/', request.user)
-        else:
-            user_experience_form = ExperienceUserForm(instance=user_experience)
+    # get userexperience
+    user_experience = Experience_user.objects.get(id=pk)
+    if request.method == 'POST':
+        print('\nif\n')
+        # get information of userform & userprofile
+        user_experience_form = ExperienceUserForm(request.POST, request.FILES, instance=user_experience)
 
-        context = {
-            'user_experience_form': user_experience_form,
-            'user_experience': user_experience,
-        }
+        # check user_experience_form
+        if user_experience_form.is_valid():
+            # save the information updated
+            user_experience_form.save()
+            messages.success(request, 'Your profile experience has been updated')
+            return redirect('/accounts-setting/edit-profile/', request.user)
+    else:
+        user_experience_form = ExperienceUserForm(instance=user_experience)
 
-        return render(request, 'profile_user/edit_experience.html', context)
+    context = {
+        'user_experience_form': user_experience_form,
+        'user_experience': user_experience,
+    }
 
-    except ObjectDoesNotExist:
-        pass
+    return render(request, 'profile_user/edit_experience.html', context)
+
 
 @login_required(login_url='login')
 def create_experience_user(request):

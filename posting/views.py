@@ -1,13 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db.models import Q
-
+from django.http import HttpResponse
 # models
 from .models import PostProject, TagsProjects
 from accounts.models import UserProfile
-
 # forms
-from .forms import *
+from .forms import PostProjectForm, TagsProjectsForm
 
 def index(request):
     print('-------------index -------------------------')
@@ -135,3 +134,29 @@ def filter_project(request):
         'projects': projects
     }
     return render(request, 'pages/projects.html', context)
+
+def edit_post_project(request, pk):
+    print('request = ', request.user)
+    print('pk = ', pk)
+    # get post_project
+    post_project = PostProject.objects.get(id=pk)
+    print('post_project = ', post_project)
+    if request.method == 'POST':
+        # get information of post project
+        post_project_form = PostProjectForm(request.POST, request.FILES, instance=post_project)
+
+        # check user_experience_form
+        if post_project_form.is_valid():
+            # save the information updated
+            post_project_form.save()
+            messages.success(request, 'Your post has been updated')
+            return redirect('projects')
+    else:
+        post_project_form = PostProjectForm(instance=post_project)
+
+    context = {
+        'post_project_form': post_project_form,
+        'post_project': post_project
+    }
+
+    return render(request, 'post/edit_post_project.html', context)

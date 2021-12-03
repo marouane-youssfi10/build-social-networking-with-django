@@ -5,5 +5,5 @@ class PostingConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'posting'
 
-    def ready(self):
-        import posting.signals
+    """def ready(self):
+        import posting.signals"""

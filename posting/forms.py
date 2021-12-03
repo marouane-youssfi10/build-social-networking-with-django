@@ -2,7 +2,6 @@ from django import forms
 from .models import PostProject, TagsProjects
 
 
-
 class PostProjectForm(forms.ModelForm):
     class Meta:
         model = PostProject
