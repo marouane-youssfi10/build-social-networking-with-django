@@ -160,14 +160,22 @@ def edit_post_project(request, pk):
     return render(request, 'post/edit_post_project.html', context)
 
 def delete_tag_post(request, project_post_id, pk):
-    """user_profile = UserProfile.objects.get(user=request.user)
-    tag = TagsUser.objects.get(id=pk, tags_user=user_profile.user)
-
-    tag_name = tag.tag
-    tag.delete()
-    messages.success(request, 'your tag "' + tag_name + '" is delete')
-    return redirect('/accounts-setting/edit-profile/', request.user)"""
     tag = TagsProjects.objects.get(id=pk)
     tag.delete()
     messages.success(request, 'your tag is delete successfully')
     return redirect('/projects/edit-post/'+ str(project_post_id))
+
+def create_tags_post(request, project_post_id):
+    post_project = PostProject.objects.get(id=project_post_id)
+    tags_objs = []
+
+    if request.method == 'POST':
+        post_tags_project = request.POST['post_tags_project']
+        tags_list = list(post_tags_project.split(','))
+        for tag in tags_list:
+            # save the information updated
+            tag, created = TagsProjects.objects.get_or_create(tags_users_projects=request.user, tag=tag)
+            tags_objs.append(tag)
+        post_project.skills_tags_projects.set(tags_objs)
+        post_project.save()
+    return redirect('/projects/edit-post/' + str(project_post_id))
