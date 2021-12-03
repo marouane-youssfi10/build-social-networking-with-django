@@ -38,8 +38,13 @@ def post_projects(request):
             end_price = form_post_project.cleaned_data['end_price']
             description_project = form_post_project.cleaned_data['description_project']
 
-
-
+            # get the value of tags_post_values list
+            tags_projects = form_tags_post_project.cleaned_data['tag']
+            tags_list = list(tags_projects.split(','))
+            for tag in tags_list:
+                # save the information updated
+                tag, created = TagsProjects.objects.get_or_create(tags_users_projects=request.user, tag=tag)
+                tags_objs.append(tag)
 
             form_post_projects = PostProject.objects.create(
                 user=request.user,
@@ -50,19 +55,8 @@ def post_projects(request):
                 end_price=end_price,
                 description_project=description_project
             )
+            form_post_projects.skills_tags_projects.set(tags_objs)
             form_post_projects.save()
-
-            # get the value of tags_post_values
-            tags_projects = form_tags_post_project.cleaned_data['tag']
-            tags_list = list(tags_projects.split(','))
-            for tag in tags_list:
-                # save the information updated
-                tag, created = TagsProjects.objects.get_or_create(tags_users_projects=request.user, tag=tag)
-                tags_objs.append(tag)
-
-            post_project = PostProject.objects.get(user=request.user)
-            post_project.skills_tags_projects.set(tags_objs)
-            post_project.save()
 
             messages.success(request, 'Your Project is created')
             return redirect('/projects/')
