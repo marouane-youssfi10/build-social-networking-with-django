@@ -61,53 +61,51 @@ def user_profile(request, slug_user, pk):
 
 @login_required(login_url='login')
 def edit_profile(request):
-    try:
-        # get userprofile
-        user_profile = get_object_or_404(UserProfile, user=request.user)
 
-        # get user_experience
-        user_experience = Experience_user.objects.filter(experience_user=request.user)
+    # get userprofile
+    user_profile = get_object_or_404(UserProfile, user=request.user)
 
-        # get user_tags
-        user_tags = TagsUser.objects.filter(tags_user=request.user)
-        user_tags_form = TagsUserForm(instance=request.user)
+    # get user_experience
+    user_experience = Experience_user.objects.filter(experience_user=request.user)
 
-        # get link social media
-        user_links_media = Social_media.objects.filter(social_media_user=request.user)
+    # get user_tags
+    user_tags = TagsUser.objects.filter(tags_user=request.user)
+    user_tags_form = TagsUserForm(instance=request.user)
 
-        if request.method == 'POST':
-            # get information of userform & userprofile
-            user_form = UserForm(request.POST, request.FILES, instance=request.user)
-            profile_form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
+    # get link social media
+    user_links_media = Social_media.objects.filter(social_media_user=request.user)
 
-            # check user_form & profile_form is valid
-            if user_form.is_valid() and profile_form.is_valid():
-                # save the information updated
-                user_form.save()
-                profile_form.save()
+    if request.method == 'POST':
+        # get information of userform & userprofile
+        user_form = UserForm(request.POST, request.FILES, instance=request.user)
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
 
-                messages.success(request, 'Your profile has been updated.')
-                return redirect('/accounts-setting/edit-profile/', request.user)
-        else:
-            user_form = UserForm(instance=request.user)
-            profile_form = UserProfileForm(instance=user_profile)
+        # check user_form & profile_form is valid
+        if user_form.is_valid() and profile_form.is_valid():
+            # save the information updated
+            user_form.save()
+            profile_form.save()
 
-        context = {
-            'user_form': user_form,
-            'profile_form': profile_form,
-            'user_tags_form': user_tags_form,
+            messages.success(request, 'Your profile has been updated.')
+            return redirect('/accounts-setting/edit-profile/', request.user)
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = UserProfileForm(instance=user_profile)
 
-            'user_tags': user_tags,
-            'user_experience': user_experience,
-            'user_profile': user_profile,
-            'user_links_media': user_links_media,
+    context = {
+        'user_form': user_form,
+        'profile_form': profile_form,
+        'user_tags_form': user_tags_form,
 
-            # 'request_user_profile': request_user_profile
-        }
-        return render(request, 'profile_user/edit_profile.html', context)
+        'user_tags': user_tags,
+        'user_experience': user_experience,
+        'user_profile': user_profile,
+        'user_links_media': user_links_media,
 
-    except ObjectDoesNotExist:
-        pass
+        # 'request_user_profile': request_user_profile
+    }
+    return render(request, 'profile_user/edit_profile.html', context)
+
 
 @login_required(login_url='login')
 def edit_experience_user(request, pk):

@@ -136,11 +136,9 @@ def filter_project(request):
     return render(request, 'pages/projects.html', context)
 
 def edit_post_project(request, pk):
-    print('request = ', request.user)
-    print('pk = ', pk)
     # get post_project
     post_project = PostProject.objects.get(id=pk)
-    print('post_project = ', post_project)
+    # tags_post_project = TagsProjects.objects.filter()
     if request.method == 'POST':
         # get information of post project
         post_project_form = PostProjectForm(request.POST, request.FILES, instance=post_project)
@@ -160,3 +158,16 @@ def edit_post_project(request, pk):
     }
 
     return render(request, 'post/edit_post_project.html', context)
+
+def delete_tag_post(request, project_post_id, pk):
+    """user_profile = UserProfile.objects.get(user=request.user)
+    tag = TagsUser.objects.get(id=pk, tags_user=user_profile.user)
+
+    tag_name = tag.tag
+    tag.delete()
+    messages.success(request, 'your tag "' + tag_name + '" is delete')
+    return redirect('/accounts-setting/edit-profile/', request.user)"""
+    tag = TagsProjects.objects.get(id=pk)
+    tag.delete()
+    messages.success(request, 'your tag is delete successfully')
+    return redirect('/projects/edit-post/'+ str(project_post_id))

@@ -10,4 +10,6 @@ urlpatterns = [
 
     path('projects/edit-post/<int:pk>/', views.edit_post_project, name="edit-post-project"),
 
+    path('projects/delete-tag-post/<int:pk>/<int:project_post_id>/', views.delete_tag_post, name="delete-tag-post")
+
 ]
