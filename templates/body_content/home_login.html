@@ -315,7 +315,7 @@
 										<i class="la la-ellipsis-v"></i>
 									</div>
 									<!-- display all user profile into Top Jobs -->
-									{% for user_profile in all_user_profile %}
+									{% for user_profile in user_profiles %}
 										{% if request.user != user_profile.user %} <!-- display only other users-->
 											<div class="jobs-list">
 												<div class="job-info">

@@ -224,7 +224,9 @@
 												{% if request.user !=  profile.user %} <!-- don't display request.user-->
 													<div class="job-info">
 														<div class="job-details">
-															<h3>{{ profile.title }}</h3>
+															<a href="{% url 'user-profile' profile.user profile.user.id %}">
+																<h3>{{ profile.title }}</h3>
+															</a>
 															<p>{{ profile.overview | truncatechars:55 }}</p>
 														</div>
 														<div class="hr-rate">
