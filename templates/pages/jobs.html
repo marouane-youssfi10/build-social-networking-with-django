@@ -76,11 +76,11 @@
 												</div>
 													<select class="form-control" style="background-color:#f2f2f2;" name="experience_level">
 														<option selected="selected" disabled>Select a experience level</option>
-														<option value="+1 years">+1 years</option>
-														<option value="+2 years">+2 years</option>
-														<option value="+3 years">+3 years</option>
-														<option value="+4 years">+4 years</option>
-														<option value="+5 years">+5 years</option>
+														<option value="1 years">+1 years</option>
+														<option value="2 years">+2 years</option>
+														<option value="3 years">+3 years</option>
+														<option value="4 years">+4 years</option>
+														<option value="5 years">+5 years</option>
 													</select>
 											</div>
 											<div class="filter-dd">
@@ -107,7 +107,7 @@
 											<div class="post-bar">
 												<div class="post_topbar">
 													<div class="usy-dt">
-														<img src="http://via.placeholder.com/50x50" alt="">
+														<img src="{{ user_profile.user.photo_profile.url }}" width="50" height="50">
 														<div class="usy-name">
 															<h3>{{ user_profile.user.full_name }}</h3>
 															<span><img src="images/clock.png" alt="">{{ user_profile.created | naturaltime }}</span>
@@ -138,7 +138,7 @@
 													<h3>{{ user_profile.title }}</h3>
 													<ul class="job-dt">
 														<li><a title="">{{ user_profile.type_work }}</a></li>
-														<li><span>$30 / hr</span></li>
+														<li><span>${{ user_profile.hourly_work }} / hr</span></li>
 													</ul>
 													<p> {{ user_profile.overview | truncatechars:100 }} <a href="#" title="">view more</a></p>
 													<ul class="skill-tags">

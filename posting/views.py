@@ -69,6 +69,18 @@ def filter_jobs(request):
                 print('max_price = ', max_price)
                 all_user_profile = all_user_profile.filter(hourly_work__gte=min_price, hourly_work__lte=max_price)
 
+        if 'country' in request.POST:
+            country = request.POST['country']
+            if country:
+                print('country = ', country)
+                all_user_profile = all_user_profile.filter(location_city__iexact=country)
+
+        if 'experience_level' in request.POST:
+            experience_level = request.POST['experience_level']
+            if experience_level:
+                print('experience_level = ', experience_level)
+                all_user_profile = all_user_profile.filter(overview__icontains=experience_level)
+
         print('all_user_profile.count() = ', all_user_profile.count())
         if all_user_profile.count() == 0:
             var = 'No result Found'
