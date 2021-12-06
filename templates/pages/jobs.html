@@ -101,90 +101,71 @@
 							<div class="col-lg-6">
 								<div class="main-ws-sec">
 									<div class="posts-section">
-                                        <!--post-bar end-->
-										<div class="paddy">
-											{{ var }}
-										</div>
-										<!-- display all projects -->
-										{% for project in projects %}
-											<div class="post-bar">
+										<div class="post-bar">
 											<div class="post_topbar">
 												<div class="usy-dt">
-													<img src="{{ project.user.photo_profile.url }}" width="50" height="50">
+													<img src="http://via.placeholder.com/50x50" alt="">
 													<div class="usy-name">
-														<h3></h3>
-														<span><img src="{% static 'images/clock.png' %}" alt=""></span>
+														<h3>John Doe</h3>
+														<span><img src="images/clock.png" alt="">3 min ago</span>
 													</div>
 												</div>
-
-												<!-- check if request.user == user for not hiding div.ed-opts  -->
-												{% if project.user == request.user %}
-													<div class="ed-opts">
-														<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-														<ul class="ed-options">
-															<li><a href="{% url 'edit-post-project' project.id %}">Edit Post</a></li>
-															<li><a href="">Unsaved</a></li>
-															<li><a href="">Unbid</a></li>
-															<li><a href="">Close</a></li>
-															<li><a href="">Hide</a></li>
-														</ul>
-													</div>
-												{% endif %}
+												<div class="ed-opts">
+													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+													<ul class="ed-options">
+														<li><a href="#" title="">Edit Post</a></li>
+														<li><a href="#" title="">Unsaved</a></li>
+														<li><a href="#" title="">Unbid</a></li>
+														<li><a href="#" title="">Close</a></li>
+														<li><a href="#" title="">Hide</a></li>
+													</ul>
+												</div>
 											</div>
 											<div class="epi-sec">
 												<ul class="descp">
-													<li><img src="{% static 'images/icon8.png' %}" alt=""><span>{{ project.type_work_project }}</span></li>
-													<li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ project.location }}</span></li>
+													<li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
+													<li><img src="images/icon9.png" alt=""><span>India</span></li>
 												</ul>
 												<ul class="bk-links">
 													<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
 													<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
-													<li><a href="#" title="" class="bid_now">Bid Now</a></li>
 												</ul>
 											</div>
 											<div class="job_descp">
-												<h3>{{ project.name_project }}</h3>
+												<h3>Senior Wordpress Developer</h3>
 												<ul class="job-dt">
-													<li><span>${{ project.start_price }} - ${{ project.end_price }}</span></li>
+													<li><a href="#" title="">Full Time</a></li>
+													<li><span>$30 / hr</span></li>
 												</ul>
-												<p>
-													{{ project.description_project }}.....
-													<a href="#" title="">view more</a>
-												</p>
+												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet... <a href="#" title="">view more</a></p>
 												<ul class="skill-tags">
-													<!-- display all tags of this project-->
-													{% for tags in project.skills_tags_projects.all %}
-														<li>
-															<a>{{ tags }}</a>
-														</li>
-													{% endfor %}
+													<li><a href="#" title="">HTML</a></li>
+													<li><a href="#" title="">PHP</a></li>
+													<li><a href="#" title="">CSS</a></li>
+													<li><a href="#" title="">Javascript</a></li>
+													<li><a href="#" title="">Wordpress</a></li>
 												</ul>
 											</div>
 											<div class="job-status-bar">
 												<ul class="like-com">
 													<li>
-														<!-- check the user if do a like -->
-														{% if request.user in project.likes.all %}
-															<a href="{% url 'remove-like' project.id %}" class="active"><i class="la la-heart"></i> Like</a>
-															<img src="{% static 'images/liked-img.png' %}">
-															<span>{{ project.likes.all.count }}</span>
-														{% else %}
-															<a href="{% url 'add-like' project.id %}"><i class="la la-heart"></i> Like</a>
-															<img src="{% static 'images/liked-img.png' %}">
-															<span>{{ project.likes.all.count }}</span>
-														{% endif %}
+														<a href="#"><i class="la la-heart"></i> Like</a>
+														<img src="images/liked-img.png" alt="">
+														<span>25</span>
 													</li>
+													<li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
 												</ul>
+												<a><i class="la la-eye"></i>Views 50</a>
 											</div>
-										</div>
-										{% endfor %}
+										</div><!--post-bar end-->
 									</div><!--posts-section end-->
 								</div><!--main-ws-sec end-->
 							</div>
+
 							<div class="col-lg-3">
 								<div class="right-sidebar">
 									<div class="widget widget-about">
-										<img src="{% static 'images/wd-logo.png' %}" alt="">
+										<img src="images/wd-logo.png" alt="">
 										<h3>Track Time on Workwise</h3>
 										<span>Pay only for the Hours worked</span>
 										<div class="sign_link">
@@ -198,22 +179,51 @@
 											<i class="la la-ellipsis-v"></i>
 										</div>
 										<div class="jobs-list">
-											{% for user_profile in all_user_profile %}
-												{% if request.user !=  user_profile.user %}
-													<div class="job-info">
-														<div class="job-details">
-															<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
-																<h3>{{ user_profile.title }}</h3>
-															</a>
-															<p>{{ user_profile.overview | truncatechars:50 }}</p>
-
-														</div>
-														<div class="hr-rate">
-															<span>${{ user_profile.hourly_work }}/hr</span>
-														</div>
-													</div><!--job-info end-->
-												{% endif %}
-											{% endfor %}
+											<div class="job-info">
+												<div class="job-details">
+													<h3>Senior Product Designer</h3>
+													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+												</div>
+												<div class="hr-rate">
+													<span>$25/hr</span>
+												</div>
+											</div><!--job-info end-->
+											<div class="job-info">
+												<div class="job-details">
+													<h3>Senior UI / UX Designer</h3>
+													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+												</div>
+												<div class="hr-rate">
+													<span>$25/hr</span>
+												</div>
+											</div><!--job-info end-->
+											<div class="job-info">
+												<div class="job-details">
+													<h3>Junior Seo Designer</h3>
+													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+												</div>
+												<div class="hr-rate">
+													<span>$25/hr</span>
+												</div>
+											</div><!--job-info end-->
+											<div class="job-info">
+												<div class="job-details">
+													<h3>Senior PHP Designer</h3>
+													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+												</div>
+												<div class="hr-rate">
+													<span>$25/hr</span>
+												</div>
+											</div><!--job-info end-->
+											<div class="job-info">
+												<div class="job-details">
+													<h3>Senior Developer Designer</h3>
+													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+												</div>
+												<div class="hr-rate">
+													<span>$25/hr</span>
+												</div>
+											</div><!--job-info end-->
 										</div><!--jobs-list end-->
 									</div><!--widget-jobs end-->
 									<div class="widget widget-jobs">
@@ -231,117 +241,34 @@
 													<span>$25/hr</span>
 												</div>
 											</div><!--job-info end-->
+											<div class="job-info">
+												<div class="job-details">
+													<h3>Senior UI / UX Designer</h3>
+													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+												</div>
+												<div class="hr-rate">
+													<span>$25/hr</span>
+												</div>
+											</div><!--job-info end-->
+											<div class="job-info">
+												<div class="job-details">
+													<h3>Junior Seo Designer</h3>
+													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+												</div>
+												<div class="hr-rate">
+													<span>$25/hr</span>
+												</div>
+											</div><!--job-info end-->
 										</div><!--jobs-list end-->
 									</div><!--widget-jobs end-->
 								</div><!--right-sidebar end-->
 							</div>
+
 						</div>
 					</div><!-- main-section-data end-->
 				</div>
 			</div>
 		</main>
 
-		<div class="post-popup pst-pj">
-			<div class="post-project">
-				<h3>Post a project</h3>
-				<div class="post-project-fields">
-					<form>
-						<div class="row">
-							<div class="col-lg-12">
-								<input type="text" name="title" placeholder="Title">
-							</div>
-							<div class="col-lg-12">
-								<div class="inp-field">
-									<select>
-										<option>Category</option>
-										<option>Category 1</option>
-										<option>Category 2</option>
-										<option>Category 3</option>
-									</select>
-								</div>
-							</div>
-							<div class="col-lg-12">
-								<input type="text" name="skills" placeholder="Skills">
-							</div>
-							<div class="col-lg-12">
-								<div class="price-sec">
-									<div class="price-br">
-										<input type="text" name="price1" placeholder="Price">
-										<i class="la la-dollar"></i>
-									</div>
-									<span>To</span>
-									<div class="price-br">
-										<input type="text" name="price1" placeholder="Price">
-										<i class="la la-dollar"></i>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-12">
-								<textarea name="description" placeholder="Description"></textarea>
-							</div>
-							<div class="col-lg-12">
-								<ul>
-									<li><button class="active" type="submit" value="post">Post</button></li>
-									<li><a href="#" title="">Cancel</a></li>
-								</ul>
-							</div>
-						</div>
-					</form>
-				</div><!--post-project-fields end-->
-				<a href="#" title=""><i class="la la-times-circle-o"></i></a>
-			</div><!--post-project end-->
-		</div><!--post-project-popup end-->
-
-		<div class="post-popup job_post">
-			<div class="post-project">
-				<h3>Post a job</h3>
-				<div class="post-project-fields">
-					<form>
-						<div class="row">
-							<div class="col-lg-12">
-								<input type="text" name="title" placeholder="Title">
-							</div>
-							<div class="col-lg-12">
-								<div class="inp-field">
-									<select>
-										<option>Category</option>
-										<option>Category 1</option>
-										<option>Category 2</option>
-										<option>Category 3</option>
-									</select>
-								</div>
-							</div>
-							<div class="col-lg-12">
-								<input type="text" name="skills" placeholder="Skills">
-							</div>
-							<div class="col-lg-6">
-								<div class="price-br">
-									<input type="text" name="price1" placeholder="Price">
-									<i class="la la-dollar"></i>
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="inp-field">
-									<select>
-										<option>Full Time</option>
-										<option>Half time</option>
-									</select>
-								</div>
-							</div>
-							<div class="col-lg-12">
-								<textarea name="description" placeholder="Description"></textarea>
-							</div>
-							<div class="col-lg-12">
-								<ul>
-									<li><button class="active" type="submit" value="post">Post</button></li>
-									<li><a href="#" title="">Cancel</a></li>
-								</ul>
-							</div>
-						</div>
-					</form>
-				</div><!--post-project-fields end-->
-				<a href="#" title=""><i class="la la-times-circle-o"></i></a>
-			</div><!--post-project end-->
-		</div><!--post-project-popup end-->
 
 {% endblock content %}

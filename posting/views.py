@@ -96,6 +96,7 @@ def search_jobs(request):
     return render(request, 'pages/jobs.html', context)
 
 def filter_jobs(request):
+    print('---------------------- filter jobs -------------------------')
     all_user_profile = UserProfile.objects.all()
     if request.method == 'POST':
         if 'search_skills' in request.POST:
@@ -116,8 +117,17 @@ def filter_jobs(request):
             if max_price:
                 print('min_price = ', min_price)
                 print('max_price = ', max_price)
-                all_user_profile = all_user_profile.filter(hourly_work__lte=max_price)
-                all_user_profile = all_user_profile.filter(hourly_work__gte=min_price)
+                all_user_profile = all_user_profile.filter(hourly_work__gte=min_price, hourly_work__lte=max_price)
+
+        print('all_user_profile.count() = ', all_user_profile.count())
+        if all_user_profile.count() == 0:
+            var = 'No result Found'
+            return render(request, 'pages/jobs.html', {'var': var})
+
+    context = {
+        'all_user_profile': all_user_profile
+    }
+    return render(request, 'pages/jobs.html', context)
 
 def search_projects(request):
     print('-------------search projects -------------------------')
@@ -133,8 +143,8 @@ def search_projects(request):
     }
     return render(request, 'pages/projects.html', context)
 
-
 def filter_project(request):
+    print('---------------------- filter projects -------------------------')
     projects = PostProject.objects.all()
     if request.method == 'POST':
         if 'search_skills' in request.POST:
