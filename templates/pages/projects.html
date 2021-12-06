@@ -101,7 +101,7 @@
 									<div class="posts-section">
                                         <!--post-bar end-->
 										<div class="paddy">
-											{{ var }}
+											{{ no_result }}
 										</div>
 										<!-- display all projects -->
 										{% for project in projects %}
@@ -235,18 +235,18 @@
 											<i class="la la-ellipsis-v"></i>
 										</div>
 										<div class="jobs-list">
-											{% for user_profile in all_user_profile %}
-												{% if request.user !=  user_profile.user %}
+											{% for profile in user_profiles %}
+												{% if request.user !=  profile.user %}
 													<div class="job-info">
 														<div class="job-details">
-															<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
-																<h3>{{ user_profile.title }}</h3>
+															<a href="{% url 'user-profile' profile.user profile.user.id %}">
+																<h3>{{ profile.title }}</h3>
 															</a>
-															<p>{{ user_profile.overview | truncatechars:50 }}</p>
+															<p>{{ profile.overview | truncatechars:50 }}</p>
 
 														</div>
 														<div class="hr-rate">
-															<span>${{ user_profile.hourly_work }}/hr</span>
+															<span>${{ profile.hourly_work }}/hr</span>
 														</div>
 													</div><!--job-info end-->
 												{% endif %}

@@ -14,7 +14,7 @@ def index(request):
     print('-------------index -------------------------')
     # get all user who posting projects and user profile
     projects = PostProject.objects.all()
-    all_user_profile = UserProfile.objects.all()
+    user_profiles = UserProfile.objects.all()[:5]
 
     # for projects page
     paginator_project = Paginator(projects, 2)
@@ -23,7 +23,7 @@ def index(request):
 
     context = {
         'projects': page_projects,
-        'all_user_profile': all_user_profile,
+        'user_profiles': user_profiles,
     }
     return render(request, 'pages/projects.html', context)
 
@@ -56,12 +56,15 @@ def search_jobs(request):
 def filter_jobs(request):
     print('---------------------- filter jobs -------------------------')
     all_user_profile = UserProfile.objects.all()
+    user_profiles = all_user_profile[:5]
+    print('all_user_profile = ', all_user_profile)
+    print('user_profiles = ', user_profiles)
     if request.method == 'POST':
         if 'search_skills' in request.POST:
             search_skills = request.POST['search_skills']  # dacia
             if search_skills:
                 print('search_skills = ', search_skills)
-                all_user_profile = all_user_profile.filter(skills_tags_user__tag__iexact=search_skills)
+                all_user_profile = all_user_profile.filter(skills_tags_user__tag__icontains=search_skills)
 
         if 'availabilty' in request.POST:
             availabilty = request.POST['availabilty']
@@ -92,10 +95,11 @@ def filter_jobs(request):
         print('all_user_profile.count() = ', all_user_profile.count())
         if all_user_profile.count() == 0:
             var = 'No result Found'
-            return render(request, 'pages/jobs.html', {'var': var})
+            return render(request, 'pages/jobs.html', {'no_result': var, 'user_profile': user_profiles})
 
     context = {
-        'all_user_profile': all_user_profile
+        'all_user_profile': all_user_profile,
+        'user_profile': user_profiles,
     }
     return render(request, 'pages/jobs.html', context)
 
@@ -166,6 +170,7 @@ def search_projects(request):
 def filter_project(request):
     print('---------------------- filter projects -------------------------')
     projects = PostProject.objects.all()
+    user_profiles = UserProfile.objects.all()[:5]
     if request.method == 'POST':
         if 'search_skills' in request.POST:
             search_skills = request.POST['search_skills']  # dacia
@@ -200,11 +205,12 @@ def filter_project(request):
                 projects = projects.filter(description_project__icontains=experience_level)
 
         if projects.count() == 0:
-            var = 'No result Found'
-            return render(request, 'pages/projects.html', {'var': var})
+            no_result = 'No result Found'
+            return render(request, 'pages/projects.html', {'no_result': no_result, 'user_profiles': user_profiles})
 
     context = {
-        'projects': projects
+        'projects': projects,
+        'user_profiles': user_profiles
     }
     return render(request, 'pages/projects.html', context)
 

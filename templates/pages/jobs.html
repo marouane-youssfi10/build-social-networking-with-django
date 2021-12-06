@@ -103,6 +103,7 @@
 							<div class="col-lg-6">
 								<div class="main-ws-sec">
 									<div class="posts-section">
+										{{ no_result }}
 										{% for user_profile in all_user_profile %}
 											<div class="post-bar">
 												<div class="post_topbar">
@@ -219,16 +220,18 @@
 											<h3>Top Jobs</h3>
 										</div>
 										<div class="jobs-list">
-											{% for profile in user_profile %}
-												<div class="job-info">
-													<div class="job-details">
-														<h3>{{ profile.title }}</h3>
-														<p>{{ profile.overview | truncatechars:55 }}</p>
-													</div>
-													<div class="hr-rate">
-														<span>${{ profile.hourly_work }}/hr</span>
-													</div>
-												</div><!--job-info end-->
+											{% for profile in user_profile %} <!-- listing user_profile-->
+												{% if request.user !=  profile.user %} <!-- don't display request.user-->
+													<div class="job-info">
+														<div class="job-details">
+															<h3>{{ profile.title }}</h3>
+															<p>{{ profile.overview | truncatechars:55 }}</p>
+														</div>
+														<div class="hr-rate">
+															<span>${{ profile.hourly_work }}/hr</span>
+														</div>
+													</div><!--job-info end-->
+												{% endif %}
 											{% endfor %}
 										</div><!--jobs-list end-->
 									</div><!--widget-jobs end-->
