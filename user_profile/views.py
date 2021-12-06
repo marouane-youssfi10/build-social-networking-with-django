@@ -6,23 +6,29 @@ from django.core.exceptions import ObjectDoesNotExist
 # models
 from accounts.models import UserProfile, Experience_user, TagsUser, Social_media
 from follow.models import Follow
-
 # # forms
 from .forms import UserForm, UserProfileForm, ExperienceUserForm, TagsUserForm, SocialMediaForm
-
+# pagination
+from django.core.paginator import Paginator
 
 @login_required(login_url='login')
 def index(request):
-    # print('\n index : request.user.first_name = ', request.user.first_name, '\n')
     if request.user.is_authenticated:
         user_profile = UserProfile.objects.get(user=request.user)
-        all_user_profile = UserProfile.objects.all()[0:5]
+        all_user_profile = UserProfile.objects.all()
+        user_profiles = all_user_profile
+
+        # for home_login page
+        paginator_project = Paginator(all_user_profile, 2)
+        page_number_projects = request.GET.get('page')
+        page_all_user_profile = paginator_project.get_page(page_number_projects)
     else:
         return redirect('home')
 
     context = {
         'user_profile': user_profile,
-        'all_user_profile': all_user_profile,
+        'all_user_profile': page_all_user_profile,
+        'user_profiles': user_profiles,
     }
     return render(request, 'home.html', context)
 
