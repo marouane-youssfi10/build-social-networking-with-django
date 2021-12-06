@@ -182,7 +182,7 @@
 												<div class="job-info">
 													<div class="job-details">
 														<h3>{{ user_profile.title }}</h3>
-														<p>{{ user_profile.overview }}</p>
+														<p>{{ user_profile.overview | truncatechars:55 }}</p>
 													</div>
 													<div class="hr-rate">
 														<span>$25/hr</span>
