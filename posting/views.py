@@ -31,12 +31,7 @@ def jobs(request):
 def search_jobs(request):
     print('------------- search jobs -------------------------')
     q = request.GET.get('q') if request.GET.get('q') is not None else ''
-    print('q = ', q)
-    if q == '':
-        all_user_profile = UserProfile.objects.all()
-        # all_user_profile = ''
-    else:
-        all_user_profile = UserProfile.objects.filter(
+    all_user_profile = UserProfile.objects.filter(
             Q(title__icontains=q) | Q(overview__icontains=q) | Q(skills_tags_user__tag__iexact=q)
         )
     print('all_user_profile = ', all_user_profile)
@@ -73,7 +68,7 @@ def filter_jobs(request):
             country = request.POST['country']
             if country:
                 print('country = ', country)
-                all_user_profile = all_user_profile.filter(location_city__iexact=country)
+                all_user_profile = all_user_profile.filter(location_country__iexact=country)
 
         if 'experience_level' in request.POST:
             experience_level = request.POST['experience_level']
@@ -223,13 +218,13 @@ def edit_post_project(request, pk):
 
     return render(request, 'post/edit_post_project.html', context)
 
-def delete_tag_post(request, project_post_id, pk):
+def delete_tag_post_project(request, project_post_id, pk):
     tag = TagsProjects.objects.get(id=pk)
     tag.delete()
     messages.success(request, 'your tag is delete successfully')
     return redirect('/projects/edit-post/'+ str(project_post_id))
 
-def create_tags_post(request, project_post_id):
+def create_tags_post_project(request, project_post_id):
     post_project = PostProject.objects.get(id=project_post_id)
 
     tags_objs = []

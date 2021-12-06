@@ -7,7 +7,7 @@
 			<div class="container">
 				<div class="search-box">
 					<form method="GET" action="{% url 'search-jobs' %}">
-						<input type="text" name="q" placeholder="Search keywords">
+						<input type="text" name="q" placeholder="Search keywords" required>
 						<button type="submit">Search</button>
 					</form>
 				</div><!--search-box end-->
@@ -113,7 +113,8 @@
 															<span><img src="images/clock.png" alt="">{{ user_profile.created | naturaltime }}</span>
 														</div>
 													</div>
-													<div class="ed-opts">
+													{% if user_profile.user == request.user %}
+														<div class="ed-opts">
 														<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
 														<ul class="ed-options">
 															<li><a href="#" title="">Edit Post</a></li>
@@ -123,6 +124,7 @@
 															<li><a href="#" title="">Hide</a></li>
 														</ul>
 													</div>
+													{% endif %}
 												</div>
 												<div class="epi-sec">
 													<ul class="descp">
