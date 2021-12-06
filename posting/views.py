@@ -39,7 +39,7 @@ def post_projects(request):
 
             # get the value of tags_post_values list
             tags_projects = form_tags_post_project.cleaned_data['tag']
-            tags_list = list(tags_projects.split(','))
+            tags_list = list(tags_projects.split(',')) # separate values with commas
             for tag in tags_list:
                 # save the information updated
                 tag, created = TagsProjects.objects.get_or_create(tags_users_projects=request.user, tag=tag)
@@ -54,6 +54,7 @@ def post_projects(request):
                 end_price=end_price,
                 description_project=description_project
             )
+            # add tag_obj to skills tags projects
             form_post_projects.skills_tags_projects.set(tags_objs)
             form_post_projects.save()
 
@@ -77,8 +78,49 @@ def post_job(request):
     }
     return render(request, 'pages/jobs.html', context)
 
-def search(request):
-    print('-------------search -------------------------')
+def search_jobs(request):
+    print('------------- search jobs -------------------------')
+    q = request.GET.get('q') if request.GET.get('q') is not None else ''
+    print('q = ', q)
+    if q == '':
+        all_user_profile = UserProfile.objects.all()
+        # all_user_profile = ''
+    else:
+        all_user_profile = UserProfile.objects.filter(
+            Q(title__icontains=q) | Q(overview__icontains=q) | Q(skills_tags_user__tag__iexact=q)
+        )
+    print('all_user_profile = ', all_user_profile)
+    context = {
+        'all_user_profile': all_user_profile.distinct()
+    }
+    return render(request, 'pages/jobs.html', context)
+
+def filter_jobs(request):
+    all_user_profile = UserProfile.objects.all()
+    if request.method == 'POST':
+        if 'search_skills' in request.POST:
+            search_skills = request.POST['search_skills']  # dacia
+            if search_skills:
+                print('search_skills = ', search_skills)
+                all_user_profile = all_user_profile.filter(skills_tags_user__tag__iexact=search_skills)
+
+        if 'availabilty' in request.POST:
+            availabilty = request.POST['availabilty']
+            if availabilty:
+                print('availabilty = ', availabilty)
+                all_user_profile = all_user_profile.filter(type_work__iexact=availabilty)
+
+        if 'min_price' in request.POST:
+            min_price = request.POST['min_price']
+            max_price = request.POST['max_price']
+            if max_price:
+                print('min_price = ', min_price)
+                print('max_price = ', max_price)
+                all_user_profile = all_user_profile.filter(hourly_work__lte=max_price)
+                all_user_profile = all_user_profile.filter(hourly_work__gte=min_price)
+
+def search_projects(request):
+    print('-------------search projects -------------------------')
     q = request.GET.get('q') if request.GET.get('q') is not None else ''
     if q =='':
         projects = PostProject.objects.all()
@@ -90,6 +132,7 @@ def search(request):
         'projects': projects
     }
     return render(request, 'pages/projects.html', context)
+
 
 def filter_project(request):
     projects = PostProject.objects.all()
@@ -138,7 +181,6 @@ def filter_project(request):
 def edit_post_project(request, pk):
     # get post_project
     post_project = PostProject.objects.get(id=pk)
-    # tags_post_project = TagsProjects.objects.filter()
     if request.method == 'POST':
         # get information of post project
         post_project_form = PostProjectForm(request.POST, request.FILES, instance=post_project)
@@ -167,7 +209,10 @@ def delete_tag_post(request, project_post_id, pk):
 
 def create_tags_post(request, project_post_id):
     post_project = PostProject.objects.get(id=project_post_id)
+
     tags_objs = []
+    for tag in post_project.skills_tags_projects.all():
+        tags_objs.append(tag)
 
     if request.method == 'POST':
         post_tags_project = request.POST['post_tags_project']
@@ -178,4 +223,5 @@ def create_tags_post(request, project_post_id):
             tags_objs.append(tag)
         post_project.skills_tags_projects.set(tags_objs)
         post_project.save()
+    messages.success(request, 'your tag is created successfully')
     return redirect('/projects/edit-post/' + str(project_post_id))

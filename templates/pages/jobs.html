@@ -6,8 +6,8 @@
 <div class="search-sec">
 			<div class="container">
 				<div class="search-box">
-					<form>
-						<input type="text" name="search" placeholder="Search keywords">
+					<form method="GET" action="{% url 'search-jobs' %}">
+						<input type="text" name="q" placeholder="Search keywords">
 						<button type="submit">Search</button>
 					</form>
 				</div><!--search-box end-->
@@ -18,186 +18,173 @@
 		<main>
 			<div class="main-section">
 				<div class="container">
+					{% include 'includes/alerts.html' %}
 					<div class="main-section-data">
 						<div class="row">
 							<div class="col-lg-3">
 								<div class="filter-secs">
 									<div class="filter-heading">
 										<h3>Filters</h3>
-										<a href="#" title="">Clear all filters</a>
 									</div><!--filter-heading end-->
-									<div class="paddy">
-										<div class="filter-dd">
-											<div class="filter-ttl">
-												<h3>Skills</h3>
-												<a href="#" title="">Clear</a>
+
+									<form action="{% url 'filter' %}" method="POST">
+										{% csrf_token %}
+										<div class="paddy">
+											<div class="filter-dd">
+												<div class="filter-ttl">
+													<h3>Skills</h3>
+												</div>
+													<input class="form-control" type="text" name="search_skills" placeholder="Search skills" style="background-color:#f2f2f2;">
 											</div>
-											<form>
-												<input type="text" name="search-skills" placeholder="Search skills">
-											</form>
-										</div>
-										<div class="filter-dd">
-											<div class="filter-ttl">
-												<h3>Availabilty</h3>
-												<a href="#" title="">Clear</a>
+											<div class="filter-dd">
+												<div class="filter-ttl">
+													<h3>Availabilty</h3>
+												</div>
+												<ul class="avail-checks">
+													<li>
+														<input type="radio" name="availabilty" id="c1" value="Hourly">
+														<label for="c1"><span></span></label>
+														<small>Hourly</small>
+													</li>
+													<li>
+														<input type="radio" name="availabilty" id="c2" value="Part Time">
+														<label for="c2"><span></span></label>
+														<small>Part Time</small>
+													</li>
+													<li>
+														<input type="radio" name="availabilty" id="c3" value="Full Time">
+														<label for="c3"><span></span></label>
+														<small>Full Time</small>
+													</li>
+												</ul>
 											</div>
-											<ul class="avail-checks">
-												<li>
-													<input type="radio" name="cc" id="c1">
-													<label for="c1">
-														<span></span>
-													</label>
-													<small>Hourly</small>
-												</li>
-												<li>
-													<input type="radio" name="cc" id="c2">
-													<label for="c2">
-														<span></span>
-													</label>
-													<small>Part Time</small>
-												</li>
-												<li>
-													<input type="radio" name="cc" id="c3">
-													<label for="c3">
-														<span></span>
-													</label>
-													<small>Full Time</small>
-												</li>
-											</ul>
-										</div>
-										<div class="filter-dd">
-											<div class="filter-ttl">
-												<h3>Job Type</h3>
-												<a href="#" title="">Clear</a>
+											<div class="form-row">
+												<div class="filter-ttl">
+													<h3>Pay Rate / Hr ($)</h3>
+												</div>
+												<div class="filter-dd form-group col-md-6">
+														<input class="form-control" type="number" name="min_price" placeholder="Min price" style="background-color:#f2f2f2;">
+												</div>
+												<div class="filter-dd form-group col-md-6">
+														<input class="form-control" type="number" name="max_price" placeholder="Max price" style="background-color:#f2f2f2;">
+												</div>
 											</div>
-											<form class="job-tp">
-												<select>
-													<option>Select a job type</option>
-													<option>Select a job type</option>
-													<option>Select a job type</option>
-													<option>Select a job type</option>
-												</select>
-												<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-											</form>
-										</div>
-										<div class="filter-dd">
-											<div class="filter-ttl">
-												<h3>Pay Rate / Hr ($)</h3>
-												<a href="#" title="">Clear</a>
+											<div class="filter-dd">
+												<div class="filter-ttl">
+													<h3>Experience Level</h3>
+												</div>
+													<select class="form-control" style="background-color:#f2f2f2;" name="experience_level">
+														<option selected="selected" disabled>Select a experience level</option>
+														<option value="+1 years">+1 years</option>
+														<option value="+2 years">+2 years</option>
+														<option value="+3 years">+3 years</option>
+														<option value="+4 years">+4 years</option>
+														<option value="+5 years">+5 years</option>
+													</select>
 											</div>
-											<div class="rg-slider">
-			                                    <input class="rn-slider slider-input" type="hidden" value="5,50" />
-			                                </div>
-			                                <div class="rg-limit">
-			                                	<h4>1</h4>
-			                                	<h4>100+</h4>
-			                                </div><!--rg-limit end-->
-										</div>
-										<div class="filter-dd">
-											<div class="filter-ttl">
-												<h3>Experience Level</h3>
-												<a href="#" title="">Clear</a>
+											<div class="filter-dd">
+												<div class="filter-ttl">
+													<h3>Countries</h3>
+												</div>
+												<input class="form-control" name="country" placeholder="Country" style="background-color:#f2f2f2;">
+
 											</div>
-											<form class="job-tp">
-												<select>
-													<option>Select a experience level</option>
-													<option>3 years</option>
-													<option>4 years</option>
-													<option>5 years</option>
-												</select>
-												<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-											</form>
+
+											<input type="submit" class="form-control" value="Search" style="background-color:#e44d3a; color:white">
+											<br>
 										</div>
-										<div class="filter-dd">
-											<div class="filter-ttl">
-												<h3>Countries</h3>
-												<a href="#" title="">Clear</a>
-											</div>
-											<form class="job-tp">
-												<select>
-													<option>Select a country</option>
-													<option>United Kingdom</option>
-													<option>United States</option>
-													<option>Russia</option>
-												</select>
-												<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-											</form>
-										</div>
-									</div>
+									</form>
+
 								</div><!--filter-secs end-->
 							</div>
+
 							<div class="col-lg-6">
 								<div class="main-ws-sec">
 									<div class="posts-section">
-                                        {% for user_profile in all_user_profile %}
-                                            <!-- check if the user has the title & overview & country & hourly work or not -->
-                                            {% if user_profile.title and user_profile.overview and user_profile.location_country and user_profile.hourly_work %}
-										        <div class="post-bar">
+                                        <!--post-bar end-->
+										<div class="paddy">
+											{{ var }}
+										</div>
+										<!-- display all projects -->
+										{% for project in projects %}
+											<div class="post-bar">
 											<div class="post_topbar">
 												<div class="usy-dt">
-													<img src="{{ user_profile.user.photo_profile.url }}" width="50" height="50">
+													<img src="{{ project.user.photo_profile.url }}" width="50" height="50">
 													<div class="usy-name">
-														<h3>{{ user_profile.user.full_name }}</h3>
-														<span><img src="images/clock.png" alt="">{{ user_profile.created | timesince }} ago</span>
+														<h3></h3>
+														<span><img src="{% static 'images/clock.png' %}" alt=""></span>
 													</div>
 												</div>
-                                                {% if request.user == user_profile.user %}
-                                                    <div class="ed-opts">
-                                                        <a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-                                                        <ul class="ed-options">
-                                                            <li><a href="#" title="">Edit Post</a></li>
-                                                            <li><a href="#" title="">Unsaved</a></li>
-                                                            <li><a href="#" title="">Unbid</a></li>
-                                                            <li><a href="#" title="">Close</a></li>
-                                                            <li><a href="#" title="">Hide</a></li>
-                                                        </ul>
-                                                    </div>
-                                                {% endif %}
+
+												<!-- check if request.user == user for not hiding div.ed-opts  -->
+												{% if project.user == request.user %}
+													<div class="ed-opts">
+														<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+														<ul class="ed-options">
+															<li><a href="{% url 'edit-post-project' project.id %}">Edit Post</a></li>
+															<li><a href="">Unsaved</a></li>
+															<li><a href="">Unbid</a></li>
+															<li><a href="">Close</a></li>
+															<li><a href="">Hide</a></li>
+														</ul>
+													</div>
+												{% endif %}
 											</div>
 											<div class="epi-sec">
 												<ul class="descp">
-													<li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
-													<li><img src="images/icon9.png" alt=""><span>{{ user_profile.location_country }}</span></li>
+													<li><img src="{% static 'images/icon8.png' %}" alt=""><span>{{ project.type_work_project }}</span></li>
+													<li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ project.location }}</span></li>
 												</ul>
 												<ul class="bk-links">
 													<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
 													<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
+													<li><a href="#" title="" class="bid_now">Bid Now</a></li>
 												</ul>
 											</div>
 											<div class="job_descp">
-												<h3>{{ user_profile.title }}</h3>
+												<h3>{{ project.name_project }}</h3>
 												<ul class="job-dt">
-													<li><a href="#" title="">{{ user_profile.type_work }}</a></li>
-													<li><span>${{ user_profile.hourly_work }} / hr</span></li>
+													<li><span>${{ project.start_price }} - ${{ project.end_price }}</span></li>
 												</ul>
-												<p>{{ user_profile.overview | truncatechars:150 }}<a href="#" title="">view more</a></p>
+												<p>
+													{{ project.description_project }}.....
+													<a href="#" title="">view more</a>
+												</p>
 												<ul class="skill-tags">
-                                                    {% for tag in user_profile.skills_tags_user.all %}
-													    <li><a href="#" title="">{{ tag }}</a></li>
-                                                    {% endfor %}
+													<!-- display all tags of this project-->
+													{% for tags in project.skills_tags_projects.all %}
+														<li>
+															<a>{{ tags }}</a>
+														</li>
+													{% endfor %}
 												</ul>
 											</div>
 											<div class="job-status-bar">
 												<ul class="like-com">
 													<li>
-														<a href="#"><i class="la la-heart"></i> Like</a>
-														<img src="{% static 'images/liked-img.png' %}   " alt="">
-														<span>25</span>
+														<!-- check the user if do a like -->
+														{% if request.user in project.likes.all %}
+															<a href="{% url 'remove-like' project.id %}" class="active"><i class="la la-heart"></i> Like</a>
+															<img src="{% static 'images/liked-img.png' %}">
+															<span>{{ project.likes.all.count }}</span>
+														{% else %}
+															<a href="{% url 'add-like' project.id %}"><i class="la la-heart"></i> Like</a>
+															<img src="{% static 'images/liked-img.png' %}">
+															<span>{{ project.likes.all.count }}</span>
+														{% endif %}
 													</li>
-													<li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
 												</ul>
-												<a><i class="la la-eye"></i>Views 50</a>
 											</div>
 										</div>
-                                            {% endif %}
-                                        {% endfor %}
+										{% endfor %}
 									</div><!--posts-section end-->
 								</div><!--main-ws-sec end-->
 							</div>
 							<div class="col-lg-3">
 								<div class="right-sidebar">
 									<div class="widget widget-about">
-										<img src="images/wd-logo.png" alt="">
+										<img src="{% static 'images/wd-logo.png' %}" alt="">
 										<h3>Track Time on Workwise</h3>
 										<span>Pay only for the Hours worked</span>
 										<div class="sign_link">
@@ -208,28 +195,31 @@
 									<div class="widget widget-jobs">
 										<div class="sd-title">
 											<h3>Top Jobs</h3>
+											<i class="la la-ellipsis-v"></i>
 										</div>
 										<div class="jobs-list">
-                                            {% for user_profile in all_user_profile %}
-                                                {% if request.user != user_profile.user %}<!-- display all user without request.user-->
-                                                    <div class="job-info">
-                                                        <div class="job-details">
-                                                            <a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
-                                                                <h3>{{ user_profile.title }}</h3>
-                                                            </a>
-                                                            <p>{{ user_profile.overview | truncatechars:50 }}</p>
-                                                        </div>
-                                                        <div class="hr-rate">
-                                                            <span>${{ user_profile.hourly_work }}/hr</span>
-                                                        </div>
-                                                    </div><!--job-info end-->
-                                                {% endif %}
-                                            {% endfor %}
+											{% for user_profile in all_user_profile %}
+												{% if request.user !=  user_profile.user %}
+													<div class="job-info">
+														<div class="job-details">
+															<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
+																<h3>{{ user_profile.title }}</h3>
+															</a>
+															<p>{{ user_profile.overview | truncatechars:50 }}</p>
+
+														</div>
+														<div class="hr-rate">
+															<span>${{ user_profile.hourly_work }}/hr</span>
+														</div>
+													</div><!--job-info end-->
+												{% endif %}
+											{% endfor %}
 										</div><!--jobs-list end-->
 									</div><!--widget-jobs end-->
 									<div class="widget widget-jobs">
 										<div class="sd-title">
 											<h3>Most Viewed This Week</h3>
+											<i class="la la-ellipsis-v"></i>
 										</div>
 										<div class="jobs-list">
 											<div class="job-info">
@@ -250,9 +240,6 @@
 				</div>
 			</div>
 		</main>
-
-
-
 
 		<div class="post-popup pst-pj">
 			<div class="post-project">
