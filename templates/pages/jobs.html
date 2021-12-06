@@ -176,18 +176,19 @@
 									<div class="widget widget-jobs">
 										<div class="sd-title">
 											<h3>Top Jobs</h3>
-											<i class="la la-ellipsis-v"></i>
 										</div>
 										<div class="jobs-list">
-											<div class="job-info">
-												<div class="job-details">
-													<h3>Senior Product Designer</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-												</div>
-												<div class="hr-rate">
-													<span>$25/hr</span>
-												</div>
-											</div><!--job-info end-->
+											{% for user_profile in all_user_profile %}
+												<div class="job-info">
+													<div class="job-details">
+														<h3>{{ user_profile.title }}</h3>
+														<p>{{ user_profile.overview }}</p>
+													</div>
+													<div class="hr-rate">
+														<span>$25/hr</span>
+													</div>
+												</div><!--job-info end-->
+											{% endfor %}
 										</div><!--jobs-list end-->
 									</div><!--widget-jobs end-->
 									<div class="widget widget-jobs">
