@@ -7,15 +7,22 @@ from .models import PostProject, TagsProjects
 from accounts.models import UserProfile
 # forms
 from .forms import PostProjectForm, TagsProjectsForm
+# pagination
+from django.core.paginator import Paginator
 
 def index(request):
     print('-------------index -------------------------')
-    # get all user who posting projects
+    # get all user who posting projects and user profile
     projects = PostProject.objects.all()
     all_user_profile = UserProfile.objects.all()
 
+    # for projects page
+    paginator_project = Paginator(projects, 2)
+    page_number_projects = request.GET.get('page')
+    page_projects = paginator_project.get_page(page_number_projects)
+
     context = {
-        'projects': projects,
+        'projects': page_projects,
         'all_user_profile': all_user_profile,
     }
     return render(request, 'pages/projects.html', context)

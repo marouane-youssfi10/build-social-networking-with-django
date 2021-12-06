@@ -178,16 +178,41 @@
 										{% endfor %}
 										<!-- =============== Pagination =============== -->
 										<nav class="full-pagi">
-											<ul class="pagination justify-content-center">
-												<li class="page-item"><a class="page-link pvr" href="#">Previous</a></li>
-												<li class="page-item"><a class="page-link active" href="#">1</a></li>
-												<li class="page-item"><a class="page-link" href="#">2</a></li>
-												<li class="page-item"><a class="page-link" href="#">3</a></li>
-												<li class="page-item"><a class="page-link" href="#">4</a></li>
-												<li class="page-item"><a class="page-link" href="#">5</a></li>
-												<li class="page-item"><a class="page-link" href="#">6</a></li>
-												<li class="page-item"><a class="page-link pvr" href="#">Next</a></li>
-											</ul>
+											{% if projects.has_other_pages %}
+												<ul class="pagination justify-content-center">
+													{% if projects.has_previous %}
+														<li class="page-item">
+															<a class="page-link pvr" href="?page={{ projects.previous_page_number }}">Previous</a>
+														</li>
+													{% else %}
+														<li class="page-item disabled">
+															<a class="page-link pvr">Previous</a>
+														</li>
+													{% endif %}
+
+													{% for i in projects.paginator.page_range %}
+														{% if projects.number == i %}
+															<li class="page-item">
+																<a class="page-link active">{{ i }}</a>
+															</li>
+														{% else %}
+															<li class="page-item">
+																<a class="page-link" href="?page={{i}}">{{ i }}</a>
+															</li>
+														{% endif %}
+													{% endfor %}
+
+													{% if projects.has_next %}
+														<li class="page-item">
+															<a class="page-link pvr" href="?page={{ projects.next_page_number }}">Next</a>
+														</li>
+													{% else %}
+														<li class="page-item disabled">
+															<a class="page-link pvr">Next</a>
+														</li>
+													{% endif %}
+												</ul>
+											{% endif %}
 										</nav>
                         				<!-- =============== end Pagination =============== -->
 									</div><!--posts-section end-->
