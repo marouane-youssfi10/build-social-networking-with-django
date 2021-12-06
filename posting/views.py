@@ -37,6 +37,7 @@ def jobs(request):
 
     context = {
         'all_user_profile': page_all_user_profile,
+        'user_profile': all_user_profile,
     }
     return render(request, 'pages/jobs.html', context)
 

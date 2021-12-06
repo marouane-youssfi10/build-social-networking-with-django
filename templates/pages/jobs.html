@@ -219,14 +219,14 @@
 											<h3>Top Jobs</h3>
 										</div>
 										<div class="jobs-list">
-											{% for user_profile in all_user_profile %}
+											{% for profile in user_profile %}
 												<div class="job-info">
 													<div class="job-details">
-														<h3>{{ user_profile.title }}</h3>
-														<p>{{ user_profile.overview | truncatechars:55 }}</p>
+														<h3>{{ profile.title }}</h3>
+														<p>{{ profile.overview | truncatechars:55 }}</p>
 													</div>
 													<div class="hr-rate">
-														<span>$25/hr</span>
+														<span>${{ profile.hourly_work }}/hr</span>
 													</div>
 												</div><!--job-info end-->
 											{% endfor %}
