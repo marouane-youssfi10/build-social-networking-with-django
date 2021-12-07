@@ -102,7 +102,13 @@
 												<li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ user_profile.location_country }}</span></li>
 											</ul> <!-- Country and city -->
 											<ul class="bk-links">
-												<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
+												<li>
+													<!-- get the id of UserProfile -->
+													<a href="{% url 'saved-jobs' user_profile.id %}">
+														<i class="la la-bookmark"></i>
+													</a>
+												</li>
+												<li><a href="#"><i class="la la-envelope"></i></a></li>
 											</ul> <!-- Send message -->
 										</div>
 										<div class="job_descp">

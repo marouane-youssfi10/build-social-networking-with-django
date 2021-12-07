@@ -18,5 +18,7 @@ urlpatterns = [
     path('accounts-setting/edit-profile/delete-link/<int:pk>/', views.delete_links_media, name="delete-links-media"),
 
     path('accounts-setting/edit-profile/?delete-tag=<int:pk>/', views.delete_tags_user, name="delete-user-tags"),
-    path('accounts-setting/edit-profile/create-tags/', views.create_tags_user, name="create-user-tags")
+    path('accounts-setting/edit-profile/create-tags/', views.create_tags_user, name="create-user-tags"),
+
+    path('saved_jobs/<int:pk>', views.saved_jobs, name='saved-jobs')
 ]

@@ -122,17 +122,23 @@
 									</div>
 									<!--user-tab-sec end-->
 									<div class="wrapper">
-										<div class="product-feed-tab" id="portfolio-dd">
-											{% include 'profile_user/portfolio.html' %}
-										</div>
-										<!--product-feed-tab end-->
 
+										<!-- info -->
 										<div class="product-feed-tab current" id="info-dd">
-											{% include 'profile_user/info.html' %}
+											{% include 'profile_user/my_profile/info.html' %}
+										</div>
+
+										<!-- portfolio -->
+										<div class="product-feed-tab" id="portfolio-dd">
+											{% include 'profile_user/my_profile/portfolio.html' %}
+										</div>
+
+										<!-- saved jobs -->
+										<div class="product-feed-tab" id="saved-jobs">
+											{% include 'profile_user/my_profile/saved_jobs.html' %}
 										</div>
 									</div>
-									<!--product-feed-tab end-->
-								</div><!--main-ws-sec end-->
+								</div>
 							</div>
 
 							<div class="col-lg-3">
