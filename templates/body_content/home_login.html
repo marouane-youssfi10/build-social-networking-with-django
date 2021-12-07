@@ -78,7 +78,7 @@
 													<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
 														<h3>{{ user_profile.user.full_name }}</h3>
 													</a>
-													<span><img src="images/clock.png" alt="">{{ user_profile.created | timesince }} ago</span>
+													<span><img src="{% static 'images/clock.png' %}" alt="">{{ user_profile.created | timesince }} ago</span>
 												</div>
 											</div>
 
@@ -98,8 +98,8 @@
 										</div>
 										<div class="epi-sec">
 											<ul class="descp">
-												<li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
-												<li><img src="images/icon9.png" alt=""><span>{{ user_profile.location_country }}</span></li>
+												<li><img src="{% static 'images/icon8.png' %}" alt=""><span>Epic Coder</span></li>
+												<li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ user_profile.location_country }}</span></li>
 											</ul> <!-- Country and city -->
 											<ul class="bk-links">
 												<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
@@ -128,7 +128,7 @@
 												</li> <!-- Like -->
 												<li>
 													<a href="#" title="" class="com">
-														<img src="images/com.png" alt="">
+														<img src="{% static 'images/com.png' %}" alt="">
 														Comment 15
 													</a>
 												</li>
@@ -147,7 +147,7 @@
 													<img src="http://via.placeholder.com/50x50" alt="">
 													<div class="usy-name">
 														<h3>John Doe</h3>
-														<span><img src="images/clock.png" alt="">3 min ago</span>
+														<span><img src="{% static 'images/clock.png' %}" alt="">3 min ago</span>
 													</div>
 												</div>
 												<div class="ed-opts">
@@ -163,8 +163,8 @@
 											</div>
 											<div class="epi-sec">
 												<ul class="descp">
-													<li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
-													<li><img src="images/icon9.png" alt=""><span>India</span></li>
+													<li><img src="{% static 'images/icon8.png' %}" alt=""><span>Epic Coder</span></li>
+													<li><img src="{% static 'images/icon9.png' %}" alt=""><span>India</span></li>
 												</ul>
 												<ul class="bk-links">
 													<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
@@ -193,7 +193,7 @@
 														<img src="{% static 'images/liked-img.png' %}" alt="">
 														<span>25</span>
 													</li>
-													<li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
+													<li><a href="#" title="" class="com"><img src="{% static 'images/com.png' %}" alt=""> Comment 15</a></li>
 												</ul>
 												<a><i class="la la-eye"></i>Views 50</a>
 											</div>
@@ -211,7 +211,7 @@
 															</div>
 															<div class="comment">
 																<h3>John Doe</h3>
-																<span><img src="images/clock.png" alt=""> 3 min ago</span>
+																<span><img src="{% static 'images/clock.png' %}" alt=""> 3 min ago</span>
 																<p>Lorem ipsum dolor sit amet, </p>
 																<a href="#" title="" class="active"><i class="fa fa-reply-all"></i>Reply</a>
 															</div>
@@ -224,7 +224,7 @@
 																	</div>
 																	<div class="comment">
 																		<h3>John Doe</h3>
-																		<span><img src="images/clock.png" alt=""> 3 min ago</span>
+																		<span><img src="{% static 'images/clock.png' %}" alt=""> 3 min ago</span>
 																		<p>Hi John </p>
 																		<a href="#" title=""><i class="fa fa-reply-all"></i>Reply</a>
 																	</div>
@@ -239,7 +239,7 @@
 															</div>
 															<div class="comment">
 																<h3>John Doe</h3>
-																<span><img src="images/clock.png" alt=""> 3 min ago</span>
+																<span><img src="{% static 'images/clock.png' %}" alt=""> 3 min ago</span>
 																<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at.</p>
 																<a href="#" title=""><i class="fa fa-reply-all"></i>Reply</a>
 															</div>
@@ -303,7 +303,7 @@
 						<div class="col-lg-3 pd-right-none no-pd">
 							<div class="right-sidebar">
 								<div class="widget widget-about">
-									<img src="images/wd-logo.png" alt="">
+									<img src="{% static 'images/wd-logo.png' %}" alt="">
 									<h3>Track Time on Workwise</h3>
 									<span>Pay only for the Hours worked</span>
 									<div class="sign_link">
