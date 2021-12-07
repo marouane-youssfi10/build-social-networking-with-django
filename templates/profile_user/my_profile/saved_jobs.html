@@ -49,10 +49,17 @@
             <div class="job-status-bar">
             <ul class="like-com">
                 <li>
-                    <a href="#"><i class="la la-heart"></i> Like</a>
-                    <img src="{% static 'images/liked-img.png' %}" alt="">
-                    <span>25</span>
-                </li>
+                    <!-- check the user if do a like -->
+                    {% if request.user in profile.userprofile.likes.all %}
+                        <a href="{% url 'remove-like-post-jobs' profile.userprofile.id %}" class="active"><i class="la la-heart"></i> Like</a>
+                        <img src="{% static 'images/liked-img.png' %}">
+                        <span>{{ profile.userprofile.likes.all.count }}</span>
+                    {% else %}
+                        <a href="{% url 'add-like-post-jobs' profile.userprofile.id %}"><i class="la la-heart"></i> Like</a>
+                        <img src="{% static 'images/liked-img.png' %}">
+                        <span>{{ profile.userprofile.likes.all.count }}</span>
+                    {% endif %}
+                </li> <!-- Like -->
             </ul>
         </div>
         </div>
