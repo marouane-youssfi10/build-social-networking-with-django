@@ -31,7 +31,7 @@
 									<div class="suggestions-list">
 
 										<!-- display all user to home page -->
-										{%  for user_profile in all_user_profile %}
+										{%  for user_profile in user_profiles %}
 											{% if request.user != user_profile.user %} <!-- display all user without request.user-->
 												<div class="suggestion-usd">
 													<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
@@ -360,7 +360,7 @@
 										<i class="la la-ellipsis-v"></i>
 									</div><!--sd-title end-->
 									<div class="suggestions-list">
-										{% for user_profile in all_user_profile %}
+										{% for user_profile in user_profiles %}
 											{% if request.user != user_profile.user %}<!-- display all user without request.user-->
 												<div class="suggestion-usd">
 													<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">

@@ -16,7 +16,7 @@ def index(request):
     if request.user.is_authenticated:
         user_profile = UserProfile.objects.get(user=request.user)
         all_user_profile = UserProfile.objects.all()
-        user_profiles = all_user_profile
+        user_profiles = all_user_profile # for display all users into Suggestions from all pages like ?page=1 & ?page=2 ....
 
         # for home_login page
         paginator_project = Paginator(all_user_profile, 2)

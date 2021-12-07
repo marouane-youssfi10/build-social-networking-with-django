@@ -17,7 +17,7 @@ def index(request):
     user_profiles = UserProfile.objects.all()[:5]
 
     # for projects page
-    paginator_project = Paginator(projects, 2)
+    paginator_project = Paginator(projects, 3)
     page_number_projects = request.GET.get('page')
     page_projects = paginator_project.get_page(page_number_projects)
 
@@ -92,7 +92,7 @@ def filter_jobs(request):
                 print('experience_level = ', experience_level)
                 all_user_profile = all_user_profile.filter(overview__icontains=experience_level)
 
-        print('all_user_profile.count() = ', all_user_profile.count())
+        # print('all_user_profile.count() = ', all_user_profile.count())
         if all_user_profile.count() == 0:
             var = 'No result Found'
             return render(request, 'pages/jobs.html', {'no_result': var, 'user_profile': user_profiles})
@@ -103,6 +103,7 @@ def filter_jobs(request):
     }
     return render(request, 'pages/jobs.html', context)
 
+# this method for posting a project
 def post_projects(request):
     if request.method == 'POST':
         form_post_project = PostProjectForm(request.POST)
@@ -214,6 +215,7 @@ def filter_project(request):
     }
     return render(request, 'pages/projects.html', context)
 
+# this method for update on post
 def edit_post_project(request, pk):
     # get post_project
     post_project = PostProject.objects.get(id=pk)
@@ -237,12 +239,14 @@ def edit_post_project(request, pk):
 
     return render(request, 'post/edit_post_project.html', context)
 
+# this method for delete tags on post you want to update
 def delete_tag_post_project(request, project_post_id, pk):
     tag = TagsProjects.objects.get(id=pk)
     tag.delete()
     messages.success(request, 'your tag is delete successfully')
     return redirect('/projects/edit-post/'+ str(project_post_id))
 
+# this method for create tags on post you want to update
 def create_tags_post_project(request, project_post_id):
     post_project = PostProject.objects.get(id=project_post_id)
 
