@@ -46,7 +46,6 @@ def user_profile(request, slug_user, pk):
 
     # get info of follow user
     follow_user = Follow.objects.get(user__first_name=slug_user)
-    # print('follow_user.id = ', follow_user.id, '--  follow_user.user = ', follow_user.user)
 
     following_count =follow_user.following.all().count()
     followers_count =follow_user.followers.all().count()

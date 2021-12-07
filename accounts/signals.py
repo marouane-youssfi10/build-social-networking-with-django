@@ -1,7 +1,9 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+# models
 from .models import Account, UserProfile
 from user_profile.models import Experience_user, TagsUser, Social_media
+from follow.models import Follow
 
 @receiver(post_save, sender=Account)
 def post_save_create_user_profile(sender, instance, created, **kwargs):
@@ -29,3 +31,9 @@ def post_save_create_user_profile(sender, instance, created, **kwargs):
             links_media=social_media,
         )
         user_profile.save()
+
+        # create user into Follow app
+        follow = Follow.objects.create(
+            user=user
+        )
+        follow.save()
