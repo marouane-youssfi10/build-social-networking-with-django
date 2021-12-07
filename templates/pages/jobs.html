@@ -105,7 +105,9 @@
 									<div class="posts-section">
 										{{ no_result }}
 										{% for user_profile in all_user_profile %}
-											<div class="post-bar">
+											<!-- this condition for complete user his all information and listing-->
+											{% if user_profile.overview and user_profile.hourly_work and user_profile.type_work and user_profile.title and user_profile.location_country %}
+												<div class="post-bar">
 												<div class="post_topbar">
 													<div class="usy-dt">
 														<img src="{{ user_profile.user.photo_profile.url }}" width="50" height="50">
@@ -160,6 +162,7 @@
 													</ul>
 												</div>
 											</div><!--post-bar end-->
+											{% endif %}
 										{% endfor %}
 										<!-- =============== Pagination =============== -->
 										<nav class="full-pagi">
