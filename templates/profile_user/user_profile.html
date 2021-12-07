@@ -72,7 +72,8 @@
 									<div class="suggestions-list">
 										{% for user_profile in all_user_profile %}
 											{% if request.user != user_profile.user %}<!-- display all user without request.user-->
-												<div class="suggestion-usd">
+												{% if user_profile.title %}
+													<div class="suggestion-usd">
 													<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
 													<div class="sgt-text col-8">
 														<a class="sgt-text" href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
@@ -81,6 +82,7 @@
 														<span>{{ user_profile.title }}</span>
 													</div>
 												</div>
+												{% endif %}
 											{% endif %}
 										{% endfor %}
 										<div class="view-more">
@@ -117,6 +119,12 @@
 														<span>Saved Jobs</span>
 													</a>
 												</li>
+												<li data-tab="my-bids">
+													<a href="#" title="">
+														<img src="{% static 'images/ic5.png' %}" alt="">
+														<span>My Bids</span>
+													</a>
+												</li>
 											</ul>
 										</div><!-- tab-feed end-->
 									</div>
@@ -136,6 +144,10 @@
 										<!-- saved jobs -->
 										<div class="product-feed-tab" id="saved-jobs">
 											{% include 'profile_user/my_profile/saved_jobs.html' %}
+										</div>
+
+										<div class="product-feed-tab" id="my-bids">
+											{% include 'profile_user/my_profile/my_bids.html' %}
 										</div>
 									</div>
 								</div>

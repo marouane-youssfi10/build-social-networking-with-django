@@ -135,7 +135,18 @@
 														<li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ user_profile.location_country }}</span></li>
 													</ul>
 													<ul class="bk-links">
-														<li><a href="#"><i class="la la-bookmark"></i></a></li>
+														<li>
+															<!-- get the id of UserProfile -->
+															{% if user_profile.user in my_profile.saved_jobs.all %}
+																<a href="{% url 'unsaved-jobs' user_profile.id %}">
+																	<i class="la la-check"></i>
+																</a>
+															{% else %}
+																<a href="{% url 'saved-jobs' user_profile.id %}">
+																	<i class="la la-bookmark"></i>
+																</a>
+															{% endif %}
+														</li>
 														<li><a href="#"><i class="la la-envelope"></i></a></li>
 													</ul>
 												</div>
@@ -232,7 +243,8 @@
 										<div class="jobs-list">
 											{% for profile in user_profile %} <!-- listing user_profile-->
 												{% if request.user !=  profile.user %} <!-- don't display request.user-->
-													<div class="job-info">
+													{% if profile.title and profile.overview %}
+														<div class="job-info">
 														<div class="job-details">
 															<a href="{% url 'user-profile' profile.user profile.user.id %}">
 																<h3>{{ profile.title }}</h3>
@@ -243,6 +255,7 @@
 															<span>${{ profile.hourly_work }}/hr</span>
 														</div>
 													</div><!--job-info end-->
+													{% endif %}
 												{% endif %}
 											{% endfor %}
 										</div><!--jobs-list end-->

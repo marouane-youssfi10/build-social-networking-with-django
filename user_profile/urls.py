@@ -21,5 +21,8 @@ urlpatterns = [
     path('accounts-setting/edit-profile/create-tags/', views.create_tags_user, name="create-user-tags"),
 
     path('saved-jobs/<int:pk>', views.saved_jobs, name='saved-jobs'),
-    path('unsaved-jobs/<int:pk>', views.unsaved_jobs, name='unsaved-jobs')
+    path('unsaved-jobs/<int:pk>', views.unsaved_jobs, name='unsaved-jobs'),
+
+    path('bid-project/<int:pk>', views.bid_project, name='bid-project'),
+    path('unbid-project/<int:pk>', views.unbid_project, name='unbid-project'),
 ]

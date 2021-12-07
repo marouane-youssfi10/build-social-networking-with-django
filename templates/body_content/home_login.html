@@ -33,18 +33,20 @@
 										<!-- display all user to home page -->
 										{%  for user_profile in user_profiles %}
 											{% if request.user != user_profile.user %} <!-- display all user without request.user-->
-												<div class="suggestion-usd">
-													<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
-													<div class="sgt-text col-8">
-														<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
-															<h4>{{ user_profile.user.full_name }}</h4>
-														</a>
-														{% if user_profile.title %}
-															<span class="col-0">{{ user_profile.title }}</span>
-														{% endif %}
-													</div>
+												{% if user_profile.title %}
+													<div class="suggestion-usd">
+												<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
+												<div class="sgt-text col-8">
+													<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
+														<h4>{{ user_profile.user.full_name }}</h4>
+													</a>
+													{% if user_profile.title %}
+														<span class="col-0">{{ user_profile.title }}</span>
+													{% endif %}
 												</div>
+											</div>
 												{% endif %}
+											{% endif %}
 										{% endfor %}
 										<div class="view-more">
 											<a href="#" title="">View More</a>
@@ -272,6 +274,7 @@
 										</div><!--comment-section end-->
 									</div><!--posty end-->
 									<nav class="full-pagi">
+										<!-- --------------------------- Pagination --------------------------- -->
 										{% if all_user_profile.has_other_pages %}
 											<ul class="pagination justify-content-center">
 												{% if all_user_profile.has_previous %}
@@ -307,6 +310,7 @@
 												{% endif %}
 											</ul>
 										{% endif %}
+										<!-- --------------------------- end Pagination --------------------------- -->
 									</nav>
 								</div><!--posts-section end-->
 							</div><!--main-ws-sec end-->
@@ -322,32 +326,34 @@
 										<a>Learn More</a>
 									</div>
 								</div><!--widget-about end-->
-								<div class="widget widget-jobs">
-									<div class="sd-title">
-										<h3>Top Jobs</h3>
-										<i class="la la-ellipsis-v"></i>
-									</div>
-									<!-- display all user profile into Top Jobs -->
-									{% for user_profile in user_profiles %}
-										{% if request.user != user_profile.user %} <!-- display only other users-->
-											<div class="jobs-list">
-												<div class="job-info">
-													<div class="job-details">
+								{% if user_profiles %} <!-- check if the users profile exists -->
+									<div class="widget widget-jobs">
+										<div class="sd-title">
+											<h3>Top Jobs</h3>
+											<i class="la la-ellipsis-v"></i>
+										</div>
+										<!-- display all user profile into Top Jobs -->
+										{% for user_profile in user_profiles %}
+											{% if request.user != user_profile.user and user_profile.title and user_profile.overview %} <!-- display only other users and check if they has title and overview-->
+												<div class="jobs-list">
+													<div class="job-info">
+														<div class="job-details">
 
-														<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
-															<h3>{{ user_profile.title }}</h3>
-														</a>
-														<p>{{ user_profile.overview | truncatechars:50 }}</p>
+															<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
+																<h3>{{ user_profile.title }}</h3>
+															</a>
+															<p>{{ user_profile.overview | truncatechars:50 }}</p>
 
-													</div>
-													<div class="hr-rate">
-														<span>${{ user_profile.hourly_work }}/hr</span>
-													</div>
-												</div><!--job-info end-->
-											</div><!--jobs-list end-->
-										{% endif %}
-									{% endfor %}
-								</div><!--widget-jobs end-->
+														</div>
+														<div class="hr-rate">
+															<span>${{ user_profile.hourly_work }}/hr</span>
+														</div>
+													</div><!--job-info end-->
+												</div><!--jobs-list end-->
+											{% endif %}
+										{% endfor %}
+									</div><!--widget-jobs end-->
+								{% endif %}
 								<div class="widget widget-jobs">
 									<div class="sd-title">
 										<h3>Most Viewed This Week</h3>
@@ -367,7 +373,8 @@
 										<!--jobs-list end-->
 									</div>
 								</div><!--widget-jobs end-->
-								<div class="widget suggestions full-width">
+								{% if user_profiles %}
+									<div class="widget suggestions full-width">
 									<div class="sd-title">
 										<h3>Most Viewed People</h3>
 										<i class="la la-ellipsis-v"></i>
@@ -375,7 +382,8 @@
 									<div class="suggestions-list">
 										{% for user_profile in user_profiles %}
 											{% if request.user != user_profile.user %}<!-- display all user without request.user-->
-												<div class="suggestion-usd">
+												{% if user_profile.title %}
+													<div class="suggestion-usd">
 													<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
 													<div class="sgt-text">
 														<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
@@ -384,6 +392,7 @@
 														<span>{{ user_profile.title }}</span>
 													</div>
 												</div>
+												{% endif %}
 											{% endif %}
 										{% endfor %}
 										<div class="view-more">
@@ -391,6 +400,7 @@
 										</div>
 									</div><!--suggestions-list end-->
 								</div>
+								{% endif %}
 							</div><!--right-sidebar end-->
 						</div>
 					</div>

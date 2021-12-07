@@ -32,6 +32,7 @@
       <w>garamond</w>
       <w>hendrerit</w>
       <w>icontains</w>
+      <w>iihz</w>
       <w>informations</w>
       <w>instagram</w>
       <w>ipsum</w>
@@ -71,6 +72,7 @@
       <w>truncatechars</w>
       <w>ullamcorper</w>
       <w>unfollow</w>
+      <w>unsave</w>
       <w>useprofile</w>
       <w>userexperience</w>
       <w>userform</w>
@@ -78,6 +80,7 @@
       <w>webkit</w>
       <w>wordpress</w>
       <w>workwise</w>
+      <w>zyledbq</w>
     </words>
   </dictionary>
 </component>

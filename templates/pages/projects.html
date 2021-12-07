@@ -104,80 +104,94 @@
 											{{ no_result }}
 										</div>
 										<!-- display all projects -->
-										{% for project in projects %}
-											<div class="post-bar">
-											<div class="post_topbar">
-												<div class="usy-dt">
-													<img src="{{ project.user.photo_profile.url }}" width="50" height="50">
-													<div class="usy-name">
-														<a href="{% url 'user-profile' project.user project.user.id %}">
-															<h3>{{ project.user.full_name }}</h3>
-														</a>
-														<span><img src="{% static 'images/clock.png' %}" alt="">{{ project.created_project | naturaltime }}</span>
-													</div>
-												</div>
+										{% if projects %}
+											{% for project in projects %}
+												<div class="post-bar">
+													<div class="post_topbar">
+														<div class="usy-dt">
+															<img src="{{ project.user.photo_profile.url }}" width="50" height="50">
+															<div class="usy-name">
+																<a href="{% url 'user-profile' project.user project.user.id %}">
+																	<h3>{{ project.user.full_name }}</h3>
+																</a>
+																<span><img src="{% static 'images/clock.png' %}" alt="">{{ project.created_project | naturaltime }}</span>
+															</div>
+														</div>
 
-												<!-- check if request.user == user for not hiding div.ed-opts  -->
-												{% if project.user == request.user %}
-													<div class="ed-opts">
-														<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-														<ul class="ed-options">
-															<li><a href="{% url 'edit-post-project' project.id %}">Edit Post</a></li>
-															<li><a href="">Unsaved</a></li>
-															<li><a href="">Unbid</a></li>
-															<li><a href="">Close</a></li>
-															<li><a href="">Hide</a></li>
+														<!-- check if request.user == user for not hiding div.ed-opts  -->
+														{% if project.user == request.user %}
+															<div class="ed-opts">
+																<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+																<ul class="ed-options">
+																	<li><a href="{% url 'edit-post-project' project.id %}">Edit Post</a></li>
+																	<li><a href="">Unsaved</a></li>
+																	<li><a href="">Unbid</a></li>
+																	<li><a href="">Close</a></li>
+																	<li><a href="">Hide</a></li>
+																</ul>
+															</div>
+														{% endif %}
+													</div>
+													<div class="epi-sec">
+														<ul class="descp">
+															<li><img src="{% static 'images/icon8.png' %}" alt=""><span>{{ project.type_work_project }}</span></li>
+															<li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ project.location }}</span></li>
+														</ul>
+														<ul class="bk-links">
+															<li><a href="#"><i class="la la-bookmark"></i></a></li>
+															<li><a href="#"><i class="la la-envelope"></i></a></li>
+
+															{% if project in my_profile.my_bids_projects.all %}
+																<li>
+																	<a href="{% url 'unbid-project' project.id %}" class="bid_now">UnBid</a>
+																</li>
+															{% else %}
+																<li>
+																	<a href="{% url 'bid-project' project.id %}" class="bid_now">Bid Now</a>
+																</li>
+															{% endif %}
 														</ul>
 													</div>
-												{% endif %}
-											</div>
-											<div class="epi-sec">
-												<ul class="descp">
-													<li><img src="{% static 'images/icon8.png' %}" alt=""><span>{{ project.type_work_project }}</span></li>
-													<li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ project.location }}</span></li>
-												</ul>
-												<ul class="bk-links">
-													<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
-													<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
-													<li><a href="#" title="" class="bid_now">Bid Now</a></li>
-												</ul>
-											</div>
-											<div class="job_descp">
-												<h3>{{ project.name_project }}</h3>
-												<ul class="job-dt">
-													<li><span>${{ project.start_price }} - ${{ project.end_price }}</span></li>
-												</ul>
-												<p>
-													{{ project.description_project }}.....
-													<a href="#" title="">view more</a>
-												</p>
-												<ul class="skill-tags">
-													<!-- display all tags of this project-->
-													{% for tags in project.skills_tags_projects.all %}
-														<li>
-															<a>{{ tags }}</a>
-														</li>
-													{% endfor %}
-												</ul>
-											</div>
-											<div class="job-status-bar">
-												<ul class="like-com">
-													<li>
-														<!-- check the user if do a like -->
-														{% if request.user in project.likes.all %}
-															<a href="{% url 'remove-like-post-projects' project.id %}" class="active"><i class="la la-heart"></i> Like</a>
-															<img src="{% static 'images/liked-img.png' %}">
-															<span>{{ project.likes.all.count }}</span>
-														{% else %}
-															<a href="{% url 'add-like-post-projects' project.id %}"><i class="la la-heart"></i> Like</a>
-															<img src="{% static 'images/liked-img.png' %}">
-															<span>{{ project.likes.all.count }}</span>
-														{% endif %}
-													</li>
-												</ul>
-											</div>
-										</div>
-										{% endfor %}
+													<div class="job_descp">
+														<h3>{{ project.name_project }}</h3>
+														<ul class="job-dt">
+															<li><span>${{ project.start_price }} - ${{ project.end_price }}</span></li>
+														</ul>
+														<p>
+															{{ project.description_project }}.....
+															<a href="#" title="">view more</a>
+														</p>
+														<ul class="skill-tags">
+															<!-- display all tags of this project-->
+															{% for tags in project.skills_tags_projects.all %}
+																<li>
+																	<a>{{ tags }}</a>
+																</li>
+															{% endfor %}
+														</ul>
+													</div>
+													<div class="job-status-bar">
+														<ul class="like-com">
+															<li>
+																<!-- check the user if do a like -->
+																{% if request.user in project.likes.all %}
+																	<a href="{% url 'remove-like-post-projects' project.id %}" class="active"><i class="la la-heart"></i> Like</a>
+																	<img src="{% static 'images/liked-img.png' %}">
+																	<span>{{ project.likes.all.count }}</span>
+																{% else %}
+																	<a href="{% url 'add-like-post-projects' project.id %}"><i class="la la-heart"></i> Like</a>
+																	<img src="{% static 'images/liked-img.png' %}">
+																	<span>{{ project.likes.all.count }}</span>
+																{% endif %}
+															</li>
+														</ul>
+													</div>
+												</div>
+											{% endfor %}
+										{% else %}
+											<h1>there's no project here</h1>
+										{% endif %}
+
 										<!-- =============== Pagination =============== -->
 										<nav class="full-pagi">
 											{% if projects.has_other_pages %}
@@ -230,16 +244,18 @@
 											<h3><a href="#" title="">Sign up</a></h3>
 											<a href="#" title="">Learn More</a>
 										</div>
-									</div><!--widget-about end-->
-									<div class="widget widget-jobs">
+									</div>
+									{% if user_profiles %}
+										<div class="widget widget-jobs">
 										<div class="sd-title">
 											<h3>Top Jobs</h3>
 											<i class="la la-ellipsis-v"></i>
 										</div>
 										<div class="jobs-list">
 											{% for profile in user_profiles %}
-												{% if request.user !=  profile.user %}
-													<div class="job-info">
+												{% if request.user !=  profile.user %} <!-- avoid display my profile -->
+													{% if profile.title and profile.overview %} <!--check is title & overview is exists-->
+														<div class="job-info">
 														<div class="job-details">
 															<a href="{% url 'user-profile' profile.user profile.user.id %}">
 																<h3>{{ profile.title }}</h3>
@@ -251,10 +267,12 @@
 															<span>${{ profile.hourly_work }}/hr</span>
 														</div>
 													</div><!--job-info end-->
+													{% endif %}
 												{% endif %}
 											{% endfor %}
 										</div><!--jobs-list end-->
-									</div><!--widget-jobs end-->
+									</div>
+									{% endif %}
 									<div class="widget widget-jobs">
 										<div class="sd-title">
 											<h3>Most Viewed This Week</h3>

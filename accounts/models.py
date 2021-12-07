@@ -98,7 +98,7 @@ class UserProfile(models.Model):
     experience = models.ForeignKey(Experience_user, on_delete=models.CASCADE, blank=True)
     likes = models.ManyToManyField(Account, blank=True, related_name='likes_jobs')
     saved_jobs = models.ManyToManyField(Account, blank=True, related_name='saved_jobs')
-    my_bids_projects = models.ForeignKey(PostProject, blank=True, on_delete=models.CASCADE)
+    my_bids_projects = models.ManyToManyField(PostProject,  blank=True)
     # following = models.ManyToManyField(Account, blank=True,  related_name='following')
 
     class Meta:

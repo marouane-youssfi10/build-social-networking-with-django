@@ -30,7 +30,7 @@ def index(request):
 
 def jobs(request):
     all_user_profile = UserProfile.objects.all()
-
+    my_profile = UserProfile.objects.get(user=request.user)
     # for jobs page
     paginator_project = Paginator(all_user_profile, 2)
     page_number_projects = request.GET.get('page')
@@ -39,6 +39,7 @@ def jobs(request):
     context = {
         'all_user_profile': page_all_user_profile,
         'user_profile': all_user_profile,
+        'my_profile': my_profile,
     }
     return render(request, 'pages/jobs.html', context)
 
