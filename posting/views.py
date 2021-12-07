@@ -15,7 +15,7 @@ def index(request):
     # get all user who posting projects and user profile
     projects = PostProject.objects.all()
     user_profiles = UserProfile.objects.all()[:5]
-
+    my_profile = UserProfile.objects.get(user=request.user)
     # for projects page
     paginator_project = Paginator(projects, 3)
     page_number_projects = request.GET.get('page')
@@ -24,6 +24,7 @@ def index(request):
     context = {
         'projects': page_projects,
         'user_profiles': user_profiles,
+        'my_profile': my_profile
     }
     return render(request, 'pages/projects.html', context)
 

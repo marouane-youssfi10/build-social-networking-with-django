@@ -1,10 +1,8 @@
 from django.db import models
 
-# models
-from accounts.models import Account
 
 class TagsProjects(models.Model):
-    tags_users_projects = models.ForeignKey(Account, on_delete=models.CASCADE,  related_name='tags_users_projects')
+    tags_users_projects = models.ForeignKey("accounts.Account", on_delete=models.CASCADE,  related_name='tags_users_projects')
     tag = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
@@ -15,7 +13,7 @@ class TagsProjects(models.Model):
         return self.tag if self.tag else ''
 
 class PostProject(models.Model):
-    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    user = models.ForeignKey("accounts.Account", on_delete=models.CASCADE, related_name='user')
     name_project = models.CharField(max_length=100, blank=False, null=False)
     type_work_project = models.CharField(max_length=100, blank=False, null=False)
     location = models.CharField(max_length=100, blank=False, null=False)
@@ -26,7 +24,8 @@ class PostProject(models.Model):
     created_project = models.DateTimeField(auto_now_add=True)
 
     skills_tags_projects = models.ManyToManyField(TagsProjects, blank=True)
-    likes = models.ManyToManyField(Account, blank=True, related_name='likes_post_projects')
+    likes = models.ManyToManyField("accounts.Account", blank=True, related_name='likes_post_projects')
+    # my_bids_projects = models.ManyToManyField(Account, blank=True, related_name='my_bids_projects')
 
     class Meta:
         verbose_name = 'project'

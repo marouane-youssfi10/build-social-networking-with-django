@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from user_profile.models import Experience_user, TagsUser, Social_media
+from posting.models import PostProject
 
 class MyAccountManager(BaseUserManager):
 
@@ -97,6 +98,7 @@ class UserProfile(models.Model):
     experience = models.ForeignKey(Experience_user, on_delete=models.CASCADE, blank=True)
     likes = models.ManyToManyField(Account, blank=True, related_name='likes_jobs')
     saved_jobs = models.ManyToManyField(Account, blank=True, related_name='saved_jobs')
+    my_bids_projects = models.ForeignKey(PostProject, blank=True, on_delete=models.CASCADE)
     # following = models.ManyToManyField(Account, blank=True,  related_name='following')
 
     class Meta:
