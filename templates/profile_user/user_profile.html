@@ -4,7 +4,9 @@
 {% block content %}
         <section class="cover-sec">
 			<img src="{{ user_profile.photo_cover.url }}" width="1600" height="400">
-			<a href="{% url 'edit-profile' %}" title=""><i class="fa fa-camera"></i> Change Image</a>
+			{% if request.user == user_profile.user %}
+				<a href="{% url 'edit-profile' %}" title=""><i class="fa fa-camera"></i> Change Image</a>
+			{% endif %}
 		</section>
 
 		<main>
@@ -17,7 +19,9 @@
 									<div class="user_profile">
 										<div class="user-pro-img">
 											<img src="{{ user_profile.user.photo_profile.url }}" width="170" height="170">
-											<a href="#" title=""><i class="fa fa-camera"></i></a>
+											{% if request.user == user_profile.user %}
+												<a href="{% url 'edit-profile' %}"><i class="fa fa-camera"></i></a>
+											{% endif %}
 										</div><!--user-pro-img end-->
 										<div class="user_pro_status">
 											{% if request.user != user_profile.user %}
