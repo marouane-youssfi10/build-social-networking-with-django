@@ -75,7 +75,9 @@
 											<div class="usy-dt">
 												<img src="{{ user_profile.user.photo_profile.url }}" width="50" height="50">
 												<div class="usy-name">
-													<h3>{{ user_profile.user.full_name }}</h3>
+													<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
+														<h3>{{ user_profile.user.full_name }}</h3>
+													</a>
 													<span><img src="images/clock.png" alt="">{{ user_profile.created | timesince }} ago</span>
 												</div>
 											</div>
