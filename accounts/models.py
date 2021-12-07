@@ -96,6 +96,7 @@ class UserProfile(models.Model):
     links_media = models.ForeignKey(Social_media, on_delete=models.CASCADE, blank=True)
     experience = models.ForeignKey(Experience_user, on_delete=models.CASCADE, blank=True)
     likes = models.ManyToManyField(Account, blank=True, related_name='likes_jobs')
+    saved_jobs = models.ManyToManyField(Account, blank=True, related_name='saved_jobs')
     # following = models.ManyToManyField(Account, blank=True,  related_name='following')
 
     class Meta:
