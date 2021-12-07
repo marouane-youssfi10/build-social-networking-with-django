@@ -13,7 +13,7 @@ from django.core.paginator import Paginator
 @login_required(login_url='login')
 def index(request):
     if request.user.is_authenticated:
-        user_profile = UserProfile.objects.get(user=request.user)
+        my_profile = UserProfile.objects.get(user=request.user)
         all_user_profile = UserProfile.objects.all()
         user_profiles = all_user_profile # for display all users into Suggestions from all pages like ?page=1 & ?page=2 ....
 
@@ -25,7 +25,7 @@ def index(request):
         return redirect('home')
 
     context = {
-        'user_profile': user_profile,
+        'my_profile': my_profile,
         'all_user_profile': page_all_user_profile,
         'user_profiles': user_profiles,
     }
@@ -283,4 +283,21 @@ def change_password(request):
     return render(request, 'profile_user/change_password.html', context)
 
 def saved_jobs(request, pk):
-    return HttpResponse('saved_jobs')
+    # get your profile
+    my_profile = UserProfile.objects.get(user=request.user)
+
+    # get the jobs you want to saved
+    user_profile = UserProfile.objects.get(id=pk)
+
+    my_profile.saved_jobs.add(user_profile.user)
+    return redirect(request.META.get('HTTP_REFERER'))
+
+def unsaved_jobs(request, pk):
+    # get your profile
+    my_profile = UserProfile.objects.get(user=request.user)
+
+    # get the jobs you want to unsaved
+    user_profile = UserProfile.objects.get(id=pk)
+
+    my_profile.saved_jobs.remove(user_profile.user)
+    return redirect(request.META.get('HTTP_REFERER'))
