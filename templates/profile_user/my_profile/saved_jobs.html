@@ -21,11 +21,11 @@
                     <li>
                         <!-- get the users saved in UserProfile -->
                         {% if profile in my_profile.saved_jobs.all %}
-                            <a href="{% url 'unsaved-jobs' profile.id %}">
+                            <a href="{% url 'unsaved-jobs' profile.userprofile.id %}">
                                 <i class="la la-check"></i>
                             </a>
                         {% else %}
-                            <a href="{% url 'saved-jobs' profile.id %}">
+                            <a href="{% url 'saved-jobs' profile.userprofile.id %}">
                                 <i class="la la-bookmark"></i>
                             </a>
                         {% endif %}
