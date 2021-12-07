@@ -110,7 +110,9 @@
 												<div class="usy-dt">
 													<img src="{{ project.user.photo_profile.url }}" width="50" height="50">
 													<div class="usy-name">
-														<h3>{{ project.user.full_name }}</h3>
+														<a href="{% url 'user-profile' project.user project.user.id %}">
+															<h3>{{ project.user.full_name }}</h3>
+														</a>
 														<span><img src="{% static 'images/clock.png' %}" alt="">{{ project.created_project | naturaltime }}</span>
 													</div>
 												</div>
