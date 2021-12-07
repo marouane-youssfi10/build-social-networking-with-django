@@ -12,7 +12,7 @@ urlpatterns = [
     path('projects/create-tag-post/<int:project_post_id>/', views.create_tags_post_project, name="create-tags-post"),
 
     # page Jobs
-    path('jobs/', views.jobs, name="post-job"),
+    path('jobs/', views.jobs, name="jobs"),
     path('jobs/search/', views.search_jobs, name="search-jobs"),
     path('jobs/filter/', views.filter_jobs, name="filter-jobs"),
 

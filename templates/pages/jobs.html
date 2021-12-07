@@ -113,7 +113,7 @@
 														<img src="{{ user_profile.user.photo_profile.url }}" width="50" height="50">
 														<div class="usy-name">
 															<h3>{{ user_profile.user.full_name }}</h3>
-															<span><img src="images/clock.png" alt="">{{ user_profile.created | naturaltime }}</span>
+															<span><img src="{% static 'images/clock.png' %}" alt="">{{ user_profile.created | naturaltime }}</span>
 														</div>
 													</div>
 													{% if user_profile.user == request.user %}
@@ -155,9 +155,16 @@
 												<div class="job-status-bar">
 													<ul class="like-com">
 														<li>
-															<a href="#"><i class="la la-heart"></i> Like</a>
-															<img src="{% static 'images/liked-img.png' %}" alt="">
-															<span>25</span>
+															<!-- check the user if do a like -->
+															{% if request.user in user_profile.likes.all %}
+																<a href="{% url 'remove-like-post-jobs' user_profile.id %}" class="active"><i class="la la-heart"></i> Like</a>
+																<img src="{% static 'images/liked-img.png' %}">
+																<span>{{ user_profile.likes.all.count }}</span>
+															{% else %}
+																<a href="{% url 'add-like-post-jobs' user_profile.id %}"><i class="la la-heart"></i> Like</a>
+																<img src="{% static 'images/liked-img.png' %}">
+																<span>{{ user_profile.likes.all.count }}</span>
+															{% endif %}
 														</li>
 													</ul>
 												</div>
@@ -210,7 +217,7 @@
 							<div class="col-lg-3">
 								<div class="right-sidebar">
 									<div class="widget widget-about">
-										<img src="images/wd-logo.png" alt="">
+										<img src="{% static 'images/wd-logo.png' %}" alt="">
 										<h3>Track Time on Workwise</h3>
 										<span>Pay only for the Hours worked</span>
 										<div class="sign_link">
