@@ -6,7 +6,7 @@ from user_profile.models import Experience_user, TagsUser, Social_media
 from follow.models import Follow
 
 @receiver(post_save, sender=Account)
-def post_save_create_user_profile(sender, instance, created, **kwargs):
+def post_save_create_user_profile_and_user_follow(sender, instance, created, **kwargs):
     if created:
         user = instance
         # create user into Experience_user
