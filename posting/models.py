@@ -26,7 +26,7 @@ class PostProject(models.Model):
     created_project = models.DateTimeField(auto_now_add=True)
 
     skills_tags_projects = models.ManyToManyField(TagsProjects, blank=True)
-    likes = models.ManyToManyField(Account, blank=True, related_name='likes')
+    likes = models.ManyToManyField(Account, blank=True, related_name='likes_post_projects')
 
     class Meta:
         verbose_name = 'project'
