@@ -41,16 +41,18 @@ def user_profile(request, slug_user, pk):
 
     # get currently user profile
     user_profile = UserProfile.objects.get(user__first_name=slug_user)
-    print('user_profile.user = ', user_profile.user, "\n")
 
     # get info of follow user
     follow_user = Follow.objects.get(user__first_name=slug_user)
 
-    following_count =follow_user.following.all().count()
-    followers_count =follow_user.followers.all().count()
+    following_count = follow_user.following.all().count()
+    followers_count = follow_user.followers.all().count()
 
     # get all links of social networking
     links_media = Social_media.objects.filter(social_media_user=user_profile.user)[0:8]
+
+    # get request user for display saved jobs
+    user_profile_saved_jobs = UserProfile.objects.get(user=request.user)
 
     context = {
         'user_profile': user_profile,
@@ -59,7 +61,8 @@ def user_profile(request, slug_user, pk):
         'links_media': links_media,
         'follow_user': follow_user,
         'following_count': following_count,
-        'followers_count': followers_count
+        'followers_count': followers_count,
+        'user_profile_saved_jobs': user_profile_saved_jobs
     }
     return render(request, 'profile_user/user_profile.html', context)
 
