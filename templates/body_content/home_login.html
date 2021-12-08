@@ -206,15 +206,16 @@
 														<img src="{% static 'images/liked-img.png' %}" alt="">
 														<span>25</span>
 													</li>
-													<li><a href="#" title="" class="com"><img src="{% static 'images/com.png' %}" alt=""> Comment 15</a></li>
+													<li>
+														<a class="com" onclick="hideOrShow()">
+															<img src="{% static 'images/com.png' %}" alt=""> Comment 15
+														</a>
+													</li>
 												</ul>
 												<a><i class="la la-eye"></i>Views 50</a>
 											</div>
 										</div><!--post-bar end-->
-										<div class="comment-section">
-											<div class="plus-ic">
-												<i class="la la-plus"></i>
-											</div>
+										<div class="comment-section" id="theDIV">
 											<div class="comment-sec">
 												<ul>
 													<li>
