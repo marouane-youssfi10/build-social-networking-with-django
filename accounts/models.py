@@ -79,7 +79,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=100, unique=True)
     title = models.CharField(blank=True, max_length=100)
-    # epic_coders
+    # epic_coders = models.CharField(max_length=100)
     overview = models.TextField(blank=True)
     photo_cover = models.ImageField(null=True, upload_to='cover/%Y/%m/%d', blank=True, default="avatar/cover.jpg")
     education_title = models.CharField(blank=True, max_length=100)

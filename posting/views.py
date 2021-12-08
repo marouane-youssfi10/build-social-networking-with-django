@@ -110,9 +110,7 @@ def post_projects(request):
     if request.method == 'POST':
         form_post_project = PostProjectForm(request.POST)
         form_tags_post_project = TagsProjectsForm(request.POST)
-        print('---------------------------------------------------------')
-        print('form_post_project = ', form_post_project)
-        print('---------------------------------------------------------')
+
         print('form_post_projects.is_valid()     = ', form_post_project.is_valid())
         print('form_tags_post_project.is_valid() = ', form_tags_post_project.is_valid())
         tags_objs = []

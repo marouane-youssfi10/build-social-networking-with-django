@@ -31,7 +31,7 @@ class PostProject(models.Model):
     class Meta:
         verbose_name = 'project'
         verbose_name_plural = 'Projects'
-        ordering = ['-updated_project', '-created_project']
+        ordering = ['-created_project']
 
     def __str__(self):
         return self.name_project
