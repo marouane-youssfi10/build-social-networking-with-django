@@ -1525,6 +1525,8 @@ main {
 	width: 100%;
 	background-color: #fff;
 	padding: 20px;
+	height:450px;
+    overflow-y: scroll;
 }
 .plus-ic {
 	float: left;
