@@ -20,19 +20,18 @@ class PostProject(models.Model):
     start_price = models.IntegerField(blank=False, null=False)
     end_price = models.IntegerField(blank=False, null=False)
     description_project = models.TextField(blank=False, null=False)
+    hide = models.BooleanField(default=True)
 
     updated_project = models.DateTimeField(auto_now=True)
     created_project = models.DateTimeField(auto_now_add=True)
 
     skills_tags_projects = models.ManyToManyField(TagsProjects, blank=True)
     likes = models.ManyToManyField("accounts.Account", blank=True, related_name='likes_post_projects')
-    # my_bids_projects = models.ManyToManyField(Account, blank=True, related_name='my_bids_projects')
 
     class Meta:
         verbose_name = 'project'
         verbose_name_plural = 'Projects'
         ordering = ['-updated_project', '-created_project']
-
 
     def __str__(self):
         return self.name_project

@@ -268,8 +268,10 @@ def create_tags_post_project(request, project_post_id):
     messages.success(request, 'your tag is created successfully')
     return redirect('/projects/edit-post/' + str(project_post_id))
 
-def hide_projects(request):
+def hide_projects(request, pk):
+    post_project = PostProject.objects.get(id=pk)
+    
     return HttpResponse('hide')
 
-def unhide_projects(request):
+def unhide_projects(request, pk):
     return HttpResponse('unhide')
