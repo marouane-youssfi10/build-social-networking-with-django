@@ -28,28 +28,28 @@
 										<h3>Suggestions</h3>
 										<i class="la la-ellipsis-v"></i>
 									</div><!--sd-title end-->
-									<div class="suggestions-list">
 
+									<div class="suggestions-list">
 										<!-- display all user to home page -->
 										{%  for user_profile in user_profiles %}
 											{% if request.user != user_profile.user %} <!-- display all user without request.user-->
 												{% if user_profile.title %}
 													<div class="suggestion-usd">
-												<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
-												<div class="sgt-text col-8">
-													<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
-														<h4>{{ user_profile.user.full_name }}</h4>
-													</a>
-													{% if user_profile.title %}
-														<span class="col-0">{{ user_profile.title }}</span>
-													{% endif %}
-												</div>
-											</div>
+														<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
+														<div class="sgt-text col-8">
+															<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
+																<h4>{{ user_profile.user.full_name }}</h4>
+															</a>
+															{% if user_profile.title %}
+																<span class="col-0">{{ user_profile.title }}</span>
+															{% endif %}
+														</div>
+													</div>
 												{% endif %}
 											{% endif %}
 										{% endfor %}
 										<div class="view-more">
-											<a href="#" title="">View More</a>
+											<a>View More</a>
 										</div>
 									</div><!--suggestions-list end-->
 								</div><!--suggestions end-->

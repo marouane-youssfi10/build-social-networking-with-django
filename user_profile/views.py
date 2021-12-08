@@ -242,7 +242,7 @@ def create_links_media(request):
     context = {
         'user_links_media': user_links_media,
     }
-    return render(request, 'profile_user/create_link.html', context)
+    return render(request, 'profile_user/user_links/create_link.html', context)
 
 @login_required(login_url='login')
 def edit_links_media(request, pk):
@@ -267,7 +267,7 @@ def edit_links_media(request, pk):
         'user_links_media': user_links_media,
     }
 
-    return render(request, 'profile_user/edit_link.html', context)
+    return render(request, 'profile_user/user_links/edit_link.html', context)
 
 @login_required(login_url='login')
 def delete_links_media(request, pk):
@@ -285,7 +285,7 @@ def change_password(request):
     context = {
         'user_profile': user_profile,
     }
-    return render(request, 'profile_user/change_password.html', context)
+    return render(request, 'profile_user/password/change_password.html', context)
 
 # save jobs to my_profile
 @login_required(login_url='login')
