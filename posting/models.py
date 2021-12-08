@@ -20,7 +20,7 @@ class PostProject(models.Model):
     start_price = models.IntegerField(blank=False, null=False)
     end_price = models.IntegerField(blank=False, null=False)
     description_project = models.TextField(blank=False, null=False)
-    hide = models.BooleanField(default=True)
+    hide = models.BooleanField(default=False)
 
     updated_project = models.DateTimeField(auto_now=True)
     created_project = models.DateTimeField(auto_now_add=True)

@@ -6,7 +6,7 @@ class PostProjectForm(forms.ModelForm):
     class Meta:
         model = PostProject
         fields = '__all__'
-        exclude = ['user', 'skills_tags_projects', 'updated_project', 'created_project', 'likes']
+        exclude = ['user', 'skills_tags_projects', 'updated_project', 'created_project', 'likes', 'hide']
 
     def __init__(self, *args, **kwargs):
         super(PostProjectForm, self).__init__(*args, **kwargs)

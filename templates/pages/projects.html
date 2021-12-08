@@ -106,7 +106,11 @@
 										<!-- display all projects -->
 										{% if projects %}
 											{% for project in projects %}
-												<div class="post-bar">
+												<!-- if request.user is hide his project then hide them for others users not him -->
+												{% if request.user != project.user and project.hide %}
+
+												{% else %}
+													<div class="post-bar">
 													<div class="post_topbar">
 														<div class="usy-dt">
 															<img src="{{ project.user.photo_profile.url }}" width="50" height="50">
@@ -125,9 +129,9 @@
 																<ul class="ed-options">
 																	<li><a href="{% url 'edit-post-project' project.id %}">Edit Post</a></li>
 																	{% if project.hide %}
-																		<li><a href="{% url 'hide' project.id %}">Hide</a></li>
-																	{% else %}
 																		<li><a href="{% url 'unhide' project.id %}">unhide</a></li>
+																	{% else %}
+																		<li><a href="{% url 'hide' project.id %}">Hide</a></li>
 																	{% endif %}
 																</ul>
 															</div>
@@ -147,6 +151,13 @@
 															{% else %}
 																<li>
 																	<a href="{% url 'bid-project' project.id %}" class="bid_now">Bid Now</a>
+																</li>
+															{% endif %}
+
+															<!-- check if post project is hiding then show Hiding-->
+															{% if project.hide == True %}
+																<li>
+																	<a class="bid_now" style="background-color:gray;">Hiding</a>
 																</li>
 															{% endif %}
 														</ul>
@@ -186,9 +197,8 @@
 														</ul>
 													</div>
 												</div>
+												{% endif %}
 											{% endfor %}
-										{% else %}
-											<h1>there's no project here</h1>
 										{% endif %}
 
 										<!-- =============== Pagination =============== -->

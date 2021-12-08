@@ -110,7 +110,9 @@ def post_projects(request):
     if request.method == 'POST':
         form_post_project = PostProjectForm(request.POST)
         form_tags_post_project = TagsProjectsForm(request.POST)
-
+        print('---------------------------------------------------------')
+        print('form_post_project = ', form_post_project)
+        print('---------------------------------------------------------')
         print('form_post_projects.is_valid()     = ', form_post_project.is_valid())
         print('form_tags_post_project.is_valid() = ', form_tags_post_project.is_valid())
         tags_objs = []
@@ -270,12 +272,12 @@ def create_tags_post_project(request, project_post_id):
 
 def hide_projects(request, pk):
     post_project = PostProject.objects.get(id=pk)
-    post_project.hide = False
+    post_project.hide = True
     post_project.save()
     return redirect(request.META.get('HTTP_REFERER'))
 
 def unhide_projects(request, pk):
     post_project = PostProject.objects.get(id=pk)
-    post_project.hide = True
+    post_project.hide = False
     post_project.save()
     return redirect(request.META.get('HTTP_REFERER'))
