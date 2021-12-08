@@ -124,7 +124,11 @@
 																<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
 																<ul class="ed-options">
 																	<li><a href="{% url 'edit-post-project' project.id %}">Edit Post</a></li>
-																	<li><a href="{% url 'hide' project.id %}">Hide</a></li>
+																	{% if project.hide %}
+																		<li><a href="{% url 'hide' project.id %}">Hide</a></li>
+																	{% else %}
+																		<li><a href="{% url 'unhide' project.id %}">unhide</a></li>
+																	{% endif %}
 																</ul>
 															</div>
 														{% endif %}

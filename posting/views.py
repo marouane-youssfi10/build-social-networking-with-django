@@ -270,8 +270,12 @@ def create_tags_post_project(request, project_post_id):
 
 def hide_projects(request, pk):
     post_project = PostProject.objects.get(id=pk)
-    
-    return HttpResponse('hide')
+    post_project.hide = False
+    post_project.save()
+    return redirect(request.META.get('HTTP_REFERER'))
 
 def unhide_projects(request, pk):
-    return HttpResponse('unhide')
+    post_project = PostProject.objects.get(id=pk)
+    post_project.hide = True
+    post_project.save()
+    return redirect(request.META.get('HTTP_REFERER'))
