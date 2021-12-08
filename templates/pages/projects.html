@@ -266,17 +266,17 @@
 												{% if request.user !=  profile.user %} <!-- avoid display my profile -->
 													{% if profile.title and profile.overview %} <!--check is title & overview is exists-->
 														<div class="job-info">
-														<div class="job-details">
-															<a href="{% url 'user-profile' profile.user profile.user.id %}">
-																<h3>{{ profile.title }}</h3>
-															</a>
-															<p>{{ profile.overview | truncatechars:50 }}</p>
+															<div class="job-details">
+																<a href="{% url 'user-profile' profile.user profile.user.id %}">
+																	<h3>{{ profile.title }}</h3>
+																</a>
+																<p>{{ profile.overview | truncatechars:50 }}</p>
 
-														</div>
-														<div class="hr-rate">
-															<span>${{ profile.hourly_work }}/hr</span>
-														</div>
-													</div><!--job-info end-->
+															</div>
+															<div class="hr-rate">
+																<span>${{ profile.hourly_work }}/hr</span>
+															</div>
+														</div><!--job-info end-->
 													{% endif %}
 												{% endif %}
 											{% endfor %}

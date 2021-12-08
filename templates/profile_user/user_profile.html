@@ -102,29 +102,32 @@
 										<div class="tab-feed">
 											<ul>
 												<li data-tab="info-dd" class="active">
-													<a href="#" title="">
+													<a href="#">
 														<img src="{% static 'images/ic2.png' %}" alt="">
 														<span>Info</span>
 													</a>
 												</li>
 												<li data-tab="portfolio-dd">
-													<a href="#" title="">
+													<a href="#">
 														<img src="{% static 'images/ic3.png' %}">
 														<span>Portfolio</span>
 													</a>
 												</li>
-												<li data-tab="saved-jobs">
-													<a href="#" title="">
-														<img src="{% static 'images/ic4.png' %}" alt="">
-														<span>Saved Jobs</span>
-													</a>
-												</li>
-												<li data-tab="my-bids">
-													<a href="#" title="">
-														<img src="{% static 'images/ic5.png' %}" alt="">
-														<span>My Bids</span>
-													</a>
-												</li>
+												<!-- hide saved_jobs & my_bods on others users-->
+												{% if request.user == user_profile.user %}
+													<li data-tab="saved-jobs">
+														<a href="#">
+															<img src="{% static 'images/ic4.png' %}" alt="">
+															<span>Saved Jobs</span>
+														</a>
+													</li>
+													<li data-tab="my-bids">
+														<a href="#">
+															<img src="{% static 'images/ic5.png' %}" alt="">
+															<span>My Bids</span>
+														</a>
+													</li>
+												{% endif %}
 											</ul>
 										</div><!-- tab-feed end-->
 									</div>
@@ -146,9 +149,11 @@
 											{% include 'profile_user/my_profile/saved_jobs.html' %}
 										</div>
 
+										<!-- My bids -->
 										<div class="product-feed-tab" id="my-bids">
 											{% include 'profile_user/my_profile/my_bids.html' %}
 										</div>
+
 									</div>
 								</div>
 							</div>

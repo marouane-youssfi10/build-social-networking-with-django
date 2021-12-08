@@ -332,13 +332,12 @@
 											<h3>Top Jobs</h3>
 											<i class="la la-ellipsis-v"></i>
 										</div>
-										<!-- display all user profile into Top Jobs -->
-										{% for user_profile in user_profiles %}
-											{% if request.user != user_profile.user and user_profile.title and user_profile.overview %} <!-- display only other users and check if they has title and overview-->
-												<div class="jobs-list">
+										<div class="jobs-list">
+											<!-- display all user profile into Top Jobs -->
+											{% for user_profile in user_profiles %}
+												{% if request.user != user_profile.user and user_profile.title and user_profile.overview %} <!-- display only other users and check if they has title and overview-->
 													<div class="job-info">
 														<div class="job-details">
-
 															<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
 																<h3>{{ user_profile.title }}</h3>
 															</a>
@@ -349,9 +348,9 @@
 															<span>${{ user_profile.hourly_work }}/hr</span>
 														</div>
 													</div><!--job-info end-->
-												</div><!--jobs-list end-->
-											{% endif %}
-										{% endfor %}
+												{% endif %}
+											{% endfor %}
+										</div><!--jobs-list end-->
 									</div><!--widget-jobs end-->
 								{% endif %}
 								<div class="widget widget-jobs">
