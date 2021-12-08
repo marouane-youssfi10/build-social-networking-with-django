@@ -138,7 +138,7 @@ def edit_experience_user(request, pk):
         'user_experience': user_experience,
     }
 
-    return render(request, 'profile_user/edit_experience.html', context)
+    return render(request, 'profile_user/user_experience/edit_experience.html', context)
 
 @login_required(login_url='login')
 def create_experience_user(request):
@@ -160,7 +160,7 @@ def create_experience_user(request):
     context = {
         'form_experience': form_experience,
     }
-    return render(request, 'profile_user/create_experience.html', context)
+    return render(request, 'profile_user/user_experience/create_experience.html', context)
 
 @login_required(login_url='login')
 def delete_experience_user(request, pk):
