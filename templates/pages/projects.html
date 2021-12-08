@@ -138,9 +138,7 @@
 															<li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ project.location }}</span></li>
 														</ul>
 														<ul class="bk-links">
-															<li><a href="#"><i class="la la-bookmark"></i></a></li>
 															<li><a href="#"><i class="la la-envelope"></i></a></li>
-
 															{% if project in my_profile.my_bids_projects.all %}
 																<li>
 																	<a href="{% url 'unbid-project' project.id %}" class="bid_now">UnBid</a>

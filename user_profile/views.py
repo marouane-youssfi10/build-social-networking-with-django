@@ -279,6 +279,7 @@ def delete_links_media(request, pk):
     messages.success(request, 'your link "' + link_name + '" is delete')
     return redirect('/accounts-setting/edit-profile/', request.user)
 
+@login_required(login_url='login')
 def change_password(request):
 
     context = {
