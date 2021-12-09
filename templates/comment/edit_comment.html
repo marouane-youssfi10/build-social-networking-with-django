@@ -1,0 +1,7 @@
+<h1>Edit Comment</h1>
+
+    <form action="{% url 'post-comment-project' comment_project.id %}" method="POST">
+        {% csrf_token %}
+        {{ comment_project_form.as_p }}
+        <input type="submit">
+    </form>

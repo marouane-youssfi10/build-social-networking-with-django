@@ -117,7 +117,7 @@
                                             </div>
                                             {% if request.user == comment.user_post %}
                                             <div class="row">
-                                                <a class="col-lg-6" href="" >
+                                                <a class="" href="{% url 'edit-comment' comment.id %}">
                                                     <svg
                                                         enable-background="new 0 0 24 24" height="20" viewBox="0 0 24 24" width="20">
                                                         <title>edit</title>
@@ -137,9 +137,10 @@
                                                 </a>
                                                 <a class="col-lg-6" href="{% url 'delete-comment' comment.id %}" onclick="return confirm('Are you sure you want te delete this comment')">
                                                    <svg  style="color:#b2b2b2;" version="1.1" width="20" height="20" viewBox="0 0 32 32">
+                                                       <title>Delete</title>
                                                       <path d="M27.314 6.019l-1.333-1.333-9.98 9.981-9.981-9.981-1.333 1.333 9.981
                                                        9.981-9.981 9.98 1.333 1.333 9.981-9.98 9.98 9.98 1.333-1.333-9.98-9.98 9.98-9.981z"></path>
-                                                    </svg>
+                                                   </svg>
                                                 </a>
                                             </div>
                                             {% endif %}

@@ -41,8 +41,41 @@ def post_comment_project(request, project_id):
 
 def delete_comment(request, comment_id):
     comment_project = CommentProjects.objects.get(id=comment_id)
+    # post_project = PostProject.objects.get(id=project_id)
     comment_project.delete()
     return redirect(request.META.get('HTTP_REFERER'))
+
+def edit_comment(request, comment_id):
+    """
+    get userexperience
+    user_experience = Experience_user.objects.get(id=pk)
+    if request.method == 'POST':
+        # get information of userform & userprofile
+        user_experience_form = ExperienceUserForm(request.POST, request.FILES, instance=user_experience)
+
+        # check user_experience_form
+        if user_experience_form.is_valid():
+            # save the information updated
+            user_experience_form.save()
+            messages.success(request, 'Your profile experience has been updated')
+            return redirect('/accounts-setting/edit-profile/', request.user)
+    else:
+        user_experience_form = ExperienceUserForm(instance=user_experience)
+    """
+    comment_project = CommentProjects.objects.get(id=comment_id)
+    if request.method == 'POST':
+        comment_project_form = CommentProjectsForm(request.POST, request.FILES, instance=comment_project)
+        if comment_project_form.is_valid():
+            comment_project_form.save()
+            return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        comment_project_form = CommentProjectsForm(instance=comment_project)
+
+    context = {
+        'comment_project_form': comment_project_form,
+        'comment_project': comment_project,
+    }
+    return render(request, 'comment/edit_comment.html', context)
 
 def post_comment_jobs(request, project_id):
     return HttpResponse('post_comment')
