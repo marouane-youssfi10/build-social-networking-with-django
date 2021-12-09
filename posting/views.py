@@ -20,6 +20,8 @@ def index(request):
     paginator_project = Paginator(projects, 3)
     page_number_projects = request.GET.get('page')
     page_projects = paginator_project.get_page(page_number_projects)
+    # comments = post_project.post_project.all()
+    # comments_count = comments.count()
 
     context = {
         'projects': page_projects,

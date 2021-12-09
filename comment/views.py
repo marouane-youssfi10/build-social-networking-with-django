@@ -13,11 +13,13 @@ def comment(request, project_id):
 
     post_project = PostProject.objects.get(id=project_id)
     comments = post_project.post_project.all()
+    comments_count = comments.count()
     print('post_project = ', post_project)
     print('comments =', comments)
     context = {
         'project': post_project,
         'comments': comments,
+        'comments_count': comments_count,
     }
     return render(request, 'comment/comment_post_project.html', context)
 

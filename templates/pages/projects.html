@@ -194,7 +194,10 @@
 																	{% endif %}
 																</li>
 																<li>
-																	<a class="com" href="{% url 'comment' project.id %}"><img src="{% static 'images/com.png' %}"> Comment 15</a>
+																	<a class="com" href="{% url 'comment' project.id %}">
+																		<img src="{% static 'images/com.png' %}"> Comment
+																		{{ project.post_project.all.count }}
+																	</a>
 																</li>
 															</ul>
 														</div>
