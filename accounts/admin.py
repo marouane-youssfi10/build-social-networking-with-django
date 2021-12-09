@@ -9,7 +9,7 @@ class UserProfileAdmin(admin.ModelAdmin):
         return format_html('<img src="{}" width="60" style="border-radius: 50px;" />'.format(object.photo_profile.url))"""
 
     list_display = ['id', 'user', 'title', 'experience', 'education_title', 'location_country', 'location_city',
-                    'hourly_work', 'type_work', 'links_media', 'experience', 'commentjobs']
+                    'hourly_work', 'type_work', 'links_media', 'experience']
     prepopulated_fields = {'slug': ('user',)}
 
 class AccountAdmin(UserAdmin):

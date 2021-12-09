@@ -101,7 +101,7 @@ class UserProfile(models.Model):
     likes = models.ManyToManyField(Account, blank=True, related_name='likes_jobs')
     saved_jobs = models.ManyToManyField(Account, blank=True, related_name='saved_jobs')
     my_bids_projects = models.ManyToManyField(PostProject,  blank=True)
-    commentjobs = models.ForeignKey(CommentJobs, on_delete=models.CASCADE, blank=True)
+    comment_jobs = models.ManyToManyField(CommentJobs, blank=True, related_name='comment_jobs')
     # commentprojects = models.ForeignKey(CommentProjects, on_delete=models.CASCADE, blank=True)
 
 

@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from accounts.models import UserProfile, Experience_user, TagsUser, Social_media
 from follow.models import Follow
 from posting.models import PostProject
+from accounts.models import Account
 # forms
 from .forms import UserForm, UserProfileForm, ExperienceUserForm, TagsUserForm, SocialMediaForm
 # pagination
@@ -25,6 +26,11 @@ def index(request):
     else:
         return redirect('home')
 
+    # ------------------- testing ------------------
+    # user = PostProject.objects.get(id=6)
+    # comment = user.post_project.all()
+    # print('comment =', comment)
+    # ------------------- end testing ------------------
     context = {
         'my_profile': my_profile,
         'all_user_profile': page_all_user_profile,

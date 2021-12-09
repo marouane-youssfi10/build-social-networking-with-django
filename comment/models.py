@@ -22,7 +22,7 @@ class CommentJobs(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return str(self.user_job)
+        return 'jobs_profile : ' + str(self.jobs_profile) + ' -- user_job : ' +str(self.user_job) + ' -- ' + str(self.body)
 
     class Meta:
         verbose_name = 'Comment'
