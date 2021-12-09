@@ -4,19 +4,18 @@ from django.urls import reverse
 # models
 from posting.models import PostProject
 from accounts.models import UserProfile
+from .models import CommentProjects
 # form
 from .forms import CommentProjectsForm, CommentJobsForm
 # Create your views here.
 
 def comment(request, project_id):
     # post_project = models.ForeignKey(PostProject, related_name='post_project')
-
     post_project = PostProject.objects.get(id=project_id)
     comments = post_project.post_project.all()
     my_profile = UserProfile.objects.get(user=request.user)
     comments_count = comments.count()
-    print('post_project = ', post_project)
-    print('comments =', comments)
+
     context = {
         'project': post_project,
         'comments': comments,
@@ -39,7 +38,11 @@ def post_comment_project(request, project_id):
             comment.body = request.POST['body']
             comment.save()
     return redirect(reverse('comment', args=[project_id]))
-    # return HttpResponseRedirect(reverse('postdetails', args=[post_id])))
+
+def delete_comment(request, comment_id):
+    comment_project = CommentProjects.objects.get(id=comment_id)
+    comment_project.delete()
+    return redirect(request.META.get('HTTP_REFERER'))
 
 def post_comment_jobs(request, project_id):
     return HttpResponse('post_comment')
