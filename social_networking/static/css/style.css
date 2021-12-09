@@ -1525,8 +1525,8 @@ main {
 	width: 100%;
 	background-color: #fff;
 	padding: 20px;
-	height:450px;
-    overflow-y: scroll;
+	height:450px;        /* new */
+    overflow-y: scroll;  /* new */
 }
 .plus-ic {
 	float: left;
@@ -1639,7 +1639,7 @@ main {
 	float: left;
 }
 .comment_box input {
-	width: 387px;
+	width: 368px;
 	height: 40px;
 	border: 1px solid #e5e5e5;
 	background-color: #efefef;

@@ -98,138 +98,62 @@
 												</div>
 											{% endif %}
 										</div>
-										<div class="epi-sec">
-											<ul class="descp">
-												<li><img src="{% static 'images/icon8.png' %}" alt=""><span>Epic Coder</span></li>
-												<li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ user_profile.location_country }}</span></li>
-											</ul> <!-- Country and city -->
-											<ul class="bk-links">
-												<li>
-													<!-- get the id of UserProfile -->
-													{% if user_profile.user in my_profile.saved_jobs.all %}
-														<a href="{% url 'unsaved-jobs' user_profile.id %}">
-															<i class="la la-check"></i>
-														</a>
-													{% else %}
-														<a href="{% url 'saved-jobs' user_profile.id %}">
-															<i class="la la-bookmark"></i>
-														</a>
-													{% endif %}
-												</li>
-												<li><a href="#"><i class="la la-envelope"></i></a></li>
-											</ul> <!-- Send message -->
-										</div>
-										<div class="job_descp">
-											<h3>{{ user_profile.title }}</h3>
-											<ul class="job-dt">
-												<li><a href="#" title="">{{ user_profile.type_work }}</a></li>
-												<li><span>${{ user_profile.hourly_work }} / hr</span></li>
-											</ul> <!-- type work and hourly work -->
-											<p>{{ user_profile.overview | truncatechars:150 }}
-											<!-- <a href="#" title="">view More</a>-->
-											<ul class="skill-tags">
-												{% for tag in user_profile.skills_tags_user.all %}
-													<li><a>{{ tag }}</a></li>
-												{% endfor %}
-											</ul> <!-- tags -->
-										</div>
-										<div class="job-status-bar">
-											<ul class="like-com">
-												<li>
-													<!-- check the user if do a like -->
-													{% if request.user in user_profile.likes.all %}
-														<a href="{% url 'remove-like-post-jobs' user_profile.id %}" class="active"><i class="la la-heart"></i> Like</a>
-														<img src="{% static 'images/liked-img.png' %}">
-														<span>{{ user_profile.likes.all.count }}</span>
-													{% else %}
-														<a href="{% url 'add-like-post-jobs' user_profile.id %}"><i class="la la-heart"></i> Like</a>
-														<img src="{% static 'images/liked-img.png' %}">
-														<span>{{ user_profile.likes.all.count }}</span>
-													{% endif %}
-												</li> <!-- Like -->
-											</ul>
-										</div>
-									</div>
-										{% endif %}
-									{% endfor %}
-
-									<div class="posty">
-										<div class="post-bar no-margin">
-											<div class="post_topbar">
-												<div class="usy-dt">
-													<img src="http://via.placeholder.com/50x50" alt="">
-													<div class="usy-name">
-														<h3>John Doe</h3>
-														<span><img src="{% static 'images/clock.png' %}" alt="">3 min ago</span>
-													</div>
+												<div class="epi-sec">
+													<ul class="descp">
+														<li><img src="{% static 'images/icon8.png' %}" alt=""><span>Epic Coder</span></li>
+														<li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ user_profile.location_country }}</span></li>
+													</ul> <!-- Country and city -->
+													<ul class="bk-links">
+														<li>
+															<!-- get the id of UserProfile -->
+															{% if user_profile.user in my_profile.saved_jobs.all %}
+																<a href="{% url 'unsaved-jobs' user_profile.id %}">
+																	<i class="la la-check"></i>
+																</a>
+															{% else %}
+																<a href="{% url 'saved-jobs' user_profile.id %}">
+																	<i class="la la-bookmark"></i>
+																</a>
+															{% endif %}
+														</li>
+														<li><a href="#"><i class="la la-envelope"></i></a></li>
+													</ul> <!-- Send message -->
 												</div>
-												<div class="ed-opts">
-													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-													<ul class="ed-options">
-														<li><a href="#" title="">Edit Post</a></li>
-														<li><a href="#" title="">Unsaved</a></li>
-														<li><a href="#" title="">Unbid</a></li>
-														<li><a href="#" title="">Close</a></li>
-														<li><a href="#" title="">Hide</a></li>
+												<div class="job_descp">
+													<h3>{{ user_profile.title }}</h3>
+													<ul class="job-dt">
+														<li><a href="#" title="">{{ user_profile.type_work }}</a></li>
+														<li><span>${{ user_profile.hourly_work }} / hr</span></li>
+													</ul> <!-- type work and hourly work -->
+													<p>{{ user_profile.overview | truncatechars:150 }}
+													<!-- <a href="#" title="">view More</a>-->
+													<ul class="skill-tags">
+														{% for tag in user_profile.skills_tags_user.all %}
+															<li><a>{{ tag }}</a></li>
+														{% endfor %}
+													</ul> <!-- tags -->
+												</div>
+												<div class="job-status-bar">
+													<ul class="like-com">
+														<li>
+															<!-- check the user if do a like -->
+															{% if request.user in user_profile.likes.all %}
+																<a href="{% url 'remove-like-post-jobs' user_profile.id %}" class="active"><i class="la la-heart"></i> Like</a>
+																<img src="{% static 'images/liked-img.png' %}">
+																<span>{{ user_profile.likes.all.count }}</span>
+															{% else %}
+																<a href="{% url 'add-like-post-jobs' user_profile.id %}"><i class="la la-heart"></i> Like</a>
+																<img src="{% static 'images/liked-img.png' %}">
+																<span>{{ user_profile.likes.all.count }}</span>
+															{% endif %}
+														</li> <!-- Like -->
+														<li>
+															<a class="com"><img src="{% static 'images/com.png' %}" alt=""> Comment 15</a>
+														</li>
 													</ul>
 												</div>
-											</div>
-											<div class="epi-sec">
-												<ul class="descp">
-													<li><img src="{% static 'images/icon8.png' %}" alt=""><span>Epic Coder</span></li>
-													<li><img src="{% static 'images/icon9.png' %}" alt=""><span>India</span></li>
-												</ul>
-												<ul class="bk-links">
-													<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
-													<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
-												</ul>
-											</div>
-											<div class="job_descp">
-												<h3>Senior Wordpress Developer</h3>
-												<ul class="job-dt">
-													<li><a href="#" title="">Full Time</a></li>
-													<li><span>$30 / hr</span></li>
-												</ul>
-												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet... <a href="#" title="">view more</a></p>
-												<ul class="skill-tags">
-													<li><a href="#" title="">HTML</a></li>
-													<li><a href="#" title="">PHP</a></li>
-													<li><a href="#" title="">CSS</a></li>
-													<li><a href="#" title="">Javascript</a></li>
-													<li><a href="#" title="">Wordpress</a></li>
-												</ul>
-											</div>
-											<div class="job-status-bar">
-												<ul class="like-com">
-													<li>
-														<a href="#"><i class="la la-heart"></i> Like</a>
-														<img src="{% static 'images/liked-img.png' %}" alt="">
-														<span>25</span>
-													</li>
-													<li>
-														<a class="com">
-															<img src="{% static 'images/com.png' %}" alt=""> Comment 15
-														</a>
-													</li>
-												</ul>
-												<a><i class="la la-eye"></i>Views 50</a>
-											</div>
-										</div><!--post-bar end-->
-										<div class="comment-section nav-pills nav-stacked" id="comment" style="display:none;">
-											<div class="comment-sec">
-												<ul>
-													<li>
-														<div class="comment-list">
-															<div class="bg-img">
-																<img src="http://via.placeholder.com/40x40" alt="">
-															</div>
-															<div class="comment">
-																<h3>John Doe</h3>
-																<span><img src="{% static 'images/clock.png' %}" alt=""> 3 min ago</span>
-																<p>Lorem ipsum dolor sit amet, </p>
-																<a href="#" title="" class="active"><i class="fa fa-reply-all"></i>Reply</a>
-															</div>
-														</div><!--comment-list end-->
+												<div class="comment-section nav-pills nav-stacked" id="comment" style="display:none;">
+													<div class="comment-sec">
 														<ul>
 															<li>
 																<div class="comment-list">
@@ -239,41 +163,58 @@
 																	<div class="comment">
 																		<h3>John Doe</h3>
 																		<span><img src="{% static 'images/clock.png' %}" alt=""> 3 min ago</span>
-																		<p>Hi John </p>
+																		<p>Lorem ipsum dolor sit amet, </p>
+																		<a href="#" title="" class="active"><i class="fa fa-reply-all"></i>Reply</a>
+																	</div>
+																</div><!--comment-list end-->
+																<ul>
+																	<li>
+																		<div class="comment-list">
+																			<div class="bg-img">
+																				<img src="http://via.placeholder.com/40x40" alt="">
+																			</div>
+																			<div class="comment">
+																				<h3>John Doe</h3>
+																				<span><img src="{% static 'images/clock.png' %}" alt=""> 3 min ago</span>
+																				<p>Hi John </p>
+																				<a href="#" title=""><i class="fa fa-reply-all"></i>Reply</a>
+																			</div>
+																		</div><!--comment-list end-->
+																	</li>
+																</ul>
+															</li>
+															<li>
+																<div class="comment-list">
+																	<div class="bg-img">
+																		<img src="http://via.placeholder.com/40x40" alt="">
+																	</div>
+																	<div class="comment">
+																		<h3>John Doe</h3>
+																		<span><img src="{% static 'images/clock.png' %}" alt=""> 3 min ago</span>
+																		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at.</p>
 																		<a href="#" title=""><i class="fa fa-reply-all"></i>Reply</a>
 																	</div>
 																</div><!--comment-list end-->
 															</li>
 														</ul>
-													</li>
-													<li>
-														<div class="comment-list">
-															<div class="bg-img">
-																<img src="http://via.placeholder.com/40x40" alt="">
-															</div>
-															<div class="comment">
-																<h3>John Doe</h3>
-																<span><img src="{% static 'images/clock.png' %}" alt=""> 3 min ago</span>
-																<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at.</p>
-																<a href="#" title=""><i class="fa fa-reply-all"></i>Reply</a>
-															</div>
-														</div><!--comment-list end-->
-													</li>
-												</ul>
-											</div><!--comment-sec end-->
-											<div class="post-comment">
-												<div class="cm_img">
-													<img src="http://via.placeholder.com/40x40" alt="">
-												</div>
-												<div class="comment_box">
-													<form>
-														<input type="text" placeholder="Post a comment">
-														<button type="submit">Send</button>
-													</form>
-												</div>
-											</div><!--post-comment end-->
-										</div><!--comment-section end-->
-									</div><!--posty end-->
+													</div><!--comment-sec end-->
+													<div class="post-comment">
+														<div class="cm_img">
+															<img src="http://via.placeholder.com/40x40" alt="">
+														</div>
+														<div class="comment_box">
+															<form>
+																<input type="text" placeholder="Post a comment">
+																<button type="submit">Send</button>
+															</form>
+														</div>
+													</div><!--post-comment end-->
+												</div><!--comment-section end-->
+											</div>
+										{% endif %}
+									{% endfor %}
+
+
 									<nav class="full-pagi">
 										<!-- --------------------------- Pagination --------------------------- -->
 										{% if all_user_profile.has_other_pages %}
