@@ -19,7 +19,7 @@ def index(request):
         user_profiles = all_user_profile # for display all users into Suggestions from all pages like ?page=1 & ?page=2 ....
 
         # for home_login page
-        paginator_project = Paginator(all_user_profile, 2)
+        paginator_project = Paginator(all_user_profile, 6)
         page_number_projects = request.GET.get('page')
         page_all_user_profile = paginator_project.get_page(page_number_projects)
     else:

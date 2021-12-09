@@ -1,22 +1,29 @@
 from django.db import models
 # models
-from accounts.models import Account, UserProfile
 from posting.models import PostProject
 
 class CommentProjects(models.Model):
-    post = models.ForeignKey(PostProject, on_delete=models.CASCADE, related_name='comments')
-    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    post_project = models.ForeignKey(PostProject, on_delete=models.CASCADE, related_name='post_project')
+    user_post = models.ForeignKey("accounts.Account", on_delete=models.CASCADE,  related_name='user_post')
     body = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return str(self.user)
+        return str(self.user_post)
+
+    class Meta:
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comment Projects'
 
 class CommentJobs(models.Model):
-    jobs = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='comments')
-    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    jobs_profile = models.ForeignKey("accounts.UserProfile", on_delete=models.CASCADE, related_name='jobs_profile')
+    user_job = models.ForeignKey("accounts.Account", on_delete=models.CASCADE, related_name='user_job')
     body = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return str(self.user)
+        return str(self.user_job)
+
+    class Meta:
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comment Jobs'

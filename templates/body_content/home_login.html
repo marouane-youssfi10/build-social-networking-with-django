@@ -1,4 +1,5 @@
 {% load static %}
+{% load humanize %}
 <div class="wrapper">
 	<main>
 		{% include 'includes/alerts.html' %}
@@ -153,63 +154,39 @@
 													</ul>
 												</div>
 												<div class="comment-section nav-pills nav-stacked" id="comment" style="display:none;">
-													<div class="comment-sec">
-														<ul>
-															<li>
-																<div class="comment-list">
-																	<div class="bg-img">
-																		<img src="http://via.placeholder.com/40x40" alt="">
-																	</div>
-																	<div class="comment">
-																		<h3>John Doe</h3>
-																		<span><img src="{% static 'images/clock.png' %}" alt=""> 3 min ago</span>
-																		<p>Lorem ipsum dolor sit amet, </p>
-																		<a href="#" title="" class="active"><i class="fa fa-reply-all"></i>Reply</a>
-																	</div>
-																</div><!--comment-list end-->
-																<ul>
-																	<li>
-																		<div class="comment-list">
-																			<div class="bg-img">
-																				<img src="http://via.placeholder.com/40x40" alt="">
-																			</div>
-																			<div class="comment">
-																				<h3>John Doe</h3>
-																				<span><img src="{% static 'images/clock.png' %}" alt=""> 3 min ago</span>
-																				<p>Hi John </p>
-																				<a href="#" title=""><i class="fa fa-reply-all"></i>Reply</a>
-																			</div>
-																		</div><!--comment-list end-->
-																	</li>
-																</ul>
-															</li>
-															<li>
-																<div class="comment-list">
-																	<div class="bg-img">
-																		<img src="http://via.placeholder.com/40x40" alt="">
-																	</div>
-																	<div class="comment">
-																		<h3>John Doe</h3>
-																		<span><img src="{% static 'images/clock.png' %}" alt=""> 3 min ago</span>
-																		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at.</p>
-																		<a href="#" title=""><i class="fa fa-reply-all"></i>Reply</a>
-																	</div>
-																</div><!--comment-list end-->
-															</li>
-														</ul>
-													</div><!--comment-sec end-->
-													<div class="post-comment">
-														<div class="cm_img">
-															<img src="http://via.placeholder.com/40x40" alt="">
-														</div>
-														<div class="comment_box">
-															<form action="{% url 'post-comment' %}" method="POST">
-																{% csrf_token %}
-																<input type="text" placeholder="Post a comment">
-																<button type="submit">Send</button>
-															</form>
-														</div>
-													</div><!--post-comment end-->
+													{% for comment in user_profile.commentjobs.all %}
+														{{ comment }}
+														<div class="comment-sec">
+															<ul>
+																<li>
+																	<div class="comment-list">
+																		<div class="bg-img">
+																			<img src="{{ comment.user_job.photo_profile.url }}" width="40" height="40">
+																		</div>
+																		<div class="comment">
+																			<h3>{{ comment.user_job }}</h3>
+																			<span>
+																				<img src="{% static 'images/clock.png' %}"> {{ comment.date | naturaltime }}
+																			</span>
+																			<p>{{ commentjobs.body }}</p>
+																		</div>
+																	</div><!--comment-list end-->
+																</li>
+															</ul>
+														</div><!--comment-sec end-->
+														<div class="post-comment">
+															<div class="cm_img">
+																<img src="http://via.placeholder.com/40x40" alt="">
+															</div>
+															<div class="comment_box">
+																<form action="{% url 'post-comment' %}" method="POST">
+																	{% csrf_token %}
+																	<input type="text" placeholder="Post a comment">
+																	<button type="submit">Send</button>
+																</form>
+															</div>
+														</div><!--post-comment end-->
+													{% endfor %}
 												</div><!--comment-section end-->
 											</div>
 										{% endif %}
