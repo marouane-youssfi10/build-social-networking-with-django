@@ -63,11 +63,12 @@ def edit_comment(request, comment_id):
         user_experience_form = ExperienceUserForm(instance=user_experience)
     """
     comment_project = CommentProjects.objects.get(id=comment_id)
+    project_id = comment_project.post_project.id
     if request.method == 'POST':
         comment_project_form = CommentProjectsForm(request.POST, request.FILES, instance=comment_project)
         if comment_project_form.is_valid():
             comment_project_form.save()
-            return redirect(request.META.get('HTTP_REFERER'))
+            return redirect('post-comment-project', project_id)
     else:
         comment_project_form = CommentProjectsForm(instance=comment_project)
 
