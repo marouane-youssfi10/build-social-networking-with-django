@@ -3,7 +3,8 @@
 {% load humanize %}
 
 {% block content %}
-    <div class="col-lg-6">
+    <br><br><br><br><br>
+    <div class="col-lg-6 container centered">
         <div class="main-ws-sec">
             <div class="posts-section">
                 <div class="post-bar">
@@ -96,36 +97,39 @@
                         </ul>
                     </div>
                     <div class="comment-section">
-                        <div class="comment-sec">
-                            <ul>
-                                <li>
-                                    <div class="comment-list">
-                                        <div class="bg-img">
-                                            <img src="{{ comment.user_job.photo_profile.url }}" width="40" height="40">
-                                        </div>
-                                        <div class="comment">
-                                            <h3>john doe</h3>
-                                            <span>
-                                                <img src="{% static 'images/clock.png' %}"> 3 min ago
-                                            </span>
-                                            <p>lorem .........................</p>
-                                        </div>
-                                    </div><!--comment-list end-->
-                                </li>
-                            </ul>
-                        </div><!--comment-sec end-->
+                        {% for comment in comments %}
+                            <div class="comment-sec">
+                                <ul>
+                                    <li>
+                                        <div class="comment-list">
+                                            <div class="bg-img">
+                                                <img src="{{ comment.user_post.photo_profile.url }}" width="40" height="40">
+                                            </div>
+                                            <div class="comment">
+                                                <h3>{{ comment.user_post.full_name }}</h3>
+                                                <span>
+                                                    <img src="{% static 'images/clock.png' %}"> {{ comment.date | naturaltime }}
+                                                </span>
+                                                <p>{{ comment.body }}</p>
+                                            </div>
+                                        </div><!--comment-list end-->
+                                    </li>
+                                </ul>
+                            </div><!--comment-sec end-->
+                        {% endfor %}
                         <div class="post-comment">
-                            <div class="cm_img">
-                                <img src="http://via.placeholder.com/40x40" alt="">
-                            </div>
-                            <div class="comment_box">
-                                <form action="" method="POST">
-                                    {% csrf_token %}
-                                    <input type="text" placeholder="Post a comment">
-                                    <button type="submit">Send</button>
-                                </form>
-                            </div>
-                        </div><!--post-comment end-->
+                                <div class="cm_img">
+                                    <img src="{{ request.user.photo_profile.url }}" width="40" height="40">
+                                </div>
+                                <div class="comment_box">
+                                    <form action="{% url 'post-comment-project' project.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="text" placeholder="Post a comment" name="body">
+                                        <button type="submit">Send</button>
+                                    </form>
+                                </div>
+                            </div><!--post-comment end-->
+
                     </div><!--comment-section end-->
                 </div>
             </div>

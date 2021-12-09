@@ -14,6 +14,7 @@ class CommentProjects(models.Model):
     class Meta:
         verbose_name = 'Comment'
         verbose_name_plural = 'Comment Projects'
+        ordering = ['-date']
 
 class CommentJobs(models.Model):
     jobs_profile = models.ForeignKey("accounts.UserProfile", on_delete=models.CASCADE, related_name='jobs_profile')

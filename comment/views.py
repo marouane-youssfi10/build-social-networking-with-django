@@ -1,21 +1,41 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.urls import reverse
 # models
 from posting.models import PostProject
 from accounts.models import UserProfile
+# form
+from .forms import CommentProjectsForm, CommentJobsForm
 # Create your views here.
 
 def comment(request, project_id):
     # post_project = models.ForeignKey(PostProject, related_name='post_project')
 
     post_project = PostProject.objects.get(id=project_id)
-    comment = post_project.post_project.all()
+    comments = post_project.post_project.all()
     print('post_project = ', post_project)
-    print('comment =', comment)
+    print('comments =', comments)
     context = {
-        'project': post_project
+        'project': post_project,
+        'comments': comments,
     }
     return render(request, 'comment/comment_post_project.html', context)
 
-def post_comment(request, project_id):
+def post_comment_project(request, project_id):
+    post_project = PostProject.objects.get(id=project_id)
+
+    if request.method == 'POST':
+        comment_post_project_form = CommentProjectsForm(request.POST)
+        print('comment_post_project_form.is_valid(): = ', comment_post_project_form.is_valid())
+        print('--------------------')
+        if comment_post_project_form.is_valid():
+            comment = comment_post_project_form.save(commit=False)
+            comment.post_project = post_project
+            comment.user_post = request.user
+            comment.body = request.POST['body']
+            comment.save()
+    return redirect(reverse('comment', args=[project_id]))
+    # return HttpResponseRedirect(reverse('postdetails', args=[post_id])))
+
+def post_comment_jobs(request, project_id):
     return HttpResponse('post_comment')
