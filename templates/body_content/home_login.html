@@ -149,7 +149,7 @@
 															{% endif %}
 														</li> <!-- Like -->
 														<li>
-															<a class="com"><img src="{% static 'images/com.png' %}" alt=""> Comment 15</a>
+															<a class="com" href="{% url 'comment' user_profile.id %}"><img src="{% static 'images/com.png' %}"> Comment 15</a>
 														</li>
 													</ul>
 												</div>
@@ -184,7 +184,6 @@
 															</form>
 														</div>
 													</div><!--post-comment end-->
-
 												</div><!--comment-section end-->
 											</div>
 										{% endif %}
