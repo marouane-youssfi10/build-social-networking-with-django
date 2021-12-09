@@ -153,38 +153,6 @@
 														</li>
 													</ul>
 												</div>
-												<div class="comment-section">
-													<div class="comment-sec">
-														<ul>
-															<li>
-																<div class="comment-list">
-																	<div class="bg-img">
-																		<img src="{{ comment.user_job.photo_profile.url }}" width="40" height="40">
-																	</div>
-																	<div class="comment">
-																		<h3>john doe</h3>
-																		<span>
-																			<img src="{% static 'images/clock.png' %}"> 3 min ago
-																		</span>
-																		<p>lorem .........................</p>
-																	</div>
-																</div><!--comment-list end-->
-															</li>
-														</ul>
-													</div><!--comment-sec end-->
-													<div class="post-comment">
-														<div class="cm_img">
-															<img src="http://via.placeholder.com/40x40" alt="">
-														</div>
-														<div class="comment_box">
-															<form action="" method="POST">
-																{% csrf_token %}
-																<input type="text" placeholder="Post a comment">
-																<button type="submit">Send</button>
-															</form>
-														</div>
-													</div><!--post-comment end-->
-												</div><!--comment-section end-->
 											</div>
 										{% endif %}
 									{% endfor %}
