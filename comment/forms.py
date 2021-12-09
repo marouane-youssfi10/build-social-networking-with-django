@@ -1,12 +1,17 @@
 from django import forms
-from .models import Comment
+from .models import CommentJobs, CommentProjects
 
-class CommentForm(forms.ModelForm):
+class CommentProjectsForm(forms.ModelForm):
     class Meta:
-        model = Comment
+        model = CommentProjects
         fields = ('body',)
 
     """def __init__(self, *args, **kwargs):
         super(CommentForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'"""
+
+class CommentJobsForm(forms.ModelForm):
+    class Meta:
+        model = CommentJobs
+        fields = ('body',)
