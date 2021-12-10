@@ -2,207 +2,205 @@
 {% load static %}
 
 {% block content %}
-        <section class="cover-sec">
-			<img src="{{ user_profile.photo_cover.url }}" width="1600" height="400">
-			{% if request.user == user_profile.user %}
-				<a href="{% url 'edit-profile' %}" title=""><i class="fa fa-camera"></i> Change Image</a>
-			{% endif %}
-		</section>
+<section class="cover-sec">
+	<img src="{{ user_profile.photo_cover.url }}" width="1600" height="400">
+	{% if request.user == user_profile.user %}
+		<a href="{% url 'edit-profile' %}" title=""><i class="fa fa-camera"></i> Change Image</a>
+	{% endif %}
+</section>
 
-		<main>
-			<div class="main-section">
-				<div class="container">
-					<div class="main-section-data">
-						<div class="row">
-							<div class="col-lg-3">
-								<div class="main-left-sidebar">
-									<div class="user_profile">
-										<div class="user-pro-img">
-											<img src="{{ user_profile.user.photo_profile.url }}" width="170" height="170">
-											{% if request.user == user_profile.user %}
-												<a href="{% url 'edit-profile' %}"><i class="fa fa-camera"></i></a>
-											{% endif %}
-										</div><!--user-pro-img end-->
-										<div class="user_pro_status">
-											{% if request.user != user_profile.user %}
-												<ul class="flw-hr">
-													<li>
-														<!-- check if request.user for hide follow button-->
-														{% if request.user in follow_user.followers.all %} <!-- sajib in [test1, test2] -->
-															<a href="{% url 'unfollow' follow_user.id %}" class="flww bg-danger">
-																<i class="fa fa-check"></i> Unfollow
-															</a>
-														{% else %}
-															<a href="{% url 'follow' follow_user.id %}" class="flww bg-success">
-																<i class="la la-plus"></i> Follow
-															</a>
-														{% endif %}
-
-													</li>
-												</ul>
-											{% endif %}
-											<ul class="flw-status">
-												<li>
-													<span>Followers</span>
-													<b>{{ following_count }}</b>
-												</li>
-												<li>
-													<span>Following</span>
-													<b>{{ followers_count }}</b>
-												</li>
-											</ul>
-										</div><!--user_pro_status end-->
-										<ul class="social_links">
-											{% for link in links_media %}
-												{% if link.name != None %}
-													{% if link.name == 'facebook' %}
-														<li><a href="{{link.link}}" title=""><i class="fa fa-{{link.name}}-square"></i> {{ link.link | truncatechars:32}}</a></li>
-													{% else %}
-														<li><a href="{{link.link}}" title=""><i class="fa fa-{{link.name}}"></i> {{ link.link | truncatechars:32 }}</a></li>
-													{% endif %}
+<main>
+	<div class="main-section">
+		<div class="container">
+			<div class="main-section-data">
+				<div class="row">
+					<div class="col-lg-3">
+						<div class="main-left-sidebar">
+							<div class="user_profile">
+								<div class="user-pro-img">
+									<img src="{{ user_profile.user.photo_profile.url }}" width="170" height="170">
+									{% if request.user == user_profile.user %}
+										<a href="{% url 'edit-profile' %}"><i class="fa fa-camera"></i></a>
+									{% endif %}
+								</div><!--user-pro-img end-->
+								<div class="user_pro_status">
+									{% if request.user != user_profile.user %}
+										<ul class="flw-hr">
+											<li>
+												<!-- check if request.user for hide follow button-->
+												{% if request.user in follow_user.followers.all %} <!-- sajib in [test1, test2] -->
+													<a href="{% url 'unfollow' follow_user.id %}" class="flww bg-danger">
+														<i class="fa fa-check"></i> Unfollow
+													</a>
+												{% else %}
+													<a href="{% url 'follow' follow_user.id %}" class="flww bg-success">
+														<i class="la la-plus"></i> Follow
+													</a>
 												{% endif %}
-											{% endfor %}
+
+											</li>
 										</ul>
-									</div><!--user_profile end-->
-									<div class="suggestions full-width">
-										<div class="sd-title">
-											<h3>Suggestions</h3><br><br>
-											<i class="la la-ellipsis-v"></i>
-										</div><!--sd-title end-->
+									{% endif %}
+									<ul class="flw-status">
+										<li>
+											<span>Following</span>
+											<b>{{ following_count }}</b>
+										</li>
+										<li>
+											<span>Followers</span>
+											<b>{{ followers_count }}</b>
+										</li>
+									</ul>
+								</div><!--user_pro_status end-->
+								<ul class="social_links">
+									{% for link in links_media %}
+										{% if link.name != None %}
+											{% if link.name == 'facebook' %}
+												<li><a href="{{link.link}}" title=""><i class="fa fa-{{link.name}}-square"></i> {{ link.link | truncatechars:32}}</a></li>
+											{% else %}
+												<li><a href="{{link.link}}" title=""><i class="fa fa-{{link.name}}"></i> {{ link.link | truncatechars:32 }}</a></li>
+											{% endif %}
+										{% endif %}
+									{% endfor %}
+								</ul>
+							</div><!--user_profile end-->
+							<div class="suggestions full-width">
+								<div class="sd-title">
+									<h3>Suggestions</h3><br><br>
+									<i class="la la-ellipsis-v"></i>
+								</div><!--sd-title end-->
 
-										<div class="suggestions-list">
-											{% for user_profile in all_user_profile %}
-												{% if request.user != user_profile.user %}<!-- display all user without request.user-->
-													{% if user_profile.title %}
+								<div class="suggestions-list">
+									{% for user_profile in all_user_profile %}
+										{% if request.user != user_profile.user %}<!-- display all user without request.user-->
+											{% if user_profile.title %}
+												<div class="suggestion-usd">
+													<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
+													<div class="sgt-text col-8">
+														<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
+															<h4>{{ user_profile.user.full_name }}</h4>
+														</a>
+														{% if user_profile.title %}
+															<span class="col-0">{{ user_profile.title }}</span>
+														{% endif %}
+													</div>
 
+													{% if user_profile.user in my_follow_user.following.all %}
+														<span>
+															<a href="{% url 'unfollow' user_profile.user.follow_user.id %}">
+																<i class="la la-check"></i>
+															</a>
+														</span>
 
-														<div class="suggestion-usd">
-															<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
-															<div class="sgt-text col-8">
-																<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
-																	<h4>{{ user_profile.user.full_name }}</h4>
-																</a>
-																{% if user_profile.title %}
-																	<span class="col-0">{{ user_profile.title }}</span>
-																{% endif %}
-															</div>
-
-															{% if user_profile.user in my_follow_user.following.all %}
-																<span>
-																	<a href="{% url 'unfollow' user_profile.user.follow_user.id %}">
-																		<i class="la la-check"></i>
-																	</a>
-																</span>
-
-															{% else %}
-																<span>
-																	<a href="{% url 'follow' user_profile.user.follow_user.id %}">
-																		<i class="la la-plus"></i>
-																	</a>
-																</span>
-															{% endif %}
-
-														</div>
+													{% else %}
+														<span>
+															<a href="{% url 'follow' user_profile.user.follow_user.id %}">
+																<i class="la la-plus"></i>
+															</a>
+														</span>
 													{% endif %}
-												{% endif %}
-											{% endfor %}
-											<div class="view-more">
-												<a>View More</a>
-											</div>
-										</div><!--suggestions-list end-->
-									</div><!--suggestions end-->
-								</div><!--main-left-sidebar end-->
+
+												</div>
+											{% endif %}
+										{% endif %}
+									{% endfor %}
+									<div class="view-more">
+										<a>View More</a>
+									</div>
+								</div><!--suggestions-list end-->
+							</div><!--suggestions end-->
+						</div><!--main-left-sidebar end-->
+					</div>
+					<div class="col-lg-6">
+						<div class="main-ws-sec">
+							<div class="user-tab-sec">
+								<h3>{{ user_profile.user.full_name }}</h3>
+								<div class="star-descp">
+									<span>{{ user_profile.title }}</span>
+								</div><!--star-descp end-->
+								<div class="tab-feed">
+									<ul>
+										<li data-tab="info-dd" class="active">
+											<a href="#">
+												<img src="{% static 'images/ic2.png' %}" alt="">
+												<span>Info</span>
+											</a>
+										</li>
+										<li data-tab="portfolio-dd">
+											<a href="#">
+												<img src="{% static 'images/ic3.png' %}">
+												<span>Portfolio</span>
+											</a>
+										</li>
+										<!-- hide saved_jobs & my_bods on others users-->
+										{% if request.user == user_profile.user %}
+											<li data-tab="saved-jobs">
+												<a href="#">
+													<img src="{% static 'images/ic4.png' %}" alt="">
+													<span>Saved Jobs</span>
+												</a>
+											</li>
+											<li data-tab="my-bids">
+												<a href="#">
+													<img src="{% static 'images/ic5.png' %}" alt="">
+													<span>My Bids</span>
+												</a>
+											</li>
+										{% endif %}
+									</ul>
+								</div><!-- tab-feed end-->
 							</div>
-							<div class="col-lg-6">
-								<div class="main-ws-sec">
-									<div class="user-tab-sec">
-										<h3>{{ user_profile.user.full_name }}</h3>
-										<div class="star-descp">
-											<span>{{ user_profile.title }}</span>
-										</div><!--star-descp end-->
-										<div class="tab-feed">
-											<ul>
-												<li data-tab="info-dd" class="active">
-													<a href="#">
-														<img src="{% static 'images/ic2.png' %}" alt="">
-														<span>Info</span>
-													</a>
-												</li>
-												<li data-tab="portfolio-dd">
-													<a href="#">
-														<img src="{% static 'images/ic3.png' %}">
-														<span>Portfolio</span>
-													</a>
-												</li>
-												<!-- hide saved_jobs & my_bods on others users-->
-												{% if request.user == user_profile.user %}
-													<li data-tab="saved-jobs">
-														<a href="#">
-															<img src="{% static 'images/ic4.png' %}" alt="">
-															<span>Saved Jobs</span>
-														</a>
-													</li>
-													<li data-tab="my-bids">
-														<a href="#">
-															<img src="{% static 'images/ic5.png' %}" alt="">
-															<span>My Bids</span>
-														</a>
-													</li>
-												{% endif %}
-											</ul>
-										</div><!-- tab-feed end-->
-									</div>
-									<!--user-tab-sec end-->
-									<div class="wrapper">
+							<!--user-tab-sec end-->
+							<div class="wrapper">
 
-										<!-- info -->
-										<div class="product-feed-tab current" id="info-dd">
-											{% include 'profile_user/my_profile/info.html' %}
-										</div>
-
-										<!-- portfolio -->
-										<div class="product-feed-tab" id="portfolio-dd">
-											{% include 'profile_user/my_profile/portfolio.html' %}
-										</div>
-
-										<!-- saved jobs -->
-										<div class="product-feed-tab" id="saved-jobs">
-											{% include 'profile_user/my_profile/saved_jobs.html' %}
-										</div>
-
-										<!-- My bids -->
-										<div class="product-feed-tab" id="my-bids">
-											{% include 'profile_user/my_profile/my_bids.html' %}
-										</div>
-
-									</div>
+								<!-- info -->
+								<div class="product-feed-tab current" id="info-dd">
+									{% include 'profile_user/my_profile/info.html' %}
 								</div>
-							</div>
 
-							<div class="col-lg-3">
-                                <!--start right-sidebar-->
-								<div class="right-sidebar">
-									<div class="message-btn">
-										<a href="#" title=""><i class="fa fa-envelope"></i> Message</a>
-									</div>
-									<div class="widget widget-portfolio">
-										<div class="wd-heady">
-											<h3>Portfolio</h3>
-											<img src="{% static 'images/photo-icon.png' %}" alt="">
-										</div>
-										<div class="pf-gallery">
-											<ul>
-												<!---<li><a href="#" title=""><img src="http://via.placeholder.com/70x70" alt=""></a></li> -->
-												portfolio
-											</ul>
-										</div><!--pf-gallery end-->
-									</div><!-- widget-portfolio end-->
+								<!-- portfolio -->
+								<div class="product-feed-tab" id="portfolio-dd">
+									{% include 'profile_user/my_profile/portfolio.html' %}
 								</div>
-                                <!--end right-sidebar-->
+
+								<!-- saved jobs -->
+								<div class="product-feed-tab" id="saved-jobs">
+									{% include 'profile_user/my_profile/saved_jobs.html' %}
+								</div>
+
+								<!-- My bids -->
+								<div class="product-feed-tab" id="my-bids">
+									{% include 'profile_user/my_profile/my_bids.html' %}
+								</div>
+
 							</div>
 						</div>
-					</div><!-- main-section-data end-->
+					</div>
+
+					<div class="col-lg-3">
+						<!--start right-sidebar-->
+						<div class="right-sidebar">
+							<div class="message-btn">
+								<a href="#" title=""><i class="fa fa-envelope"></i> Message</a>
+							</div>
+							<div class="widget widget-portfolio">
+								<div class="wd-heady">
+									<h3>Portfolio</h3>
+									<img src="{% static 'images/photo-icon.png' %}" alt="">
+								</div>
+								<div class="pf-gallery">
+									<ul>
+										<!---<li><a href="#" title=""><img src="http://via.placeholder.com/70x70" alt=""></a></li> -->
+										portfolio
+									</ul>
+								</div><!--pf-gallery end-->
+							</div><!-- widget-portfolio end-->
+						</div>
+						<!--end right-sidebar-->
+					</div>
 				</div>
-			</div>
-		</main>
+			</div><!-- main-section-data end-->
+		</div>
+	</div>
+</main>
 {% endblock content %}

@@ -77,7 +77,7 @@ def user_profile(request, slug_user, pk):
         'following_count': following_count,
         'followers_count': followers_count,
         'my_profile': my_profile,
-        'my_follow_user': my_follow_user,
+        'my_follow_user': my_follow_user
     }
     return render(request, 'profile_user/user_profile.html', context)
 
