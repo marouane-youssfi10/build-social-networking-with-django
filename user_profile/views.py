@@ -23,6 +23,12 @@ def index(request):
         paginator_project = Paginator(all_user_profile, 6)
         page_number_projects = request.GET.get('page')
         page_all_user_profile = paginator_project.get_page(page_number_projects)
+
+        # get info of follow user
+        follow_user = Follow.objects.get(user=request.user)
+
+        following_count = follow_user.following.all().count()
+        followers_count = follow_user.followers.all().count()
     else:
         return redirect('home')
 
@@ -30,6 +36,8 @@ def index(request):
         'my_profile': my_profile,
         'all_user_profile': page_all_user_profile,
         'user_profiles': user_profiles,
+        'following_count': following_count,
+        'followers_count': followers_count,
     }
     return render(request, 'home.html', context)
 

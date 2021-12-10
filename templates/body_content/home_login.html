@@ -23,6 +23,19 @@
 											{% endif %}
 										</div>
 									</div><!--user-profile end-->
+									<ul class="user-fw-status">
+										<li>
+											<h4>Followers</h4>
+											<span>{{ following_count }}</span>
+										</li>
+										<li>
+											<h4>Following</h4>
+											<span>{{ followers_count }}</span>
+										</li>
+										<li>
+											<a href="{% url 'user-profile' my_profile.user my_profile.id %}">View Profile</a>
+										</li>
+									</ul>
 								</div><!--user-data end-->
 								<div class="suggestions full-width">
 									<div class="sd-title">
@@ -89,11 +102,7 @@
 												<div class="ed-opts">
 													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
 													<ul class="ed-options">
-														<li><a href="#" title="">Edit Post</a></li>
-														<li><a href="#" title="">Unsaved</a></li>
-														<li><a href="#" title="">Unbid</a></li>
-														<li><a href="#" title="">Close</a></li>
-														<li><a href="#" title="">Hide</a></li>
+														<li><a href="{% url 'edit-profile' %}">Edit Post</a></li>
 													</ul>
 												</div>
 											{% endif %}
