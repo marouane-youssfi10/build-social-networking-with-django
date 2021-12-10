@@ -7,95 +7,85 @@
     <div class="col-lg-6 container centered">
         <div class="main-ws-sec">
             <div class="posts-section">
+                <!-- post all profile user -->
                 <div class="post-bar">
                     <div class="post_topbar">
                         <div class="usy-dt">
-                            <img src="{{ project.user.photo_profile.url }}" width="50" height="50">
+                            <img src="{{ user_profile.user.photo_profile.url }}" width="50" height="50">
                             <div class="usy-name">
-                                <a href="{% url 'user-profile' project.user project.user.id %}">
-                                    <h3>{{ project.user.full_name }}</h3>
+                                <a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
+                                    <h3>{{ user_profile.user.full_name }}</h3>
                                 </a>
-                                <span><img src="{% static 'images/clock.png' %}" alt="">{{ project.created_project | naturaltime }}</span>
+                                <span><img src="{% static 'images/clock.png' %}" alt="">{{ user_profile.created | timesince }} ago</span>
                             </div>
                         </div>
-
-                        <!-- check if request.user == user for not hiding div.ed-opts  -->
-                        {% if project.user == request.user %}
+                        <!-- check if request.user = user for not hiding div.ed-opts -->
+                        {% if request.user == user_profile.user %}
                             <div class="ed-opts">
                                 <a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
                                 <ul class="ed-options">
-                                    <li><a href="{% url 'edit-post-project' project.id %}">Edit Post</a></li>
-                                    {% if project.hide %}
-                                        <li><a href="{% url 'unhide' project.id %}">unhide</a></li>
-                                    {% else %}
-                                        <li><a href="{% url 'hide' project.id %}">Hide</a></li>
-                                    {% endif %}
+                                    <li><a href="#" title="">Edit Post</a></li>
+                                    <li><a href="#" title="">Unsaved</a></li>
+                                    <li><a href="#" title="">Unbid</a></li>
+                                    <li><a href="#" title="">Close</a></li>
+                                    <li><a href="#" title="">Hide</a></li>
                                 </ul>
                             </div>
                         {% endif %}
                     </div>
                     <div class="epi-sec">
                         <ul class="descp">
-                            <li><img src="{% static 'images/icon8.png' %}" alt=""><span>{{ project.type_work_project }}</span></li>
-                            <li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ project.location }}</span></li>
-                        </ul>
+                            <li><img src="{% static 'images/icon8.png' %}" alt=""><span>Epic Coder</span></li>
+                            <li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ user_profile.location_country }}</span></li>
+                        </ul> <!-- Country and city -->
                         <ul class="bk-links">
-                            <li><a href="#"><i class="la la-envelope"></i></a></li>
-                            {% if request.user != project.user %}
-                                {% if project in my_profile.my_bids_projects.all %}
-                                    <li>
-                                        <a href="{% url 'unbid-project' project.id %}" class="bid_now">UnBid</a>
-                                    </li>
+                            <li>
+                                <!-- get the id of UserProfile -->
+                                {% if user_profile.user in my_profile.saved_jobs.all %}
+                                    <a href="{% url 'unsaved-jobs' user_profile.id %}">
+                                        <i class="la la-check"></i>
+                                    </a>
                                 {% else %}
-                                    <li>
-                                        <a href="{% url 'bid-project' project.id %}" class="bid_now">Bid Now</a>
-                                    </li>
+                                    <a href="{% url 'saved-jobs' user_profile.id %}">
+                                        <i class="la la-bookmark"></i>
+                                    </a>
                                 {% endif %}
-                            {% endif %}
-
-                            <!-- check if post project is hiding then show Hiding-->
-                            {% if project.hide == True %}
-                                <li>
-                                    <a class="bid_now" style="background-color:gray;">Hiding</a>
-                                </li>
-                            {% endif %}
-                        </ul>
+                            </li>
+                            <li><a href="#"><i class="la la-envelope"></i></a></li>
+                        </ul> <!-- Send message -->
                     </div>
                     <div class="job_descp">
-                        <h3>{{ project.name_project }}</h3>
+                        <h3>{{ user_profile.title }}</h3>
                         <ul class="job-dt">
-                            <li><span>${{ project.start_price }} - ${{ project.end_price }}</span></li>
-                        </ul>
-                        <p>
-                            {{ project.description_project }}.....
-                            <a href="#" title="">view more</a>
-                        </p>
+                            <li><a href="#" title="">{{ user_profile.type_work }}</a></li>
+                            <li><span>${{ user_profile.hourly_work }} / hr</span></li>
+                        </ul> <!-- type work and hourly work -->
+                        <p>{{ user_profile.overview | truncatechars:150 }}
+                        <!-- <a href="#" title="">view More</a>-->
                         <ul class="skill-tags">
-                            <!-- display all tags of this project-->
-                            {% for tags in project.skills_tags_projects.all %}
-                                <li>
-                                    <a>{{ tags }}</a>
-                                </li>
+                            {% for tag in user_profile.skills_tags_user.all %}
+                                <li><a>{{ tag }}</a></li>
                             {% endfor %}
-                        </ul>
+                        </ul> <!-- tags -->
                     </div>
                     <div class="job-status-bar">
                         <ul class="like-com">
                             <li>
                                 <!-- check the user if do a like -->
-                                {% if request.user in project.likes.all %}
-                                    <a href="{% url 'remove-like-post-projects' project.id %}" class="active"><i class="la la-heart"></i> Like</a>
+                                {% if request.user in user_profile.likes.all %}
+                                    <a href="{% url 'remove-like-post-jobs' user_profile.id %}" class="active"><i class="la la-heart"></i> Like</a>
                                     <img src="{% static 'images/liked-img.png' %}">
-                                    <span>{{ project.likes.all.count }}</span>
+                                    <span>{{ user_profile.likes.all.count }}</span>
                                 {% else %}
-                                    <a href="{% url 'add-like-post-projects' project.id %}"><i class="la la-heart"></i> Like</a>
+                                    <a href="{% url 'add-like-post-jobs' user_profile.id %}"><i class="la la-heart"></i> Like</a>
                                     <img src="{% static 'images/liked-img.png' %}">
-                                    <span>{{ project.likes.all.count }}</span>
+                                    <span>{{ user_profile.likes.all.count }}</span>
                                 {% endif %}
-                            </li>
+                            </li> <!-- Like -->
                             <li>
-                                <a class="com" href="{% url 'comment' project.id %}">
-                                    <img src="{% static 'images/com.png' %}"> Comment {{comments_count}}</a>
+                                <a class="com" href="">
+                                    <img src="{% static 'images/com.png' %}"> Comment {{comments_count}}
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -106,7 +96,7 @@
                                     <li>
                                         <div class="comment-list">
                                             <div class="bg-img">
-                                                <img src="{{ comment.user_post.photo_profile.url }}" width="40" height="40">
+                                                <img src="{{ comment.user_job.photo_profile.url }}" width="40" height="40">
                                             </div>
                                             <div class="comment">
                                                 <h3>{{ comment.user_post.full_name }}</h3>
@@ -115,9 +105,9 @@
                                                 </span>
                                                 <p>{{ comment.body }}</p>
                                             </div>
-                                            {% if request.user == comment.user_post %}
+                                            {% if request.user == comment.user_job %}
                                             <div class="row">
-                                                <a class="" href="{% url 'edit-comment' comment.id %}">
+                                                <a class="" href="">
                                                     <svg
                                                         enable-background="new 0 0 24 24" height="20" viewBox="0 0 24 24" width="20">
                                                         <title>edit</title>
@@ -135,7 +125,7 @@
                                                         </g>
                                                     </svg>
                                                 </a>
-                                                <a class="col-lg-6" href="{% url 'delete-comment' comment.id %}" onclick="return confirm('Are you sure you want te delete this comment')">
+                                                <a class="col-lg-6" href="{% url 'delete-comment-jobs' comment.id %}" onclick="return confirm('Are you sure you want te delete this comment')">
                                                    <svg  style="color:#b2b2b2;" version="1.1" width="20" height="20" viewBox="0 0 32 32">
                                                        <title>Delete</title>
                                                       <path d="M27.314 6.019l-1.333-1.333-9.98 9.981-9.981-9.981-1.333 1.333 9.981
@@ -150,20 +140,20 @@
                             </div><!--comment-sec end-->
                         {% endfor %}
                         <div class="post-comment">
-                            <div class="cm_img">
-                                <img src="{{ request.user.photo_profile.url }}" width="40" height="40">
-                            </div>
-                            <div class="comment_box">
-                                <form action="{% url 'post-comment-project' project.id %}" method="POST">
-                                    {% csrf_token %}
-                                    <input type="text" placeholder="Post a comment" name="body">
-                                    <button type="submit">Send</button>
-                                </form>
-                            </div>
-                        </div><!--post-comment end-->
+                                <div class="cm_img">
+                                    <img src="{{ request.user.photo_profile.url }}" width="40" height="40">
+                                </div>
+                                <div class="comment_box">
+                                    <form action="{% url 'post-comment-jobs' user_profile.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="text" placeholder="Post a comment" name="body">
+                                        <button type="submit">Send</button>
+                                    </form>
+                                </div>
+                            </div><!--post-comment end-->
                     </div><!--comment-section end-->
                 </div>
-            </div>
+            </div><!--posts-section end-->
         </div>
     </div>
 {% endblock content %}

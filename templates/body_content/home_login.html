@@ -69,7 +69,6 @@
 									</div>
 								</div>
 								<div class="posts-section">
-
 									<!-- post all profile user -->
 									{% for user_profile in all_user_profile %}
 										{% if user_profile.title and user_profile.overview and user_profile.location_country and user_profile.hourly_work %}
@@ -149,7 +148,9 @@
 															{% endif %}
 														</li> <!-- Like -->
 														<li>
-															<a class="com" href="{% url 'comment' user_profile.id %}"><img src="{% static 'images/com.png' %}"> Comment 15</a>
+															<a class="com" href="{% url 'comment-jobs' user_profile.id %}">
+																<img src="{% static 'images/com.png' %}"> Comment 15
+															</a>
 														</li>
 													</ul>
 												</div>

@@ -25,7 +25,7 @@ class CommentJobs(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return 'jobs_profile : ' + str(self.jobs_profile) + ' -- user_job : ' +str(self.user_job) + ' -- ' + str(self.body)
+        return str(self.user_job)
 
     class Meta:
         verbose_name = 'Comment'
