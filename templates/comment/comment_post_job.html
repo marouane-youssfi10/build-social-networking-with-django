@@ -83,7 +83,7 @@
                                 {% endif %}
                             </li> <!-- Like -->
                             <li>
-                                <a class="com" href="">
+                                <a class="com">
                                     <img src="{% static 'images/com.png' %}"> Comment {{comments_count}}
                                 </a>
                             </li>
@@ -107,7 +107,7 @@
                                             </div>
                                             {% if request.user == comment.user_job %}
                                             <div class="row">
-                                                <a class="" href="">
+                                                <a class="" href="{% url 'edit-comment-jobs' comment.id %}">
                                                     <svg
                                                         enable-background="new 0 0 24 24" height="20" viewBox="0 0 24 24" width="20">
                                                         <title>edit</title>

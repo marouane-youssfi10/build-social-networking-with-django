@@ -94,3 +94,19 @@ def delete_comment_jobs(request, comment_id):
     comment_jobs = CommentJobs.objects.get(id=comment_id)
     comment_jobs.delete()
     return redirect(request.META.get('HTTP_REFERER'))
+
+def edit_comment_jobs(request, comment_id):
+    comment_jobs = CommentJobs.objects.get(id=comment_id)
+    jobs_id = comment_jobs.jobs_profile.id
+    if request.method == 'POST':
+        comment_jobs_form = CommentJobsForm(request.POST, request.FILES, instance=comment_jobs)
+        if comment_jobs_form.is_valid():
+            comment_jobs_form.save()
+            return redirect('post-comment-jobs', jobs_id)
+    else:
+        comment_jobs_form = CommentJobsForm(instance=comment_jobs)
+    context = {
+        'comment_jobs_form': comment_jobs_form,
+        'comment_jobs': comment_jobs,
+    }
+    return render(request, 'comment/edit_comment_jobs.html', context)
