@@ -1,14 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="post-project col-lg-6 "><br>
-
+<div class="post-project col-lg-6"><br>
+    <h3>Edit Comment</h3>
     <div class="post-project-fields">
+
         <form action="{% url 'edit-comment' comment_project.id %}" method="POST">
             {% csrf_token %}
-            <label class="topic_label">Comment </label>
             {{ comment_project_form.body }}
-            <input type="submit" class="form-control" value="Update">
+            <ul>
+                <li><a href="{{ request.META.HTTP_REFERER }}">Go Back</a></li>
+                <li><button class="active" type="submit">Update</button></li>
+            </ul>
+
         </form>
     </div>
 </div>
