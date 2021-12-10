@@ -26,11 +26,6 @@ def index(request):
     else:
         return redirect('home')
 
-    # ------------------- testing ------------------
-    # user = PostProject.objects.get(id=6)
-    # comment = user.post_project.all()
-    # print('comment =', comment)
-    # ------------------- end testing ------------------
     context = {
         'my_profile': my_profile,
         'all_user_profile': page_all_user_profile,

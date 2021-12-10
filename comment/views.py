@@ -9,6 +9,7 @@ from .models import CommentProjects, CommentJobs
 from .forms import CommentProjectsForm, CommentJobsForm
 # Create your views here.
 
+# ----------------------- project ----------------------------
 def comment_project(request, project_id):
     # post_project = models.ForeignKey(PostProject, related_name='post_project')
     post_project = PostProject.objects.get(id=project_id)
@@ -60,7 +61,9 @@ def edit_comment_project(request, comment_id):
         'comment_project': comment_project,
     }
     return render(request, 'comment/edit_comment.html', context)
+# ----------------------- end project ------------------------
 
+# ----------------------- jobs ------------------------
 def comment_jobs(request, jobs_id):
     user_profile = UserProfile.objects.get(id=jobs_id)
     comments = user_profile.jobs_profile.all()
@@ -110,3 +113,5 @@ def edit_comment_jobs(request, comment_id):
         'comment_jobs': comment_jobs,
     }
     return render(request, 'comment/edit_comment_jobs.html', context)
+
+# ----------------------- end jobs ------------------------

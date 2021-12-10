@@ -104,7 +104,7 @@
 														<li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ user_profile.location_country }}</span></li>
 													</ul> <!-- Country and city -->
 													<ul class="bk-links">
-														{% if request.user != user_profile.user %} <!-- check if request.user true for hiding saved_jobs button-->
+														{% if request.user != user_profile.user %} <!-- check if request.user true for hiding saved_jobs button -->
 															<li>
 																{% if user_profile.user in my_profile.saved_jobs.all %}<!-- get the id of UserProfile -->
 																	<a href="{% url 'unsaved-jobs' user_profile.id %}">
@@ -151,7 +151,7 @@
 														</li> <!-- Like -->
 														<li>
 															<a class="com" href="{% url 'comment-jobs' user_profile.id %}">
-																<img src="{% static 'images/com.png' %}"> Comment 15
+																<img src="{% static 'images/com.png' %}"> Comment {{ user_profile.jobs_profile.all.count }}
 															</a>
 														</li>
 													</ul>
