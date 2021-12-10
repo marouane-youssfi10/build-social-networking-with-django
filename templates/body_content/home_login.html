@@ -110,17 +110,17 @@
 														</div>
 													</div>
 
-											<!-- check if request.user = user for not hiding div.ed-opts -->
-											{% if request.user == user_profile.user %}
-												<div class="ed-opts">
-													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-													<ul class="ed-options">
-														<li><a href="{% url 'edit-profile' %}">Edit Post</a></li>
-														<li><a href="#" class="close-ed-opts">close</a></li>
-													</ul>
+													<!-- check if request.user = user for not hiding div.ed-opts -->
+													{% if request.user == user_profile.user %}
+														<div class="ed-opts">
+															<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+															<ul class="ed-options">
+																<li><a href="{% url 'edit-profile' %}">Edit Post</a></li>
+																<li><a href="#" class="close-ed-opts">close</a></li>
+															</ul>
+														</div>
+													{% endif %}
 												</div>
-											{% endif %}
-										</div>
 												<div class="epi-sec">
 													<ul class="descp">
 														<li><img src="{% static 'images/icon8.png' %}" alt=""><span>Epic Coder</span></li>

@@ -142,27 +142,29 @@
 																<li><img src="{% static 'images/icon8.png' %}" alt=""><span>{{ project.type_work_project }}</span></li>
 																<li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ project.location }}</span></li>
 															</ul>
-															<ul class="bk-links">
-																<li><a href="#"><i class="la la-envelope"></i></a></li>
-																{% if request.user != project.user %} <!-- hide bid now on request.user -->
-																	{% if project in my_profile.my_bids_projects.all %}
+															{% if request.user != project.user %}
+																<ul class="bk-links">
+																	<li><a href="#"><i class="la la-envelope"></i></a></li>
+																	{% if request.user != project.user %} <!-- hide bid now on request.user -->
+																		{% if project in my_profile.my_bids_projects.all %}
+																			<li>
+																				<a href="{% url 'unbid-project' project.id %}" class="bid_now">UnBid</a>
+																			</li>
+																		{% else %}
+																			<li>
+																				<a href="{% url 'bid-project' project.id %}" class="bid_now">Bid Now</a>
+																			</li>
+																		{% endif %}
+																	{% endif %}
+
+																	<!-- check if post project is hiding then show Hiding-->
+																	{% if project.hide == True %}
 																		<li>
-																			<a href="{% url 'unbid-project' project.id %}" class="bid_now">UnBid</a>
-																		</li>
-																	{% else %}
-																		<li>
-																			<a href="{% url 'bid-project' project.id %}" class="bid_now">Bid Now</a>
+																			<a class="bid_now" style="background-color:gray;">Hiding</a>
 																		</li>
 																	{% endif %}
-																{% endif %}
-
-																<!-- check if post project is hiding then show Hiding-->
-																{% if project.hide == True %}
-																	<li>
-																		<a class="bid_now" style="background-color:gray;">Hiding</a>
-																	</li>
-																{% endif %}
-															</ul>
+																</ul>
+															{% endif %}
 														</div>
 														<div class="job_descp">
 															<h3>{{ project.name_project }}</h3>
