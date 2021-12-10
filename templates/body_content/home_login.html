@@ -104,19 +104,21 @@
 														<li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ user_profile.location_country }}</span></li>
 													</ul> <!-- Country and city -->
 													<ul class="bk-links">
-														<li>
-															<!-- get the id of UserProfile -->
-															{% if user_profile.user in my_profile.saved_jobs.all %}
-																<a href="{% url 'unsaved-jobs' user_profile.id %}">
-																	<i class="la la-check"></i>
-																</a>
-															{% else %}
-																<a href="{% url 'saved-jobs' user_profile.id %}">
-																	<i class="la la-bookmark"></i>
-																</a>
-															{% endif %}
-														</li>
-														<li><a href="#"><i class="la la-envelope"></i></a></li>
+														{% if request.user != user_profile.user %} <!-- check if request.user true for hiding saved_jobs button-->
+															<li>
+																{% if user_profile.user in my_profile.saved_jobs.all %}<!-- get the id of UserProfile -->
+																	<a href="{% url 'unsaved-jobs' user_profile.id %}">
+																		<i class="la la-check"></i>
+																	</a>
+																{% else %}
+																	<a href="{% url 'saved-jobs' user_profile.id %}">
+																		<i class="la la-bookmark"></i>
+																	</a>
+																{% endif %}
+
+															</li>
+															<li><a href="#"><i class="la la-envelope"></i></a></li>
+														{% endif %}
 													</ul> <!-- Send message -->
 												</div>
 												<div class="job_descp">
