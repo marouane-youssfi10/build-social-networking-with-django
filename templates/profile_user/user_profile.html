@@ -74,6 +74,8 @@
 											{% for user_profile in all_user_profile %}
 												{% if request.user != user_profile.user %}<!-- display all user without request.user-->
 													{% if user_profile.title %}
+
+
 														<div class="suggestion-usd">
 															<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
 															<div class="sgt-text col-8">
@@ -81,13 +83,24 @@
 																	<h4>{{ user_profile.user.full_name }}</h4>
 																</a>
 																{% if user_profile.title %}
+
 																	<span class="col-0">{{ user_profile.title }}</span>
 																{% endif %}
 															</div>
-															{% if request.user in follow_user.following.all %}
-																<span><i class="la la-check"></i></span>
+
+															{% if user_profile.user in my_follow_user.followers.all %}
+																<span>
+																	<a href="{% url 'unfollow' user_profile.user..id %}">
+																		<i class="la la-check"></i>
+																	</a>
+																</span>
+
 															{% else %}
-																<span><i class="la la-plus"></i></span>
+																<span>
+																	<a href="{% url 'follow' follow_user.id %}" class="flww bg-success">
+																		<i class="la la-plus"></i>
+																	</a>
+																</span>
 															{% endif %}
 
 														</div>
