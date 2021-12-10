@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'posting.apps.PostingConfig',
     'follow.apps.FollowConfig',
     'comment.apps.CommentConfig',
+    'notifications.apps.NotificationsConfig',
 ]
 
 MIDDLEWARE = [
