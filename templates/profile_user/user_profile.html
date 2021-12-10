@@ -83,21 +83,20 @@
 																	<h4>{{ user_profile.user.full_name }}</h4>
 																</a>
 																{% if user_profile.title %}
-
 																	<span class="col-0">{{ user_profile.title }}</span>
 																{% endif %}
 															</div>
 
 															{% if user_profile.user in my_follow_user.followers.all %}
-																<span>
-																	<a href="{% url 'unfollow' user_profile.user..id %}">
+																<span class="bg-danger">
+																	<a href="{% url 'unfollow' user_profile.user.follow_user.id %}">
 																		<i class="la la-check"></i>
 																	</a>
 																</span>
 
 															{% else %}
-																<span>
-																	<a href="{% url 'follow' follow_user.id %}" class="flww bg-success">
+																<span class="bg-success">
+																	<a href="{% url 'follow' user_profile.user.follow_user.id %}">
 																		<i class="la la-plus"></i>
 																	</a>
 																</span>

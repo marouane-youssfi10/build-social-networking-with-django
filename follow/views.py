@@ -15,7 +15,7 @@ def follow_profile(request, pk):
     my_profile_follow.followers.add(obj.user) # add to my_profile.followers the user who follow him
     obj.following.add(my_profile_follow.user)  # add to obj.following profile my profile
 
-    return redirect('user-profile', obj.user, pk) # <slug:slug_user>/<int:pk>
+    return redirect(request.META.get('HTTP_REFERER')) # <slug:slug_user>/<int:pk>
 
 def unfollow_profile(request, pk):
     my_profile_follow = Follow.objects.get(user=request.user)
@@ -27,7 +27,7 @@ def unfollow_profile(request, pk):
     my_profile_follow.followers.remove(obj.user)
     obj.following.remove(my_profile_follow.user)
 
-    return redirect('user-profile', obj.user, pk) # <slug:slug_user>/<int:pk>
+    return redirect(request.META.get('HTTP_REFERER')) # <slug:slug_user>/<int:pk>
 
 def add_like_projects(request, pk):
     project = PostProject.objects.get(id=pk)

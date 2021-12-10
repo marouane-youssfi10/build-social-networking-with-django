@@ -29,6 +29,7 @@ def index(request):
 
         followers_count = follow_user.following.all().count()
         following_count = follow_user.followers.all().count()
+
     else:
         return redirect('home')
 
@@ -36,6 +37,7 @@ def index(request):
         'my_profile': my_profile,
         'all_user_profile': page_all_user_profile,
         'user_profiles': user_profiles,
+        'follow_user': follow_user,
         'following_count': following_count,
         'followers_count': followers_count,
     }
