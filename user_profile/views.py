@@ -27,8 +27,8 @@ def index(request):
         # get info of follow user
         follow_user = Follow.objects.get(user=request.user)
 
-        following_count = follow_user.following.all().count()
-        followers_count = follow_user.followers.all().count()
+        followers_count = follow_user.following.all().count()
+        following_count = follow_user.followers.all().count()
     else:
         return redirect('home')
 
