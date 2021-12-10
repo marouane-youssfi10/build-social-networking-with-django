@@ -197,6 +197,13 @@ $(window).on("load", function() {
         return false;
     });
 
+    //  ============== ed-opts ==============
+
+    $(".close-ed-opts").on("click", function(){
+        $(".ed-options").removeClass("active");
+        return false;
+    });
+
     //  ================== Edit Options Function =================
 
 
