@@ -28,7 +28,7 @@
 												<ul class="flw-hr">
 													<li>
 														<!-- check if request.user for hide follow button-->
-														{% if request.user in follow_user.following.all %} <!-- sajib in [test1, test2] -->
+														{% if request.user in follow_user.followers.all %} <!-- sajib in [test1, test2] -->
 															<a href="{% url 'unfollow' follow_user.id %}" class="flww bg-danger">
 																<i class="fa fa-check"></i> Unfollow
 															</a>
@@ -87,15 +87,15 @@
 																{% endif %}
 															</div>
 
-															{% if user_profile.user in my_follow_user.followers.all %}
-																<span class="bg-danger">
+															{% if user_profile.user in my_follow_user.following.all %}
+																<span>
 																	<a href="{% url 'unfollow' user_profile.user.follow_user.id %}">
 																		<i class="la la-check"></i>
 																	</a>
 																</span>
 
 															{% else %}
-																<span class="bg-success">
+																<span>
 																	<a href="{% url 'follow' user_profile.user.follow_user.id %}">
 																		<i class="la la-plus"></i>
 																	</a>

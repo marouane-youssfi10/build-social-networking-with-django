@@ -40,7 +40,6 @@
 								<div class="suggestions full-width">
 									<div class="sd-title">
 										<h3>Suggestions</h3>
-										
 									</div><!--sd-title end-->
 
 									<div class="suggestions-list">
@@ -59,7 +58,7 @@
 															{% endif %}
 														</div>
 
-														{% if user_profile.user in follow_user.followers.all %}
+														{% if user_profile.user in follow_user.following.all %}
 															<span>
 																<a href="{% url 'unfollow' user_profile.user.follow_user.id %}">
 																	<i class="la la-check"></i>

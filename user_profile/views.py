@@ -29,7 +29,6 @@ def index(request):
 
         followers_count = follow_user.following.all().count()
         following_count = follow_user.followers.all().count()
-
     else:
         return redirect('home')
 
