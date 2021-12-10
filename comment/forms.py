@@ -6,10 +6,10 @@ class CommentProjectsForm(forms.ModelForm):
         model = CommentProjects
         fields = ('body',)
 
-    """def __init__(self, *args, **kwargs):
-        super(CommentForm, self).__init__(*args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super(CommentProjectsForm, self).__init__(*args, **kwargs)
         for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'form-control'"""
+            self.fields[field].widget.attrs['class'] = 'form-control'
 
 class CommentJobsForm(forms.ModelForm):
     class Meta:
