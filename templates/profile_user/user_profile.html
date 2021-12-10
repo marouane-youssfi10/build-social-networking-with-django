@@ -84,6 +84,12 @@
 																	<span class="col-0">{{ user_profile.title }}</span>
 																{% endif %}
 															</div>
+															{% if request.user in follow_user.following.all %}
+																<span><i class="la la-check"></i></span>
+															{% else %}
+																<span><i class="la la-plus"></i></span>
+															{% endif %}
+
 														</div>
 													{% endif %}
 												{% endif %}
