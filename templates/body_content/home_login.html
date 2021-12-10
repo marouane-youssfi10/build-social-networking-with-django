@@ -40,7 +40,7 @@
 								<div class="suggestions full-width">
 									<div class="sd-title">
 										<h3>Suggestions</h3>
-										<i class="la la-ellipsis-v"></i>
+										
 									</div><!--sd-title end-->
 
 									<div class="suggestions-list">
@@ -60,13 +60,13 @@
 														</div>
 
 														{% if user_profile.user in follow_user.followers.all %}
-															<span class="bg-danger">
+															<span>
 																<a href="{% url 'unfollow' user_profile.user.follow_user.id %}">
 																	<i class="la la-check"></i>
 																</a>
 															</span>
 														{% else %}
-															<span class="bg-success">
+															<span>
 																<a href="{% url 'follow' user_profile.user.follow_user.id %}">
 																	<i class="la la-plus"></i>
 																</a>

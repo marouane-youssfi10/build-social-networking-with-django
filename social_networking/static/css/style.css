@@ -863,7 +863,7 @@ main {
 	position: relative;
 }
 .suggestion-usd > span i {
-	color: #fff;/*#b2b2b2;*/
+	color: #b2b2b2;/*#b2b2b2;*/
 	width: 30px;
 	height: 30px;
 	border: 1px solid #e5e5e5;
