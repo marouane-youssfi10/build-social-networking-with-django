@@ -150,8 +150,8 @@
 														<li><a href="#" title="">{{ user_profile.type_work }}</a></li>
 														<li><span>${{ user_profile.hourly_work }} / hr</span></li>
 													</ul> <!-- type work and hourly work -->
-													<p>{{ user_profile.overview | truncatechars:150 }}
-													<!-- <a href="#" title="">view More</a>-->
+													<p>{{ user_profile.overview | truncatechars:250 }}</p>
+													<!-- <a href="#" title="">view More</a> -->
 													<ul class="skill-tags">
 														{% for tag in user_profile.skills_tags_user.all %}
 															<li><a>{{ tag }}</a></li>
