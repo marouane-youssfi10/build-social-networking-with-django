@@ -16,6 +16,11 @@ class NotificationProjects(models.Model):
     def __str__(self):
         return str(self.sender)
 
+    class Meta:
+        verbose_name = 'Notification'
+        verbose_name_plural = 'Notification Projects'
+        ordering = ['-created']
+
 class NotificationJobs(models.Model):
     NOTIFICATION_TYPES = ((1, 'Like'), (2, 'Comment'), (3, 'Follow'))
     post_job = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='noti_post_job', blank=True, null=True)
@@ -28,3 +33,8 @@ class NotificationJobs(models.Model):
 
     def __str__(self):
         return str(self.sender)
+
+    class Meta:
+        verbose_name = 'Notification'
+        verbose_name_plural = 'Notification Jobs'
+        ordering = ['-created']
