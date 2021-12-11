@@ -12,6 +12,12 @@ from .forms import UserForm, UserProfileForm, ExperienceUserForm, TagsUserForm, 
 # pagination
 from django.core.paginator import Paginator
 
+def _cart_id(request):
+    cart = request.session.session_key
+    if not cart:
+        cart = request.session.create()
+    return cart
+
 @login_required(login_url='login')
 def index(request):
     if request.user.is_authenticated:

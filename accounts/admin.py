@@ -17,7 +17,7 @@ class AccountAdmin(UserAdmin):
         return format_html('<img src="{}" width="60" style="border-radius: 50px;" />'.format(object.photo_profile.url))
 
     list_display = ('id', 'email', 'first_name', 'last_name', 'username', 'last_login', 'date_joined', 'is_active', 'thumbnail')
-    list_display_links = ('email', 'first_name', 'last_name', 'username')
+    list_display_links = ('id', 'email', 'first_name', 'last_name', 'username')
     readonly_fields = ('last_login', 'date_joined')
     ordering = ('-date_joined',)
 

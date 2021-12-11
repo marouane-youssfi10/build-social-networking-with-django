@@ -26,7 +26,6 @@ def m2m_changed_likes(sender, instance, action, pk_set, **kwargs):
             pass
         else:
             if to_user != request_user:
-                #                               PostProject             Account              Account
                 notify = NotificationProjects(post_project=user_post, sender=request_user, to_user=to_user, notification_type=1)
                 notify.save()
 

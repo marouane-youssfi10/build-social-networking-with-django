@@ -7,6 +7,8 @@ def home(request):
     if request.user.is_authenticated:
         return redirect('index') # index page it's home_login.html
 
+
+
     # display all user to home_not_login page
     user_profile = UserProfile.objects.all()
 
