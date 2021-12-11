@@ -14,21 +14,21 @@ def send_like_notifications(sender, instance, created, **kwargs):
 @receiver(m2m_changed, sender=PostProject.likes.through)
 def m2m_changed_likes(sender, instance, action, pk_set, **kwargs):
     if action == 'post_add':
-        print('pk_set                = ', pk_set)
-        print('sender                = ', sender)
-        print('instance              = ', instance)
-        print('instance.user.id      = ', instance.id)
-        print('instance.user         = ', instance.user)
-        print('instance.name_project = ', instance.name_project)
-        print('list(pk_set)[0]       = ', list(pk_set)[0])
         user_post = instance
         to_user = instance.user
         request_user_id = list(pk_set)[0]
         request_user = Account.objects.get(id=request_user_id)
-        print('------------------------------------')
-        #                               PostProject             Account              Account
-        notify = NotificationProjects(post_project=user_post, sender=request_user, to_user=to_user, notification_type=1)
-        notify.save()
+        print('to_user         = ', to_user)
+        print('request_user_id = ', request_user_id)
+        print('request_user    = ', request_user)
+        if NotificationProjects.objects.filter(post_project=user_post, sender=request_user, to_user=to_user).exists():
+            print('------ exists -----')
+            pass
+        else:
+            if to_user != request_user:
+                #                               PostProject             Account              Account
+                notify = NotificationProjects(post_project=user_post, sender=request_user, to_user=to_user, notification_type=1)
+                notify.save()
 
 """
 NOTIFICATION_TYPES  ,post_project ,sender  ,to_user ,notification_type ,text_preview ,created
