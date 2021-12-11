@@ -24,7 +24,7 @@ def send_like_notifications(sender, instance, created, **kwargs):
     # notify = NotificationProjects(post_project=post, sender=sender, to_user=post.user, notification_type=1)
     # notify.save()"""
 @receiver(m2m_changed, sender=PostProject.likes.through)
-def m2m_changed_likes(sender, instance, action, model, pk_set,**kwargs):
+def m2m_changed_likes(sender, instance, action, model, pk_set, **kwargs):
     print('pk_set        = ', pk_set)
     print('model         = ', model.user)
     print('sender        = ', sender)
