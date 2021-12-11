@@ -32,11 +32,13 @@ def unfollow_profile(request, pk):
 def add_like_projects(request, pk):
     project = PostProject.objects.get(id=pk)
     project.likes.add(request.user)
+    project.save()
     return redirect(request.META.get('HTTP_REFERER'))
 
 def remove_like_projects(request, pk):
     project = PostProject.objects.get(id=pk)
     project.likes.remove(request.user)
+    project.save()
     return redirect(request.META.get('HTTP_REFERER'))
 
 def add_like_jobs(request, pk):
