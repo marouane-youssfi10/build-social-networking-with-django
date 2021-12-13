@@ -1,35 +1,25 @@
 {% extends 'base.html' %}
-
+{% load humanize %}
 {% block content %}
     <div class="post-project col-lg-6">
         <br>
         <h3>Notifications</h3>
         <div class="post-project-fields">
-           <div class="notification-box">
-                <div class="nt-title">
-                    <h4>Setting</h4>
-                    <a href="" title="">Clear all</a>
-                </div>
                 <div class="nott-list">
-                    {% for notification in notifications %}
-                        <!-- request.user = hagar & notification.sender = hagar -->
-                        <!-- if request.user == notification.to_user   request.user = hagar & -->
-"							<div class="notfication-details">
-                                <div class="noty-user-img">
-                                    <img src="{{ notification.to_user.photo_profile.url }}" alt="">
-                                </div>
-                                <div class="notification-info">
-                                    <h3><a href="#" title="">{{ notification }}</a> Comment on your project.</h3>
-                                    <span>2 min ago</span>
-                                </div><!--notification-info -->
+                {% for notification in notifications %}
+                    {% if notification.notification_type == 1 %}
+    "					<div class="notfication-details">
+                            <div class="noty-user-img">
+                                <img src="{{ notification.sender.photo_profile.url }}" alt="">
                             </div>
-                        <!-- endif -->
-                    {% endfor %}
-                    <div class="view-all-nots">
-                        <a href="#" title="">View All Notification</a>
-                    </div>
-                </div><!--nott-list end-->
-            </div><!--notification-box end-->
+                            <div class="notification-info">
+                                <p><a href="#" title="">{{ notification }}</a> like your post project "{{ notification.post_project }}"</p>
+                                <span>{{ notification.created | naturaltime }}</span>
+                            </div><!--notification-info -->
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div><!--nott-list end-->
         </div><!--post-project-fields end-->
     </div><!--post-project end-->
 {% endblock content %}
