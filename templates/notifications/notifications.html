@@ -46,8 +46,28 @@
 
                         </div>
                     {% endif %}
-                {% endfor %}
 
+                    {% if notification.notification_type == 3 %}
+                            <div class="notfication-details" {% if notification.is_seen %} {% else %} style="background-color:#eeeeee;" {% endif %}>
+                                <div class="noty-user-img">
+                                    <img src="{{ notification.sender.photo_profile.url }}" height="40">
+                                </div>
+
+                                <div class="notification-info">
+                                    <p>
+                                        <a href="{%  url 'user-profile' notification.sender notification.sender.id %}">
+                                            {{ notification.sender }}
+                                        </a>
+                                        <a href="" style="color:black">
+                                        Start following you
+                                        </a>
+                                    </p>
+                                    <span>{{ notification.created | naturaltime }}</span>
+                                </div><!--notification-info -->
+
+                            </div>
+                        {% endif %}
+                    {% endfor %}
             </div><!--nott-list end-->
         </div><!--post-project-fields end-->
     </div><!--post-project end-->
