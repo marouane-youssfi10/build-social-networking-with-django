@@ -1,150 +1,116 @@
 {% load static %}
 
-	{% if request.user.is_authenticated %}
-		<header>
-			<div class="container">
-				<div class="header-data">
-					<div class="logo">
-						<a href="{% url 'index' %}" title=""><img src="{% static 'images/logo.png' %}" alt=""></a>
-					</div><!--logo end-->
-					<div class="search-bar">
-						<form>
-							<input type="text" name="search" placeholder="Search...">
-							<button type="submit"><i class="la la-search"></i></button>
-						</form>
-					</div><!--search-bar end-->
-					<nav>
-						<ul>
-							<li>
-								<a href="{% url 'index' %}" title="home">
-									<span><img src="{% static 'images/icon1.png' %} " alt=""></span>
-									Home
-								</a>
-							</li>
-							<li>
-								<a href="{% url 'projects' %}" title="projects">
-									<span><img src="{% static 'images/icon3.png' %} " alt=""></span>
-									Projects
-								</a>
-							</li>
-							<li>
-								<a href="{% url 'user-profile' request.user.first_name request.user.id %}" title="my profile">
-									<span><img src="{% static 'images/icon4.png' %} "></span>
-									Profiles
-								</a>
-							</li>
-							<li>
-								<a href="{% url 'jobs' %}" title="jobs">
-									<span><img src="{% static 'images/icon5.png' %} " alt=""></span>
-									Jobs
-								</a>
-							</li>
-														<li>
-								<a class="not-box-open">
-									<span><img src="{% static 'images/icon7.png' %}" alt=""></span>
-									Notification
-								</a>
-								<div class="notification-box">
-									<div class="nt-title">
-										<h4>Setting</h4>
-										<a href="" title="">Clear all</a>
-									</div>
-									<div class="nott-list">
-										{% for notification in notifications %}
-											<!-- request.user = hagar & notification.sender = hagar -->
-											{% if request.user == notification.to_user %} <!-- request.user = hagar & -->
+	<header>
+		<div class="container">
+			<div class="header-data">
+				<div class="logo">
+					<a href="{% url 'index' %}" title=""><img src="{% static 'images/logo.png' %}" alt=""></a>
+				</div><!--logo end-->
+				<div class="search-bar">
+					<form>
+						<input type="text" name="search" placeholder="Search...">
+						<button type="submit"><i class="la la-search"></i></button>
+					</form>
+				</div><!--search-bar end-->
+				<nav>
+					<ul>
+						<li>
+							<a href="{% url 'index' %}" title="home">
+								<span><img src="{% static 'images/icon1.png' %} " alt=""></span>
+								Home
+							</a>
+						</li>
+						<li>
+							<a href="{% url 'projects' %}" title="projects">
+								<span><img src="{% static 'images/icon3.png' %} " alt=""></span>
+								Projects
+							</a>
+						</li>
+						<li>
+							<a href="{% url 'user-profile' request.user.first_name request.user.id %}" title="my profile">
+								<span><img src="{% static 'images/icon4.png' %} "></span>
+								Profiles
+							</a>
+						</li>
+						<li>
+							<a href="{% url 'jobs' %}" title="jobs">
+								<span><img src="{% static 'images/icon5.png' %} " alt=""></span>
+								Jobs
+							</a>
+						</li>
+													<li>
+							<a class="not-box-open">
+								<span><img src="{% static 'images/icon7.png' %}" alt=""></span>
+								Notification
+							</a>
+							<div class="notification-box">
+								<div class="nt-title">
+									<h4>Setting</h4>
+									<a href="" title="">Clear all</a>
+								</div>
+								<div class="nott-list">
+									{% for notification in notifications %}
+										<!-- request.user = hagar & notification.sender = hagar -->
+										{% if request.user == notification.to_user %} <!-- request.user = hagar & -->
 "												<div class="notfication-details">
-													<div class="noty-user-img">
-														<img src="{{ notification.to_user.photo_profile.url }}" alt="">
-													</div>
-													<div class="notification-info">
-														<h3><a href="#" title="">{{ notification }}</a> Comment on your project.</h3>
-														<span>2 min ago</span>
-													</div><!--notification-info -->
+												<div class="noty-user-img">
+													<img src="{{ notification.to_user.photo_profile.url }}" alt="">
 												</div>
-											{% endif %}
-										{% endfor %}
-										<div class="view-all-nots">
-											<a href="#" title="">View All Notification</a>
-										</div>
-									</div><!--nott-list end-->
+												<div class="notification-info">
+													<h3><a href="#" title="">{{ notification }}</a> Comment on your project.</h3>
+													<span>2 min ago</span>
+												</div><!--notification-info -->
+											</div>
+										{% endif %}
+									{% endfor %}
+									<div class="view-all-nots">
+										<a href="#" title="">View All Notification</a>
+									</div>
+								</div><!--nott-list end-->
 
-								</div><!--notification-box end-->
+							</div><!--notification-box end-->
+						</li>
+					</ul>
+				</nav><!--nav end-->
+				<div class="menu-btn">
+					<a href="#" title=""><i class="fa fa-bars"></i></a>
+				</div><!--menu-btn end-->
+				<div class="user-account">
+					<div class="user-info">
+						<img src="{{ request.user.photo_profile.url }}" width="35" height="35">
+						<a title="{{ request.user.full_name }}">{{ request.user.first_name }}</a>
+						<i class="la la-sort-down"></i>
+					</div>
+					<div class="user-account-settingss">
+						<h3>Online Status</h3>
+						<ul class="on-off-status">
+							<li>
+								<div class="fgt-sec">
+									<input type="radio" name="cc" id="c5">
+									<label for="c5">
+										<span></span>
+									</label>
+									<small>Online</small>
+								</div>
+							</li>
+							<li>
+								<div class="fgt-sec">
+									<input type="radio" name="cc" id="c6">
+									<label for="c6">
+										<span></span>
+									</label>
+									<small>Offline</small>
+								</div>
 							</li>
 						</ul>
-					</nav><!--nav end-->
-					<div class="menu-btn">
-						<a href="#" title=""><i class="fa fa-bars"></i></a>
-					</div><!--menu-btn end-->
-					<div class="user-account">
-						<div class="user-info">
-							<img src="{{ request.user.photo_profile.url }}" width="35" height="35">
-							<a title="{{ request.user.full_name }}">{{ request.user.first_name }}</a>
-							<i class="la la-sort-down"></i>
-						</div>
-						<div class="user-account-settingss">
-							<h3>Online Status</h3>
-							<ul class="on-off-status">
-								<li>
-									<div class="fgt-sec">
-										<input type="radio" name="cc" id="c5">
-										<label for="c5">
-											<span></span>
-										</label>
-										<small>Online</small>
-									</div>
-								</li>
-								<li>
-									<div class="fgt-sec">
-										<input type="radio" name="cc" id="c6">
-										<label for="c6">
-											<span></span>
-										</label>
-										<small>Offline</small>
-									</div>
-								</li>
-							</ul>
-							<h3>Setting</h3>
-							<ul class="us-links">
-								<li><a href="{% url 'edit-profile' %}" title="">Account Setting</a></li>
-							</ul>
-							<h3 class="tc"><a href="{% url 'logout' %}" title="">Logout</a></h3>
-						</div><!--user-account-settingss end-->
-					</div>
-				</div><!--header-data end-->
-			</div>
-		</header>
-		<!--header for user authenticated end-->
-	{% else %}
-		<header>
-			<div class="container">
-				<div class="header-data">
-					<div class="logo pd-btm">
-						<a href="{% url 'home' %}" title=""><img src="{% static 'images/logo.png' %}" alt=""></a>
-					</div><!--logo end-->
-					<div class="forum-bar">
-						<h2>Forum</h2>
-						<ul>
-							<li><a href="#" title="">Tags</a></li>
-							<li><a href="#" title="">Users</a></li>
-							<li><a href="#" title="" class="ask-question">Ask a question</a></li>
+						<h3>Setting</h3>
+						<ul class="us-links">
+							<li><a href="{% url 'edit-profile' %}" title="">Account Setting</a></li>
 						</ul>
-					</div><!--search-bar end-->
-					<div class="login_register">
-						<ul>
-							<li><a href="{% url 'login' %}">Login</a></li>
-							<li><a href="{% url 'register' %}">Register</a></li>
-						</ul>
-					</div><!--login_register end-->
-					<div class="search-bar st2">
-						<form>
-							<input type="text" name="search" placeholder="Search...">
-							<button type="submit"><i class="la la-search"></i></button>
-						</form>
-					</div><!--search-bar end-->
-				</div><!--header-data end-->
-			</div>
-		</header>
-		<!--header for user not authenticated end-->
-	{% endif %}
-
+						<h3 class="tc"><a href="{% url 'logout' %}" title="">Logout</a></h3>
+					</div><!--user-account-settingss end-->
+				</div>
+			</div><!--header-data end-->
+		</div>
+	</header>
+	<!--header for user authenticated end-->
