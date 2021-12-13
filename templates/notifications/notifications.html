@@ -5,7 +5,8 @@
         <br>
         <h3>Notifications</h3>
         <div class="post-project-fields">
-                <div class="nott-list">
+            <div class="nott-list">
+
                 {% for notification in notifications %}
                     {% if notification.notification_type == 1 %}
     					<div class="notfication-details" {% if notification.is_seen %} {% else %} style="background-color:#eeeeee;" {% endif %} >
@@ -20,23 +21,28 @@
                     {% endif %}
 
                     {% if notification.notification_type == 2 %}
-                        <div class="notfication-details" {% if notification.is_seen %} {% else %} style="background-color:#eeeeee;" {% endif %} >
+                        <div class="notfication-details" {% if notification.is_seen %} {% else %} style="background-color:#eeeeee;" {% endif %}>
                             <div class="noty-user-img">
-                                <img src="{{ notification.sender.photo_profile.url }}" alt="">
+                                <img src="{{ notification.sender.photo_profile.url }}" height="40">
                             </div>
+
                             <div class="notification-info">
                                 <p>
                                     <a href="{%  url 'user-profile' notification.sender notification.sender.id %}">
                                         {{ notification.sender }}
                                     </a>
+                                    <a href="{% url 'comment' notification.post_project.id %}" style="color:black">
                                     comment on your project "{{ notification.post_project }}"
-                                    {{ notification.text_preview }}
+                                    {{ notification.body | truncatechars:50}}
+                                    </a>
                                 </p>
                                 <span>{{ notification.created | naturaltime }}</span>
                             </div><!--notification-info -->
+
                         </div>
                     {% endif %}
                 {% endfor %}
+
             </div><!--nott-list end-->
         </div><!--post-project-fields end-->
     </div><!--post-project end-->

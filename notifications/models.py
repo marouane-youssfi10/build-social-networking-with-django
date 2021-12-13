@@ -9,7 +9,7 @@ class NotificationProjects(models.Model):
     sender = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='noti_project_from_user')
     to_user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='noti_project_to_user')
     notification_type = models.IntegerField(choices=NOTIFICATION_TYPES)
-    text_preview = models.CharField(max_length=90, blank=True)
+    body = models.TextField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
     is_seen = models.BooleanField(default=False)
 
@@ -27,7 +27,7 @@ class NotificationJobs(models.Model):
     sender = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='noti_job_from_user')
     to_user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='noti_job_to_user')
     notification_type = models.IntegerField(choices=NOTIFICATION_TYPES)
-    text_preview = models.CharField(max_length=90, blank=True)
+    body = models.TextField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
     is_seen = models.BooleanField(default=False)
 
