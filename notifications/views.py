@@ -1,14 +1,14 @@
 from django.shortcuts import render
 from .models import NotificationProjects
 
-def Show_notifications(request):
-    user = request.user
-    notifications = NotificationProjects.objects.filter(sender=user).order_by('-created')
-    NotificationProjects.objects.filter(sender=user, is_seen=False).update(is_seen=True)
+def show_notifications(request):
+    notifications = NotificationProjects.objects.filter(to_user=request.user)
+    NotificationProjects.objects.filter(to_user=request.user, is_seen=False).update(is_seen=True)
 
+    print('\nnotifications = ', notifications, '\n')
     context = {
         'notifications': notifications
     }
-    # return render(request, 'includes/navbar.html', context)
+    return render(request, 'notifications/notifications.html', context)
 
 

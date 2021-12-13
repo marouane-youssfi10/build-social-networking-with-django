@@ -38,37 +38,11 @@
 								Jobs
 							</a>
 						</li>
-													<li>
-							<a class="not-box-open">
-								<span><img src="{% static 'images/icon7.png' %}" alt=""></span>
+						<li>
+							<a class="" href="{% url 'show-notifications' %}">
+								<span><img src="{% static 'images/icon7.png' %}"></span>
 								Notification
 							</a>
-							<div class="notification-box">
-								<div class="nt-title">
-									<h4>Setting</h4>
-									<a href="" title="">Clear all</a>
-								</div>
-								<div class="nott-list">
-									{% for notification in notifications %}
-										<!-- request.user = hagar & notification.sender = hagar -->
-										{% if request.user == notification.to_user %} <!-- request.user = hagar & -->
-"												<div class="notfication-details">
-												<div class="noty-user-img">
-													<img src="{{ notification.to_user.photo_profile.url }}" alt="">
-												</div>
-												<div class="notification-info">
-													<h3><a href="#" title="">{{ notification }}</a> Comment on your project.</h3>
-													<span>2 min ago</span>
-												</div><!--notification-info -->
-											</div>
-										{% endif %}
-									{% endfor %}
-									<div class="view-all-nots">
-										<a href="#" title="">View All Notification</a>
-									</div>
-								</div><!--nott-list end-->
-
-							</div><!--notification-box end-->
 						</li>
 					</ul>
 				</nav><!--nav end-->
