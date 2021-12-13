@@ -23,16 +23,8 @@ def m2m_changed_likes(sender, instance, action, pk_set, **kwargs):
                 notify.save()
 
 @receiver(post_save, sender=CommentProjects)
-def post_save_comment(sender, instance, **kwargs):
+def post_save_comment(instance, **kwargs):
     user = instance
-    print('------------------------------------')
-    print('sender                       = ', sender)
-    print('user                         = ', user)
-    print('user.post_project.user       = ', user.post_project.user)
-    print('user.user_post               = ', user.user_post)
-    print('user.post_project            = ', user.post_project)
-    print('instance.body                = ', user.body)
-    print('------------------------------------')
     user_post = user.post_project
     request_user = user.user_post
     to_user = user.post_project.user
