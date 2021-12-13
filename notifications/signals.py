@@ -4,7 +4,7 @@ from django.dispatch import receiver
 from posting.models import PostProject
 from .models import NotificationProjects
 from accounts.models import Account, UserProfile
-from comment.models import CommentProjects
+from comment.models import CommentProjects, CommentJobs
 from follow.models import Follow
 
 # Projects
@@ -22,7 +22,7 @@ def m2m_changed_likes_project(sender, instance, action, pk_set, **kwargs):
                 notify.save()
 
 @receiver(post_save, sender=CommentProjects)
-def post_save_comment(instance, **kwargs):
+def post_save_comment_projects(instance, **kwargs):
     user = instance
     user_post = user.post_project
     request_user = user.user_post
@@ -31,7 +31,7 @@ def post_save_comment(instance, **kwargs):
 
     if not NotificationProjects.objects.filter(post_project=user_post, sender=request_user, to_user=to_user, body=body, notification_type=2).exists():
         """ avoid save into NotificationProjects request_user == to_user for not showing noti
-        to your profile with like or comment your profile """
+        to your profile with like or comment"""
         if to_user != request_user:
             notify = NotificationProjects(post_project=user_post,
                                           sender=request_user,
@@ -40,8 +40,9 @@ def post_save_comment(instance, **kwargs):
                                           notification_type=2)
             notify.save()
 
+# Follow
 @receiver(m2m_changed, sender=Follow.following.through)
-def post_save_follow(instance, action, pk_set, **kwargs):
+def post_save_follow_projects(instance, action, pk_set, **kwargs):
     if action == 'post_add':
         request_user = instance.user
         to_user_id = list(pk_set)[0]
@@ -73,6 +74,25 @@ def m2m_changed_likes_project(sender, instance, action, pk_set, **kwargs):
                 notify = NotificationProjects(post_job=user_post, sender=request_user, to_user=to_user,
                                             notification_type=1)
                 notify.save()
+
+@receiver(post_save, sender=CommentJobs)
+def post_save_comment_jobs(instance, **kwargs):
+    user = instance
+    user_post = user.jobs_profile
+    request_user = user.user_job
+    to_user = user.jobs_profile.user
+    body = user.body
+
+    if not NotificationProjects.objects.filter(post_job=user_post, sender=request_user, to_user=to_user, body=body, notification_type=2).exists():
+        """ avoid save into NotificationProjects request_user == to_user for not showing notification
+        to your profile with like or comment"""
+        if to_user != request_user:
+            notify = NotificationProjects(post_job=user_post,
+                                          sender=request_user,
+                                          to_user=to_user,
+                                          body=body,
+                                          notification_type=2)
+            notify.save()
 
 
 # NOTIFICATION_TYPES  ,post_project ,sender  ,to_user ,notification_type ,text_preview ,created
