@@ -1,10 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm
-from .models import Account, UserProfile
-from user_profile.models import Experience_user, TagsUser, Social_media
+from .models import Account
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
-# Create your views here.
 
 def registerPage(request):
     form = RegistrationForm()
@@ -44,15 +42,13 @@ def loginPage(request):
         user = auth.authenticate(email=email, password=password)
 
         if user is not None:
-            print('\n--- if user ---', request.user, '\n')
             auth.login(request, user)
             messages.success(request, 'You are Now Logged in.')
             return redirect('index')
         else:
-            print('\n--- else user ---', request.user, '\n')
             messages.error(request, 'Username Or password does not exists')
 
-    return render(request, 'accounts/register.html')
+    return render(request, 'accounts/login.html')
 
 @login_required(login_url='login')
 def logoutUser(request):

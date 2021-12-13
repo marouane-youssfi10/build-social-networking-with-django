@@ -51,7 +51,7 @@
                                                         {% else %}
                                                             btn btn-outline-primary
                                                         {% endif %}">
-                                           Sign in
+                                                Sign in
                                            </button>
                                        </a>
                                         <a href="{% url 'register' %}">
@@ -67,13 +67,14 @@
                                     </div>
 
 
-                                    {% if '/accounts/login' in request.path %}
-                                        <!-- Login -->
-                                        {% include 'accounts/login.html' %}
-                                    {% else %}
+                                    {% if '/accounts/register' in request.path %}
                                         <!-- Register -->
                                         {% block register %}
                                         {% endblock register %}
+                                    {% else %}
+                                        <!-- Register -->
+                                        {% block login %}
+                                        {% endblock login %}
                                     {% endif %}
 
                                 </div>

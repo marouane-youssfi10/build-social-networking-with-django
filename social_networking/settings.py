@@ -70,9 +70,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                # 'django.template.context_processors.csrf', for security
-                # 'django.template.context_processors.request',
-                # 'notifications.context_processors.show_notifications',
+                'django.template.context_processors.csrf',
+                'notifications.context_processors.show_notifications',
             ],
         },
     },
