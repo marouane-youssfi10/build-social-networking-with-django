@@ -45,11 +45,11 @@ def post_save_comment(instance, **kwargs):
 @receiver(m2m_changed, sender=Follow.following.through)
 def post_save_follow(instance, action, pk_set, **kwargs):
     if action == 'post_add':
-        request_user = instance
+        request_user = instance.user
         to_user_id = list(pk_set)[0]
         to_user = Account.objects.get(id=to_user_id)
         print('action       = ', action)
-        print('request_user = ', request_user.user)
+        print('request_user = ', request_user)
         print('to_user_id   = ', to_user_id)
         print('to_user      = ', to_user)
         if not NotificationProjects.objects.filter(sender=request_user, to_user=to_user, notification_type=3).exists():
