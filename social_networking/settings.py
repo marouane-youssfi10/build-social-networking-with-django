@@ -71,7 +71,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.csrf',
-                # 'notifications.context_processors.counter',
+                'notifications.views.count_notifications',
             ],
         },
     },

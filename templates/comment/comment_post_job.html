@@ -139,7 +139,11 @@
                                 </ul>
                             </div><!--comment-sec end-->
                         {% endfor %}
-                        <div class="post-comment">
+
+                    </div><!--comment-section end-->
+                    <div class="main-ws-sec container centered">
+                        <div class="post-bar" style="padding:12px;">
+                            <div class="post-comment">
                                 <div class="cm_img">
                                     <img src="{{ request.user.photo_profile.url }}" width="40" height="40">
                                 </div>
@@ -151,7 +155,8 @@
                                     </form>
                                 </div>
                             </div><!--post-comment end-->
-                    </div><!--comment-section end-->
+                        </div>
+                    </div>
                 </div>
             </div><!--posts-section end-->
         </div>

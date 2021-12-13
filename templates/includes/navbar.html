@@ -39,10 +39,15 @@
 							</a>
 						</li>
 						<li>
-							<a class="" href="{% url 'show-notifications' %}">
-								<span><img src="{% static 'images/icon7.png' %}"></span>
+							<a href="{% url 'show-notifications' %}">
+								<span>
+									<!--<img src="{% static 'images/icon7.png' %}">-->
+									<i class="fa fa-bell" aria-hidden="true"></i>
+								</span>
 								Notification
+								<span class="badge badge-light">{{count_notifications}}</span>
 							</a>
+
 						</li>
 					</ul>
 				</nav><!--nav end-->

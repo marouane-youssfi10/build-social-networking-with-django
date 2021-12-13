@@ -21,11 +21,11 @@
                     <li>
                         <!-- get the users saved in UserProfile -->
                         {% if profile in my_profile.saved_jobs.all %}
-                            <a href="{% url 'unsaved-jobs' profile.userprofile.id %}">
+                            <a href="{% url 'unsaved-jobs' profile.id %}">
                                 <i class="la la-check"></i>
                             </a>
                         {% else %}
-                            <a href="{% url 'saved-jobs' profile.userprofile.id %}">
+                            <a href="{% url 'saved-jobs' profile.id %}">
                                 <i class="la la-bookmark"></i>
                             </a>
                         {% endif %}
@@ -51,11 +51,11 @@
                     <li>
                         <!-- check the user if do a like -->
                         {% if request.user in profile.userprofile.likes.all %}
-                            <a href="{% url 'remove-like-post-jobs' profile.userprofile.id %}" class="active"><i class="la la-heart"></i> Like</a>
+                            <a href="{% url 'remove-like-post-jobs' profile.id %}" class="active"><i class="la la-heart"></i> Like</a>
                             <img src="{% static 'images/liked-img.png' %}">
                             <span>{{ profile.userprofile.likes.all.count }}</span>
                         {% else %}
-                            <a href="{% url 'add-like-post-jobs' profile.userprofile.id %}"><i class="la la-heart"></i> Like</a>
+                            <a href="{% url 'add-like-post-jobs' profile.id %}"><i class="la la-heart"></i> Like</a>
                             <img src="{% static 'images/liked-img.png' %}">
                             <span>{{ profile.userprofile.likes.all.count }}</span>
                         {% endif %}

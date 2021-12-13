@@ -231,20 +231,10 @@
                             </div>
                             <div class="col-lg-3 pd-right-none no-pd">
                                 <div class="right-sidebar">
-                                    <div class="widget widget-about">
-                                        <img src="{% static 'images/wd-logo.png' %}" alt="">
-                                        <h3>Track Time on Workwise</h3>
-                                        <span>Pay only for the Hours worked</span>
-                                        <div class="sign_link">
-                                            <h3><a>Sign up</a></h3>
-                                            <a>Learn More</a>
-                                        </div>
-                                    </div><!--widget-about end-->
                                     {% if user_profiles %} <!-- check if the users profile exists -->
                                         <div class="widget widget-jobs">
                                             <div class="sd-title">
                                                 <h3>Top Jobs</h3>
-                                                <i class="la la-ellipsis-v"></i>
                                             </div>
                                             <div class="jobs-list">
                                                 <!-- display all user profile into Top Jobs -->
@@ -270,7 +260,6 @@
                                     <div class="widget widget-jobs">
                                         <div class="sd-title">
                                             <h3>Most Viewed This Week</h3>
-                                            <i class="la la-ellipsis-v"></i>
                                         </div>
                                         <div class="jobs-list">
                                             <!--jobs-list end-->
@@ -290,7 +279,6 @@
                                         <div class="widget suggestions full-width">
                                         <div class="sd-title">
                                             <h3>Most Viewed People</h3>
-                                            <i class="la la-ellipsis-v"></i>
                                         </div><!--sd-title end-->
                                         <div class="suggestions-list">
                                             {% for user_profile in user_profiles %}
@@ -308,9 +296,6 @@
                                                     {% endif %}
                                                 {% endif %}
                                             {% endfor %}
-                                            <div class="view-more">
-                                                <a href="#" title="">View More</a>
-                                            </div>
                                         </div><!--suggestions-list end-->
                                     </div>
                                     {% endif %}
