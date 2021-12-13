@@ -38,7 +38,7 @@ def post_save_comment(sender, instance, **kwargs):
     to_user = user.post_project.user
     body = user.body
 
-    if not NotificationProjects.objects.filter(post_project=user_post, sender=request_user, to_user=to_user).exists():
+    if not NotificationProjects.objects.filter(post_project=user_post, sender=request_user, to_user=to_user, text_preview=body).exists():
         """ avoid save into NotificationProjects request_user == to_user for not showing noti
         to your profile with like or comment your profile """
         if to_user != request_user:
