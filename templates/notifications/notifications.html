@@ -8,7 +8,7 @@
                 <div class="nott-list">
                 {% for notification in notifications %}
                     {% if notification.notification_type == 1 %}
-    "					<div class="notfication-details">
+    					<div class="notfication-details" {% if notification.is_seen %} {% else %} style="background-color:#eeeeee;" {% endif %} >
                             <div class="noty-user-img">
                                 <img src="{{ notification.sender.photo_profile.url }}" alt="">
                             </div>
