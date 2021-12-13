@@ -7,6 +7,7 @@ from accounts.models import Account, UserProfile
 from comment.models import CommentProjects
 from follow.models import Follow
 
+# Projects
 @receiver(m2m_changed, sender=PostProject.likes.through)
 def m2m_changed_likes_project(sender, instance, action, pk_set, **kwargs):
     if action == 'post_add':
@@ -55,10 +56,11 @@ def post_save_follow(instance, action, pk_set, **kwargs):
                                             notification_type=3)
                 notify.save()
 
+# Jobs
 @receiver(m2m_changed, sender=UserProfile.likes.through)
 def m2m_changed_likes_project(sender, instance, action, pk_set, **kwargs):
     if action == 'post_add':
-        user_post = instance
+        user_post = instance.user.user_profile
         to_user = instance.user
         request_user_id = list(pk_set)[0]
         request_user = Account.objects.get(id=request_user_id)
@@ -66,11 +68,11 @@ def m2m_changed_likes_project(sender, instance, action, pk_set, **kwargs):
         print('to_user         = ', to_user)
         print('request_user_id = ', request_user_id)
         print('request_user    = ', request_user)
-        """if not NotificationProjects.objects.filter(post_job=user_post, sender=request_user, to_user=to_user, notification_type=1).exists():
+        if not NotificationProjects.objects.filter(post_job=user_post, sender=request_user, to_user=to_user, notification_type=1).exists():
             if to_user != request_user:
-                notify = NotificationProjects(post_project=user_post, sender=request_user, to_user=to_user,
+                notify = NotificationProjects(post_job=user_post, sender=request_user, to_user=to_user,
                                             notification_type=1)
-                notify.save()"""
+                notify.save()
 
 
 # NOTIFICATION_TYPES  ,post_project ,sender  ,to_user ,notification_type ,text_preview ,created

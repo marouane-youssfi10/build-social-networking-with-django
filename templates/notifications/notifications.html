@@ -16,9 +16,13 @@
                             <div class="notification-info">
                                 <p>
                                     <a href="{%  url 'user-profile' notification.sender notification.sender.id %}">{{ notification.sender }}</a>
-                                    <a href="{% url 'comment' notification.post_project.id %}" style="color:black">
-                                        like your post project "{{ notification.post_project }}"
-                                    </a>
+                                    {% if notification.post_project %}
+                                        <a href="{% url 'comment' notification.post_project.id %}" style="color:black">
+                                            like your post project "{{ notification.post_project }}"
+                                        </a>
+                                    {% else %}
+                                        like your job profile
+                                    {% endif %}
                                 </p>
                                 <span>{{ notification.created | naturaltime }}</span>
                             </div><!--notification-info -->
