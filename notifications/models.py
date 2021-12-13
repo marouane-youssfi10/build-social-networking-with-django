@@ -21,4 +21,3 @@ class NotificationProjects(models.Model):
         verbose_name = 'Notification'
         verbose_name_plural = 'Notification Projects Jobs'
         ordering = ['-created']
-

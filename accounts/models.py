@@ -78,7 +78,7 @@ class UserProfile(models.Model):
         ('Part time', 'Part time'),
         ('Full time', 'Full time'),
     )
-    user = models.OneToOneField(Account, on_delete=models.CASCADE)
+    user = models.OneToOneField(Account, on_delete=models.CASCADE, related_name='user_profile')
     slug = models.SlugField(max_length=100, unique=True)
     title = models.CharField(blank=True, max_length=100)
     # epic_coders = models.CharField(max_length=100)

@@ -36,13 +36,11 @@ def remove_like_projects(request, pk):
     return redirect(request.META.get('HTTP_REFERER'))
 
 def add_like_jobs(request, pk):
-    print('request = ', request)
     user_profile = UserProfile.objects.get(id=pk)
     user_profile.likes.add(request.user)
     return redirect(request.META.get('HTTP_REFERER'))
 
 def remove_like_jobs(request, pk):
-    print('request = ', request)
     user_profile = UserProfile.objects.get(id=pk)
     user_profile.likes.remove(request.user)
     return redirect(request.META.get('HTTP_REFERER'))
