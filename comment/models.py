@@ -3,7 +3,7 @@ from django.db import models
 from posting.models import PostProject
 
 class CommentProjects(models.Model):
-    post_project = models.ForeignKey(PostProject, on_delete=models.CASCADE, related_name='post_project')
+    post_project = models.ForeignKey(PostProject, on_delete=models.CASCADE, related_name='post_project_comment')
     user_post = models.ForeignKey("accounts.Account", on_delete=models.CASCADE,  related_name='user_post')
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)

@@ -13,7 +13,7 @@ from .forms import CommentProjectsForm, CommentJobsForm
 def comment_project(request, project_id):
     # post_project = models.ForeignKey(PostProject, related_name='post_project')
     post_project = PostProject.objects.get(id=project_id)
-    comments = post_project.post_project.all()
+    comments = post_project.post_project_comment.all()
     my_profile = UserProfile.objects.get(user=request.user)
     comments_count = comments.count()
 
