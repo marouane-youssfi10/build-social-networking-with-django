@@ -8,9 +8,6 @@ from accounts.models import UserProfile
 def follow_profile(request, pk):
     my_profile_follow = Follow.objects.get(user=request.user)
     obj = Follow.objects.get(id=pk)
-    print('\n--------------- follow_profile ---------------')
-    print('my_profile = ', my_profile_follow.user)
-    print('obj        = ', obj.user, '-- obj.id = ', obj.id)
 
     my_profile_follow.following.add(obj.user) # add to my_profile.followers the user who follow him
     obj.followers.add(my_profile_follow.user)  # add to obj.following profile my profile
@@ -20,9 +17,6 @@ def follow_profile(request, pk):
 def unfollow_profile(request, pk):
     my_profile_follow = Follow.objects.get(user=request.user)
     obj = Follow.objects.get(id=pk)
-    print('\n-------------- unfollow_profile --------------')
-    print('\nmy_profile = ', my_profile_follow.user)
-    print('obj        = ', obj.user, '-- obj.id = ', obj.id)
 
     my_profile_follow.following.remove(obj.user)
     obj.followers.remove(my_profile_follow.user)
