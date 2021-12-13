@@ -13,7 +13,7 @@
                                 <img src="{{ notification.sender.photo_profile.url }}" alt="">
                             </div>
                             <div class="notification-info">
-                                <p><a href="#" title="">{{ notification }}</a> like your post project "{{ notification.post_project }}"</p>
+                                <p><a href="{%  url 'user-profile' notification.sender notification.sender.id %}">{{ notification.sender }}</a> like your post project "{{ notification.post_project }}"</p>
                                 <span>{{ notification.created | naturaltime }}</span>
                             </div><!--notification-info -->
                         </div>
