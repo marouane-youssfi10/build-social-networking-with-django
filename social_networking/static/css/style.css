@@ -5421,8 +5421,13 @@ input[type=number] {
 }
 
 .comment-section {
-
   height: 400px;
+  overflow-y: scroll;
+  scrollbar-color: rebeccapurple green;
+  scrollbar-width: thin;
+}
+.messages-line{
+ height: 607px;
   overflow-y: scroll;
   scrollbar-color: rebeccapurple green;
   scrollbar-width: thin;
