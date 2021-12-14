@@ -31,8 +31,9 @@
                                 <ul>
                                     {% for message_user in messages_users %}
                                         {% if request.user != message_user.user %}
+                                            {{ message_user.id }} | {{ message_user }}<br>
                                             <li>
-                                                <a href="{% url 'conversation' message_user.user.id %}">
+                                                <a href="{% url 'conversation' message_user.id %}">
                                                 <div class="usr-msg-details">
                                                     <div class="usr-ms-img">
                                                         <img src="{{ message_user.sender.photo_profile.url }}">
@@ -57,31 +58,31 @@
 
                             <div class="messages-line">
                                 <br>
-                                {% for message in messages_users %}
-                                    {% if message.sender == request.user %}
-                                        <div class="main-message-box ta-right">
-                                        <div class="message-dt">
-                                            <div class="message-inner-dt">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor.</p>
-                                            </div><!--message-inner-dt end-->
-                                            <span>Sat, Aug 23, 1:08 PM</span>
-                                        </div><!--message-dt end-->
-                                        <div class="messg-usr-img">
-                                            <img src="http://via.placeholder.com/50x50" alt="">
-                                        </div><!--messg-usr-img end-->
-                                    </div>
-                                    {% else %}
+                                {% for conversation in conversations %}
+                                    {% if conversation.user == conversation.sender %}
                                         <div class="main-message-box st3">
-                                            <div class="message-dt st3">
+                                                <div class="message-dt st3">
+                                                    <div class="message-inner-dt">
+                                                        <p>{{ conversation.body }}<img src="{% static 'images/smley.png' %}" alt=""></p>
+                                                    </div><!--message-inner-dt end-->
+                                                    <span>{{ conversation.updated }}</span>
+                                                </div><!--message-dt end-->
+                                                <div class="messg-usr-img">
+                                                    <img src="{{ conversation.user.photo_profile.url }}" width="50" height="50">
+                                                </div><!--messg-usr-img end-->
+                                            </div>
+                                    {% else %}
+                                        <div class="main-message-box ta-right">
+                                            <div class="message-dt">
                                                 <div class="message-inner-dt">
-                                                    <p>{{ message.body }}<img src="{% static 'images/smley.png' %}" alt=""></p>
+                                                    <p>{{ conversation.body }}</p>
                                                 </div><!--message-inner-dt end-->
-                                                <span>5 minutes ago</span>
+                                                <span>{{ conversation.updated }}</span>
                                             </div><!--message-dt end-->
                                             <div class="messg-usr-img">
-                                                <img src="http://via.placeholder.com/50x50" alt="">
+                                                <img src="{{ conversation.sender.photo_profile.url }}" width="50" height="50">
                                             </div><!--messg-usr-img end-->
-                                        </div>
+                                    </div>
                                     {% endif %}
                                 {% endfor %}
 
