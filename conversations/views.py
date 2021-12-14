@@ -18,6 +18,7 @@ def conversations(request, recipient_id):
     print('recipient_id  = ', recipient_id)
     print('recipient_id  = ', Message.objects.get(id=recipient_id))
     print('request.user = ', request.user)
+
     to_user = Message.objects.get(id=recipient_id)
     messages_users = Message.objects.filter(recipient=request.user).exclude(user=request.user)
     conversations = Message.objects.filter(user=request.user)
