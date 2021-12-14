@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'follow.apps.FollowConfig',
     'comment.apps.CommentConfig',
     'notifications.apps.NotificationsConfig',
+    'conversations.apps.ConversationsConfig',
 ]
 
 MIDDLEWARE = [
