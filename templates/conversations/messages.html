@@ -11,10 +11,10 @@
                     <div class="message-bar-head">
                         <div class="usr-msg-details">
                             <div class="usr-ms-img">
-                                <img src="http://via.placeholder.com/50x50" alt="">
+                                <img src="{{ request.user.photo_profile.url }}" width="50" height="50">
                             </div>
                             <div class="usr-mg-info">
-                                <h3>John Doe</h3>
+                                <h3>{{ request.user }}</h3>
                                 <p>Online</p>
                             </div><!--usr-mg-info end-->
                         </div>
