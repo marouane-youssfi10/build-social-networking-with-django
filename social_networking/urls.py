@@ -30,5 +30,6 @@ urlpatterns = [
     path('', include('follow.urls')),
     path('', include('comment.urls')),
     path('', include('notifications.urls')),
+    path('', include('conversations.urls')),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
