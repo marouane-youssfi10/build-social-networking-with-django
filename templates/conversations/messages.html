@@ -62,7 +62,7 @@
                                         <div class="main-message-box st3">
                                                 <div class="message-dt st3">
                                                     <div class="message-inner-dt">
-                                                        <p>{{ conversation.body }}<img src="{% static 'images/smley.png' %}" alt=""></p>
+                                                        <p>{{ conversation.body }}</p>
                                                     </div><!--message-inner-dt end-->
                                                     <span>{{ conversation.updated }}</span>
                                                 </div><!--message-dt end-->
@@ -73,7 +73,7 @@
                                     {% else %}
                                         <div class="main-message-box ta-right">
                                             <div class="message-dt">
-                                                <div class="message-inner-dt1">
+                                                <div class="message-inner-dt">
                                                     <p>{{ conversation.body }}</p>
                                                 </div><!--message-inner-dt end-->
                                                 <span>{{ conversation.updated }}</span>
@@ -81,10 +81,17 @@
                                             <div class="messg-usr-img">
                                                 <img src="{{ conversation.sender.photo_profile.url }}" width="50" height="50">
                                             </div><!--messg-usr-img end-->
-                                    </div>
+                                        </div>
                                     {% endif %}
                                 {% endfor %}
 
+                                {% if not conversations %}
+                                    <div class="message-dt">
+                                        <div class="message-inner-dt">
+                                            <h1>Start a Conversation</h1>
+                                        </div>
+                                    </div>
+                                {% endif %}
                             </div><!--messages-line end-->
 
                             <div class="message-send-area">

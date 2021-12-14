@@ -4816,17 +4816,6 @@ a:hover {
 	width: 100%;
 }
 
-/* new */
-.message-inner-dt1 {
-	float: left;
-	-webkit-border-radius: 15px;
-	-moz-border-radius: 15px;
-	-ms-border-radius: 15px;
-	-o-border-radius: 15px;
-	border-radius: 15px;
-	width: 100%;
-}
-
 .img-bx {
 	background-color: #efefef;
 	padding: 20px;
@@ -5493,3 +5482,4 @@ height: 637px;
     right:35px;
     bottom:35px;
 }
+
