@@ -5419,7 +5419,7 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
-
+/* scroll */
 .comment-section {
   height: 400px;
   overflow-y: scroll;
@@ -5431,6 +5431,10 @@ input[type=number] {
   overflow-y: scroll;
   scrollbar-color: rebeccapurple green;
   scrollbar-width: thin;
+}
+.messages-list{
+height: 637px;
+  overflow-y: scroll;
 }
 
 /**/
