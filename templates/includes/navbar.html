@@ -1,14 +1,14 @@
 {% load static %}
-
-	<header>
+	{% if request.user.is_authenticated %}
+		<header>
 		<div class="container">
 			<div class="header-data">
 				<div class="logo">
 					<a href="{% url 'index' %}" title=""><img src="{% static 'images/logo.png' %}" alt=""></a>
 				</div><!--logo end-->
 				<div class="search-bar">
-					<form>
-						<input type="text" name="search" placeholder="Search...">
+					<form action="{% url 'search-jobs' %}" method="GET">
+						<input type="text" name="q" placeholder="Search...">
 						<button type="submit"><i class="la la-search"></i></button>
 					</form>
 				</div><!--search-bar end-->
@@ -61,27 +61,6 @@
 						<i class="la la-sort-down"></i>
 					</div>
 					<div class="user-account-settingss">
-						<h3>Online Status</h3>
-						<ul class="on-off-status">
-							<li>
-								<div class="fgt-sec">
-									<input type="radio" name="cc" id="c5">
-									<label for="c5">
-										<span></span>
-									</label>
-									<small>Online</small>
-								</div>
-							</li>
-							<li>
-								<div class="fgt-sec">
-									<input type="radio" name="cc" id="c6">
-									<label for="c6">
-										<span></span>
-									</label>
-									<small>Offline</small>
-								</div>
-							</li>
-						</ul>
 						<h3>Setting</h3>
 						<ul class="us-links">
 							<li><a href="{% url 'edit-profile' %}" title="">Account Setting</a></li>
@@ -92,4 +71,35 @@
 			</div><!--header-data end-->
 		</div>
 	</header>
+	{% else %}
+		<header>
+			<div class="container">
+				<div class="header-data">
+					<div class="logo pd-btm">
+						<a href="index.html" title=""><img src="images/logo.png" alt=""></a>
+					</div><!--logo end-->
+					<div class="forum-bar">
+						<h2>Forum</h2>
+						<ul>
+							<li><a href="#" title="">Tags</a></li>
+							<li><a href="#" title="">Users</a></li>
+							<li><a href="#" title="" class="ask-question">Ask a question</a></li>
+						</ul>
+					</div><!--search-bar end-->
+					<div class="login_register">
+						<ul>
+							<li><a href="{% url 'login' %}">Login</a></li>
+							<li><a href="{% url 'register' %}">Register</a></li>
+						</ul>
+					</div><!--login_register end-->
+					<div class="search-bar st2">
+						<form>
+							<input type="text" name="search" placeholder="Search...">
+							<button type="submit"><i class="la la-search"></i></button>
+						</form>
+					</div><!--search-bar end-->
+				</div><!--header-data end-->
+			</div>
+		</header>
+	{% endif %}
 	<!--header for user authenticated end-->
