@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-
+{% load static %}
+{% load humanize %}
 {% block content %}
 
     <section class="messages-page">
@@ -40,7 +41,7 @@
                                             </div>
                                             <div class="usr-mg-info">
                                                 <h3>John Doe</h3>
-                                                <p>Lorem ipsum dolor <img src="images/smley.png" alt=""></p>
+                                                <p>Lorem ipsum dolor <img src="{% static 'images/smley.png' %}" alt=""></p>
                                             </div><!--usr-mg-info end-->
                                             <span class="posted_time">1:55 PM</span>
                                             <span class="msg-notifc">1</span>
@@ -148,7 +149,7 @@
                                 <div class="main-message-box st3">
                                     <div class="message-dt st3">
                                         <div class="message-inner-dt">
-                                            <p>Cras ultricies ligula.<img src="images/smley.png" alt=""></p>
+                                            <p>Cras ultricies ligula.<img src="{% static 'images/smley.png' %}" alt=""></p>
                                         </div><!--message-inner-dt end-->
                                         <span>5 minutes ago</span>
                                     </div><!--message-dt end-->
@@ -201,6 +202,7 @@
                                     </div><!--messg-usr-img end-->
                                 </div>
                             </div><!--messages-line end-->
+
                             <div class="message-send-area">
                                 <form>
                                     <div class="mf-field">
