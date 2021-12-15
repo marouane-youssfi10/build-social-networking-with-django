@@ -100,7 +100,7 @@
                         </div><!--messages-line end-->
 
                         <div class="message-send-area">
-                            <form action="{% url 'send' the_user_id %}" method="POST">
+                            <form action="{% url 'send-message' the_user.id %}" method="POST">
                                 {% csrf_token %}
                                 <div class="mf-field">
                                     <input type="text" name="message" placeholder="Type a message here">

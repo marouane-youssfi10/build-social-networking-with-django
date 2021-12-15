@@ -73,13 +73,12 @@ def conversations(request, message_user_id):
         'users': users,
         'conversations': conversations,
         'to_user': to_user,
-        'the_user_id': message_user_id
+        'the_user': message_user
     }
     return render(request, 'conversations/messages.html', context)
 
-def send_message(request, the_user_id):
-    print('---------------------------------------')
-    # print('request.user = ', request.user)
-    # print('the_user_id = ', the_user_id)
-    print('---------------------------------------')
-    return render(request.META.get('HTTP_REFERER'))
+def send_message(request, the_user):
+
+    print('request.user = ', request.user)
+    print('the_user     = ', the_user)
+    return HttpResponse('send_message')
