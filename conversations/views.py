@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Message
 from django.db.models import Q
+from django.http import HttpResponse
 
 def inbox(request):
     # get all message of users  who send message
@@ -36,10 +37,11 @@ def inbox(request):
     return render(request, 'conversations/messages.html', context)
 
 def conversations(request, message_user_id):
+    print('message_user_id = ', message_user_id)
     # # get all message of users  who send message
     message_user = Message.objects.get(id=message_user_id)
 
-    # check if message_user.user == message_user.sender for do modified is_read to true.
+    # check if message_user.user == message_user.sender for modified is_read to true.
     if message_user.user == message_user.sender:
         Message.objects.filter(sender=message_user.sender, recipient=message_user.recipient, is_read=False).update(is_read=True)
 
@@ -71,5 +73,13 @@ def conversations(request, message_user_id):
         'users': users,
         'conversations': conversations,
         'to_user': to_user,
+        'the_user_id': message_user_id
     }
     return render(request, 'conversations/messages.html', context)
+
+def send_message(request, the_user_id):
+    print('---------------------------------------')
+    # print('request.user = ', request.user)
+    # print('the_user_id = ', the_user_id)
+    print('---------------------------------------')
+    return render(request.META.get('HTTP_REFERER'))
