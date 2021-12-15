@@ -37,29 +37,33 @@ def inbox(request):
 
 def conversations(request, message_user_id):
     # # get all message of users  who send message
-    print('message_user_id = ', message_user_id)
     message_user = Message.objects.get(id=message_user_id)
-    print('message_user.user = ', message_user.user)
 
+    # check if message_user.user == message_user.sender for do modified is_read to true.
     if message_user.user == message_user.sender:
         Message.objects.filter(sender=message_user.sender, recipient=message_user.recipient, is_read=False).update(is_read=True)
 
+    # get all Message
     messages_users = Message.objects.all()
+    # filter message with request.user whatever in sender or recipient
     messages_users = messages_users.filter(Q(recipient=request.user) | Q(sender=request.user)).order_by('user', '-created').distinct('user')
-    users = []
+    users = [] # create list named users for storing data plus count message no reading
     for message_user in messages_users:
+        # filtering with getting rows with is_read false message
         count = Message.objects.filter(
             user=request.user, sender=message_user.sender,
             recipient=message_user.recipient, is_read=False
         ).count()
+        # append users data
         users.append({
             'id': message_user.id, 'user': message_user.user, 'sender': message_user.sender, 'recipient': message_user.recipient,
             'body': message_user.body, 'created': message_user.created, 'updated': message_user.updated,'is_read': message_user.is_read,
             'count': count
         })
+    # to_user for active background color when the user read the conversations
     to_user = Message.objects.get(id=message_user_id)
-    # print('to_user = ', to_user)
 
+    # get all conversations between you and the user want him
     conversations = Message.objects.filter(user=request.user)
     conversations = conversations.filter(sender=request.user, recipient=to_user.user).order_by('created') | conversations.filter(sender=to_user.user, recipient=request.user).order_by('created')
 
