@@ -27,7 +27,7 @@
                         </div><!--msg-title end-->
                         <div class="messages-list">
                             <ul>
-                                {% for message_user in test0_updated %}
+                                {% for message_user in messages_users %}
                                     {% if request.user != message_user.user %} <!-- exclude request.user -->
                                         {% if message_user.user == message_user.sender or message_user.user == message_user.recipient %}
                                             <li class="{% if to_user.user == message_user.user %}active{% endif %}">
@@ -41,6 +41,9 @@
                                                             <p>{{ message_user.body }}</p>
                                                         </div><!--usr-mg-info end-->
                                                         <span class="posted_time">{{ message_user.created | date:"h:i A" }}</span>
+                                                        {% if request.user != message_user.sender %}
+                                                            <span class="msg-notifc">1</span>
+                                                        {% endif %}
                                                     </div><!--usr-msg-details end-->
                                                 </a>
                                             </li>

@@ -7,13 +7,12 @@ from django.db.models import Subquery, OuterRef, F
 from django.db.models import Q
 def inbox(request):
     # get all message of users  who send message
-    messages_users = Message.objects.filter(recipient=request.user).exclude(user=request.user)
-    test0 = Message.objects.all()# .exclude(user=request.user)
-    print('test0         = ', test0, '\n')
+    messages_users = Message.objects.all() # .exclude(user=request.user)
+    print('test0         = ', messages_users, '\n')
 
-    test0_updated = test0.filter(Q(recipient=request.user)| Q(sender=request.user)).order_by('user', '-updated').distinct('user')
-    print('test0_updated = ', test0_updated)
-    for i in test0_updated:
+    messages_users = messages_users.filter(Q(recipient=request.user)| Q(sender=request.user)).order_by('user', '-updated').distinct('user')
+    print('messages_users = ', messages_users)
+    for i in messages_users:
         print('i.user      = ', i.user)
         print('i.sender    = ', i.sender)
         print('i.recipient = ', i.recipient)
@@ -23,17 +22,18 @@ def inbox(request):
     print()
     context = {
         'messages_users': messages_users,
-        'test0_updated': test0_updated
     }
     return render(request, 'conversations/messages.html', context)
 
-def conversations(request, recipient_id):
-
-    to_user = Message.objects.get(id=recipient_id)
-    messages_users = Message.objects.filter(recipient=request.user).exclude(user=request.user)
+def conversations(request, message_user_id):
+    # # get all message of users  who send message
+    messages_users = Message.objects.all()
+    messages_users = messages_users.filter(Q(recipient=request.user) | Q(sender=request.user)).order_by('user', '-updated').distinct('user')
+    to_user = Message.objects.get(id=message_user_id)
+    print('to_user = ', to_user)
 
     conversations = Message.objects.filter(user=request.user)
-    conversations = conversations.filter(sender=request.user, recipient=to_user.user) | conversations.filter(sender=to_user.user, recipient=request.user)
+    conversations = conversations.filter(sender=request.user, recipient=to_user.user).order_by('updated') | conversations.filter(sender=to_user.user, recipient=request.user).order_by('updated')
 
     context = {
         'messages_users': messages_users,
