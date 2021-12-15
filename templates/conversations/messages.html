@@ -28,11 +28,11 @@
                         <div class="messages-list">
                             <ul>
                                 {% for message_user in users %}
-                                message_user.id = {{message_user.id}} -- {{message_user.user}} <br>
+                                    {# message_user.id = {{message_user.id}} -- {{message_user.user}} #}
                                     {% if request.user != message_user.user %} <!-- exclude request.user -->
                                         {% if message_user.user == message_user.sender or message_user.user == message_user.recipient %}
                                             <li class="{% if to_user.user == message_user.user %}active{% endif %}">
-                                                <a href="{% url 'conversation' message_user.id %}">
+                                                <a href="{% url 'conversation' message_user.user message_user.id  %}">
                                                     <div class="usr-msg-details">
                                                         <div class="usr-ms-img">
                                                             <img src="{{ message_user.user.photo_profile.url }}">
@@ -103,17 +103,16 @@
                                 <form action="{% url 'send-message' to_user.id %}" method="POST">
                                     {% csrf_token %}
                                     <div class="mf-field">
-                                        <input type="text" name="send_message" placeholder="Type a message here" value="{{to_user.id}}">
+                                        <input type="text" name="send_message" placeholder="Type a message here">
                                         <button type="submit">Send</button>
                                     </div>
                                 </form>
                             </div><!--message-send-area end-->
                         {% else %}
                             <div class="message-send-area">
-                                <form action="{% url 'send-message' to_user.id %}" method="POST">
-                                    {% csrf_token %}
+                                <form>
                                     <div class="mf-field">
-                                        <input type="text" name="send_message" placeholder="Type a message here" value="{{to_user.id}}" disabled>
+                                        <input type="text" name="send_message" placeholder="Type a message here" disabled>
                                         <button type="submit" disabled>Send</button>
                                     </div>
                                 </form>

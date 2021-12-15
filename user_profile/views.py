@@ -44,6 +44,7 @@ def index(request):
 
 @login_required(login_url='login')
 def user_profile(request, slug_user, pk):
+    print('------------ user_profile -----------------')
     # get all user_profile for Suggestions div
     all_user_profile = UserProfile.objects.all()[0:5]
 
