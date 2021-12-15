@@ -4,109 +4,106 @@
 {% block content %}
 
     <section class="messages-page">
-        <div class="container">
-            <div class="messages-sec">
-
-                <div class="col-md-12 no-pdd">
-                    <div class="message-bar-head">
-                        <div class="usr-msg-details">
-                            <div class="usr-ms-img">
-                                <img src="{{ request.user.photo_profile.url }}" width="50" height="50">
-                            </div>
-                            <div class="usr-mg-info">
-                                <h3>{{ request.user }}</h3>
-                                <p>Online</p>
-                            </div><!--usr-mg-info end-->
+        <div class="messages-sec">
+            <div class="col-md-12 no-pdd">
+                <div class="message-bar-head">
+                    <div class="usr-msg-details">
+                        <div class="usr-ms-img">
+                            <img src="{{ request.user.photo_profile.url }}" width="50" height="50">
                         </div>
-                    </div><!--message-bar-head end--> <br><br>
-                </div><br><br><br>
-
-                <div class="row">
-                    <div class="col-lg-4 col-md-12 no-pdd">
-                        <div class="msgs-list">
-                            <div class="msg-title">
-                                <h3>Messages</h3>
-                            </div><!--msg-title end-->
-                            <div class="messages-list">
-                                <ul>
-                                    {% for message_user in messages_users %}
-                                        {% if request.user != message_user.user %}
-                                            <li class="{% if to_user.user == message_user.user %}active{% endif %}">
-                                                <a href="{% url 'conversation' message_user.id %}">
-                                                    <div class="usr-msg-details">
-                                                        <div class="usr-ms-img">
-                                                            <img src="{{ message_user.sender.photo_profile.url }}">
-                                                        </div>
-                                                        <div class="usr-mg-info">
-                                                            <h3>{{ message_user.sender }}</h3>
-                                                            <p>{{ message_user.body }}</p>
-                                                        </div><!--usr-mg-info end-->
-                                                        <span class="posted_time">{{ message_user.created | date:"h:i A" }}</span>
-                                                    </div><!--usr-msg-details end-->
-                                                </a>
-                                            </li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ul>
-                            </div><!--messages-list end-->
-                        </div><!--msgs-list end-->
+                        <div class="usr-mg-info">
+                            <h3>{{ request.user }}</h3>
+                            <p>Online</p>
+                        </div><!--usr-mg-info end-->
                     </div>
+                </div><!--message-bar-head end--> <br><br>
+            </div><br><br><br>
 
-                    <div class="col-lg-8 col-md-12 pd-right-none pd-left-none">
-                        <div class="main-conversation-box">
+            <div class="row">
+                <div class="col-lg-4 col-md-12 no-pdd">
+                    <div class="msgs-list">
+                        <div class="msg-title">
+                            <h3>Messages</h3>
+                        </div><!--msg-title end-->
+                        <div class="messages-list">
+                            <ul>
+                                {% for message_user in messages_users %}
+                                    {% if request.user != message_user.user %}
+                                        <li class="{% if to_user.user == message_user.user %}active{% endif %}">
+                                            <a href="{% url 'conversation' message_user.id %}">
+                                                <div class="usr-msg-details">
+                                                    <div class="usr-ms-img">
+                                                        <img src="{{ message_user.sender.photo_profile.url }}">
+                                                    </div>
+                                                    <div class="usr-mg-info">
+                                                        <h3>{{ message_user.sender }}</h3>
+                                                        <p>{{ message_user.body }}</p>
+                                                    </div><!--usr-mg-info end-->
+                                                    <span class="posted_time">{{ message_user.created | date:"h:i A" }}</span>
+                                                </div><!--usr-msg-details end-->
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div><!--messages-list end-->
+                    </div><!--msgs-list end-->
+                </div>
 
-                            <div class="messages-line">
-                                <br>
-                                {% for conversation in conversations %}
-                                    {% if conversation.user == conversation.sender %}
-                                        <div class="main-message-box st3">
-                                                <div class="message-dt st3">
-                                                    <div class="message-inner-dt">
-                                                        <p>{{ conversation.body }}</p>
-                                                    </div><!--message-inner-dt end-->
-                                                    <span>{{ conversation.updated }}</span>
-                                                </div><!--message-dt end-->
-                                                <div class="messg-usr-img">
-                                                    <img src="{{ conversation.user.photo_profile.url }}" width="50" height="50">
-                                                </div><!--messg-usr-img end-->
-                                            </div>
-                                    {% else %}
-                                        <div class="main-message-box ta-right">
-                                            <div class="message-dt">
+                <div class="col-lg-8 col-md-12 pd-right-none pd-left-none">
+                    <div class="main-conversation-box">
+
+                        <div class="messages-line">
+                            <br>
+                            {% for conversation in conversations %}
+                                {% if conversation.user == conversation.sender %}
+                                    <div class="main-message-box st3">
+                                            <div class="message-dt st3">
                                                 <div class="message-inner-dt">
                                                     <p>{{ conversation.body }}</p>
                                                 </div><!--message-inner-dt end-->
                                                 <span>{{ conversation.updated }}</span>
                                             </div><!--message-dt end-->
                                             <div class="messg-usr-img">
-                                                <img src="{{ conversation.sender.photo_profile.url }}" width="50" height="50">
+                                                <img src="{{ conversation.user.photo_profile.url }}" width="50" height="50">
                                             </div><!--messg-usr-img end-->
                                         </div>
-                                    {% endif %}
-                                {% endfor %}
-
-                                {% if not conversations %}
-                                    <div class="message-dt">
-                                        <div class="message-inner-dt">
-                                            <h1>Start a Conversation</h1>
-                                        </div>
+                                {% else %}
+                                    <div class="main-message-box ta-right">
+                                        <div class="message-dt">
+                                            <div class="message-inner-dt">
+                                                <p>{{ conversation.body }}</p>
+                                            </div><!--message-inner-dt end-->
+                                            <span>{{ conversation.updated }}</span>
+                                        </div><!--message-dt end-->
+                                        <div class="messg-usr-img">
+                                            <img src="{{ conversation.sender.photo_profile.url }}" width="50" height="50">
+                                        </div><!--messg-usr-img end-->
                                     </div>
                                 {% endif %}
-                            </div><!--messages-line end-->
+                            {% endfor %}
 
-                            <div class="message-send-area">
-                                <form>
-                                    <div class="mf-field">
-                                        <input type="text" name="message" placeholder="Type a message here">
-                                        <button type="submit">Send</button>
+                            {% if not conversations %}
+                                <div class="message-dt">
+                                    <div class="message-inner-dt">
+                                        <h1>Start a Conversation</h1>
                                     </div>
-                                </form>
-                            </div><!--message-send-area end-->
-                        </div><!--main-conversation-box end-->
-                    </div>
+                                </div>
+                            {% endif %}
+                        </div><!--messages-line end-->
+
+                        <div class="message-send-area">
+                            <form>
+                                <div class="mf-field">
+                                    <input type="text" name="message" placeholder="Type a message here">
+                                    <button type="submit">Send</button>
+                                </div>
+                            </form>
+                        </div><!--message-send-area end-->
+                    </div><!--main-conversation-box end-->
                 </div>
-            </div><!--messages-sec end-->
-        </div>
+            </div>
+        </div><!--messages-sec end-->
     </section><!--messages-page end-->
 
 {% endblock content %}

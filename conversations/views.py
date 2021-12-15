@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from .models import Message
 from django.http import HttpResponse
+from accounts.models import Account
 def inbox(request):
     # get all message of users  who send message
     messages_users = Message.objects.filter(recipient=request.user).exclude(user=request.user)
     print('messages_users = ', messages_users)
+
     context = {
         'messages_users': messages_users
     }
