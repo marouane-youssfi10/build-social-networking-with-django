@@ -4,13 +4,14 @@ from django.http import HttpResponse
 from accounts.models import Account
 from django.db.models import Max, Min, Count
 from django.db.models import Subquery, OuterRef, F
+from django.db.models import Q
 def inbox(request):
     # get all message of users  who send message
     messages_users = Message.objects.filter(recipient=request.user).exclude(user=request.user)
-    test0 = Message.objects.all().exclude(user=request.user)
+    test0 = Message.objects.all()# .exclude(user=request.user)
     print('test0         = ', test0, '\n')
 
-    test0_updated = test0.order_by('user', '-updated').distinct('user')
+    test0_updated = test0.filter(Q(recipient=request.user)| Q(sender=request.user)).order_by('user', '-updated').distinct('user')
     print('test0_updated = ', test0_updated)
     for i in test0_updated:
         print('i.user      = ', i.user)

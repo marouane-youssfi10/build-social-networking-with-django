@@ -28,21 +28,23 @@
                         <div class="messages-list">
                             <ul>
                                 {% for message_user in test0_updated %}
-                                    {% if request.user != message_user.user %}
-                                        <li class="{% if to_user.user == message_user.user %}active{% endif %}">
-                                            <a href="{% url 'conversation' message_user.id %}">
-                                                <div class="usr-msg-details">
-                                                    <div class="usr-ms-img">
-                                                        <img src="{{ message_user.user.photo_profile.url }}">
-                                                    </div>
-                                                    <div class="usr-mg-info">
-                                                        <h3>{{ message_user.user }}</h3>
-                                                        <p>{{ message_user.body }}</p>
-                                                    </div><!--usr-mg-info end-->
-                                                    <span class="posted_time">{{ message_user.created | date:"h:i A" }}</span>
-                                                </div><!--usr-msg-details end-->
-                                            </a>
-                                        </li>
+                                    {% if request.user != message_user.user %} <!-- exclude request.user -->
+                                        {% if message_user.user == message_user.sender or message_user.user == message_user.recipient %}
+                                            <li class="{% if to_user.user == message_user.user %}active{% endif %}">
+                                                <a href="{% url 'conversation' message_user.id %}">
+                                                    <div class="usr-msg-details">
+                                                        <div class="usr-ms-img">
+                                                            <img src="{{ message_user.user.photo_profile.url }}">
+                                                        </div>
+                                                        <div class="usr-mg-info">
+                                                            <h3>{{ message_user.user }}</h3>
+                                                            <p>{{ message_user.body }}</p>
+                                                        </div><!--usr-mg-info end-->
+                                                        <span class="posted_time">{{ message_user.created | date:"h:i A" }}</span>
+                                                    </div><!--usr-msg-details end-->
+                                                </a>
+                                            </li>
+                                        {% endif %}
                                     {% endif %}
                                 {% endfor %}
                             </ul>
