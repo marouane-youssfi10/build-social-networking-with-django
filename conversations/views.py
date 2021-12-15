@@ -28,8 +28,6 @@ def inbox(request):
             'is_read': message_user.is_read,
             'count': count
         })
-    # for i in users:
-    #     print(i['user'], ' - ', i['body'], ' - ', i['count'])
     to_user = {'id': 0, 'name': 'test'}
     context = {
         'users': users,

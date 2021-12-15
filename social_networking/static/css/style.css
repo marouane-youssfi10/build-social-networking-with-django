@@ -5482,4 +5482,11 @@ height: 637px;
     right:35px;
     bottom:35px;
 }
+.start_a_conversation{
+    position:relative;
+    top:40%;
+    left:35%;
+    font-size:30px;
+
+}
 

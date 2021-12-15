@@ -28,7 +28,7 @@
                         <div class="messages-list">
                             <ul>
                                 {% for message_user in users %}
-                                message_user.id = {{message_user.id}} <br>
+                                message_user.id = {{message_user.id}} -- {{message_user.user}} <br>
                                     {% if request.user != message_user.user %} <!-- exclude request.user -->
                                         {% if message_user.user == message_user.sender or message_user.user == message_user.recipient %}
                                             <li class="{% if to_user.user == message_user.user %}active{% endif %}">
@@ -91,24 +91,34 @@
                                 {% endif %}
                             {% endfor %}
 
-                            {% if not conversations %}
-                                <div class="message-dt">
-                                    <div class="message-inner-dt">
-                                        <h1>Start a Conversation</h1>
-                                    </div>
+                            {% if not conversations %} <!-- if conversations has not user -->
+                                <div class="start_a_conversation">
+                                    <h1>Start a Conversation</h1>
                                 </div>
                             {% endif %}
                         </div><!--messages-line end-->
 
-                        <div class="message-send-area">
-                            <form action="{% url 'send-message' to_user.id %}" method="POST">
-                                {% csrf_token %}
-                                <div class="mf-field">
-                                    <input type="text" name="send_message" placeholder="Type a message here" value="{{to_user.id}}">
-                                    <button type="submit">Send</button>
-                                </div>
-                            </form>
-                        </div><!--message-send-area end-->
+                        {% if conversations %}
+                            <div class="message-send-area">
+                                <form action="{% url 'send-message' to_user.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="mf-field">
+                                        <input type="text" name="send_message" placeholder="Type a message here" value="{{to_user.id}}">
+                                        <button type="submit">Send</button>
+                                    </div>
+                                </form>
+                            </div><!--message-send-area end-->
+                        {% else %}
+                            <div class="message-send-area">
+                                <form action="{% url 'send-message' to_user.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="mf-field">
+                                        <input type="text" name="send_message" placeholder="Type a message here" value="{{to_user.id}}" disabled>
+                                        <button type="submit" disabled>Send</button>
+                                    </div>
+                                </form>
+                            </div><!--message-send-area end-->
+                        {% endif %}
                     </div><!--main-conversation-box end-->
                 </div>
             </div>
