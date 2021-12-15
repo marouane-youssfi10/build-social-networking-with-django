@@ -27,21 +27,6 @@
                         </div><!--msg-title end-->
                         <div class="messages-list">
                             <ul>
-                               <!-- {% for i in users %}
-                                    i.user      = {{ i.user }}      <br>
-                                    i.sender    = {{ i.sender }}    <br>
-                                    i.recipient = {{ i.recipient }} <br>
-                                    i.body      = {{ i.body }}      <br>
-                                    i.updated   = {{ i.updated }}   <br>
-                                    i.is_read   = {{ i.is_read }}   <br>
-                                    i.count     = {{ i.count }}     <br>
-                                    <hr>
-                                {% endfor %}
-                                <hr>
-                                <hr>
-                                <hr>
-                                {{ users.user }}
-                                <hr> -->
                                 {% for message_user in users %}
                                     {% if request.user != message_user.user %} <!-- exclude request.user -->
                                         {% if message_user.user == message_user.sender or message_user.user == message_user.recipient %}
@@ -55,7 +40,7 @@
                                                             <h3>{{ message_user.user }}</h3>
                                                             <p>{{ message_user.body }}</p>
                                                         </div><!--usr-mg-info end-->
-                                                        <span class="posted_time">{{ message_user.created | date:"h:i A" }}</span>
+                                                        <span class="posted_time">{{ message_user.updated | date:"h:i A" }}</span>
                                                         {% if request.user == message_user.recipient %}
                                                             {% if message_user.count != 0 %}
                                                                 <span class="msg-notifc">{{ message_user.count }}</span>
@@ -84,7 +69,7 @@
                                                 <div class="message-inner-dt">
                                                     <p>{{ conversation.body }}</p>
                                                 </div><!--message-inner-dt end-->
-                                                <span>{{ conversation.updated }}</span>
+                                                <span>{{ conversation.created }}</span>
                                             </div><!--message-dt end-->
                                             <div class="messg-usr-img">
                                                 <img src="{{ conversation.user.photo_profile.url }}" width="50" height="50">
