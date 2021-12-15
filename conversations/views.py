@@ -8,16 +8,21 @@ def inbox(request):
     # get all message of users  who send message
     messages_users = Message.objects.filter(recipient=request.user).exclude(user=request.user)
     test0 = Message.objects.all().exclude(user=request.user)
-    print('test0 = ', test0, '\n')
+    print('test0         = ', test0, '\n')
 
-    # messages = Message.objects.filter(user=user).values('recipient').annotate(last=Max('date')).order_by('-last')
-    test0_updated = test0.values('user', 'body').annotate(latest_date=Max('updated')).order_by('-updated')
+    test0_updated = test0.order_by('user', '-updated').distinct('user')
     print('test0_updated = ', test0_updated)
     for i in test0_updated:
-        print(i)
+        print('i.user      = ', i.user)
+        print('i.sender    = ', i.sender)
+        print('i.recipient = ', i.recipient)
+        print('i.body      = ', i.body)
+        print('i.updated   = ', i.updated)
+        print('---------------------------------')
     print()
     context = {
-        'messages_users': messages_users
+        'messages_users': messages_users,
+        'test0_updated': test0_updated
     }
     return render(request, 'conversations/messages.html', context)
 
