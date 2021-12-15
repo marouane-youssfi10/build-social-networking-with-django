@@ -28,10 +28,11 @@
                         <div class="messages-list">
                             <ul>
                                 {% for message_user in users %}
+                                message_user.id = {{message_user.id}} <br>
                                     {% if request.user != message_user.user %} <!-- exclude request.user -->
                                         {% if message_user.user == message_user.sender or message_user.user == message_user.recipient %}
                                             <li class="{% if to_user.user == message_user.user %}active{% endif %}">
-                                                <a href="{% url 'conversation' message_user.id %}"> <!--  url 'conversation' message_user.id  -->
+                                                <a href="{% url 'conversation' message_user.id %}">
                                                     <div class="usr-msg-details">
                                                         <div class="usr-ms-img">
                                                             <img src="{{ message_user.user.photo_profile.url }}">
@@ -100,10 +101,10 @@
                         </div><!--messages-line end-->
 
                         <div class="message-send-area">
-                            <form action="{% url 'send-message' the_user.id %}" method="POST">
+                            <form action="{% url 'send-message' to_user.id %}" method="POST">
                                 {% csrf_token %}
                                 <div class="mf-field">
-                                    <input type="text" name="message" placeholder="Type a message here">
+                                    <input type="text" name="send_message" placeholder="Type a message here" value="{{to_user.id}}">
                                     <button type="submit">Send</button>
                                 </div>
                             </form>

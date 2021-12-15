@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Message
 from django.db.models import Q
 from django.http import HttpResponse
@@ -30,23 +30,26 @@ def inbox(request):
         })
     # for i in users:
     #     print(i['user'], ' - ', i['body'], ' - ', i['count'])
-
+    to_user = {'id': 0, 'name': 'test'}
     context = {
         'users': users,
+        'to_user': to_user,
     }
     return render(request, 'conversations/messages.html', context)
 
 def conversations(request, message_user_id):
-    print('message_user_id = ', message_user_id)
+    print('------- 1 -------')
     # # get all message of users  who send message
     message_user = Message.objects.get(id=message_user_id)
-
+    print('------- 2 -------')
     # check if message_user.user == message_user.sender for modified is_read to true.
     if message_user.user == message_user.sender:
         Message.objects.filter(sender=message_user.sender, recipient=message_user.recipient, is_read=False).update(is_read=True)
+    print('------- 3 -------')
 
     # get all Message
     messages_users = Message.objects.all()
+    print('------- 4 -------')
     # filter message with request.user whatever in sender or recipient
     messages_users = messages_users.filter(Q(recipient=request.user) | Q(sender=request.user)).order_by('user', '-created').distinct('user')
     users = [] # create list named users for storing data plus count message no reading
@@ -77,8 +80,12 @@ def conversations(request, message_user_id):
     }
     return render(request, 'conversations/messages.html', context)
 
-def send_message(request, the_user):
+def send_message(request, to_user):
+    the_user = Message.objects.get(id=to_user)
 
-    print('request.user = ', request.user)
-    print('the_user     = ', the_user)
-    return HttpResponse('send_message')
+    if request.POST:
+        body = request.POST['send_message']
+        # Message.objects.create(user=request.user, sender=, recipient=, body=body, is_read=False)
+        print('request.user = ', request.user)
+        print('the_user     = ', the_user)
+        return redirect(request.META.get('HTTP_REFERER'))
