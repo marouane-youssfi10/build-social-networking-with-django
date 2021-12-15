@@ -27,11 +27,26 @@
                         </div><!--msg-title end-->
                         <div class="messages-list">
                             <ul>
-                                {% for message_user in messages_users %}
+                               <!-- {% for i in users %}
+                                    i.user      = {{ i.user }}      <br>
+                                    i.sender    = {{ i.sender }}    <br>
+                                    i.recipient = {{ i.recipient }} <br>
+                                    i.body      = {{ i.body }}      <br>
+                                    i.updated   = {{ i.updated }}   <br>
+                                    i.is_read   = {{ i.is_read }}   <br>
+                                    i.count     = {{ i.count }}     <br>
+                                    <hr>
+                                {% endfor %}
+                                <hr>
+                                <hr>
+                                <hr>
+                                {{ users.user }}
+                                <hr> -->
+                                {% for message_user in users %}
                                     {% if request.user != message_user.user %} <!-- exclude request.user -->
                                         {% if message_user.user == message_user.sender or message_user.user == message_user.recipient %}
                                             <li class="{% if to_user.user == message_user.user %}active{% endif %}">
-                                                <a href="{% url 'conversation' message_user.id %}">
+                                                <a href="{% url 'conversation' message_user.id %}"> <!--  url 'conversation' message_user.id  -->
                                                     <div class="usr-msg-details">
                                                         <div class="usr-ms-img">
                                                             <img src="{{ message_user.user.photo_profile.url }}">
@@ -41,8 +56,10 @@
                                                             <p>{{ message_user.body }}</p>
                                                         </div><!--usr-mg-info end-->
                                                         <span class="posted_time">{{ message_user.created | date:"h:i A" }}</span>
-                                                        {% if request.user != message_user.sender %}
-                                                            <span class="msg-notifc">1</span>
+                                                        {% if request.user == message_user.recipient %}
+                                                            {% if message_user.count != 0 %}
+                                                                <span class="msg-notifc">{{ message_user.count }}</span>
+                                                            {% endif %}
                                                         {% endif %}
                                                     </div><!--usr-msg-details end-->
                                                 </a>
