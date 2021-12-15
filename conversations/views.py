@@ -2,11 +2,20 @@ from django.shortcuts import render
 from .models import Message
 from django.http import HttpResponse
 from accounts.models import Account
+from django.db.models import Max, Min, Count
+from django.db.models import Subquery, OuterRef, F
 def inbox(request):
     # get all message of users  who send message
     messages_users = Message.objects.filter(recipient=request.user).exclude(user=request.user)
-    print('messages_users = ', messages_users)
+    test0 = Message.objects.all().exclude(user=request.user)
+    print('test0 = ', test0, '\n')
 
+    # messages = Message.objects.filter(user=user).values('recipient').annotate(last=Max('date')).order_by('-last')
+    test0_updated = test0.values('user', 'body').annotate(latest_date=Max('updated')).order_by('-updated')
+    print('test0_updated = ', test0_updated)
+    for i in test0_updated:
+        print(i)
+    print()
     context = {
         'messages_users': messages_users
     }
