@@ -2,7 +2,7 @@ from django.shortcuts import redirect
 
 # models
 from .models import Follow
-from posting.models import PostProject
+from posting.models import PostProject, PostJobs
 from accounts.models import UserProfile
 
 def follow_profile(request, pk):
@@ -36,11 +36,11 @@ def remove_like_projects(request, pk):
     return redirect(request.META.get('HTTP_REFERER'))
 
 def add_like_jobs(request, pk):
-    user_profile = UserProfile.objects.get(id=pk)
-    user_profile.likes.add(request.user)
+    jobs = PostJobs.objects.get(id=pk)
+    jobs.likes.add(request.user)
     return redirect(request.META.get('HTTP_REFERER'))
 
 def remove_like_jobs(request, pk):
-    user_profile = UserProfile.objects.get(id=pk)
-    user_profile.likes.remove(request.user)
+    jobs = PostJobs.objects.get(id=pk)
+    jobs.likes.remove(request.user)
     return redirect(request.META.get('HTTP_REFERER'))
