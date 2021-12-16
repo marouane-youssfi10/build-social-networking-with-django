@@ -39,7 +39,9 @@
                                                         </div>
                                                         <div class="usr-mg-info">
                                                             <h3>{{ message_user.user }}</h3>
-                                                            <p>{{ message_user.body }}</p>
+                                                            {% if message_user.body != None %}
+                                                                <p>{{ message_user.body }}</p>
+                                                            {% endif %}
                                                         </div><!--usr-mg-info end-->
                                                         <span class="posted_time">{{ message_user.updated | date:"h:i A" }}</span>
                                                         {% if request.user == message_user.recipient %}
@@ -90,10 +92,6 @@
                                             </div><!--messg-usr-img end-->
                                         </div>
                                     {% endif %}
-                                {% else %}
-                                    <div class="start_a_conversation">
-                                        <h1>Start a Conversation</h1>
-                                    </div>
                                 {% endif %}
                             {% endfor %}
 

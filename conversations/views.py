@@ -102,12 +102,19 @@ def add_user_to_conversation(request, pk):
         users.append(i.sender)
 
     if str(user_profile.user) in str(users):
-        print('if')
-        kamoun = Message.objects.filter(user=user_profile.user).latest('user')
-        return redirect('conversation', user_profile.user, kamoun.id)
-        # Message.objects.create(user=request.user, is_read=True)
-        # Message.objects.create(user=user_profile.user, is_read=True)
+        # get the last user message to redirect to conversations page with him
+        user_profile_id = Message.objects.filter(user=user_profile.user).latest('user')
+        return redirect('conversation', user_profile.user, user_profile_id.id)
     else:
-        Message.objects.create(user=request.user, sender=request.user, recipient=user_profile.user,is_read=True)
-        Message.objects.create(user=user_profile.user, sender=request.user, recipient=user_profile.user,is_read=True)
-    return HttpResponse('add_user_to_conversation')
+        Message.objects.create(user=request.user, sender=request.user, recipient=user_profile.user, is_read=True)
+        Message.objects.create(user=user_profile.user, sender=request.user, recipient=user_profile.user, is_read=True)
+        # get the last user message to redirect to conversations page with him
+        user_profile_id = Message.objects.filter(user=user_profile.user).latest('user')
+        return redirect('conversation', user_profile.user, user_profile_id.id)
+
+def check_message(request):
+    directs_count = 0
+    if request.user.is_authenticated:
+        directs_count = Message.objects.filter(user=request.user, is_read=False).count()
+
+    return {'directs_count': directs_count}
