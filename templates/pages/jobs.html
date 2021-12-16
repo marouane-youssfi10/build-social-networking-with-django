@@ -130,15 +130,17 @@
 											</ul>
 											<ul class="bk-links">
 												<li>
-													<!-- get the id of UserProfile -->
-													{% if user_profile in my_profile.saved_jobs.all %}
-														<a href="{% url 'unsaved-jobs' user_profile.id %}">
-															<i class="la la-check"></i>
-														</a>
-													{% else %}
-														<a href="{% url 'saved-jobs' user_profile.id %}">
-															<i class="la la-bookmark"></i>
-														</a>
+													{% if request.user != user_profile.user %}
+														<!-- get the id of UserProfile -->
+														{% if user_profile in my_profile.saved_jobs.all %}
+															<a href="{% url 'unsaved-jobs' user_profile.id %}">
+																<i class="la la-check"></i>
+															</a>
+														{% else %}
+															<a href="{% url 'saved-jobs' user_profile.id %}">
+																<i class="la la-bookmark"></i>
+															</a>
+														{% endif %}
 													{% endif %}
 												</li>
 												<li><a href="#"><i class="la la-envelope"></i></a></li>
