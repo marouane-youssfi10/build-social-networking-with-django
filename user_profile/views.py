@@ -4,7 +4,7 @@ from django.contrib import messages
 # models
 from accounts.models import UserProfile, Experience_user, TagsUser, Social_media
 from follow.models import Follow
-from posting.models import PostProject
+from posting.models import PostProject, PostJobs
 # forms
 from .forms import UserForm, UserProfileForm, ExperienceUserForm, TagsUserForm, SocialMediaForm
 # pagination
@@ -304,24 +304,24 @@ def change_password(request):
 @login_required(login_url='login')
 def saved_jobs(request, pk):
     # get your profile
-    my_profile = UserProfile.objects.get(user=request.user)
+    my_job = PostJobs.objects.get(user=request.user)
 
     # get the jobs you want to saved
-    user_profile = UserProfile.objects.get(id=pk)
+    user_job = PostJobs.objects.get(id=pk)
 
-    my_profile.saved_jobs.add(user_profile.id)
+    my_job.saved_jobs.add(user_job.id)
     return redirect(request.META.get('HTTP_REFERER'))
 
 # unsaved projects to my_profile
 @login_required(login_url='login')
 def unsaved_jobs(request, pk):
     # get your profile
-    my_profile = UserProfile.objects.get(user=request.user)
+    my_job = PostJobs.objects.get(user=request.user)
 
     # get the jobs you want to unsaved
-    user_profile = UserProfile.objects.get(id=pk)
+    user_job = PostJobs.objects.get(id=pk)
 
-    my_profile.saved_jobs.remove(user_profile.id)
+    my_job.saved_jobs.remove(user_job.id)
     return redirect(request.META.get('HTTP_REFERER'))
 
 # bid a project to my_profile
