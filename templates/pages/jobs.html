@@ -131,7 +131,7 @@
 											<ul class="bk-links">
 												<li>
 													<!-- get the id of UserProfile -->
-													{% if user_profile.user in my_profile.saved_jobs.all %}
+													{% if user_profile in my_profile.saved_jobs.all %}
 														<a href="{% url 'unsaved-jobs' user_profile.id %}">
 															<i class="la la-check"></i>
 														</a>

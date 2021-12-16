@@ -70,4 +70,4 @@ class PostJobs(models.Model):
         ordering = ['-created_job']
 
     def __str__(self):
-        return self.name_jobs
+        return str(self.user)

@@ -304,7 +304,7 @@ def change_password(request):
 @login_required(login_url='login')
 def saved_jobs(request, pk):
     # get your profile
-    my_job = PostJobs.objects.get(user=request.user)
+    my_job = UserProfile.objects.get(user=request.user)
 
     # get the jobs you want to saved
     user_job = PostJobs.objects.get(id=pk)
@@ -312,11 +312,11 @@ def saved_jobs(request, pk):
     my_job.saved_jobs.add(user_job.id)
     return redirect(request.META.get('HTTP_REFERER'))
 
-# unsaved projects to my_profile
+# unsaved jobs to my_profile
 @login_required(login_url='login')
 def unsaved_jobs(request, pk):
     # get your profile
-    my_job = PostJobs.objects.get(user=request.user)
+    my_job = UserProfile.objects.get(user=request.user)
 
     # get the jobs you want to unsaved
     user_job = PostJobs.objects.get(id=pk)

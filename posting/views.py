@@ -16,6 +16,7 @@ def index(request):
     projects = PostProject.objects.all()
     user_profiles = UserProfile.objects.all()[:5]
     my_profile = UserProfile.objects.get(user=request.user)
+    print('my_profile = ', my_profile.my_bids_projects.all())
     # for projects page
     paginator_project = Paginator(projects, 3)
     page_number_projects = request.GET.get('page')
@@ -30,9 +31,10 @@ def index(request):
 
 def jobs(request):
     all_user_profile = PostJobs.objects.all()
-    my_profile = PostJobs.objects.get(user=request.user)
+    my_profile = UserProfile.objects.get(user=request.user)
+
     # for jobs page
-    paginator_project = Paginator(all_user_profile, 2)
+    paginator_project = Paginator(all_user_profile, 5)
     page_number_projects = request.GET.get('page')
     page_all_user_profile = paginator_project.get_page(page_number_projects)
 
