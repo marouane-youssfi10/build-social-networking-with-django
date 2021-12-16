@@ -39,6 +39,7 @@
                                                         </div>
                                                         <div class="usr-mg-info">
                                                             <h3>{{ message_user.user }}</h3>
+                                                            <!-- check if message has a None -->
                                                             {% if message_user.body != None %}
                                                                 <p>{{ message_user.body }}</p>
                                                             {% endif %}

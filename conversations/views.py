@@ -8,7 +8,7 @@ def inbox(request):
     print('-------- inbox --------')
     # get all message of users  who send message
     messages_users = Message.objects.all()
-    messages_users = messages_users.filter(Q(recipient=request.user)| Q(sender=request.user)).order_by('user', '-created').distinct('user')
+    messages_users = messages_users.filter(Q(recipient=request.user)| Q(sender=request.user)).order_by('user', '-updated').distinct('user')
 
     users = []
     for message_user in messages_users:
@@ -30,6 +30,16 @@ def inbox(request):
             'is_read': message_user.is_read,
             'count': count
         })
+        # users = users.strip('[]')
+        # users.sort(key=lambda x: x['updated'])
+        users = sorted(users, key=lambda x: x['updated'], reverse=True)
+        # sorted(users.items(), key=lambda x: x[1])
+        # sorted(users, key=users.get, reverse=True)
+        # sorted(users, key=users.get, reverse=True)
+        # sorted(users.items(), key=lambda x: x[1], reverse=True)
+        print('------------------------')
+        print('users = ', users)
+        print('------------------------')
     # initializing to_user when redirect to page message for start a conversations
     to_user = {'id': 0, 'name': 'test'}
     context = {
@@ -49,8 +59,10 @@ def conversations(request, message_user, message_user_id):
     # get all Message
     messages_users = Message.objects.all()
     # filter message with request.user whatever in sender or recipient
-    messages_users = messages_users.filter(Q(recipient=request.user) | Q(sender=request.user)).order_by('user', '-created').distinct('user')
-    users = [] # create list named users for storing data plus count message no reading
+    messages_users = messages_users.filter(Q(recipient=request.user) | Q(sender=request.user)).order_by('user', '-updated').distinct('user')
+
+    # create list named users for storing data plus count message no reading
+    users = []
     for message_user in messages_users:
         # filtering with getting rows with is_read false message
         count = Message.objects.filter(
@@ -60,9 +72,10 @@ def conversations(request, message_user, message_user_id):
         # append to users data
         users.append({
             'id': message_user.id, 'user': message_user.user, 'sender': message_user.sender, 'recipient': message_user.recipient,
-            'body': message_user.body, 'created': message_user.created, 'updated': message_user.updated,'is_read': message_user.is_read,
+            'body': message_user.body, 'created': message_user.created, 'updated': message_user.updated, 'is_read': message_user.is_read,
             'count': count
         })
+    users = sorted(users, key=lambda x: x['updated'], reverse=True)
     # to_user for active background color when the user read the conversations
     to_user = Message.objects.get(id=message_user_id)
 
