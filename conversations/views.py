@@ -3,6 +3,7 @@ from .models import Message
 from django.db.models import Q
 from django.http import HttpResponse
 from accounts.models import UserProfile
+from django.contrib.auth.decorators import login_required
 def inbox(request):
     print('-------- inbox --------')
     # get all message of users  who send message
@@ -116,5 +117,5 @@ def check_message(request):
     directs_count = 0
     if request.user.is_authenticated:
         directs_count = Message.objects.filter(user=request.user, is_read=False).count()
-
+        print('directs_count = ', directs_count)
     return {'directs_count': directs_count}

@@ -5477,15 +5477,23 @@ height: 637px;
 /* ---- new ----*/
 
 
+/* for notifications icons */
 .badge{
     position:absolute;
     right:35px;
     bottom:35px;
 }
+
+/* for message icons */
+.message_noti{
+    position:relative;
+    top:14px;
+    left:22px;
+}
+
 .start_a_conversation{
     position:relative;
     top:40%;
     left:35%;
     font-size:30px;
 }
-

@@ -1,12 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.http import HttpResponse
 # models
 from accounts.models import UserProfile, Experience_user, TagsUser, Social_media
 from follow.models import Follow
 from posting.models import PostProject
-from accounts.models import Account
 # forms
 from .forms import UserForm, UserProfileForm, ExperienceUserForm, TagsUserForm, SocialMediaForm
 # pagination

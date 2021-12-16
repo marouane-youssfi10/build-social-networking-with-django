@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import NotificationProjects
 from accounts.models import UserProfile
 from posting.models import PostProject
+from conversations.models import Message
 
 def show_notifications(request):
     notifications = NotificationProjects.objects.filter(to_user=request.user)
@@ -15,7 +16,7 @@ def show_notifications(request):
 
 def count_notifications(request):
     count_notifications = 0
-
+    directs_count = 0
     if request.user.is_authenticated:
         request_user_profile = UserProfile.objects.get(id=request.user.id)
         request_user_postproject = PostProject.objects.filter(user=request.user)
@@ -27,6 +28,7 @@ def count_notifications(request):
         count_notifications = int(count_notifications_projects) + int(count_notifications_jobs)
 
     return {'count_notifications': count_notifications}
+
 
 
 

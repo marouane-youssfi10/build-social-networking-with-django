@@ -73,6 +73,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.csrf',
                 'notifications.views.count_notifications',
+                'conversations.views.check_message',
             ],
         },
     },
@@ -93,7 +94,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': "social_networking",
         'USER': 'postgres',
-        'PASSWORD': '*****',
+        'PASSWORD': '*******',
         'HOST': 'localhost',
     }
 }

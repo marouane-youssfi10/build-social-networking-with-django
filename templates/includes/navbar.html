@@ -40,8 +40,15 @@
 						</li>
 						<li>
 							<a href="{% url 'messages' %}">
-								<span><img src="{% static 'images/icon6.png' %}"></span>
+
+								<span>
+									<!--<span><img src="{% static 'images/icon6.png' %}"></span>-->
+									<i class="fa fa-envelope" aria-hidden="true"></i>
+								</span>
 								Messages
+								<div class="message_noti">
+									<span class="badge badge-light">{{ directs_count }}</span>
+								</div>
 							</a>
 						</li>
 						<li>
