@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Message
 from django.db.models import Q
 from django.http import HttpResponse
-
+from accounts.models import UserProfile
 def inbox(request):
     print('-------- inbox --------')
     # get all message of users  who send message
@@ -11,13 +11,13 @@ def inbox(request):
 
     users = []
     for message_user in messages_users:
-        # print('messages_users.id = ', message_user.id)
+        # filtering with getting rows with others users with counting how messages sending unreading
         count = Message.objects.filter(
             sender=message_user.sender,
             recipient=message_user.recipient,
             is_read=False
         ).exclude(user=request.user).count()
-
+        # append to users data
         users.append({
             'id': message_user.id,
             'user': message_user.user,
@@ -29,6 +29,7 @@ def inbox(request):
             'is_read': message_user.is_read,
             'count': count
         })
+    # initializing to_user when redirect to page message for start a conversations
     to_user = {'id': 0, 'name': 'test'}
     context = {
         'users': users,
@@ -55,7 +56,7 @@ def conversations(request, message_user, message_user_id):
             user=request.user, sender=message_user.sender,
             recipient=message_user.recipient, is_read=False
         ).count()
-        # append users data
+        # append to users data
         users.append({
             'id': message_user.id, 'user': message_user.user, 'sender': message_user.sender, 'recipient': message_user.recipient,
             'body': message_user.body, 'created': message_user.created, 'updated': message_user.updated,'is_read': message_user.is_read,
@@ -82,8 +83,31 @@ def send_message(request, to_user):
 
     if request.POST:
         body = request.POST['send_message']
+        # create two message with different user and the same sender & recipient & body plus unreading
         Message.objects.create(user=request.user, sender=request.user, recipient=the_user.user, body=body, is_read=False)
         Message.objects.create(user=the_user.user, sender=request.user, recipient=the_user.user, body=body, is_read=False)
-        print('request.user = ', request.user)
-        print('the_user     = ', the_user)
         return redirect(request.META.get('HTTP_REFERER'))
+
+def add_user_to_conversation(request, pk):
+    print('--------------- add_user_to_conversation ---------------')
+    user_profile = UserProfile.objects.get(id=pk)
+    # print('user_profile.user = ', user_profile.user)
+    # sajib wach kayn f hagar.Message
+
+    var = Message.objects.filter(
+        Q(user=request.user, sender=user_profile.user) | Q(user=request.user, recipient=user_profile.user))
+    users = []
+
+    for i in var:
+        users.append(i.sender)
+
+    if str(user_profile.user) in str(users):
+        print('if')
+        kamoun = Message.objects.filter(user=user_profile.user).latest('user')
+        return redirect('conversation', user_profile.user, kamoun.id)
+        # Message.objects.create(user=request.user, is_read=True)
+        # Message.objects.create(user=user_profile.user, is_read=True)
+    else:
+        Message.objects.create(user=request.user, sender=request.user, recipient=user_profile.user,is_read=True)
+        Message.objects.create(user=user_profile.user, sender=request.user, recipient=user_profile.user,is_read=True)
+    return HttpResponse('add_user_to_conversation')
