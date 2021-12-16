@@ -5497,3 +5497,8 @@ height: 637px;
     left:35%;
     font-size:30px;
 }
+
+#message_text{
+   background-color:#e44d3a;
+   color:white;
+}
