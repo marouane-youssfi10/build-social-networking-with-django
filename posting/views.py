@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.db.models import Q
 from django.http import HttpResponse
 # models
-from .models import PostProject, TagsProjects
+from .models import PostProject, TagsProjects, TagsJobs, PostJobs
 from accounts.models import UserProfile
 # forms
 from .forms import PostProjectForm, TagsProjectsForm
@@ -29,8 +29,8 @@ def index(request):
     return render(request, 'pages/projects.html', context)
 
 def jobs(request):
-    all_user_profile = UserProfile.objects.all()
-    my_profile = UserProfile.objects.get(user=request.user)
+    all_user_profile = PostJobs.objects.all()
+    my_profile = PostJobs.objects.get(user=request.user)
     # for jobs page
     paginator_project = Paginator(all_user_profile, 2)
     page_number_projects = request.GET.get('page')

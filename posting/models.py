@@ -51,7 +51,7 @@ class PostProject(models.Model):
 class PostJobs(models.Model):
     user = models.ForeignKey("accounts.Account", on_delete=models.CASCADE, related_name='job')
     name_jobs = models.CharField(max_length=100, blank=False, null=False)
-    type_work_project = models.CharField(max_length=100, blank=False, null=False)
+    type_work_job = models.CharField(max_length=100, blank=False, null=False)
     epic_coder = models.CharField(max_length=100, blank=False, null=False)
     location = models.CharField(max_length=100, blank=False, null=False)
     price = models.IntegerField(blank=False, null=False)
