@@ -1,6 +1,6 @@
 from django.db import models
 # models
-from posting.models import PostProject
+from posting.models import PostProject, PostJobs
 
 class CommentProjects(models.Model):
     post_project = models.ForeignKey(PostProject, on_delete=models.CASCADE, related_name='post_project_comment')
@@ -18,7 +18,7 @@ class CommentProjects(models.Model):
         ordering = ['-updated']
 
 class CommentJobs(models.Model):
-    jobs_profile = models.ForeignKey("accounts.PostJobs", on_delete=models.CASCADE, related_name='jobs_profile')
+    jobs_profile = models.ForeignKey(PostJobs, on_delete=models.CASCADE, related_name='jobs_profile')
     user_job = models.ForeignKey("accounts.Account", on_delete=models.CASCADE, related_name='user_job')
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
