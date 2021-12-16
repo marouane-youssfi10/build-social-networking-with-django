@@ -129,6 +129,7 @@ def add_user_to_conversation(request, pk):
 def check_message(request):
     directs_count = 0
     if request.user.is_authenticated:
-        directs_count = Message.objects.filter(user=request.user, is_read=False).count()
+        # filter with user and recipient because see who send you a message for counting.
+        directs_count = Message.objects.filter(user=request.user, recipient=request.user, is_read=False).count()
         print('directs_count = ', directs_count)
     return {'directs_count': directs_count}
