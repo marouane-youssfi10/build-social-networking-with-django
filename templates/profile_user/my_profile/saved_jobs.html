@@ -1,21 +1,22 @@
 {% load static %}
+{% load humanize %}
 <div class="posts-section">
     <!-- get all users you are saved their jobs-->
     {% for profile in my_profile.saved_jobs.all %}
         <div class="post-bar">
             <div class="post_topbar">
                 <div class="usy-dt">
-                    <img src="{{ profile.photo_profile.url }}" width="50" height="50">
+                    <img src="{{ profile.user.photo_profile.url }}" width="50" height="50">
                     <div class="usy-name">
-                        <h3>{{ profile.full_name }}</h3>
-                        <span><img src="images/clock.png" alt="">3 min ago</span>
+                        <h3>{{ profile.user.full_name }}</h3>
+                        <span><img src="images/clock.png" alt="">{{ profile.updated_job | naturaltime }}</span>
                     </div>
                 </div>
             </div>
             <div class="epi-sec">
                 <ul class="descp">
-                    <li><img src="{% static 'images/icon8.png' %}" alt=""><span>Epic Coder</span></li>
-                    <li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ profile.userprofile.location_country }}</span></li>
+                    <li><img src="{% static 'images/icon8.png' %}" alt=""><span>{{ profile.epic_coder }}</span></li>
+                    <li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ profile.location }}</span></li>
                 </ul>
                 <ul class="bk-links">
                     <li>
@@ -34,14 +35,14 @@
                 </ul>
             </div>
             <div class="job_descp">
-                <h3>{{ profile.userprofile.title }}</h3>
+                <h3>{{ profile.name_jobs }}</h3>
                 <ul class="job-dt">
-                    <li><a href="#" title="">{{ profile.userprofile.type_work }}</a></li>
-                    <li><span>${{ profile.userprofile.hourly_work }} / hr</span></li>
+                    <li><a>{{ profile.type_work_job }}</a></li>
+                    <li><span>${{ profile.price }} / hr</span></li>
                 </ul>
-                <p>{{ profile.userprofile.overview }} <a href="#" title="">view more</a></p>
+                <p>{{ profile.description_job }} ....<a href="#" title="">view more</a></p>
                 <ul class="skill-tags">
-                    {% for tag in profile.userprofile.skills_tags_user.all %}
+                    {% for tag in profile.skills_tags_jobs.all %}
                         <li><a>{{ tag }}</a></li>
                     {% endfor %}
                 </ul>
@@ -50,14 +51,14 @@
                 <ul class="like-com">
                     <li>
                         <!-- check the user if do a like -->
-                        {% if request.user in profile.userprofile.likes.all %}
+                        {% if request.user in profile.likes.all %}
                             <a href="{% url 'remove-like-post-jobs' profile.id %}" class="active"><i class="la la-heart"></i> Like</a>
                             <img src="{% static 'images/liked-img.png' %}">
-                            <span>{{ profile.userprofile.likes.all.count }}</span>
+                            <span>{{ profile.likes.all.count }}</span>
                         {% else %}
                             <a href="{% url 'add-like-post-jobs' profile.id %}"><i class="la la-heart"></i> Like</a>
                             <img src="{% static 'images/liked-img.png' %}">
-                            <span>{{ profile.userprofile.likes.all.count }}</span>
+                            <span>{{ profile.likes.all.count }}</span>
                         {% endif %}
                     </li> <!-- Like -->
                 </ul>
