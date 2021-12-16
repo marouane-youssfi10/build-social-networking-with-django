@@ -30,16 +30,10 @@ def inbox(request):
             'is_read': message_user.is_read,
             'count': count
         })
-        # users = users.strip('[]')
-        # users.sort(key=lambda x: x['updated'])
-        users = sorted(users, key=lambda x: x['updated'], reverse=True)
-        # sorted(users.items(), key=lambda x: x[1])
-        # sorted(users, key=users.get, reverse=True)
-        # sorted(users, key=users.get, reverse=True)
-        # sorted(users.items(), key=lambda x: x[1], reverse=True)
-        print('------------------------')
-        print('users = ', users)
-        print('------------------------')
+
+    # sort data from max to min by date
+    users = sorted(users, key=lambda x: x['updated'], reverse=True)
+
     # initializing to_user when redirect to page message for start a conversations
     to_user = {'id': 0, 'name': 'test'}
     context = {
@@ -75,7 +69,10 @@ def conversations(request, message_user, message_user_id):
             'body': message_user.body, 'created': message_user.created, 'updated': message_user.updated, 'is_read': message_user.is_read,
             'count': count
         })
+
+    # sort data from max to min by date
     users = sorted(users, key=lambda x: x['updated'], reverse=True)
+
     # to_user for active background color when the user read the conversations
     to_user = Message.objects.get(id=message_user_id)
 
