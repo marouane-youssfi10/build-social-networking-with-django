@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from .models import PostProject, TagsProjects, TagsJobs, PostJobs
 from accounts.models import UserProfile
 # forms
-from .forms import PostProjectForm, TagsProjectsForm
+from .forms import PostProjectForm, TagsProjectsForm, PostJobForm, TagsJobForm
 # pagination
 from django.core.paginator import Paginator
 
@@ -160,52 +160,53 @@ def post_projects(request):
 # this method for posting a job
 def post_job(request):
     if request.method == 'POST':
-        form_post_project = PostProjectForm(request.POST)
-        form_tags_post_project = TagsProjectsForm(request.POST)
+        form_post_job = PostJobForm(request.POST)
+        form_tags_post_job = TagsJobForm(request.POST)
 
-        print('form_post_projects.is_valid()     = ', form_post_project.is_valid())
-        print('form_tags_post_project.is_valid() = ', form_tags_post_project.is_valid())
+        print('form_post_projects.is_valid()     = ', form_post_job.is_valid())
+        print('form_tags_post_project.is_valid() = ', form_tags_post_job.is_valid())
         tags_objs = []
-        if form_post_project.is_valid() and form_tags_post_project.is_valid():
+        if form_post_job.is_valid() and form_tags_post_job.is_valid():
             # get the values of post_project
-            name_project = form_post_project.cleaned_data['name_project']
-            type_work_project = form_post_project.cleaned_data['type_work_project']
-            location = form_post_project.cleaned_data['location']
-            start_price = form_post_project.cleaned_data['start_price']
-            end_price = form_post_project.cleaned_data['end_price']
-            description_project = form_post_project.cleaned_data['description_project']
+            name_jobs = form_post_job.cleaned_data['name_jobs']
+            type_work_job = form_post_job.cleaned_data['type_work_job']
+            epic_coder = form_post_job.cleaned_data['epic_coder']
+            location = form_post_job.cleaned_data['location']
+            price = form_post_job.cleaned_data['price']
+            description_job = form_post_job.cleaned_data['description_job']
 
             # get the value of tags_post_values list
-            tags_projects = form_tags_post_project.cleaned_data['tag']
-            tags_list = list(tags_projects.split(','))  # separate values with commas
+            tags_jobs = form_tags_post_job.cleaned_data['tag']
+            tags_list = list(tags_jobs.split(','))  # separate values with commas
             for tag in tags_list:
                 # save the information updated
-                tag, created = TagsProjects.objects.get_or_create(tags_users_projects=request.user, tag=tag)
+                tag, created = TagsJobs.objects.get_or_create(tags_users_jobs=request.user, tag=tag)
                 tags_objs.append(tag)
 
-            form_post_projects = PostProject.objects.create(
+            form_post_jobs = PostJobs.objects.create(
                 user=request.user,
-                name_project=name_project,
-                type_work_project=type_work_project,
+                name_jobs=name_jobs,
+                type_work_job=type_work_job,
+                epic_coder=epic_coder,
                 location=location,
-                start_price=start_price,
-                end_price=end_price,
-                description_project=description_project
+                price=price,
+                description_job=description_job
             )
             # add tag_obj to skills tags projects
-            form_post_projects.skills_tags_projects.set(tags_objs)
-            form_post_projects.save()
+            form_post_jobs.skills_tags_jobs.set(tags_objs)
+            form_post_jobs.save()
 
-            messages.success(request, 'Your Project is created')
-            return redirect('/projects/')
+            messages.success(request, 'Your Job is created')
+            return redirect('/jobs/')
     else:
-        form_post_project = PostProjectForm()
-        form_tags_post_project = TagsProjectsForm()
+        form_post_job = PostJobForm()
+        form_tags_post_job = TagsJobForm()
 
     context = {
-        'form_post_project': form_post_project,
-        'form_tags_post_project': form_tags_post_project
+        'form_post_job': form_post_job,
+        'form_tags_post_job': form_tags_post_job
     }
+    return render(request, 'post/post_job.html', context)
 
 def search_projects(request):
     print('-------------search projects -------------------------')

@@ -16,7 +16,7 @@ urlpatterns = [
 
     # page Jobs
     path('jobs/', views.jobs, name="jobs"),
-    path('post-job/', views.post_job, name="post-project"),
+    path('post-job/', views.post_job, name="post-job"),
     path('jobs/search/', views.search_jobs, name="search-jobs"),
     path('jobs/filter/', views.filter_jobs, name="filter-jobs"),
 
