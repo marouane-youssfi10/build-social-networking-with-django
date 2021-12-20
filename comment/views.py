@@ -11,11 +11,11 @@ from .forms import CommentProjectsForm, CommentJobsForm
 
 # ----------------------- project ----------------------------
 def comment_project(request, project_id):
-    # post_project = models.ForeignKey(PostProject, related_name='post_project')
     post_project = PostProject.objects.get(id=project_id)
     comments = post_project.post_project_comment.all()
-    my_profile = UserProfile.objects.get(user=request.user)
     comments_count = comments.count()
+
+    my_profile = UserProfile.objects.get(user=request.user)
 
     context = {
         'project': post_project,
@@ -67,14 +67,15 @@ def edit_comment_project(request, comment_id):
 def comment_jobs(request, jobs_id):
     print('----------- comment_jobs -----------')
     user_profile_job = PostJobs.objects.get(id=jobs_id)
+    comments = user_profile_job.post_job_comment.all()
+    comments_count = comments.count()
+
     my_profile = UserProfile.objects.get(user=request.user)
-    comments = CommentJobs.objects.get(id=user_profile_job.id)
-    # comments_count = comments.count()
 
     context = {
         'user_profile_job': user_profile_job,
         'my_profile': my_profile,
-        # 'comments_count': comments_count,
+        'comments_count': comments_count,
     }
     return render(request, 'comment/comment_post_job.html', context)
 
