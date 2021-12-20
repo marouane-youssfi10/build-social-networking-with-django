@@ -21,7 +21,9 @@
                                             like your post project "{{ notification.post_project }}"
                                         </a>
                                     {% else %}
-                                        like your job profile
+                                        <a href="{% url 'comment' notification.post_job.id %}" style="color:black">
+                                            like your post project "{{ notification.post_job }}"
+                                        </a>
                                     {% endif %}
                                 </p>
                                 <span>{{ notification.created | naturaltime }}</span>
@@ -43,10 +45,10 @@
                                     {% if notification.post_project %}
                                         <a href="{% url 'comment' notification.post_project.id %}" style="color:black">
                                             comment on your project "{{ notification.post_project }}"
-                                            {{ notification.body | truncatechars:50}}
+                                            {{ notification.body | truncatechars:50 }}
                                         </a>
                                     {% else %}
-                                        comment on your jobs profile "{{ notification.post_job.title }}"<br>
+                                        comment on your jobs profile "{{ notification.post_job.description_job | truncatechars:50 }}"<br>
                                         {{ notification.body | truncatechars:50}}
                                     {% endif %}
                                 </p>

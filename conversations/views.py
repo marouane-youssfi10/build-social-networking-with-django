@@ -128,5 +128,4 @@ def check_message(request):
     if request.user.is_authenticated:
         # filter with user and recipient because see who send you a message for counting.
         directs_count = Message.objects.filter(user=request.user, recipient=request.user, is_read=False).count()
-        print('directs_count = ', directs_count)
     return {'directs_count': directs_count}

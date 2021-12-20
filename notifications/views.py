@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from .models import NotificationProjects
-from accounts.models import UserProfile
-from posting.models import PostProject
+from posting.models import PostProject, PostJobs
 from conversations.models import Message
 
 def show_notifications(request):
@@ -16,15 +15,20 @@ def show_notifications(request):
 
 def count_notifications(request):
     count_notifications = 0
-    directs_count = 0
     if request.user.is_authenticated:
-        request_user_profile = UserProfile.objects.get(id=request.user.id)
-        request_user_postproject = PostProject.objects.filter(user=request.user)
-        ids = request_user_postproject.values_list('pk', flat=True)
-        ids = list(ids)
+        request_user_post_job = PostJobs.objects.filter(user=request.user)
+        request_user_post_project = PostProject.objects.filter(user=request.user)
 
-        count_notifications_projects = NotificationProjects.objects.filter(post_project__in=ids, is_seen=False).count()
-        count_notifications_jobs = NotificationProjects.objects.filter(post_job=request_user_profile, is_seen=False).count()
+        # take the id of notifications currently user
+        ids_job = request_user_post_job.values_list('pk', flat=True)
+        ids_job = list(ids_job)
+
+        ids_project = request_user_post_project.values_list('pk', flat=True)
+        ids_project = list(ids_project)
+
+        # get all notifications not seeing and count them
+        count_notifications_projects = NotificationProjects.objects.filter(post_project__in=ids_project, is_seen=False).count()
+        count_notifications_jobs = NotificationProjects.objects.filter(post_job__in=ids_job, is_seen=False).count()
         count_notifications = int(count_notifications_projects) + int(count_notifications_jobs)
 
     return {'count_notifications': count_notifications}
