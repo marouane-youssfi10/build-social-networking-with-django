@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="post-project col-lg-6">
+        <br>
+        <h3>Post a project</h3>
+        <div class="post-project-fields">
+            <form method="POST" action="{% url 'post-job' %}">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-6">
+                        {{ form_post_project.name_project }}
+                    </div>
+                    <div class="col-lg-6">
+                        {{ form_post_project.type_work_project }}
+                    </div>
+                    <div class="col-lg-12">
+                        {{ form_post_project.location }}
+                    </div>
+
+                    <div class="col-lg-6">
+                        {{ form_post_project.start_price }}
+                    </div>
+
+                    <div class="col-lg-6">
+                        {{ form_post_project.end_price }}
+                    </div>
+
+                    <div class="col-lg-12">
+                        {{ form_post_project.description_project }}
+                    </div>
+
+                    <div class="col-lg-12">
+                        {{ form_tags_post_project.tag }}
+                    </div>
+                    <div class="col-lg-12">
+                        <ul>
+                            <li><button class="active" type="submit" value="post">Post</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </div><!--post-project-fields end-->
+    </div><!--post-project end-->
+{% endblock content %}
