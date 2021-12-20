@@ -10,13 +10,13 @@ from .forms import PostProjectForm, TagsProjectsForm
 # pagination
 from django.core.paginator import Paginator
 
-def index(request):
-    print('-------------index -------------------------')
+def projects(request):
+    print('-----------------  projects ---------------------')
     # get all user who posting projects and user profile
     projects = PostProject.objects.all()
     user_profiles = UserProfile.objects.all()[:5]
     my_profile = UserProfile.objects.get(user=request.user)
-    print('my_profile = ', my_profile.my_bids_projects.all())
+
     # for projects page
     paginator_project = Paginator(projects, 3)
     page_number_projects = request.GET.get('page')
@@ -30,6 +30,7 @@ def index(request):
     return render(request, 'pages/projects.html', context)
 
 def jobs(request):
+    # get all jobs users and my profile
     all_user_profile = PostJobs.objects.all()
     my_profile = UserProfile.objects.get(user=request.user)
 

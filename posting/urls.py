@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     # page projects
-    path('projects/', views.index, name="projects"),
+    path('projects/', views.projects, name="projects"),
     path('post-project/', views.post_projects, name="post-project"),
     path('projects/search/', views.search_projects, name="search-projects"),
     path('projects/filter/', views.filter_project, name="filter-projects"),
