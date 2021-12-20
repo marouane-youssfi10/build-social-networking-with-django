@@ -44,12 +44,14 @@
                                     </a>
                                     {% if notification.post_project %}
                                         <a href="{% url 'comment' notification.post_project.id %}" style="color:black">
-                                            comment on your project "{{ notification.post_project }}"
+                                            comment on your post project "{{ notification.post_project }}"
                                             {{ notification.body | truncatechars:50 }}
                                         </a>
                                     {% else %}
-                                        comment on your jobs profile "{{ notification.post_job.description_job | truncatechars:50 }}"<br>
-                                        {{ notification.body | truncatechars:50}}
+                                        <a href="{% url 'comment' notification.post_job.id %}" style="color:black">
+                                            comment on your post job "{{ notification.post_job.description_job | truncatechars:50 }}"<br>
+                                            {{ notification.body | truncatechars:50}}
+                                        </a>
                                     {% endif %}
                                 </p>
                                 <span>{{ notification.created | naturaltime }}</span>
@@ -59,7 +61,7 @@
                     {% endif %}
 
                     {% if notification.notification_type == 3 %}
-                            <div class="notfication-details" {% if notification.is_seen %} {% else %} style="background-color:#eeeeee;" {% endif %}>
+                        <div class="notfication-details" {% if notification.is_seen %} {% else %} style="background-color:#eeeeee;" {% endif %}>
                                 <div class="noty-user-img">
                                     <img src="{{ notification.sender.photo_profile.url }}" height="40">
                                 </div>
@@ -77,8 +79,8 @@
                                 </div><!--notification-info -->
 
                             </div>
-                        {% endif %}
-                    {% endfor %}
+                    {% endif %}
+                {% endfor %}
             </div><!--nott-list end-->
         </div><!--post-project-fields end-->
     </div><!--post-project end-->

@@ -26,10 +26,14 @@ def count_notifications(request):
         ids_project = request_user_post_project.values_list('pk', flat=True)
         ids_project = list(ids_project)
 
-        # get all notifications not seeing and count them
+        # get notifications "follow" not seeing and count them
+        count_follow = NotificationProjects.objects.filter(notification_type=3, is_seen=False).count()
+
+        # get all notifications "like, comment" not seeing and count them
         count_notifications_projects = NotificationProjects.objects.filter(post_project__in=ids_project, is_seen=False).count()
         count_notifications_jobs = NotificationProjects.objects.filter(post_job__in=ids_job, is_seen=False).count()
-        count_notifications = int(count_notifications_projects) + int(count_notifications_jobs)
+        count_notifications = int(count_notifications_projects) + int(count_notifications_jobs) + int(count_follow)
+
 
     return {'count_notifications': count_notifications}
 
