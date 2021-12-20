@@ -75,24 +75,23 @@ def m2m_changed_likes_project(sender, instance, action, pk_set, **kwargs):
                                             notification_type=1)
                 notify.save()
 
-# @receiver(post_save, sender=CommentJobs)
-# def post_save_comment_jobs(instance, **kwargs):
-#     user = instance
-#     user_post = user.post_job
-#     request_user = user.user_job
-#     to_user = user.post_job.user
-#     body = user.body
-#
-#     if not NotificationProjects.objects.filter(post_job=user_post, sender=request_user, to_user=to_user, body=body, notification_type=2).exists():
-#         """ avoid save into NotificationProjects request_user == to_user for not showing notification
-#         to your profile with like or comment"""
-#         if to_user != request_user:
-#             notify = NotificationProjects(post_job=user_post,
-#                                           sender=request_user,
-#                                           to_user=to_user,
-#                                           body=body,
-#                                           notification_type=2)
-#             notify.save()
+@receiver(post_save, sender=CommentJobs)
+def post_save_comment_jobs(instance, **kwargs):
+    user = instance
+    user_post = user.post_job
+    request_user = user.user_job
+    to_user = user.post_job.user
+    body = user.body
+    if not NotificationProjects.objects.filter(post_job=user_post, sender=request_user, to_user=to_user, body=body, notification_type=2).exists():
+        """ avoid save into NotificationProjects request_user == to_user for not showing notification
+        to your profile with like or comment"""
+        if to_user != request_user:
+            notify = NotificationProjects(post_job=user_post,
+                                          sender=request_user,
+                                          to_user=to_user,
+                                          body=body,
+                                          notification_type=2)
+            notify.save()
 
 
 # NOTIFICATION_TYPES  ,post_project ,sender  ,to_user ,notification_type ,text_preview ,created
