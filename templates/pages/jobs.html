@@ -175,7 +175,8 @@
 												</li>
 												<li>
 													<a class="com" href="{% url 'comment-jobs' user_profile_job.id %}">
-														<img src="{% static 'images/com.png' %}"> Comment {{ user_profile_job.jobs_profile.all.count }}
+														<img src="{% static 'images/com.png' %}">
+														Comment {{ user_profile_job.post_job_comment.all.count }}
 													</a>
 												</li>
 											</ul>

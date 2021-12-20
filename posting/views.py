@@ -14,7 +14,6 @@ def projects(request):
     print('-----------------  projects ---------------------')
     # get all user who posting projects and user profile
     projects = PostProject.objects.all()
-    user_profiles = UserProfile.objects.all()[:5]
     my_profile = UserProfile.objects.get(user=request.user)
 
     # for projects page
@@ -24,18 +23,18 @@ def projects(request):
 
     context = {
         'projects': page_projects,
-        'user_profiles': user_profiles,
         'my_profile': my_profile
     }
     return render(request, 'pages/projects.html', context)
 
 def jobs(request):
+    print('-----------------  jobs ---------------------')
     # get all jobs users and my profile
     all_user_profile = PostJobs.objects.all()
     my_profile = UserProfile.objects.get(user=request.user)
 
     # for jobs page
-    paginator_project = Paginator(all_user_profile, 5)
+    paginator_project = Paginator(all_user_profile, 3)
     page_number_projects = request.GET.get('page')
     page_all_user_profile = paginator_project.get_page(page_number_projects)
 
