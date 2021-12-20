@@ -1,7 +1,7 @@
 from django.db.models.signals import m2m_changed, post_save
 from django.dispatch import receiver
 # models
-from posting.models import PostProject
+from posting.models import PostProject, PostJobs
 from .models import NotificationProjects
 from accounts.models import Account, UserProfile
 from comment.models import CommentProjects, CommentJobs
@@ -58,17 +58,13 @@ def post_save_follow_projects(instance, action, pk_set, **kwargs):
                 notify.save()
 
 # Jobs
-@receiver(m2m_changed, sender=UserProfile.likes.through)
+@receiver(m2m_changed, sender=PostJobs.likes.through)
 def m2m_changed_likes_project(sender, instance, action, pk_set, **kwargs):
     if action == 'post_add':
-        user_post = instance.user.user_profile
+        user_post = instance
         to_user = instance.user
         request_user_id = list(pk_set)[0]
         request_user = Account.objects.get(id=request_user_id)
-        print('user_post       = ', user_post)
-        print('to_user         = ', to_user)
-        print('request_user_id = ', request_user_id)
-        print('request_user    = ', request_user)
         if not NotificationProjects.objects.filter(post_job=user_post, sender=request_user, to_user=to_user, notification_type=1).exists():
             if to_user != request_user:
                 notify = NotificationProjects(post_job=user_post, sender=request_user, to_user=to_user,
