@@ -76,6 +76,7 @@ def comment_jobs(request, jobs_id):
     context = {
         'user_profile_job': user_profile_job,
         'my_profile': my_profile,
+        'comments': comments,
         'comments_count': comments_count,
     }
     return render(request, 'comment/comment_post_job.html', context)
@@ -88,7 +89,7 @@ def post_comment_jobs(request, jobs_id):
         print('--------------------')
         if comment_post_job_form.is_valid():
             comment = comment_post_job_form.save(commit=False)
-            comment.jobs_profile = post_job
+            comment.post_job = post_job
             comment.user_job = request.user
             comment.body = request.POST['body']
             comment.save()
@@ -101,7 +102,7 @@ def delete_comment_jobs(request, comment_id):
 
 def edit_comment_jobs(request, comment_id):
     comment_jobs = CommentJobs.objects.get(id=comment_id)
-    jobs_id = comment_jobs.jobs_profile.id
+    jobs_id = comment_jobs.post_job.id
     if request.method == 'POST':
         comment_jobs_form = CommentJobsForm(request.POST, request.FILES, instance=comment_jobs)
         if comment_jobs_form.is_valid():
