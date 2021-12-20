@@ -102,18 +102,18 @@
 						<div class="main-ws-sec">
 							<div class="posts-section">
 								{{ no_result }}
-								{% for user_profile in all_user_profile %}
+								{% for user_profile_job in all_user_profile %}
 									<!-- this condition for complete user his all information and listing-->
 									<div class="post-bar">
 										<div class="post_topbar">
 											<div class="usy-dt">
-												<img src="{{ user_profile.user.photo_profile.url }}" width="50" height="50">
+												<img src="{{ user_profile_job.user.photo_profile.url }}" width="50" height="50">
 												<div class="usy-name">
-													<h3>{{ user_profile.user.full_name }}</h3>
-													<span><img src="{% static 'images/clock.png' %}" alt="">{{ user_profile.created_job | naturaltime }}</span>
+													<h3>{{ user_profile_job.user.full_name }}</h3>
+													<span><img src="{% static 'images/clock.png' %}" alt="">{{ user_profile_job.created_job | naturaltime }}</span>
 												</div>
 											</div>
-											{% if user_profile.user == request.user %}
+											{% if user_profile_job.user == request.user %}
 												<div class="ed-opts">
 													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
 													<ul class="ed-options">
@@ -125,19 +125,19 @@
 										</div>
 										<div class="epi-sec">
 											<ul class="descp">
-												<li><img src="{% static 'images/icon8.png' %}" alt=""><span>{{ user_profile.epic_coder }}</span></li>
-												<li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ user_profile.location }}</span></li>
+												<li><img src="{% static 'images/icon8.png' %}" alt=""><span>{{ user_profile_job.epic_coder }}</span></li>
+												<li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ user_profile_job.location }}</span></li>
 											</ul>
 											<ul class="bk-links">
 												<li>
 													{% if request.user != user_profile.user %}
 														<!-- get the id of UserProfile -->
-														{% if user_profile in my_profile.saved_jobs.all %}
-															<a href="{% url 'unsaved-jobs' user_profile.id %}">
+														{% if user_profile_job in my_profile.saved_jobs.all %}
+															<a href="{% url 'unsaved-jobs' user_profile_job.id %}">
 																<i class="la la-check"></i>
 															</a>
 														{% else %}
-															<a href="{% url 'saved-jobs' user_profile.id %}">
+															<a href="{% url 'saved-jobs' user_profile_job.id %}">
 																<i class="la la-bookmark"></i>
 															</a>
 														{% endif %}
@@ -147,14 +147,14 @@
 											</ul>
 										</div>
 										<div class="job_descp">
-											<h3>{{ user_profile.name_jobs }}</h3>
+											<h3>{{user_profile_job.name_jobs }}</h3>
 											<ul class="job-dt">
-												<li><a title="">{{ user_profile.type_work_job }}</a></li>
-												<li><span>${{ user_profile.price }} / hr</span></li>
+												<li><a title="">{{ user_profile_job.type_work_job }}</a></li>
+												<li><span>${{ user_profile_job.price }} / hr</span></li>
 											</ul>
-											<p> {{ user_profile.description_job | truncatechars:100 }} <a href="#" title="">view more</a></p>
+											<p> {{ user_profile_job.description_job | truncatechars:100 }} <a href="#" title="">view more</a></p>
 											<ul class="skill-tags">
-												{% for tags in user_profile.skills_tags_jobs.all %}
+												{% for tags in user_profile_job.skills_tags_jobs.all %}
 													<li><a>{{ tags }}</a></li>
 												{% endfor %}
 											</ul>
@@ -163,19 +163,19 @@
 											<ul class="like-com">
 												<li>
 													<!-- check the user do a like -->
-													{% if request.user in user_profile.likes.all %}
-														<a href="{% url 'remove-like-post-jobs' user_profile.id %}" class="active"><i class="la la-heart"></i> Like</a>
+													{% if request.user in user_profile_job.likes.all %}
+														<a href="{% url 'remove-like-post-jobs' user_profile_job.id %}" class="active"><i class="la la-heart"></i> Like</a>
 														<img src="{% static 'images/liked-img.png' %}">
-														<span>{{ user_profile.likes.all.count }}</span>
+														<span>{{ user_profile_job.likes.all.count }}</span>
 													{% else %}
-														<a href="{% url 'add-like-post-jobs' user_profile.id %}"><i class="la la-heart"></i> Like</a>
+														<a href="{% url 'add-like-post-jobs' user_profile_job.id %}"><i class="la la-heart"></i> Like</a>
 														<img src="{% static 'images/liked-img.png' %}">
-														<span>{{ user_profile.likes.all.count }}</span>
+														<span>{{ user_profile_job.likes.all.count }}</span>
 													{% endif %}
 												</li>
 												<li>
-													<a class="com" href="{% url 'comment-jobs' user_profile.id %}">
-														<img src="{% static 'images/com.png' %}"> Comment {{ user_profile.jobs_profile.all.count }}
+													<a class="com" href="{% url 'comment-jobs' user_profile_job.id %}">
+														<img src="{% static 'images/com.png' %}"> Comment {{ user_profile_job.jobs_profile.all.count }}
 													</a>
 												</li>
 											</ul>
@@ -237,45 +237,93 @@
 								</div>
 							</div><!--widget-about end-->
 							<div class="widget widget-jobs">
-								<div class="sd-title">
-									<h3>Top Jobs</h3>
-								</div>
-								<div class="jobs-list">
-									{% for profile in user_profile %} <!-- listing user_profile-->
-										{% if request.user !=  profile.user %} <!-- don't display request.user-->
-											{% if profile.title and profile.overview %}
-												<div class="job-info">
+										<div class="sd-title">
+											<h3>Top Jobs</h3>
+											<i class="la la-ellipsis-v"></i>
+										</div>
+										<div class="jobs-list">
+											<div class="job-info">
 												<div class="job-details">
-													<a href="{% url 'user-profile' profile.user profile.user.id %}">
-														<h3>{{ profile.title }}</h3>
-													</a>
-													<p>{{ profile.overview | truncatechars:55 }}</p>
+													<h3>Senior Product Designer</h3>
+													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
 												</div>
 												<div class="hr-rate">
-													<span>${{ profile.hourly_work }}/hr</span>
+													<span>$25/hr</span>
 												</div>
 											</div><!--job-info end-->
-											{% endif %}
-										{% endif %}
-									{% endfor %}
-								</div><!--jobs-list end-->
-							</div><!--widget-jobs end-->
+											<div class="job-info">
+												<div class="job-details">
+													<h3>Senior UI / UX Designer</h3>
+													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+												</div>
+												<div class="hr-rate">
+													<span>$25/hr</span>
+												</div>
+											</div><!--job-info end-->
+											<div class="job-info">
+												<div class="job-details">
+													<h3>Junior Seo Designer</h3>
+													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+												</div>
+												<div class="hr-rate">
+													<span>$25/hr</span>
+												</div>
+											</div><!--job-info end-->
+											<div class="job-info">
+												<div class="job-details">
+													<h3>Senior PHP Designer</h3>
+													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+												</div>
+												<div class="hr-rate">
+													<span>$25/hr</span>
+												</div>
+											</div><!--job-info end-->
+											<div class="job-info">
+												<div class="job-details">
+													<h3>Senior Developer Designer</h3>
+													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+												</div>
+												<div class="hr-rate">
+													<span>$25/hr</span>
+												</div>
+											</div><!--job-info end-->
+										</div><!--jobs-list end-->
+									</div><!--widget-jobs end-->
 							<div class="widget widget-jobs">
-								<div class="sd-title">
-									<h3>Most Viewed This Week</h3>
-								</div>
-								<div class="jobs-list">
-									<div class="job-info">
-										<div class="job-details">
-											<h3>Senior Product Designer</h3>
-											<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+										<div class="sd-title">
+											<h3>Most Viewed This Week</h3>
+											<i class="la la-ellipsis-v"></i>
 										</div>
-										<div class="hr-rate">
-											<span>$25/hr</span>
-										</div>
-									</div><!--job-info end-->
-								</div><!--jobs-list end-->
-							</div><!--widget-jobs end-->
+										<div class="jobs-list">
+											<div class="job-info">
+												<div class="job-details">
+													<h3>Senior Product Designer</h3>
+													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+												</div>
+												<div class="hr-rate">
+													<span>$25/hr</span>
+												</div>
+											</div><!--job-info end-->
+											<div class="job-info">
+												<div class="job-details">
+													<h3>Senior UI / UX Designer</h3>
+													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+												</div>
+												<div class="hr-rate">
+													<span>$25/hr</span>
+												</div>
+											</div><!--job-info end-->
+											<div class="job-info">
+												<div class="job-details">
+													<h3>Junior Seo Designer</h3>
+													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+												</div>
+												<div class="hr-rate">
+													<span>$25/hr</span>
+												</div>
+											</div><!--job-info end-->
+										</div><!--jobs-list end-->
+									</div><!--widget-jobs end-->
 						</div><!--right-sidebar end-->
 					</div>
 

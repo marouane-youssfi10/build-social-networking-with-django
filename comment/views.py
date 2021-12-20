@@ -65,12 +65,12 @@ def edit_comment_project(request, comment_id):
 
 # ----------------------- jobs ------------------------
 def comment_jobs(request, jobs_id):
+    print('----------- comment_jobs -----------')
     user_profile = UserProfile.objects.get(id=jobs_id)
     comments = user_profile.jobs_profile.all()
     my_profile = UserProfile.objects.get(user=request.user)
     comments_count = comments.count()
 
-    print('comments = ', comments)
     context = {
         'user_profile': user_profile,
         'comments': comments,
