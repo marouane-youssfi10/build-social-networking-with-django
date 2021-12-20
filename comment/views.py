@@ -11,6 +11,7 @@ from .forms import CommentProjectsForm, CommentJobsForm
 
 # ----------------------- project ----------------------------
 def comment_project(request, project_id):
+    # get project post and their comments
     post_project = PostProject.objects.get(id=project_id)
     comments = post_project.post_project_comment.all()
     comments_count = comments.count()
@@ -65,10 +66,10 @@ def edit_comment_project(request, comment_id):
 
 # ----------------------- jobs ------------------------
 def comment_jobs(request, jobs_id):
-    print('----------- comment_jobs -----------')
+    # get job post and their comments
     user_profile_job = PostJobs.objects.get(id=jobs_id)
     comments = user_profile_job.post_job_comment.all()
-    comments_count = comments.count()
+    comments_count = comments.count() # count comments
 
     my_profile = UserProfile.objects.get(user=request.user)
 
@@ -80,14 +81,14 @@ def comment_jobs(request, jobs_id):
     return render(request, 'comment/comment_post_job.html', context)
 
 def post_comment_jobs(request, jobs_id):
-    user_profile = UserProfile.objects.get(id=jobs_id)
+    post_job = PostJobs.objects.get(id=jobs_id)
     if request.method == 'POST':
         comment_post_job_form = CommentJobsForm(request.POST)
         print('comment_post_job_form.is_valid(): = ', comment_post_job_form.is_valid())
         print('--------------------')
         if comment_post_job_form.is_valid():
             comment = comment_post_job_form.save(commit=False)
-            comment.jobs_profile = user_profile
+            comment.jobs_profile = post_job
             comment.user_job = request.user
             comment.body = request.POST['body']
             comment.save()

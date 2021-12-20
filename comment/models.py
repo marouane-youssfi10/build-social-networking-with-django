@@ -18,7 +18,7 @@ class CommentProjects(models.Model):
         ordering = ['-updated']
 
 class CommentJobs(models.Model):
-    jobs_profile = models.ForeignKey(PostJobs, on_delete=models.CASCADE, related_name='post_job_comment')
+    post_job = models.ForeignKey(PostJobs, on_delete=models.CASCADE, related_name='post_job_comment')
     user_job = models.ForeignKey("accounts.Account", on_delete=models.CASCADE, related_name='user_job')
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
