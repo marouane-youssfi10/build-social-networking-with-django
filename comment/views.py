@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse
 # models
-from posting.models import PostProject
+from posting.models import PostProject, PostJobs
 from accounts.models import UserProfile
 from .models import CommentProjects, CommentJobs
 # form
@@ -66,15 +66,15 @@ def edit_comment_project(request, comment_id):
 # ----------------------- jobs ------------------------
 def comment_jobs(request, jobs_id):
     print('----------- comment_jobs -----------')
-    user_profile = UserProfile.objects.get(id=jobs_id)
-    comments = user_profile.jobs_profile.all()
+    user_profile_job = PostJobs.objects.get(id=jobs_id)
+    # comments = user_profile.jobs_profile.all()
     my_profile = UserProfile.objects.get(user=request.user)
-    comments_count = comments.count()
+    # comments_count = comments.count()
 
     context = {
-        'user_profile': user_profile,
-        'comments': comments,
-        'comments_count': comments_count,
+        'user_profile_job': user_profile_job,
+        # 'comments': comments,
+        # 'comments_count': comments_count,
         'my_profile': my_profile,
     }
     return render(request, 'comment/comment_post_job.html', context)

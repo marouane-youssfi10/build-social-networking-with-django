@@ -11,16 +11,16 @@
                 <div class="post-bar">
                     <div class="post_topbar">
                         <div class="usy-dt">
-                            <img src="{{ user_profile.user.photo_profile.url }}" width="50" height="50">
+                            <img src="{{ user_profile_job.user.photo_profile.url }}" width="50" height="50">
                             <div class="usy-name">
-                                <a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
-                                    <h3>{{ user_profile.user.full_name }}</h3>
+                                <a href="{% url 'user-profile' user_profile_job.user user_profile_job.user.id %}">
+                                    <h3>{{ user_profile_job.user.full_name }}</h3>
                                 </a>
-                                <span><img src="{% static 'images/clock.png' %}" alt="">{{ user_profile.created | timesince }} ago</span>
+                                <span><img src="{% static 'images/clock.png' %}" alt="">{{ user_profile_job.created_job | naturaltime }}</span>
                             </div>
                         </div>
                         <!-- check if request.user = user for not hiding div.ed-opts -->
-                        {% if request.user == user_profile.user %}
+                        {% if request.user == user_profile_job.user %}
                             <div class="ed-opts">
                                 <a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
                                 <ul class="ed-options">
@@ -36,17 +36,17 @@
                     <div class="epi-sec">
                         <ul class="descp">
                             <li><img src="{% static 'images/icon8.png' %}" alt=""><span>Epic Coder</span></li>
-                            <li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ user_profile.location_country }}</span></li>
+                            <li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ user_profile_job.location }}</span></li>
                         </ul> <!-- Country and city -->
                         <ul class="bk-links">
                             <li>
                                 <!-- get the id of UserProfile -->
-                                {% if user_profile.user in my_profile.saved_jobs.all %}
-                                    <a href="{% url 'unsaved-jobs' user_profile.id %}">
+                                {% if user_profile_job.user in my_profile.saved_jobs.all %}
+                                    <a href="{% url 'unsaved-jobs' user_profile_job.id %}">
                                         <i class="la la-check"></i>
                                     </a>
                                 {% else %}
-                                    <a href="{% url 'saved-jobs' user_profile.id %}">
+                                    <a href="{% url 'saved-jobs' user_profile_job.id %}">
                                         <i class="la la-bookmark"></i>
                                     </a>
                                 {% endif %}
@@ -55,15 +55,15 @@
                         </ul> <!-- Send message -->
                     </div>
                     <div class="job_descp">
-                        <h3>{{ user_profile.title }}</h3>
+                        <h3>{{ user_profile_job.title }}</h3>
                         <ul class="job-dt">
-                            <li><a href="#" title="">{{ user_profile.type_work }}</a></li>
-                            <li><span>${{ user_profile.hourly_work }} / hr</span></li>
+                            <li><a href="#" title="">{{ user_profile_job.type_work_job }}</a></li>
+                            <li><span>${{ user_profile_job.price }} / hr</span></li>
                         </ul> <!-- type work and hourly work -->
-                        <p>{{ user_profile.overview | truncatechars:150 }}
+                        <p>{{ user_profile_job.description_job | truncatechars:150 }}
                         <!-- <a href="#" title="">view More</a>-->
                         <ul class="skill-tags">
-                            {% for tag in user_profile.skills_tags_user.all %}
+                            {% for tag in user_profile_job.skills_tags_jobs.all %}
                                 <li><a>{{ tag }}</a></li>
                             {% endfor %}
                         </ul> <!-- tags -->
@@ -72,14 +72,14 @@
                         <ul class="like-com">
                             <li>
                                 <!-- check the user if do a like -->
-                                {% if request.user in user_profile.likes.all %}
-                                    <a href="{% url 'remove-like-post-jobs' user_profile.id %}" class="active"><i class="la la-heart"></i> Like</a>
+                                {% if request.user in user_profile_job.likes.all %}
+                                    <a href="{% url 'remove-like-post-jobs' user_profile_job.id %}" class="active"><i class="la la-heart"></i> Like</a>
                                     <img src="{% static 'images/liked-img.png' %}">
-                                    <span>{{ user_profile.likes.all.count }}</span>
+                                    <span>{{ user_profile_job.likes.all.count }}</span>
                                 {% else %}
-                                    <a href="{% url 'add-like-post-jobs' user_profile.id %}"><i class="la la-heart"></i> Like</a>
+                                    <a href="{% url 'add-like-post-jobs' user_profile_job.id %}"><i class="la la-heart"></i> Like</a>
                                     <img src="{% static 'images/liked-img.png' %}">
-                                    <span>{{ user_profile.likes.all.count }}</span>
+                                    <span>{{ user_profile_job.likes.all.count }}</span>
                                 {% endif %}
                             </li> <!-- Like -->
                             <li>
@@ -148,7 +148,7 @@
                                     <img src="{{ request.user.photo_profile.url }}" width="40" height="40">
                                 </div>
                                 <div class="comment_box">
-                                    <form action="{% url 'post-comment-jobs' user_profile.id %}" method="POST">
+                                    <form action="{% url 'post-comment-jobs' user_profile_job.id %}" method="POST">
                                         {% csrf_token %}
                                         <input type="text" placeholder="Post a comment" name="body">
                                         <button type="submit">Send</button>
