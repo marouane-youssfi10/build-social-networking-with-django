@@ -35,13 +35,13 @@
                     </div>
                     <div class="epi-sec">
                         <ul class="descp">
-                            <li><img src="{% static 'images/icon8.png' %}" alt=""><span>Epic Coder</span></li>
+                            <li><img src="{% static 'images/icon8.png' %}" alt=""><span>{{ user_profile_job.epic_coder }}</span></li>
                             <li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ user_profile_job.location }}</span></li>
                         </ul> <!-- Country and city -->
+
                         <ul class="bk-links">
                             <li>
-                                <!-- get the id of UserProfile -->
-                                {% if user_profile_job.user in my_profile.saved_jobs.all %}
+                                {% if user_profile_job in my_profile.saved_jobs.all %}
                                     <a href="{% url 'unsaved-jobs' user_profile_job.id %}">
                                         <i class="la la-check"></i>
                                     </a>

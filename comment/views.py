@@ -67,15 +67,14 @@ def edit_comment_project(request, comment_id):
 def comment_jobs(request, jobs_id):
     print('----------- comment_jobs -----------')
     user_profile_job = PostJobs.objects.get(id=jobs_id)
-    # comments = user_profile.jobs_profile.all()
     my_profile = UserProfile.objects.get(user=request.user)
+    comments = CommentJobs.objects.get(id=user_profile_job.id)
     # comments_count = comments.count()
 
     context = {
         'user_profile_job': user_profile_job,
-        # 'comments': comments,
-        # 'comments_count': comments_count,
         'my_profile': my_profile,
+        # 'comments_count': comments_count,
     }
     return render(request, 'comment/comment_post_job.html', context)
 
