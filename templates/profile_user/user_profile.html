@@ -66,45 +66,37 @@
 							<div class="suggestions full-width">
 								<div class="sd-title">
 									<h3>Suggestions</h3><br><br>
-									<i class="la la-ellipsis-v"></i>
 								</div><!--sd-title end-->
 
 								<div class="suggestions-list">
 									{% for user_profile in all_user_profile %}
 										{% if request.user != user_profile.user %}<!-- display all user without request.user-->
-											{% if user_profile.title %}
-												<div class="suggestion-usd">
-													<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
-													<div class="sgt-text col-8">
-														<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
-															<h4>{{ user_profile.user.full_name }}</h4>
-														</a>
-														{% if user_profile.title %}
-															<span class="col-0">{{ user_profile.title }}</span>
-														{% endif %}
-													</div>
-
-													{% if user_profile.user in my_follow_user.following.all %}
-														<span>
-															<a href="{% url 'unfollow' user_profile.user.follow_user.id %}">
-																<i class="la la-check"></i>
-															</a>
-														</span>
-
-													{% else %}
-														<span>
-															<a href="{% url 'follow' user_profile.user.follow_user.id %}">
-																<i class="la la-plus"></i>
-															</a>
-														</span>
-													{% endif %}
+											<div class="suggestion-usd">
+												<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
+												<div class="sgt-text col-8">
+													<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
+														<h4>{{ user_profile.user.full_name }}</h4>
+													</a>
+													<span class="col-0">{{ user_profile.title }}</span>
 												</div>
-											{% endif %}
+
+												{% if user_profile.user in my_follow_user.following.all %}
+													<span>
+														<a href="{% url 'unfollow' user_profile.user.follow_user.id %}">
+															<i class="la la-check"></i>
+														</a>
+													</span>
+
+												{% else %}
+													<span>
+														<a href="{% url 'follow' user_profile.user.follow_user.id %}">
+															<i class="la la-plus"></i>
+														</a>
+													</span>
+												{% endif %}
+											</div>
 										{% endif %}
 									{% endfor %}
-									<div class="view-more">
-										<a>View More</a>
-									</div>
 								</div><!--suggestions-list end-->
 							</div><!--suggestions end-->
 						</div><!--main-left-sidebar end-->
