@@ -152,7 +152,7 @@
 												<li><a title="">{{ user_profile_job.type_work_job }}</a></li>
 												<li><span>${{ user_profile_job.price }} / hr</span></li>
 											</ul>
-											<p> {{ user_profile_job.description_job | truncatechars:100 }} <a href="#" title="">view more</a></p>
+											<p> {{ user_profile_job.description_job | truncatechars:100 }}</p>
 											<ul class="skill-tags">
 												{% for tags in user_profile_job.skills_tags_jobs.all %}
 													<li><a>{{ tags }}</a></li>

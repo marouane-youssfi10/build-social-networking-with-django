@@ -99,15 +99,12 @@
 							<div class="col-lg-6">
 								<div class="main-ws-sec">
 									<div class="posts-section">
-                                        <!--post-bar end-->
-										<div class="paddy">
-											{{ no_result }}
-										</div>
 										<!-- display all projects -->
 										{% if projects %}
 											{% for project in projects %}
 												<!-- if request.user is hide his project then hide his project for others users -->
 												{% if request.user != project.user and project.hide %}
+													<!-- if the user hide his project-->
 												{% else %}
 													<div class="post-bar">
 														<div class="post_topbar">
@@ -143,6 +140,7 @@
 																<li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ project.location }}</span></li>
 															</ul>
 															<ul class="bk-links">
+																<!-- check if request.user for not showing message button -->
 																{% if request.user != project.user %}
 																	<li>
 																	<a href="{% url 'add-user-to-conversation' project.user.id %}">
@@ -175,10 +173,7 @@
 															<ul class="job-dt">
 																<li><span>${{ project.start_price }} - ${{ project.end_price }}</span></li>
 															</ul>
-															<p>
-																{{ project.description_project }}.....
-																<a href="#" title="">view more</a>
-															</p>
+															<p>{{ project.description_project }}</p>
 															<ul class="skill-tags">
 																<!-- display all tags of this project-->
 																{% for tags in project.skills_tags_projects.all %}
@@ -264,7 +259,6 @@
 									<div class="widget widget-jobs">
 										<div class="sd-title">
 											<h3>Top Jobs</h3>
-											<i class="la la-ellipsis-v"></i>
 										</div>
 										<div class="jobs-list">
 											<div class="job-info">
@@ -294,30 +288,11 @@
 													<span>$25/hr</span>
 												</div>
 											</div><!--job-info end-->
-											<div class="job-info">
-												<div class="job-details">
-													<h3>Senior PHP Designer</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-												</div>
-												<div class="hr-rate">
-													<span>$25/hr</span>
-												</div>
-											</div><!--job-info end-->
-											<div class="job-info">
-												<div class="job-details">
-													<h3>Senior Developer Designer</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-												</div>
-												<div class="hr-rate">
-													<span>$25/hr</span>
-												</div>
-											</div><!--job-info end-->
 										</div><!--jobs-list end-->
 									</div><!--widget-jobs end-->
 									<div class="widget widget-jobs">
 										<div class="sd-title">
 											<h3>Most Viewed This Week</h3>
-											<i class="la la-ellipsis-v"></i>
 										</div>
 										<div class="jobs-list">
 											<div class="job-info">

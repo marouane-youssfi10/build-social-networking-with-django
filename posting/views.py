@@ -98,11 +98,6 @@ def filter_jobs(request):
                 print('experience_level = ', experience_level)
                 all_user_profile = all_user_profile.filter(description_job__icontains=experience_level)
 
-        # print('all_user_profile.count() = ', all_user_profile.count())
-        if all_user_profile.count() == 0:
-            var = 'No result Found'
-            return render(request, 'pages/jobs.html', {'no_result': var})
-
     context = {
         'all_user_profile': all_user_profile,
     }
@@ -219,15 +214,18 @@ def search_projects(request):
         projects = PostProject.objects.filter(
             Q(name_project__icontains=q) | Q(description_project__icontains=q) | Q(skills_tags_projects__tag__icontains=q)
         )
+
+    paginator_projects = Paginator(projects, 3)
+    page_number_projects = request.GET.get('page')
+    page_all_projects = paginator_projects.get_page(page_number_projects)
     context = {
-        'projects': projects
+        'projects': page_all_projects
     }
     return render(request, 'pages/projects.html', context)
 
 def filter_project(request):
     print('---------------------- filter projects -------------------------')
     projects = PostProject.objects.all()
-    user_profiles = UserProfile.objects.all()[:5]
     if request.method == 'POST':
         if 'search_skills' in request.POST:
             search_skills = request.POST['search_skills']  # dacia
@@ -261,13 +259,14 @@ def filter_project(request):
                 print('experience_level = ', experience_level)
                 projects = projects.filter(description_project__icontains=experience_level)
 
-        if projects.count() == 0:
-            no_result = 'No result Found'
-            return render(request, 'pages/projects.html', {'no_result': no_result, 'user_profiles': user_profiles})
+    # get the project not hiding
+    projects = projects.filter(hide=False)
 
+    paginator_projects = Paginator(projects, 1)
+    page_number_projects = request.GET.get('page')
+    page_all_projects = paginator_projects.get_page(page_number_projects)
     context = {
-        'projects': projects,
-        'user_profiles': user_profiles
+        'projects': page_all_projects,
     }
     return render(request, 'pages/projects.html', context)
 
