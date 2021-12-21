@@ -45,12 +45,11 @@ def jobs(request):
     return render(request, 'pages/jobs.html', context)
 
 def search_jobs(request):
-    print('------------- search jobs -------------------------')
+    print('------------------ search jobs ------------------')
     q = request.GET.get('q') if request.GET.get('q') is not None else ''
-    all_user_profile = UserProfile.objects.filter(
-            Q(title__icontains=q) | Q(overview__icontains=q) | Q(skills_tags_user__tag__iexact=q)
+    all_user_profile = PostJobs.objects.filter(
+            Q(name_jobs__icontains=q) | Q(description_job__icontains=q) | Q(skills_tags_jobs__tag__iexact=q)
         )
-    print('all_user_profile = ', all_user_profile)
     context = {
         'all_user_profile': all_user_profile.distinct()
     }
