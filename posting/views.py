@@ -303,7 +303,7 @@ def edit_post_job(request, pk):
             # save the information updated
             post_job_form.save()
             messages.success(request, 'Your post job has been updated')
-            return redirect('projects')
+            return redirect('jobs')
     else:
         post_job_form = PostJobForm(instance=post_job)
 
