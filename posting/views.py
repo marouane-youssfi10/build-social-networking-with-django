@@ -34,9 +34,9 @@ def jobs(request):
     my_profile = UserProfile.objects.get(user=request.user)
 
     # for jobs page
-    paginator_project = Paginator(all_user_profile, 3)
-    page_number_projects = request.GET.get('page')
-    page_all_user_profile = paginator_project.get_page(page_number_projects)
+    paginator_jobs = Paginator(all_user_profile, 3)
+    page_number_jobs = request.GET.get('page')
+    page_all_user_profile = paginator_jobs.get_page(page_number_jobs)
 
     context = {
         'all_user_profile': page_all_user_profile,
@@ -50,8 +50,13 @@ def search_jobs(request):
     all_user_profile = PostJobs.objects.filter(
             Q(name_jobs__icontains=q) | Q(description_job__icontains=q) | Q(skills_tags_jobs__tag__iexact=q)
         )
+
+    paginator_jobs = Paginator(all_user_profile, 3)
+    page_number_jobs = request.GET.get('page')
+    page_all_user_profile = paginator_jobs.get_page(page_number_jobs)
+
     context = {
-        'all_user_profile': all_user_profile.distinct()
+        'all_user_profile': page_all_user_profile.distinct()
     }
     return render(request, 'pages/jobs.html', context)
 
