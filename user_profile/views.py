@@ -13,14 +13,14 @@ from django.core.paginator import Paginator
 @login_required(login_url='login')
 def index(request):
     if request.user.is_authenticated:
+        # get request.user for listing his info
         my_profile = UserProfile.objects.get(user=request.user)
-        all_user_profile = UserProfile.objects.all()
-        user_profiles = all_user_profile # for display all users into Suggestions from all pages like ?page=1 & ?page=2 ....
+        all_user_jobs = PostJobs.objects.all()
 
         # for home_login page
-        paginator_project = Paginator(all_user_profile, 6)
+        paginator_project = Paginator(all_user_jobs, 6)
         page_number_projects = request.GET.get('page')
-        page_all_user_profile = paginator_project.get_page(page_number_projects)
+        page_all_user_jobs = paginator_project.get_page(page_number_projects)
 
         # get info of follow user
         follow_user = Follow.objects.get(user=request.user)
@@ -31,9 +31,9 @@ def index(request):
         return redirect('home')
 
     context = {
+
+        'all_user_jobs': page_all_user_jobs,
         'my_profile': my_profile,
-        'all_user_profile': page_all_user_profile,
-        'user_profiles': user_profiles,
         'follow_user': follow_user,
         'following_count': following_count,
         'followers_count': followers_count,
