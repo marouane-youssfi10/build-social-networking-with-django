@@ -50,7 +50,19 @@
 													<h4>{{ user_profile.user.full_name }}</h4>
 													<span>{{ user_profile.title }}</span>
 												</div>
-												<span><i class="la la-plus"></i></span>
+												{% if user_profile.user in follow_user.following.all %}
+													<span>
+														<a href="{% url 'unfollow' user_profile.user.follow_user.id %}">
+															<i class="la la-check"></i>
+														</a>
+													</span>
+												{% else %}
+													<span>
+														<a href="{% url 'follow' user_profile.user.follow_user.id %}">
+															<i class="la la-plus"></i>
+														</a>
+													</span>
+												{% endif %}
 											</div>
 										{% endfor %}
 									</div><!--suggestions-list end-->
