@@ -57,22 +57,21 @@ def search_jobs(request):
 
 def filter_jobs(request):
     print('---------------------- filter jobs -------------------------')
-    all_user_profile = UserProfile.objects.all()
-    user_profiles = all_user_profile[:5]
+    all_user_profile = PostJobs.objects.all()
     print('all_user_profile = ', all_user_profile)
-    print('user_profiles = ', user_profiles)
+
     if request.method == 'POST':
         if 'search_skills' in request.POST:
             search_skills = request.POST['search_skills']  # dacia
             if search_skills:
                 print('search_skills = ', search_skills)
-                all_user_profile = all_user_profile.filter(skills_tags_user__tag__icontains=search_skills)
+                all_user_profile = all_user_profile.filter(skills_tags_jobs__tag__icontains=search_skills)
 
         if 'availabilty' in request.POST:
             availabilty = request.POST['availabilty']
             if availabilty:
                 print('availabilty = ', availabilty)
-                all_user_profile = all_user_profile.filter(type_work__iexact=availabilty)
+                all_user_profile = all_user_profile.filter(type_work_job__iexact=availabilty)
 
         if 'min_price' in request.POST:
             min_price = request.POST['min_price']
@@ -80,28 +79,27 @@ def filter_jobs(request):
             if max_price:
                 print('min_price = ', min_price)
                 print('max_price = ', max_price)
-                all_user_profile = all_user_profile.filter(hourly_work__gte=min_price, hourly_work__lte=max_price)
+                all_user_profile = all_user_profile.filter(price__gte=min_price, price__lte=max_price)
 
         if 'country' in request.POST:
             country = request.POST['country']
             if country:
                 print('country = ', country)
-                all_user_profile = all_user_profile.filter(location_country__iexact=country)
+                all_user_profile = all_user_profile.filter(location__iexact=country)
 
         if 'experience_level' in request.POST:
             experience_level = request.POST['experience_level']
             if experience_level:
                 print('experience_level = ', experience_level)
-                all_user_profile = all_user_profile.filter(overview__icontains=experience_level)
+                all_user_profile = all_user_profile.filter(description_job__icontains=experience_level)
 
         # print('all_user_profile.count() = ', all_user_profile.count())
         if all_user_profile.count() == 0:
             var = 'No result Found'
-            return render(request, 'pages/jobs.html', {'no_result': var, 'user_profile': user_profiles})
+            return render(request, 'pages/jobs.html', {'no_result': var})
 
     context = {
         'all_user_profile': all_user_profile,
-        'user_profile': user_profiles,
     }
     return render(request, 'pages/jobs.html', context)
 
