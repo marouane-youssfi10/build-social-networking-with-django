@@ -17,6 +17,8 @@ urlpatterns = [
     # page Jobs
     path('jobs/', views.jobs, name="jobs"),
     path('post-job/', views.post_job, name="post-job"),
+    path('jobs/edit-post/<int:pk>/', views.edit_post_job, name="edit-post-job"),
+    path('jobs/delete-tag-post-jobs/<int:pk>/<int:job_post_id>/', views.delete_tag_post_job, name="delete-tag-post-job"),
     path('jobs/search/', views.search_jobs, name="search-jobs"),
     path('jobs/filter/', views.filter_jobs, name="filter-jobs"),
 

@@ -163,8 +163,8 @@ def post_job(request):
         form_post_job = PostJobForm(request.POST)
         form_tags_post_job = TagsJobForm(request.POST)
 
-        print('form_post_projects.is_valid()     = ', form_post_job.is_valid())
-        print('form_tags_post_project.is_valid() = ', form_tags_post_job.is_valid())
+        print('form_post_job.is_valid()      = ', form_post_job.is_valid())
+        print('form_tags_post_job.is_valid() = ', form_tags_post_job.is_valid())
         tags_objs = []
         if form_post_job.is_valid() and form_tags_post_job.is_valid():
             # get the values of post_project
@@ -281,7 +281,7 @@ def edit_post_project(request, pk):
         if post_project_form.is_valid():
             # save the information updated
             post_project_form.save()
-            messages.success(request, 'Your post has been updated')
+            messages.success(request, 'Your post project has been updated')
             return redirect('projects')
     else:
         post_project_form = PostProjectForm(instance=post_project)
@@ -293,12 +293,41 @@ def edit_post_project(request, pk):
 
     return render(request, 'post/edit_post_project.html', context)
 
+# this method for update on post
+def edit_post_job(request, pk):
+    # get post_project
+    post_job = PostJobs.objects.get(id=pk)
+    if request.method == 'POST':
+        # get information of post job
+        post_job_form = PostJobForm(request.POST, request.FILES, instance=post_job)
+
+        # check user_experience_form
+        if post_job_form.is_valid():
+            # save the information updated
+            post_job_form.save()
+            messages.success(request, 'Your post job has been updated')
+            return redirect('projects')
+    else:
+        post_job_form = PostJobForm(instance=post_job)
+
+    context = {
+        'post_job_form': post_job_form,
+        'post_job': post_job
+    }
+    return render(request, 'post/edit_post_job.html', context)
+
 # this method for delete tags on post you want to update
 def delete_tag_post_project(request, project_post_id, pk):
     tag = TagsProjects.objects.get(id=pk)
     tag.delete()
     messages.success(request, 'your tag is delete successfully')
     return redirect('/projects/edit-post/'+ str(project_post_id))
+
+def delete_tag_post_job(request, job_post_id, pk):
+    tag = TagsJobs.objects.get(id=pk)
+    tag.delete()
+    messages.success(request, 'your tag is delete successfully')
+    return redirect('/jobs/edit-post/' + str(job_post_id))
 
 # this method for create tags on post you want to update
 def create_tags_post_project(request, project_post_id):
