@@ -15,6 +15,7 @@ def index(request):
     if request.user.is_authenticated:
         # get request.user for listing his info
         my_profile = UserProfile.objects.get(user=request.user)
+        all_user_profile = UserProfile.objects.all()[0:5] # for "Suggestions" part in home_login page
         all_user_jobs = PostJobs.objects.all()
 
         # for home_login page
@@ -37,6 +38,7 @@ def index(request):
         'follow_user': follow_user,
         'following_count': following_count,
         'followers_count': followers_count,
+        'all_user_profile': all_user_profile,
     }
     return render(request, 'home.html', context)
 

@@ -33,8 +33,7 @@
 											<span>{{ following_count }}</span>
 										</li>
 										<li>
-											{# {% url 'user-profile' my_profile.user my_profile.id %} #}
-											<a href="">View Profile</a>
+											<a href="{% url 'user-profile' my_profile.user my_profile.id %}">View Profile</a>
 										</li>
 									</ul>
 								</div><!--user-data end-->
@@ -44,34 +43,17 @@
 									</div><!--sd-title end-->
 
 									<div class="suggestions-list">
+										{% for user_profile in all_user_profile %}
 											<div class="suggestion-usd">
-												<img src="http://via.placeholder.com/35x35" alt="">
+												<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
 												<div class="sgt-text">
-													<h4>Jessica William</h4>
-													<span>Graphic Designer</span>
+													<h4>{{ user_profile.user.full_name }}</h4>
+													<span>{{ user_profile.title }}</span>
 												</div>
 												<span><i class="la la-plus"></i></span>
 											</div>
-											<div class="suggestion-usd">
-												<img src="http://via.placeholder.com/35x35" alt="">
-												<div class="sgt-text">
-													<h4>John Doe</h4>
-													<span>PHP Developer</span>
-												</div>
-												<span><i class="la la-plus"></i></span>
-											</div>
-											<div class="suggestion-usd">
-												<img src="http://via.placeholder.com/35x35" alt="">
-												<div class="sgt-text">
-													<h4>Poonam</h4>
-													<span>Wordpress Developer</span>
-												</div>
-												<span><i class="la la-plus"></i></span>
-											</div>
-											<div class="view-more">
-												<a href="#" title="">View More</a>
-											</div>
-										</div><!--suggestions-list end-->
+										{% endfor %}
+									</div><!--suggestions-list end-->
 								</div><!--suggestions end-->
 							</div><!--main-left-sidebar end-->
 						</div>
@@ -93,86 +75,86 @@
 									<!-- post all profile user -->
 									{% for user_job in all_user_jobs %}
 										<div class="post-bar">
-												<div class="post_topbar">
-													<div class="usy-dt">
-														<img src="{{ user_job.user.photo_profile.url }}" width="50" height="50">
-														<div class="usy-name">
-															<a href="{% url 'user-profile' user_job.user user_job.user.id %}">
-																<h3>{{ user_job.user.full_name }}</h3>
-															</a>
-															<span><img src="{% static 'images/clock.png' %}" alt="">{{ user_job.created_job | naturaltime }}</span>
-														</div>
+											<div class="post_topbar">
+												<div class="usy-dt">
+													<img src="{{ user_job.user.photo_profile.url }}" width="50" height="50">
+													<div class="usy-name">
+														<a href="{% url 'user-profile' user_job.user user_job.user.id %}">
+															<h3>{{ user_job.user.full_name }}</h3>
+														</a>
+														<span><img src="{% static 'images/clock.png' %}" alt="">{{ user_job.created_job | naturaltime }}</span>
 													</div>
+												</div>
 
-													<!-- check if request.user = user for not hiding div.ed-opts -->
-													{% if request.user == user_job.user %}
-														<div class="ed-opts">
-															<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-															<ul class="ed-options">
-																<li><a href="{% url 'edit-post-job' user_job.id %}">Edit Post</a></li>
-																<li><a class="close-ed-opts">close</a></li>
-															</ul>
-														</div>
-													{% endif %}
-												</div>
-												<div class="epi-sec">
-													<ul class="descp">
-														<li><img src="{% static 'images/icon8.png' %}" alt=""><span>{{ user_job.epic_coder }}</span></li>
-														<li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ user_job.location }}</span></li>
-													</ul> <!-- Country and city -->
-													<ul class="bk-links">
-														{% if request.user != user_job.user %} <!-- check if request.user true for hiding saved_jobs and message button -->
-															<li>
-																{% if user_job.user in my_profile.saved_jobs.all %}<!-- get the id of UserProfile -->
-																	<a href="{% url 'unsaved-jobs' user_job.id %}">
-																		<i class="la la-check"></i>
-																	</a>
-																{% else %}
-																	<a href="{% url 'saved-jobs' user_job.id %}">
-																		<i class="la la-bookmark"></i>
-																	</a>
-																{% endif %}
-
-															</li>
-															<li><a href="#"><i class="la la-envelope"></i></a></li>
-														{% endif %}
-													</ul> <!-- Send message -->
-												</div>
-												<div class="job_descp">
-													<h3>{{ user_job.name_jobs }}</h3>
-													<ul class="job-dt">
-														<li><a href="#" title="">{{ user_job.type_work_job }}</a></li>
-														<li><span>${{ user_job.price }} / hr</span></li>
-													</ul> <!-- type work and hourly work -->
-													<p>{{ user_job.description_job | truncatechars:250 }}</p>
-													<ul class="skill-tags">
-														{% for tag in user_job.skills_tags_jobs.all %}
-															<li><a>{{ tag }}</a></li>
-														{% endfor %}
-													</ul> <!-- tags -->
-												</div>
-												<div class="job-status-bar">
-													<ul class="like-com">
-														<li>
-															<!-- check the user if do a like -->
-															{% if request.user in user_job.likes.all %}
-																<a href="{% url 'remove-like-post-jobs' user_job.id %}" class="active"><i class="la la-heart"></i> Like</a>
-																<img src="{% static 'images/liked-img.png' %}">
-																<span>{{ user_job.likes.all.count }}</span>
-															{% else %}
-																<a href="{% url 'add-like-post-jobs' user_job.id %}"><i class="la la-heart"></i> Like</a>
-																<img src="{% static 'images/liked-img.png' %}">
-																<span>{{ user_job.likes.all.count }}</span>
-															{% endif %}
-														</li> <!-- Like -->
-														<li>
-															<a class="com" href="{% url 'comment-jobs' user_job.id %}">
-																<img src="{% static 'images/com.png' %}"> Comment {{ user_job.post_job_comment.all.count }}
-															</a>
-														</li>
-													</ul>
-												</div>
+												<!-- check if request.user = user for not hiding div.ed-opts -->
+												{% if request.user == user_job.user %}
+													<div class="ed-opts">
+														<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+														<ul class="ed-options">
+															<li><a href="{% url 'edit-post-job' user_job.id %}">Edit Post</a></li>
+															<li><a class="close-ed-opts">close</a></li>
+														</ul>
+													</div>
+												{% endif %}
 											</div>
+											<div class="epi-sec">
+												<ul class="descp">
+													<li><img src="{% static 'images/icon8.png' %}" alt=""><span>{{ user_job.epic_coder }}</span></li>
+													<li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ user_job.location }}</span></li>
+												</ul> <!-- Country and city -->
+												<ul class="bk-links">
+													{% if request.user != user_job.user %} <!-- check if request.user true for hiding saved_jobs and message button -->
+														<li>
+															{% if user_job.user in my_profile.saved_jobs.all %}<!-- get the id of UserProfile -->
+																<a href="{% url 'unsaved-jobs' user_job.id %}">
+																	<i class="la la-check"></i>
+																</a>
+															{% else %}
+																<a href="{% url 'saved-jobs' user_job.id %}">
+																	<i class="la la-bookmark"></i>
+																</a>
+															{% endif %}
+
+														</li>
+														<li><a href="#"><i class="la la-envelope"></i></a></li>
+													{% endif %}
+												</ul> <!-- Send message -->
+											</div>
+											<div class="job_descp">
+												<h3>{{ user_job.name_jobs }}</h3>
+												<ul class="job-dt">
+													<li><a href="#" title="">{{ user_job.type_work_job }}</a></li>
+													<li><span>${{ user_job.price }} / hr</span></li>
+												</ul> <!-- type work and hourly work -->
+												<p>{{ user_job.description_job | truncatechars:250 }}</p>
+												<ul class="skill-tags">
+													{% for tag in user_job.skills_tags_jobs.all %}
+														<li><a>{{ tag }}</a></li>
+													{% endfor %}
+												</ul> <!-- tags -->
+											</div>
+											<div class="job-status-bar">
+												<ul class="like-com">
+													<li>
+														<!-- check the user if do a like -->
+														{% if request.user in user_job.likes.all %}
+															<a href="{% url 'remove-like-post-jobs' user_job.id %}" class="active"><i class="la la-heart"></i> Like</a>
+															<img src="{% static 'images/liked-img.png' %}">
+															<span>{{ user_job.likes.all.count }}</span>
+														{% else %}
+															<a href="{% url 'add-like-post-jobs' user_job.id %}"><i class="la la-heart"></i> Like</a>
+															<img src="{% static 'images/liked-img.png' %}">
+															<span>{{ user_job.likes.all.count }}</span>
+														{% endif %}
+													</li> <!-- Like -->
+													<li>
+														<a class="com" href="{% url 'comment-jobs' user_job.id %}">
+															<img src="{% static 'images/com.png' %}"> Comment {{ user_job.post_job_comment.all.count }}
+														</a>
+													</li>
+												</ul>
+											</div>
+										</div>
 									{% endfor %}
 
 
@@ -220,15 +202,6 @@
 						</div>
 						<div class="col-lg-3 pd-right-none no-pd">
 							<div class="right-sidebar">
-								<div class="widget widget-about">
-									<img src="{% static 'images/wd-logo.png' %}" alt="">
-									<h3>Track Time on Workwise</h3>
-									<span>Pay only for the Hours worked</span>
-									<div class="sign_link">
-										<h3><a>Sign up</a></h3>
-										<a>Learn More</a>
-									</div>
-								</div><!--widget-about end-->
 								{% if user_profiles %} <!-- check if the users profile exists -->
 									<div class="widget widget-jobs">
 										<div class="sd-title">
