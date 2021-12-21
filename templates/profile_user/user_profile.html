@@ -171,7 +171,12 @@
 						<!--start right-sidebar-->
 						<div class="right-sidebar">
 							<div class="message-btn">
-								<a href="{% url 'add-user-to-conversation' user_profile.id %}"><i class="fa fa-envelope"></i> Message</a>
+								{% if request.user != user_profile.user %}
+									<a href="{% url 'add-user-to-conversation' user_profile.id %}">
+										<i class="fa fa-envelope"></i>
+										Message
+									</a>
+								{% endif %}
 							</div>
 							<div class="widget widget-portfolio">
 								<div class="wd-heady">

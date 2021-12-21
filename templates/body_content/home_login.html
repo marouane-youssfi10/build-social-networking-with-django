@@ -106,7 +106,7 @@
 														<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
 														<ul class="ed-options">
 															<li><a href="{% url 'edit-post-job' user_job.id %}">Edit Post</a></li>
-															<li><a class="close-ed-opts">close</a></li>
+															<li><a href="" class="close-ed-opts">close</a></li>
 														</ul>
 													</div>
 												{% endif %}
@@ -130,7 +130,11 @@
 															{% endif %}
 
 														</li>
-														<li><a href="#"><i class="la la-envelope"></i></a></li>
+														<li>
+															<a href="{% url 'add-user-to-conversation' user_job.user.id %}">
+																<i class="la la-envelope"></i>
+															</a>
+														</li>
 													{% endif %}
 												</ul> <!-- Send message -->
 											</div>
