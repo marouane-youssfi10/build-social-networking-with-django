@@ -143,7 +143,11 @@
 														{% endif %}
 													{% endif %}
 												</li>
-												<li><a href="#"><i class="la la-envelope"></i></a></li>
+												<li>
+													<a href="{% url 'add-user-to-conversation' user_profile_job.user.id %}">
+														<i class="la la-envelope"></i>
+													</a>
+												</li>
 											</ul>
 										</div>
 										<div class="job_descp">
