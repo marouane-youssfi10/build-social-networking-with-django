@@ -349,6 +349,26 @@ def create_tags_post_project(request, project_post_id):
     messages.success(request, 'your tag is created successfully')
     return redirect('/projects/edit-post/' + str(project_post_id))
 
+# this method for create tags on post you want to update
+def create_tags_post_job(request, job_post_id):
+    post_job = PostJobs.objects.get(id=job_post_id)
+
+    tags_objs = []
+    for tag in post_job.skills_tags_jobs.all():
+        tags_objs.append(tag)
+
+    if request.method == 'POST':
+        post_tags_job = request.POST['post_tags_job']
+        tags_list = list(post_tags_job.split(','))
+        for tag in tags_list:
+            # save the information updated
+            tag, created = TagsJobs.objects.get_or_create(tags_users_jobs=request.user, tag=tag)
+            tags_objs.append(tag)
+        post_job.skills_tags_jobs.set(tags_objs)
+        post_job.save()
+    messages.success(request, 'your tag is created successfully')
+    return redirect('/jobs/edit-post/' + str(job_post_id))
+
 def hide_projects(request, pk):
     post_project = PostProject.objects.get(id=pk)
     post_project.hide = True
