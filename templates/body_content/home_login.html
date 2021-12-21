@@ -174,11 +174,11 @@
 
 									<nav class="full-pagi">
 										<!-- --------------------------- Pagination --------------------------- -->
-										{% if all_user_profile.has_other_pages %}
+										{% if all_user_jobs.has_other_pages %}
 											<ul class="pagination justify-content-center">
-												{% if all_user_profile.has_previous %}
+												{% if all_user_jobs.has_previous %}
 													<li class="page-item">
-														<a class="page-link pvr" href="?page={{ all_user_profile.previous_page_number }}">Previous</a>
+														<a class="page-link pvr" href="?page={{ all_user_jobs.previous_page_number }}">Previous</a>
 													</li>
 												{% else %}
 													<li class="page-item disabled">
@@ -186,8 +186,8 @@
 													</li>
 												{% endif %}
 
-												{% for i in all_user_profile.paginator.page_range %}
-													{% if all_user_profile.number == i %}
+												{% for i in all_user_jobs.paginator.page_range %}
+													{% if all_user_jobs.number == i %}
 														<li class="page-item">
 															<a class="page-link active">{{ i }}</a>
 														</li>
@@ -198,9 +198,9 @@
 													{% endif %}
 												{% endfor %}
 
-												{% if all_user_profile.has_next %}
+												{% if all_user_jobs.has_next %}
 													<li class="page-item">
-														<a class="page-link pvr" href="?page={{ all_user_profile.next_page_number }}">Next</a>
+														<a class="page-link pvr" href="?page={{ all_user_jobs.next_page_number }}">Next</a>
 													</li>
 												{% else %}
 													<li class="page-item disabled">

@@ -108,7 +108,7 @@
                                 <form action="{% url 'send-message' to_user.id %}" method="POST">
                                     {% csrf_token %}
                                     <div class="mf-field">
-                                        <input type="text" name="send_message" placeholder="Type a message here">
+                                        <input type="text" name="send_message" placeholder="Type a message here" required>
                                         <button type="submit">Send</button>
                                     </div>
                                 </form>

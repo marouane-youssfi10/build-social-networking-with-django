@@ -46,9 +46,11 @@
 									<i class="fa fa-envelope" aria-hidden="true"></i>
 								</span>
 								Messages
-								<div class="message_noti">
-									<span class="badge badge-light">{{ directs_count }}</span>
-								</div>
+								{% if directs_count != 0 %}
+									<div class="message_noti">
+										<span class="badge badge-light">{{ directs_count }}</span>
+									</div>
+								{% endif %}
 							</a>
 						</li>
 						<li>
@@ -58,7 +60,9 @@
 									<i class="fa fa-bell" aria-hidden="true"></i>
 								</span>
 								Notification
-								<span class="badge badge-light">{{ count_notifications }}</span>
+								{% if count_notifications != 0 %}
+									<span class="badge badge-light">{{ count_notifications }}</span>
+								{% endif %}
 							</a>
 
 						</li>

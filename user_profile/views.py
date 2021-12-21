@@ -19,7 +19,7 @@ def index(request):
         all_user_jobs = PostJobs.objects.all()
 
         # for home_login page
-        paginator_project = Paginator(all_user_jobs, 6)
+        paginator_project = Paginator(all_user_jobs, 3)
         page_number_projects = request.GET.get('page')
         page_all_user_jobs = paginator_project.get_page(page_number_projects)
 
