@@ -40,7 +40,11 @@
                             <li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ project.location }}</span></li>
                         </ul>
                         <ul class="bk-links">
-                            <li><a href="#"><i class="la la-envelope"></i></a></li>
+                            <li>
+                                <a href="{% url 'add-user-to-conversation' project.user.id %}">
+                                    <i class="la la-envelope"></i>
+                                </a>
+                            </li>
                             {% if request.user != project.user %}
                                 {% if project in my_profile.my_bids_projects.all %}
                                     <li>
