@@ -94,7 +94,7 @@ AUTH_USER_MODEL = 'accounts.Account'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': "social_networking",
+        'NAME': env('NAME'),
         'USER': 'postgres',
         'PASSWORD': env('PASSWORD'),
         'HOST': 'localhost',
