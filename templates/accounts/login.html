@@ -1,39 +1,48 @@
 {% extends 'base_login_register.html' %}
 
 {% block login %}
-    <h3>Sign in</h3><br>
-    {% include 'includes/alerts.html' %}
-    <br>
-    <form action="{% url 'login' %}" method="POST">
-        {% csrf_token %}
-        <div class="row">
-            <div class="col-lg-12 no-pdd">
-                <div class="sn-field">
-                    <input type="text" name="email" placeholder="Email" class="form-control">
-                </div><!--sn-field end-->
-            </div>
-            <div class="col-lg-12 no-pdd">
-                <div class="sn-field">
-                    <input type="password" name="password" placeholder="Password" class="form-control">
-                </div>
-            </div>
-            <div class="col-lg-12 no-pdd">
-                <div class="checky-sec">
-                    <a href="#" title="">Forgot Password?</a>
-                </div>
-            </div> <br><br><br>
-            <div class="col-lg-12 no-pdd">
-                <div class="sn-field">
-                    <button type="submit" value="submit" class="form-control btn btn-primary">Sign in</button>
-                </div>
-            </div>
+    {% if request.GET.command == 'verification' %}
+
+        <div class="container mx-auto alert alert-info text-center" role="alert" style="max-width: 1024px; margin-top:100px;">
+        Thank you for registering with us. We have sent you a verification email to your email address [{{ request.GET.email }}]
+        <br><br>
+        Already verified? <a href="{% url 'login' %}">Login</a>
         </div>
-    </form>
-    <div class="login-resources">
-        <h4>Login Via Social Account</h4>
-        <ul>
-            <li><a href="#" title="" class="fb"><i class="fa fa-facebook"></i>Login Via Facebook</a></li>
-            <li><a href="#" title="" class="tw"><i class="fa fa-twitter"></i>Login Via Twitter</a></li>
-        </ul>
-    </div><!--login-resources end-->
+    {% else %}
+        <h3>Sign in</h3><br>
+        {% include 'includes/alerts.html' %}
+        <br>
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-lg-12 no-pdd">
+                    <div class="sn-field">
+                        <input type="text" name="email" placeholder="Email" class="form-control">
+                    </div><!--sn-field end-->
+                </div>
+                <div class="col-lg-12 no-pdd">
+                    <div class="sn-field">
+                        <input type="password" name="password" placeholder="Password" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-12 no-pdd">
+                    <div class="checky-sec">
+                        <a href="#" title="">Forgot Password?</a>
+                    </div>
+                </div> <br><br><br>
+                <div class="col-lg-12 no-pdd">
+                    <div class="sn-field">
+                        <button type="submit" value="submit" class="form-control btn btn-primary">Sign in</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="login-resources">
+            <h4>Login Via Social Account</h4>
+            <ul>
+                <li><a href="#" title="" class="fb"><i class="fa fa-facebook"></i>Login Via Facebook</a></li>
+                <li><a href="#" title="" class="tw"><i class="fa fa-twitter"></i>Login Via Twitter</a></li>
+            </ul>
+        </div><!--login-resources end-->
+    {% endif %}
 {% endblock login %}
