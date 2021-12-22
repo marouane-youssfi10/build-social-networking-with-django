@@ -13,7 +13,6 @@ urlpatterns = [
     path('hide/<int:pk>', views.hide_projects, name='hide'), # for hide projects
     path('unhide/<int:pk>', views.unhide_projects, name='unhide'), # for unhide projects
 
-
     # page Jobs
     path('jobs/', views.jobs, name="jobs"),
     path('post-job/', views.post_job, name="post-job"),

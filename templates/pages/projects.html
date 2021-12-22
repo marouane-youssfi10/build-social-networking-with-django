@@ -173,7 +173,10 @@
 															<ul class="job-dt">
 																<li><span>${{ project.start_price }} - ${{ project.end_price }}</span></li>
 															</ul>
-															<p>{{ project.description_project }}</p>
+															<p>
+																{{ project.description_project | truncatechars:180 }}...
+																<a href="{% url 'comment' project.id %}">view more</a>
+															</p>
 															<ul class="skill-tags">
 																<!-- display all tags of this project-->
 																{% for tags in project.skills_tags_projects.all %}
@@ -204,6 +207,7 @@
 																	</a>
 																</li>
 															</ul>
+															<a><i class="la la-eye"></i>Views {{ project.viewers_project.all.count }}</a>
 														</div>
 													</div>
 												{% endif %}

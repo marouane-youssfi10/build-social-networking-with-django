@@ -38,6 +38,7 @@ class PostProject(models.Model):
 
     skills_tags_projects = models.ManyToManyField(TagsProjects, blank=True)
     likes = models.ManyToManyField("accounts.Account", blank=True, related_name='likes_post_projects')
+    viewers_project = models.ManyToManyField("accounts.Account", blank=True, related_name='viewers_project')
 
     class Meta:
         verbose_name = 'project'
@@ -63,6 +64,7 @@ class PostJobs(models.Model):
 
     skills_tags_jobs = models.ManyToManyField(TagsJobs, blank=True)
     likes = models.ManyToManyField("accounts.Account", blank=True, related_name='likes_post_jobs')
+    viewers_job = models.ManyToManyField("accounts.Account", blank=True, related_name='viewers_job')
 
     class Meta:
         verbose_name = 'Job'

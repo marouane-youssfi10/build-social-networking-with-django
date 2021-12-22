@@ -28,8 +28,9 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DJANGO_DEBUG')
 
-ALLOWED_HOSTS = [env('DJANGO_ALLOWED_HOSTS')]
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
+LOGIN_REDIRECT_URL = "index"
 # Application definition
 
 INSTALLED_APPS = [
@@ -163,3 +164,6 @@ EMAIL_PORT = env('EMAIL_PORT')
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+
+
+SITE_ID = 1

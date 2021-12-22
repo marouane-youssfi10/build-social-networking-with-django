@@ -3,10 +3,12 @@ from django.http import HttpResponse
 from django.urls import reverse
 # models
 from posting.models import PostProject, PostJobs
-from accounts.models import UserProfile
+from accounts.models import UserProfile, Account
 from .models import CommentProjects, CommentJobs
 # form
 from .forms import CommentProjectsForm, CommentJobsForm
+
+
 # Create your views here.
 
 # ----------------------- project ----------------------------
@@ -16,6 +18,12 @@ def comment_project(request, project_id):
     comments = post_project.post_project_comment.all()
     comments_count = comments.count()
 
+    # check if the user see this post project
+    if not request.user in post_project.viewers_project.all():
+        post_project.viewers_project.add(request.user)
+
+    # count viewers_project on this post
+    count_viewers_project = post_project.viewers_project.all().count()
     my_profile = UserProfile.objects.get(user=request.user)
 
     context = {
@@ -23,8 +31,10 @@ def comment_project(request, project_id):
         'comments': comments,
         'comments_count': comments_count,
         'my_profile': my_profile,
+        'count_viewers_project': count_viewers_project,
     }
     return render(request, 'comment/comment_post_project.html', context)
+
 
 def post_comment_project(request, project_id):
     post_project = PostProject.objects.get(id=project_id)
@@ -41,10 +51,12 @@ def post_comment_project(request, project_id):
             comment.save()
     return redirect(reverse('comment', args=[project_id]))
 
+
 def delete_comment_project(request, comment_id):
     comment_project = CommentProjects.objects.get(id=comment_id)
     comment_project.delete()
     return redirect(request.META.get('HTTP_REFERER'))
+
 
 def edit_comment_project(request, comment_id):
     comment_project = CommentProjects.objects.get(id=comment_id)
@@ -62,6 +74,8 @@ def edit_comment_project(request, comment_id):
         'comment_project': comment_project,
     }
     return render(request, 'comment/edit_comment.html', context)
+
+
 # ----------------------- end project ------------------------
 
 # ----------------------- jobs ------------------------
@@ -69,8 +83,14 @@ def comment_jobs(request, jobs_id):
     # get job post and their comments
     user_profile_job = PostJobs.objects.get(id=jobs_id)
     comments = user_profile_job.post_job_comment.all()
-    comments_count = comments.count() # count comments
+    comments_count = comments.count()  # count comments
 
+    # check if the user see this post job
+    if not request.user in user_profile_job.viewers_job.all():
+        user_profile_job.viewers_job.add(request.user)
+
+    # count viewers_job on this post
+    count_viewers_job= user_profile_job.viewers_job.all().count()
     my_profile = UserProfile.objects.get(user=request.user)
 
     context = {
@@ -78,8 +98,10 @@ def comment_jobs(request, jobs_id):
         'my_profile': my_profile,
         'comments': comments,
         'comments_count': comments_count,
+        'count_viewers_job': count_viewers_job,
     }
     return render(request, 'comment/comment_post_job.html', context)
+
 
 def post_comment_jobs(request, jobs_id):
     post_job = PostJobs.objects.get(id=jobs_id)
@@ -95,10 +117,12 @@ def post_comment_jobs(request, jobs_id):
             comment.save()
     return redirect(reverse('comment-jobs', args=[jobs_id]))
 
+
 def delete_comment_jobs(request, comment_id):
     comment_jobs = CommentJobs.objects.get(id=comment_id)
     comment_jobs.delete()
     return redirect(request.META.get('HTTP_REFERER'))
+
 
 def edit_comment_jobs(request, comment_id):
     comment_jobs = CommentJobs.objects.get(id=comment_id)

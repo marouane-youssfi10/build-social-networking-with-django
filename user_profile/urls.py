@@ -6,7 +6,6 @@ urlpatterns = [
     path('feed/', views.index, name="index"),
     path('<slug:slug_user>/<int:pk>/', views.user_profile, name="user-profile"),
 
-    path('accounts-setting/change-password/', views.change_password, name="change-password"),
     path('accounts-setting/edit-profile/', views.edit_profile, name="edit-profile"),
 
     path('accounts-setting/edit-profile/update-experience/<int:pk>/', views.edit_experience_user, name="edit-user-experience"),

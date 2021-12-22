@@ -71,8 +71,7 @@
                             <li><span>${{ project.start_price }} - ${{ project.end_price }}</span></li>
                         </ul>
                         <p>
-                            {{ project.description_project }}.....
-                            <a href="#" title="">view more</a>
+                            {{ project.description_project }}
                         </p>
                         <ul class="skill-tags">
                             <!-- display all tags of this project-->
@@ -99,9 +98,11 @@
                             </li>
                             <li>
                                 <a class="com" href="{% url 'comment' project.id %}">
-                                    <img src="{% static 'images/com.png' %}"> Comment {{comments_count}}</a>
+                                    <img src="{% static 'images/com.png' %}"> Comment {{comments_count}}
+                                </a>
                             </li>
                         </ul>
+                        <a><i class="la la-eye"></i>Views {{ count_viewers_project }}</a>
                     </div>
                     <div class="comment-section">
                         {% for comment in comments %}

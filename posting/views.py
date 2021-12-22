@@ -27,6 +27,17 @@ def projects(request):
     }
     return render(request, 'pages/projects.html', context)
 
+def detail_project(request, project_id):
+
+    post_project = PostProject.objects.get(id=project_id)
+    context = {
+        'project': post_project
+    }
+    return render(request, 'pages/detail_post/detail_project.html', context)
+
+def detail_job(request, job_id):
+    return HttpResponse('detail_job')
+
 def jobs(request):
     print('-----------------  jobs ---------------------')
     # get all jobs users and my profile
@@ -277,7 +288,7 @@ def edit_post_project(request, pk):
     if request.method == 'POST':
         # get information of post project
         post_project_form = PostProjectForm(request.POST, request.FILES, instance=post_project)
-
+        print('post_project_form.is_valid() = ', post_project_form.is_valid())
         # check user_experience_form
         if post_project_form.is_valid():
             # save the information updated

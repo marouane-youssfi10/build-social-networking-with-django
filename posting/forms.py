@@ -6,7 +6,7 @@ class PostProjectForm(forms.ModelForm):
     class Meta:
         model = PostProject
         fields = '__all__'
-        exclude = ['user', 'skills_tags_projects', 'updated_project', 'created_project', 'likes', 'hide']
+        exclude = ['user', 'skills_tags_projects', 'viewers_project', 'updated_project', 'created_project', 'likes', 'hide']
 
     def __init__(self, *args, **kwargs):
         super(PostProjectForm, self).__init__(*args, **kwargs)
@@ -25,7 +25,7 @@ class PostJobForm(forms.ModelForm):
     class Meta:
         model = PostJobs
         fields = '__all__'
-        exclude = ['user', 'skills_tags_jobs', 'updated_job', 'created_job', 'likes', 'hide']
+        exclude = ['user', 'skills_tags_jobs', 'viewers_job', 'updated_job', 'created_job', 'likes', 'hide']
 
     def __init__(self, *args, **kwargs):
         super(PostJobForm, self).__init__(*args, **kwargs)

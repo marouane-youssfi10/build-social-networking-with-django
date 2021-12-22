@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-       {% load static %}
-{% load humanize %}
+    {% load static %}
+    {% load humanize %}
+
     {% if request.user.is_authenticated %}
         {% include 'body_content/home_login.html' %}
     {% else %}

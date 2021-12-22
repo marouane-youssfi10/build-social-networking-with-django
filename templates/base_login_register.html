@@ -46,19 +46,31 @@
                                          <a href="{% url 'home' %}">Go back</a>
                                     <ul class="sign-control no-pdd">
                                         <a href="{% url 'login' %}" >
-                                           <button class="{% if '/accounts/login' in request.path %}
-                                                            btn btn-primary
+                                           <button style="{% if '/accounts/login' in request.path %}
+                                                              background-color:#e44d3a; color:white;
+                                                          {% else %}
+                                                                background-color:white;
+                                                                color:black;
+                                                          {% endif %}"
+                                                   class="{% if '/accounts/login' in request.path %}
+                                                            btn btn-light
                                                         {% else %}
-                                                            btn btn-outline-primary
+                                                            btn btn-outline-light
                                                         {% endif %}">
                                                 Sign in
                                            </button>
                                        </a>
                                         <a href="{% url 'register' %}">
-                                            <button class="{% if '/accounts/register' in request.path %}
-                                                                btn btn-primary
+                                            <button style="{% if '/accounts/register' in request.path %}
+                                                              background-color:#e44d3a; color:white;
+                                                          {% else %}
+                                                                background-color:white;
+                                                                color:black;
+                                                          {% endif %}"
+                                                    class="{% if '/accounts/register' in request.path %}
+                                                                btn btn-light
                                                             {% else %}
-                                                                btn btn-outline-primary
+                                                                btn btn-outline-light
                                                             {% endif %}">
                                                 Sign up
                                             </button>
