@@ -317,6 +317,20 @@ def edit_post_job(request, pk):
     }
     return render(request, 'post/edit_post_job.html', context)
 
+def delete_post_projects(request, project_id):
+    print('------- delete_post_projects -------')
+    post_project = PostProject.objects.get(id=project_id)
+    post_project.delete()
+    messages.success(request, 'your project post is delete successfully')
+    return redirect('projects')
+
+def delete_post_jobs(request, job_id):
+    print('------- delete_post_jobs -------')
+    post_job = PostJobs.objects.get(id=job_id)
+    post_job.delete()
+    messages.success(request, 'your job post is delete successfully')
+    return redirect('jobs')
+
 # this method for delete tags on post you want to update
 def delete_tag_post_project(request, project_post_id, pk):
     tag = TagsProjects.objects.get(id=pk)
