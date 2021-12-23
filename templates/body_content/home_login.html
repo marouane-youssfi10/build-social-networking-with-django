@@ -170,6 +170,7 @@
 														</a>
 													</li>
 												</ul>
+												<a><i class="la la-eye"></i>Views {{ user_job.viewers_job.all.count }}</a>
 											</div>
 										</div>
 									{% endfor %}
@@ -303,7 +304,7 @@
 														<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
 															<h4>{{ user_profile.user.full_name }}</h4>
 														</a>
-														<span>{{ user_profile.title }} {{ user_profile.counting }}</span>
+														<span>{{ user_profile.title }}</span>
 													</div>
 													{% if user_profile.user in follow_user.following.all %}
 														<span>
