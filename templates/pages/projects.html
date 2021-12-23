@@ -174,8 +174,10 @@
 																<li><span>${{ project.start_price }} - ${{ project.end_price }}</span></li>
 															</ul>
 															<p>
-																{{ project.description_project | truncatechars:180 }}...
-																<a href="{% url 'comment' project.id %}">view more</a>
+																{{ project.description_project | truncatechars:180 }}
+																{% if project.description_project|length > 150 %}
+																	.....<a href="{% url 'comment' project.id %}">view more</a>
+																{% endif %}
 															</p>
 															<ul class="skill-tags">
 																<!-- display all tags of this project-->
@@ -299,33 +301,19 @@
 											<h3>Most Viewed This Week</h3>
 										</div>
 										<div class="jobs-list">
+											{% for most_viewed in jobs_most_viewed_this_week %}
 											<div class="job-info">
 												<div class="job-details">
-													<h3>Senior Product Designer</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+													<a href="{% url 'comment-jobs' most_viewed.job_id %}">
+														<h3>{{ most_viewed.name_jobs }}</h3>
+													</a>
+													<p>{{ most_viewed.description_job | truncatechars:45 }}</p>
 												</div>
 												<div class="hr-rate">
-													<span>$25/hr</span>
+													<span>${{ most_viewed.price }}/hr</span>
 												</div>
 											</div><!--job-info end-->
-											<div class="job-info">
-												<div class="job-details">
-													<h3>Senior UI / UX Designer</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-												</div>
-												<div class="hr-rate">
-													<span>$25/hr</span>
-												</div>
-											</div><!--job-info end-->
-											<div class="job-info">
-												<div class="job-details">
-													<h3>Junior Seo Designer</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-												</div>
-												<div class="hr-rate">
-													<span>$25/hr</span>
-												</div>
-											</div><!--job-info end-->
+											{% endfor %}
 										</div><!--jobs-list end-->
 									</div><!--widget-jobs end-->
 								</div><!--right-sidebar end-->

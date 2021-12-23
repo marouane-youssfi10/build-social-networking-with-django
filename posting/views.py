@@ -21,22 +21,29 @@ def projects(request):
     page_number_projects = request.GET.get('page')
     page_projects = paginator_project.get_page(page_number_projects)
 
+    # sorting projects viewers from max to min
+    jobs = PostJobs.objects.all()
+    jobs_most_Viewed_this_week = []
+    cmp = 0
+    for job in jobs:
+        for i in job.viewers_job.all():
+            cmp = cmp + 1
+        jobs_most_Viewed_this_week.append({
+            'job_id': job.id,
+            'name_jobs': job.name_jobs,
+            'price': job.price,
+            'description_job': job.description_job,
+            'counting': cmp,
+        })
+        cmp = 0
+    jobs_most_Viewed_this_week = sorted(jobs_most_Viewed_this_week, key=lambda x: x['counting'], reverse=True)
+
     context = {
         'projects': page_projects,
-        'my_profile': my_profile
+        'my_profile': my_profile,
+        'jobs_most_viewed_this_week': jobs_most_Viewed_this_week[0:5],
     }
     return render(request, 'pages/projects.html', context)
-
-def detail_project(request, project_id):
-
-    post_project = PostProject.objects.get(id=project_id)
-    context = {
-        'project': post_project
-    }
-    return render(request, 'pages/detail_post/detail_project.html', context)
-
-def detail_job(request, job_id):
-    return HttpResponse('detail_job')
 
 def jobs(request):
     print('-----------------  jobs ---------------------')
@@ -49,9 +56,26 @@ def jobs(request):
     page_number_jobs = request.GET.get('page')
     page_all_user_profile = paginator_jobs.get_page(page_number_jobs)
 
+    # sorting projects viewers from max to min
+    jobs_most_viewed_this_week = []
+    cmp = 0
+    for job in all_user_profile:
+        for i in job.viewers_job.all():
+            cmp = cmp + 1
+        jobs_most_viewed_this_week.append({
+            'job_id': job.id,
+            'name_jobs': job.name_jobs,
+            'price': job.price,
+            'description_job': job.description_job,
+            'counting': cmp,
+        })
+        cmp = 0
+    jobs_most_viewed_this_week = sorted(jobs_most_viewed_this_week, key=lambda x: x['counting'], reverse=True)
+
     context = {
         'all_user_profile': page_all_user_profile,
         'my_profile': my_profile,
+        'jobs_most_viewed_this_week': jobs_most_viewed_this_week,
     }
     return render(request, 'pages/jobs.html', context)
 
