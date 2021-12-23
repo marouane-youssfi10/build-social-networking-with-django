@@ -42,7 +42,7 @@ def index(request):
     return render(request, 'home.html', context)
 
 @login_required(login_url='login')
-def user_profile(request, slug_user, pk):
+def user_profile(request, username, pk):
     print('------------ user_profile -----------------')
     # get all user_profile for Suggestions div
     all_user_profile = UserProfile.objects.all().order_by('created')[0:5]
@@ -50,11 +50,13 @@ def user_profile(request, slug_user, pk):
     # get all experience to request.user
     user_experience = Experience_user.objects.filter(experience_user=pk)
 
+    print('slug_user = ', username)
+    print('pk        = ', pk)
     # get currently user profile
-    user_profile = UserProfile.objects.get(user__first_name=slug_user)
+    user_profile = UserProfile.objects.get(user__username=username)
 
     # get info of follow user
-    follow_user = Follow.objects.get(user__first_name=slug_user)
+    follow_user = Follow.objects.get(user__username=username)
 
     following_count = follow_user.following.all().count()
     followers_count = follow_user.followers.all().count()
@@ -70,7 +72,6 @@ def user_profile(request, slug_user, pk):
 
     # add who see your profile
     if not my_profile.user in user_profile.viewers.all():
-        print('- not -')
         user_profile.viewers.add(request.user)
         user_profile.save()
 

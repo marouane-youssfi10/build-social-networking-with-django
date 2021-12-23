@@ -22,8 +22,17 @@
                 <a href="{% url 'edit-profile' %}"><i class="fa fa-plus-square"></i></a>
             {% endif %}
         </h3>
+        <hr>
+        {{ user_profile.experience.all }}
+        {{ user_profile.experience }}
+        {% for exp in user_profile.experience.all %}
+            <h4>{{ exp }}</h4>
+            <h4>{{ exp.experince_title }}</h4>
+            <p> {{ exp.experince_description }}</p>
+        {% endfor %}
+        <hr>
         {% for experience in user_experience %}
-            {% if experience.experince_title != None %}
+            {% if experience.experince_title != None %} <!-- check if experince_title is None  -->
                 <h4>
                     {{ experience.experince_title }}
                 </h4>

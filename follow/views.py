@@ -1,9 +1,7 @@
 from django.shortcuts import redirect
-
 # models
 from .models import Follow
 from posting.models import PostProject, PostJobs
-from accounts.models import UserProfile
 
 def follow_profile(request, pk):
     my_profile_follow = Follow.objects.get(user=request.user)

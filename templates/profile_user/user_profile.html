@@ -74,7 +74,7 @@
 											<div class="suggestion-usd">
 												<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
 												<div class="sgt-text col-8">
-													<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
+													<a href="{% url 'user-profile' user_profile.user.username user_profile.user.id %}">
 														<h4>{{ user_profile.user.full_name }}</h4>
 													</a>
 													<span class="col-0">{{ user_profile.title }}</span>
