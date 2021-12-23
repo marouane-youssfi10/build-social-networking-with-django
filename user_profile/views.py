@@ -32,7 +32,6 @@ def index(request):
         return redirect('home')
 
     context = {
-
         'all_user_jobs': page_all_user_jobs,
         'my_profile': my_profile,
         'follow_user': follow_user,
@@ -293,14 +292,6 @@ def delete_links_media(request, pk):
     links.delete()
     messages.success(request, 'your link "' + link_name + '" is delete')
     return redirect('/accounts-setting/edit-profile/', request.user)
-
-@login_required(login_url='login')
-def change_password(request):
-
-    context = {
-        'user_profile': user_profile,
-    }
-    return render(request, 'profile_user/password/change_password.html', context)
 
 # save jobs to my_profile
 @login_required(login_url='login')

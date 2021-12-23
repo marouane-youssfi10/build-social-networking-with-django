@@ -77,6 +77,7 @@ TEMPLATES = [
                 'django.template.context_processors.csrf',
                 'notifications.views.count_notifications',
                 'conversations.views.check_message',
+                'posting.context_processors.most_viewed_this_week',
             ],
         },
     },
