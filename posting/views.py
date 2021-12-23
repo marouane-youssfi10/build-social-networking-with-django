@@ -322,14 +322,14 @@ def delete_post_projects(request, project_id):
     post_project = PostProject.objects.get(id=project_id)
     post_project.delete()
     messages.success(request, 'your project post is delete successfully')
-    return redirect('projects')
+    return redirect(request.META.get('HTTP_REFERER'))
 
 def delete_post_jobs(request, job_id):
     print('------- delete_post_jobs -------')
     post_job = PostJobs.objects.get(id=job_id)
     post_job.delete()
     messages.success(request, 'your job post is delete successfully')
-    return redirect('jobs')
+    return redirect(request.META.get('HTTP_REFERER'))
 
 # this method for delete tags on post you want to update
 def delete_tag_post_project(request, project_post_id, pk):
