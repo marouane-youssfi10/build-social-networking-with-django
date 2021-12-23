@@ -3,7 +3,7 @@
 {% block content %}
     <div class="post-project col-lg-6">
         <br>
-        <h3>Post a project</h3>
+        <h3>Post a Job</h3>
         <div class="post-project-fields">
             <form method="POST" action="{% url 'post-job' %}">
                 {% csrf_token %}
@@ -14,17 +14,19 @@
                     <div class="col-lg-6">
                         {{ form_post_job.type_work_job }}
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                         {{ form_post_job.location }}
+                    </div>
+
+                    <div class="col-lg-6">
+                        {{ form_post_job.price }}
                     </div>
 
                     <div class="col-lg-12">
                         {{ form_post_job.epic_coder }}
                     </div>
 
-                    <div class="col-lg-6">
-                        {{ form_post_job.price }}
-                    </div>
+
 
                     <div class="col-lg-12">
                         {{ form_post_job.description_job }}

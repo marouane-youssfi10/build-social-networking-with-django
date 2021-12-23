@@ -11,7 +11,7 @@ class PostProjectForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(PostProjectForm, self).__init__(*args, **kwargs)
         self.fields['name_project'].widget.attrs['placeholder'] = 'Title project'
-        self.fields['type_work_project'].widget.attrs['placeholder'] = 'Category: programming, Designer...'
+        self.fields['epic_coder'].widget.attrs['placeholder'] = 'Category: programming, Designer...'
         self.fields['location'].widget.attrs['placeholder'] = 'Country'
         self.fields['start_price'].widget.attrs['placeholder'] = 'Min Price'
         self.fields['end_price'].widget.attrs['placeholder'] = 'Max Price'

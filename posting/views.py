@@ -115,7 +115,7 @@ def post_projects(request):
         if form_post_project.is_valid() and form_tags_post_project.is_valid():
             # get the values of post_project
             name_project = form_post_project.cleaned_data['name_project']
-            type_work_project = form_post_project.cleaned_data['type_work_project']
+            epic_coder = form_post_project.cleaned_data['epic_coder']
             location = form_post_project.cleaned_data['location']
             start_price = form_post_project.cleaned_data['start_price']
             end_price = form_post_project.cleaned_data['end_price']
@@ -132,7 +132,7 @@ def post_projects(request):
             form_post_projects = PostProject.objects.create(
                 user=request.user,
                 name_project=name_project,
-                type_work_project=type_work_project,
+                epic_coder=epic_coder,
                 location=location,
                 start_price=start_price,
                 end_price=end_price,

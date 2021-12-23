@@ -26,7 +26,7 @@ class TagsJobs(models.Model):
 class PostProject(models.Model):
     user = models.ForeignKey("accounts.Account", on_delete=models.CASCADE, related_name='user')
     name_project = models.CharField(max_length=100, blank=False, null=False)
-    type_work_project = models.CharField(max_length=100, blank=False, null=False)
+    epic_coder = models.CharField(max_length=100, blank=False, null=False)
     location = models.CharField(max_length=100, blank=False, null=False)
     start_price = models.IntegerField(blank=False, null=False)
     end_price = models.IntegerField(blank=False, null=False)

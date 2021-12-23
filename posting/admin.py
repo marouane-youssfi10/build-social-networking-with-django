@@ -10,7 +10,7 @@ class TagsJobsAdmin(admin.ModelAdmin):
 
 
 class PostProjectAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'name_project', 'type_work_project', 'location', 'start_price', 'end_price', 'hide')
+    list_display = ('id', 'user', 'name_project', 'epic_coder', 'location', 'start_price', 'end_price', 'hide')
     readonly_fields = ('created_project', 'updated_project')
 
 class PostJobAdmin(admin.ModelAdmin):
