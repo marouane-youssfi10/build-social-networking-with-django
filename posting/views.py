@@ -49,14 +49,14 @@ def search_jobs(request):
     q = request.GET.get('q') if request.GET.get('q') is not None else ''
     all_user_profile = PostJobs.objects.filter(
             Q(name_jobs__icontains=q) | Q(description_job__icontains=q) | Q(skills_tags_jobs__tag__iexact=q)
-        )
+        ).distinct()
 
     paginator_jobs = Paginator(all_user_profile, 3)
     page_number_jobs = request.GET.get('page')
     page_all_user_profile = paginator_jobs.get_page(page_number_jobs)
 
     context = {
-        'all_user_profile': page_all_user_profile.distinct()
+        'all_user_profile': page_all_user_profile
     }
     return render(request, 'pages/jobs.html', context)
 
@@ -213,7 +213,7 @@ def search_projects(request):
     else:
         projects = PostProject.objects.filter(
             Q(name_project__icontains=q) | Q(description_project__icontains=q) | Q(skills_tags_projects__tag__icontains=q)
-        )
+        ).distinct()
 
     paginator_projects = Paginator(projects, 3)
     page_number_projects = request.GET.get('page')

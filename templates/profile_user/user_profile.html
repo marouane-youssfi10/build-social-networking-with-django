@@ -70,7 +70,7 @@
 
 								<div class="suggestions-list">
 									{% for user_profile in all_user_profile %}
-										{% if request.user != user_profile.user %}<!-- display all user without request.user-->
+										{% if request.user != user_profile.user and user_profile.title %} <!-- display all user without request.user-->
 											<div class="suggestion-usd">
 												<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
 												<div class="sgt-text col-8">

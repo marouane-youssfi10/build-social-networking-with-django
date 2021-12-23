@@ -44,7 +44,8 @@
 
 									<div class="suggestions-list">
 										{% for user_profile in all_user_profile %}
-											<div class="suggestion-usd">
+											{% if user_profile.title %}
+												<div class="suggestion-usd">
 												<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
 												<div class="sgt-text">
 													<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
@@ -66,6 +67,7 @@
 													</span>
 												{% endif %}
 											</div>
+											{% endif %}
 										{% endfor %}
 									</div><!--suggestions-list end-->
 								</div><!--suggestions end-->
@@ -264,7 +266,8 @@
 										</div><!--sd-title end-->
 										<div class="suggestions-list">
 											{% for user_profile in most_viewed_user_people %}
-												<div class="suggestion-usd">
+												{% if user_profile.title %} <!-- check if the user has a title -->
+													<div class="suggestion-usd">
 													<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
 													<div class="sgt-text">
 														<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
@@ -286,6 +289,7 @@
 														</span>
 													{% endif %}
 												</div>
+												{% endif %}
 											{% endfor %}
 										</div><!--suggestions-list end-->
 									</div>
