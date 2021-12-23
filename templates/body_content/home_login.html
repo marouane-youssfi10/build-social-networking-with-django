@@ -277,16 +277,20 @@
 										<h3>Most Viewed This Week</h3>
 									</div>
 									<div class="jobs-list">
-										<div class="job-info">
-											<div class="job-details">
-												<h3>Senior Product Designer</h3>
-												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-											</div>
-											<div class="hr-rate">
-												<span>$25/hr</span>
-											</div>
-										</div>
-									</div>
+											{% for most_viewed in jobs_most_viewed_this_week %}
+											<div class="job-info">
+												<div class="job-details">
+													<a href="{% url 'comment-jobs' most_viewed.job_id %}">
+														<h3>{{ most_viewed.name_jobs }}</h3>
+													</a>
+													<p>{{ most_viewed.description_job | truncatechars:45 }}</p>
+												</div>
+												<div class="hr-rate">
+													<span>${{ most_viewed.price }}/hr</span>
+												</div>
+											</div><!--job-info end-->
+											{% endfor %}
+										</div><!--jobs-list end-->
 								</div><!--widget-jobs end-->
 								<div class="widget suggestions full-width">
 										<div class="sd-title">
