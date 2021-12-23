@@ -47,22 +47,25 @@ def user_profile(request, username, pk):
     # get all user_profile for Suggestions div
     all_user_profile = UserProfile.objects.all().order_by('created')[0:5]
 
-    # get all experience to request.user
-    user_experience = Experience_user.objects.filter(experience_user=pk)
+    # get all experience of request.user
+    user_experience = Experience_user.objects.filter(experience_user__username=username).exclude(experince_title=None, experince_description=None)
 
+    print('user_experience = ', user_experience)
     print('slug_user = ', username)
     print('pk        = ', pk)
+
     # get currently user profile
-    user_profile = UserProfile.objects.get(user__username=username)
+    current_user_profile = UserProfile.objects.get(user__username=username)
 
-    # get info of follow user
-    follow_user = Follow.objects.get(user__username=username)
+    # get info of follow current user
+    current_follow_user = Follow.objects.get(user__username=username)
 
-    following_count = follow_user.following.all().count()
-    followers_count = follow_user.followers.all().count()
+    # get following & followers current_user
+    following_count = current_follow_user.following.all().count()
+    followers_count = current_follow_user.followers.all().count()
 
     # get all links of social networking
-    links_media = Social_media.objects.filter(social_media_user=user_profile.user)[0:8]
+    links_media = Social_media.objects.filter(social_media_user=current_user_profile.user)[0:8]
 
     # get request user for display saved jobs
     my_profile = UserProfile.objects.get(user=request.user)
@@ -71,16 +74,16 @@ def user_profile(request, username, pk):
     my_follow_user = Follow.objects.get(user=request.user)
 
     # add who see your profile
-    if not my_profile.user in user_profile.viewers.all():
-        user_profile.viewers.add(request.user)
-        user_profile.save()
+    if not my_profile.user in current_user_profile.viewers.all():
+        current_user_profile.viewers.add(request.user)
+        current_user_profile.save()
 
     context = {
-        'user_profile': user_profile,
+        'current_user_profile': current_user_profile,
         'user_experience': user_experience,
         'all_user_profile': all_user_profile,
         'links_media': links_media,
-        'follow_user': follow_user,
+        'current_follow_user': current_follow_user,
         'following_count': following_count,
         'followers_count': followers_count,
         'my_profile': my_profile,

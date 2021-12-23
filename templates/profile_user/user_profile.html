@@ -3,8 +3,8 @@
 
 {% block content %}
 <section class="cover-sec">
-	<img src="{{ user_profile.photo_cover.url }}" width="1600" height="400">
-	{% if request.user == user_profile.user %}
+	<img src="{{ current_user_profile.photo_cover.url }}" width="1600" height="400">
+	{% if request.user == current_user_profile.user %}
 		<a href="{% url 'edit-profile' %}" title=""><i class="fa fa-camera"></i> Change Image</a>
 	{% endif %}
 </section>
@@ -18,22 +18,22 @@
 						<div class="main-left-sidebar">
 							<div class="user_profile">
 								<div class="user-pro-img">
-									<img src="{{ user_profile.user.photo_profile.url }}" width="170" height="170">
-									{% if request.user == user_profile.user %}
+									<img src="{{ current_user_profile.user.photo_profile.url }}" width="170" height="170">
+									{% if request.user == current_user_profile.user %}
 										<a href="{% url 'edit-profile' %}"><i class="fa fa-camera"></i></a>
 									{% endif %}
 								</div><!--user-pro-img end-->
 								<div class="user_pro_status">
-									{% if request.user != user_profile.user %}
+									{% if request.user != current_user_profile.user %}
 										<ul class="flw-hr">
 											<li>
 												<!-- check if request.user for hide follow button-->
-												{% if request.user in follow_user.followers.all %} <!-- sajib in [test1, test2] -->
-													<a href="{% url 'unfollow' follow_user.id %}" class="flww bg-danger">
+												{% if request.user in current_follow_user.followers.all %} <!-- sajib in [test1, test2] -->
+													<a href="{% url 'unfollow' current_follow_user.id %}" class="flww bg-danger">
 														<i class="fa fa-check"></i> Unfollow
 													</a>
 												{% else %}
-													<a href="{% url 'follow' follow_user.id %}" class="flww bg-success">
+													<a href="{% url 'follow' current_follow_user.id %}" class="flww bg-success">
 														<i class="la la-plus"></i> Follow
 													</a>
 												{% endif %}
@@ -104,9 +104,9 @@
 					<div class="col-lg-6">
 						<div class="main-ws-sec">
 							<div class="user-tab-sec">
-								<h3>{{ user_profile.user.full_name }}</h3>
+								<h3>{{ current_user_profile.user.full_name }}</h3>
 								<div class="star-descp">
-									<span>{{ user_profile.title }}</span>
+									<span>{{ current_user_profile.title }}</span>
 								</div><!--star-descp end-->
 								<div class="tab-feed">
 									<ul>
@@ -123,7 +123,7 @@
 											</a>
 										</li>
 										<!-- hide saved_jobs & my_bods on others users-->
-										{% if request.user == user_profile.user %}
+										{% if request.user == current_user_profile.user %}
 											<li data-tab="saved-jobs">
 												<a href="#">
 													<img src="{% static 'images/ic4.png' %}" alt="">
@@ -171,8 +171,8 @@
 						<!--start right-sidebar-->
 						<div class="right-sidebar">
 							<div class="message-btn">
-								{% if request.user != user_profile.user %}
-									<a href="{% url 'add-user-to-conversation' user_profile.id %}">
+								{% if request.user != current_user_profile.user %}
+									<a href="{% url 'add-user-to-conversation' current_user_profile.id %}">
 										<i class="fa fa-envelope"></i>
 										Message
 									</a>

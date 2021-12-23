@@ -98,7 +98,7 @@ class UserProfile(models.Model):
 
     skills_tags_user = models.ManyToManyField(TagsUser, blank=True, related_name='skills_tags_user')
     links_media = models.ForeignKey(Social_media, on_delete=models.CASCADE, blank=True, related_name='links_media')
-    experience = models.ForeignKey(Experience_user, on_delete=models.CASCADE, blank=True, related_name='experience')
+    experience = models.ForeignKey(Experience_user, on_delete=models.CASCADE, blank=True, related_name='exp_user')
     likes = models.ManyToManyField(Account, blank=True, related_name='likes_jobs')
     saved_jobs = models.ManyToManyField(PostJobs, blank=True, related_name='saved_jobs')
     my_bids_projects = models.ManyToManyField(PostProject,  blank=True)

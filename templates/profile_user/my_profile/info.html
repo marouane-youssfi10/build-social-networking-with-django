@@ -2,14 +2,14 @@
     <div class="user-profile-ov">
         <h3>
             <a>Overview</a>
-            {% if request.user == user_profile.user %}
+            {% if request.user == current_user_profile.user %}
                 <a href="{% url 'edit-profile' %}">
                     <i class="fa fa-pencil"></i>
                 </a>
             {% endif %}
         </h3>
-        {% if user_profile.overview %}
-            <p>{{ user_profile.overview }}</p>
+        {% if current_user_profile.overview %}
+            <p>{{ current_user_profile.overview }}</p>
         {% endif %}
     </div>
 
@@ -17,27 +17,18 @@
     <div class="user-profile-ov st2">
         <h3>
             <a>Experience </a>
-            {% if request.user == user_profile.user %}
+            {% if request.user == current_user_profile.user %}
                 <a href="{% url 'edit-profile' %}"><i class="fa fa-pencil"></i></a>
                 <a href="{% url 'edit-profile' %}"><i class="fa fa-plus-square"></i></a>
             {% endif %}
         </h3>
-        <hr>
-        {{ user_profile.experience.all }}
-        {{ user_profile.experience }}
-        {% for exp in user_profile.experience.all %}
-            <h4>{{ exp }}</h4>
-            <h4>{{ exp.experince_title }}</h4>
-            <p> {{ exp.experince_description }}</p>
-        {% endfor %}
-        <hr>
         {% for experience in user_experience %}
-            {% if experience.experince_title != None %} <!-- check if experince_title is None  -->
-                <h4>
-                    {{ experience.experince_title }}
-                </h4>
-                <p>{{ experience.experince_description }}</p>
-            {% endif %}
+            <!-- if experience.experince_title != None %} check if experince_title is None  -->
+            <h4>
+                {{ experience.experince_title }}
+            </h4>
+            <p>{{ experience.experince_description }}</p>
+            <!-- endif -->
         {% endfor %}
 
     </div>
@@ -46,20 +37,20 @@
     <div class="user-profile-ov">
         <h3>
 			<a class="ed-box-open">Education</a>
-            {% if request.user == user_profile.user %}
+            {% if request.user == current_user_profile.user %}
 			    <a href="{% url 'edit-profile'  %}"><i class="fa fa-pencil"></i></a>
             {% endif %}
 		</h3>
-        {% if user_profile.education_title != None %}
-            <h4>{{ user_profile.education_title }}</h4>
+        {% if current_user_profile.education_title != None %}
+            <h4>{{ current_user_profile.education_title }}</h4>
         {% endif %}
 
-        {% if user_profile.education_year_start != None and education_year_end != None %}
-            <span>{{ user_profile.full_year }}</span>
+        {% if current_user_profile.education_year_start != None and education_year_end != None %}
+            <span>{{ current_user_profile.full_year }}</span>
         {% endif %}
 
-        {% if user_profile.education_description != None %}
-            <p>{{ user_profile.education_description }}</p>
+        {% if current_user_profile.education_description != None %}
+            <p>{{ current_user_profile.education_description }}</p>
         {% endif %}
     </div>
 
@@ -67,29 +58,29 @@
     <div class="user-profile-ov">
         <h3>
 			<a>Location</a>
-            {% if request.user == user_profile.user %}
+            {% if request.user == current_user_profile.user %}
 			    <a href="{% url 'edit-profile'  %}"><i class="fa fa-pencil"></i></a>
             {% endif %}
 		</h3>
-        <h4>{{ user_profile.location_country }}</h4>
-        <p>{{ user_profile.location_city }}</p>
+        <h4>{{ current_user_profile.location_country }}</h4>
+        <p>{{ current_user_profile.location_city }}</p>
     </div>
 
     <!-- tags -->
-    <!-- if user_profile has tag then display it else don't show it -->
-	{% if user_profile.skills_tags_user.all %}
+    <!-- if current_user_profile has tag then display it else don't show it -->
+	{% if current_user_profile.skills_tags_user.all %}
 		<div class="user-profile-ov">
 			<h3>
 				<a>Skills</a>
                 <!-- if request.user in his profile then show him the modification links -->
-                {% if request.user == user_profile.user %}
+                {% if request.user == current_user_profile.user %}
 				    <a href="{% url 'edit-profile' %}"><i class="fa fa-pencil"></i></a>
 				    <a href="{% url 'edit-profile' %}"><i class="fa fa-plus-square"></i></a>
                 {% endif %}
 			</h3>
 			<ul>
                 <!-- display tags if exits -->
-				{% for tag in user_profile.skills_tags_user.all %}
+				{% for tag in current_user_profile.skills_tags_user.all %}
 					<li><a>{{ tag }}</a></li>
 				{% endfor %}
 			</ul>
