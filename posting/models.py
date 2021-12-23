@@ -50,9 +50,14 @@ class PostProject(models.Model):
 
 
 class PostJobs(models.Model):
+    STATUS_CHOICES = (
+        ('Hourly', 'Hourly'),
+        ('Part time', 'Part time'),
+        ('Full time', 'Full time'),
+    )
     user = models.ForeignKey("accounts.Account", on_delete=models.CASCADE, related_name='job')
     name_jobs = models.CharField(max_length=100, blank=False, null=False)
-    type_work_job = models.CharField(max_length=100, blank=False, null=False)
+    type_work_job = models.CharField(choices=STATUS_CHOICES, max_length=100, blank=False, null=False, default=None)
     epic_coder = models.CharField(max_length=100, blank=False, null=False)
     location = models.CharField(max_length=100, blank=False, null=False)
     price = models.IntegerField(blank=False, null=False)

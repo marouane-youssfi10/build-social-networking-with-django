@@ -40,7 +40,12 @@
                     <li><a>{{ profile.type_work_job }}</a></li>
                     <li><span>${{ profile.price }} / hr</span></li>
                 </ul>
-                <p>{{ profile.description_job }} ....<a href="#" title="">view more</a></p>
+                <p>
+                    {{ profile.description_job | truncatechars:150 }}
+                    {% if profile.description_job|length > 150 %}
+                        ....<a href="{% url 'comment-jobs' profile.id %}">view more</a>
+                    {% endif %}
+                </p>
                 <ul class="skill-tags">
                     {% for tag in profile.skills_tags_jobs.all %}
                         <li><a>{{ tag }}</a></li>
@@ -61,8 +66,55 @@
                             <span>{{ profile.likes.all.count }}</span>
                         {% endif %}
                     </li> <!-- Like -->
+                    <li>
+                        <a class="com" href="{% url 'comment-jobs' profile.id %}">
+                            <img src="{% static 'images/com.png' %}">
+                            Comment {{ profile.post_job_comment.all.count }}
+                        </a>
+                    </li> <!-- Comment -->
                 </ul>
+                <a><i class="la la-eye"></i>Views {{ profile.viewers_job.all.count }}</a>
             </div>
         </div>
     {% endfor %}
+
+    <!-- =============== Pagination =============== -->
+    <nav class="full-pagi">
+        {% if my_profile.saved_jobs.all.has_other_pages %}
+            <ul class="pagination justify-content-center">
+                {% if my_profile.saved_jobs.all.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link pvr" href="?page={{ my_profile.saved_jobs.all.previous_page_number }}">Previous</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link pvr">Previous</a>
+                    </li>
+                {% endif %}
+
+                {% for i in my_profile.saved_jobs.all.paginator.page_range %}
+                    {% if my_profile.saved_jobs.all.number == i %}
+                        <li class="page-item">
+                            <a class="page-link active">{{ i }}</a>
+                        </li>
+                    {% elif i > my_profile.saved_jobs.all.number|add:'-4' and i < my_profile.saved_jobs.all.number|add:'4' %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if my_profile.saved_jobs.all.has_next %}
+                    <li class="page-item">
+                        <a class="page-link pvr" href="?page={{ my_profile.saved_jobs.all.next_page_number }}">Next</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link pvr">Next</a>
+                    </li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    </nav>
+    <!-- =============== end Pagination =============== -->
 </div><!--posts-section end-->
