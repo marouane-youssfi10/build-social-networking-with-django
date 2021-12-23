@@ -101,6 +101,7 @@ class UserProfile(models.Model):
     likes = models.ManyToManyField(Account, blank=True, related_name='likes_jobs')
     saved_jobs = models.ManyToManyField(PostJobs, blank=True, related_name='saved_jobs')
     my_bids_projects = models.ManyToManyField(PostProject,  blank=True)
+    viewers = models.ManyToManyField(Account, blank=True, related_name='viewers_profile')
 
     class Meta:
         ordering = ['-updated', '-created']
