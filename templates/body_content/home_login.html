@@ -108,7 +108,11 @@
 														<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
 														<ul class="ed-options">
 															<li><a href="{% url 'edit-post-job' user_job.id %}">Edit Post</a></li>
-															<li><a href="{% url 'delete-post-job' user_job.id %}">Delete Post</a></li>
+															<li>
+																<a href="{% url 'delete-post-job' user_job.id %}" onclick="return confirm('Are you sure to Delete this post')">
+																	Delete Post
+																</a>
+															</li>
 															<li><a href="" class="close-ed-opts">close</a></li>
 														</ul>
 													</div>

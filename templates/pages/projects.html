@@ -124,7 +124,11 @@
 																	<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
 																	<ul class="ed-options">
 																		<li><a href="{% url 'edit-post-project' project.id %}">Edit Post</a></li>
-																		<li><a href="{% url 'delete-post-project' project.id %}">Delete post</a></li>
+																		<li>
+																			<a href="{% url 'delete-post-project' project.id %}" onclick="return confirm('Are you sure to Delete this post')">
+																				Delete post
+																			</a>
+																		</li>
 																		{% if project.hide %}
 																			<li><a href="{% url 'unhide' project.id %}">unhide</a></li>
 																		{% else %}
