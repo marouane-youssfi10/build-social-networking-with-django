@@ -238,14 +238,16 @@
 														</li>
 													{% endif %}
 
+
 													{% for i in projects.paginator.page_range %}
 														{% if projects.number == i %}
 															<li class="page-item">
 																<a class="page-link active">{{ i }}</a>
 															</li>
-														{% else %}
-															<li class="page-item">
-																<a class="page-link" href="?page={{i}}">{{ i }}</a>
+
+														{% elif i > projects.number|add:'-4' and i < projects.number|add:'4' %}
+    														<li class="page-item">
+																<a class="page-link" href="?page={{ i }}">{{ i }}</a>
 															</li>
 														{% endif %}
 													{% endfor %}
@@ -263,6 +265,7 @@
 											{% endif %}
 										</nav>
                         				<!-- =============== end Pagination =============== -->
+
 									</div><!--posts-section end-->
 								</div><!--main-ws-sec end-->
 							</div>

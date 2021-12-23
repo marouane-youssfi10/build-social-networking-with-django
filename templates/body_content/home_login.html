@@ -195,9 +195,9 @@
 														<li class="page-item">
 															<a class="page-link active">{{ i }}</a>
 														</li>
-													{% else %}
+													{% elif i > all_user_jobs.number|add:'-4' and i < all_user_jobs.number|add:'4' %}
 														<li class="page-item">
-															<a class="page-link" href="?page={{i}}">{{ i }}</a>
+															<a class="page-link" href="?page={{ i }}">{{ i }}</a>
 														</li>
 													{% endif %}
 												{% endfor %}
