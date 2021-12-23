@@ -128,7 +128,6 @@
 																	<i class="la la-bookmark"></i>
 																</a>
 															{% endif %}
-
 														</li>
 														<li>
 															<a href="{% url 'add-user-to-conversation' user_job.user.id %}">
@@ -297,57 +296,30 @@
 											<h3>Most Viewed People</h3>
 										</div><!--sd-title end-->
 										<div class="suggestions-list">
-											<div class="suggestion-usd">
-												<img src="http://via.placeholder.com/35x35" alt="">
-												<div class="sgt-text">
-													<h4>Jessica William</h4>
-													<span>Graphic Designer</span>
+											{% for user_profile in most_viewed_user_people %}
+												<div class="suggestion-usd">
+													<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
+													<div class="sgt-text">
+														<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
+															<h4>{{ user_profile.user.full_name }}</h4>
+														</a>
+														<span>{{ user_profile.title }} {{ user_profile.counting }}</span>
+													</div>
+													{% if user_profile.user in follow_user.following.all %}
+														<span>
+															<a href="{% url 'unfollow' user_profile.user.follow_user.id %}">
+																<i class="la la-check"></i>
+															</a>
+														</span>
+													{% else %}
+														<span>
+															<a href="{% url 'follow' user_profile.user.follow_user.id %}">
+																<i class="la la-plus"></i>
+															</a>
+														</span>
+													{% endif %}
 												</div>
-												<span><i class="la la-plus"></i></span>
-											</div>
-											<div class="suggestion-usd">
-												<img src="http://via.placeholder.com/35x35" alt="">
-												<div class="sgt-text">
-													<h4>John Doe</h4>
-													<span>PHP Developer</span>
-												</div>
-												<span><i class="la la-plus"></i></span>
-											</div>
-											<div class="suggestion-usd">
-												<img src="http://via.placeholder.com/35x35" alt="">
-												<div class="sgt-text">
-													<h4>Poonam</h4>
-													<span>Wordpress Developer</span>
-												</div>
-												<span><i class="la la-plus"></i></span>
-											</div>
-											<div class="suggestion-usd">
-												<img src="http://via.placeholder.com/35x35" alt="">
-												<div class="sgt-text">
-													<h4>Bill Gates</h4>
-													<span>C &amp; C++ Developer</span>
-												</div>
-												<span><i class="la la-plus"></i></span>
-											</div>
-											<div class="suggestion-usd">
-												<img src="http://via.placeholder.com/35x35" alt="">
-												<div class="sgt-text">
-													<h4>Jessica William</h4>
-													<span>Graphic Designer</span>
-												</div>
-												<span><i class="la la-plus"></i></span>
-											</div>
-											<div class="suggestion-usd">
-												<img src="http://via.placeholder.com/35x35" alt="">
-												<div class="sgt-text">
-													<h4>John Doe</h4>
-													<span>PHP Developer</span>
-												</div>
-												<span><i class="la la-plus"></i></span>
-											</div>
-											<div class="view-more">
-												<a href="#" title="">View More</a>
-											</div>
+											{% endfor %}
 										</div><!--suggestions-list end-->
 									</div>
 							</div><!--right-sidebar end-->

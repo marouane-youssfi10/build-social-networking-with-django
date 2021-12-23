@@ -79,6 +79,7 @@ TEMPLATES = [
                 'conversations.views.check_message',
                 'posting.context_processors.most_viewed_this_week',
                 'posting.context_processors.top_jobs',
+                'user_profile.context_processors.most_viewed_people',
             ],
         },
     },

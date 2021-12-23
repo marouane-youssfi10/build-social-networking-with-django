@@ -45,7 +45,7 @@ def index(request):
 def user_profile(request, slug_user, pk):
     print('------------ user_profile -----------------')
     # get all user_profile for Suggestions div
-    all_user_profile = UserProfile.objects.all()[0:5]
+    all_user_profile = UserProfile.objects.all().order_by('created')[0:5]
 
     # get all experience to request.user
     user_experience = Experience_user.objects.filter(experience_user=pk)
@@ -67,6 +67,12 @@ def user_profile(request, slug_user, pk):
 
     # get request.user account Follow
     my_follow_user = Follow.objects.get(user=request.user)
+
+    # add who see your profile
+    if not my_profile.user in user_profile.viewers.all():
+        print('- not -')
+        user_profile.viewers.add(request.user)
+        user_profile.save()
 
     context = {
         'user_profile': user_profile,
