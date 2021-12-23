@@ -63,7 +63,7 @@ def conversations(request, message_user, message_user_id):
             user=request.user, sender=message_user.sender,
             recipient=message_user.recipient, is_read=False
         ).count()
-        # append to users data
+        # append data to users
         users.append({
             'id': message_user.id, 'user': message_user.user, 'sender': message_user.sender, 'recipient': message_user.recipient,
             'body': message_user.body, 'created': message_user.created, 'updated': message_user.updated, 'is_read': message_user.is_read,
@@ -102,8 +102,6 @@ def send_message(request, to_user):
 def add_user_to_conversation(request, pk):
     print('--------------- add_user_to_conversation ---------------')
     user_profile = UserProfile.objects.get(id=pk)
-    # print('user_profile.user = ', user_profile.user)
-    # sajib wach kayn f hagar.Message
 
     var = Message.objects.filter(
         Q(user=request.user, sender=user_profile.user) | Q(user=request.user, recipient=user_profile.user))

@@ -78,6 +78,7 @@ TEMPLATES = [
                 'notifications.views.count_notifications',
                 'conversations.views.check_message',
                 'posting.context_processors.most_viewed_this_week',
+                'posting.context_processors.top_jobs',
             ],
         },
     },

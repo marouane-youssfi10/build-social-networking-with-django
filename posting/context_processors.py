@@ -21,3 +21,26 @@ def most_viewed_this_week(request):
         jobs_most_viewed_this_week = sorted(jobs_most_viewed_this_week, key=lambda x: x['counting'], reverse=True)
 
     return dict(jobs_most_viewed_this_week=jobs_most_viewed_this_week)
+
+def top_jobs(request):
+    jobs = PostJobs.objects.all()
+    top_jobs = []
+    cmp = 0
+    for job in jobs:
+        for i in job.viewers_job.all():
+            cmp = cmp + 1
+        for z in job.likes.all():
+            cmp = cmp + 1
+        for y in job.post_job_comment.all():
+            cmp = cmp + 1
+        top_jobs.append({
+            'job_id': job.id,
+            'name_jobs': job.name_jobs,
+            'price': job.price,
+            'description_job': job.description_job,
+            'counting': cmp,
+        })
+        cmp = 0
+    top_jobs = sorted(top_jobs, key=lambda x: x['counting'], reverse=True)
+
+    return dict(top_jobs=top_jobs)
