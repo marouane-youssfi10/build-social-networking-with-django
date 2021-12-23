@@ -220,58 +220,27 @@
 						</div>
 						<div class="col-lg-3 pd-right-none no-pd">
 							<div class="right-sidebar">
-								{% if user_profiles %} <!-- check if the users profile exists -->
-									<div class="widget widget-jobs">
-										<div class="sd-title">
-											<h3>Top Jobs</h3>
-											<i class="la la-ellipsis-v"></i>
-										</div>
-										<div class="jobs-list">
-											<!-- display all user profile into Top Jobs -->
-											{% for user_profile in user_profiles %}
-												{% if request.user != user_profile.user and user_profile.title and user_profile.overview %} <!-- display only other users and check if they has title and overview-->
-													<div class="job-info">
-														<div class="job-details">
-															<a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
-																<h3>{{ user_profile.title }}</h3>
-															</a>
-															<p>{{ user_profile.overview | truncatechars:50 }}</p>
-
-														</div>
-														<div class="hr-rate">
-															<span>${{ user_profile.hourly_work }}/hr</span>
-														</div>
-													</div><!--job-info end-->
-												{% endif %}
-											{% endfor %}
-										</div><!--jobs-list end-->
-									</div><!--widget-jobs end-->
-								{% endif %}
 								<div class="widget widget-jobs">
-										<div class="sd-title">
-											<h3>Top Jobs</h3>
-										</div>
-										<div class="jobs-list">
+									<div class="sd-title">
+										<h3>Top Jobs</h3>
+										<i class="la la-ellipsis-v"></i>
+									</div>
+									<div class="jobs-list">
+										{% for top in top_jobs %}
 											<div class="job-info">
 												<div class="job-details">
-													<h3>Senior Product Designer</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+													<a href="{% url 'comment-jobs' top.job_id %}">
+														<h3>{{ top.name_jobs }}</h3>
+													</a>
+													<p>{{ top.description_job | truncatechars:45 }}</p>
 												</div>
 												<div class="hr-rate">
-													<span>$25/hr</span>
+													<span>${{ top.price }}/hr</span>
 												</div>
 											</div><!--job-info end-->
-											<div class="job-info">
-												<div class="job-details">
-													<h3>Senior UI / UX Designer</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-												</div>
-												<div class="hr-rate">
-													<span>$25/hr</span>
-												</div>
-											</div><!--job-info end-->
-										</div><!--jobs-list end-->
-									</div><!--widget-jobs end-->
+										{% endfor %}
+									</div><!--jobs-list end-->
+								</div><!--widget-jobs end-->
 								<div class="widget widget-jobs">
 									<div class="sd-title">
 										<h3>Most Viewed This Week</h3>

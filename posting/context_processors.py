@@ -27,11 +27,14 @@ def top_jobs(request):
     top_jobs = []
     cmp = 0
     for job in jobs:
+        # count all viewers_job
         for i in job.viewers_job.all():
             cmp = cmp + 1
-        for z in job.likes.all():
+        # count all likes
+        for j in job.likes.all():
             cmp = cmp + 1
-        for y in job.post_job_comment.all():
+        # count all comment post
+        for z in job.post_job_comment.all():
             cmp = cmp + 1
         top_jobs.append({
             'job_id': job.id,
