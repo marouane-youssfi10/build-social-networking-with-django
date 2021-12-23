@@ -119,7 +119,7 @@
 												<ul class="bk-links">
 													{% if request.user != user_job.user %} <!-- check if request.user true for hiding saved_jobs and message button -->
 														<li>
-															{% if user_job.user in my_profile.saved_jobs.all %}<!-- get the id of UserProfile -->
+															{% if user_job in my_profile.saved_jobs.all %}<!-- get the id of UserProfile -->
 																<a href="{% url 'unsaved-jobs' user_job.id %}">
 																	<i class="la la-check"></i>
 																</a>
@@ -174,8 +174,6 @@
 											</div>
 										</div>
 									{% endfor %}
-
-
 									<nav class="full-pagi">
 										<!-- --------------------------- Pagination --------------------------- -->
 										{% if all_user_jobs.has_other_pages %}
@@ -223,7 +221,6 @@
 								<div class="widget widget-jobs">
 									<div class="sd-title">
 										<h3>Top Jobs</h3>
-										<i class="la la-ellipsis-v"></i>
 									</div>
 									<div class="jobs-list">
 										{% for top in top_jobs %}
@@ -246,20 +243,20 @@
 										<h3>Most Viewed This Week</h3>
 									</div>
 									<div class="jobs-list">
-											{% for most_viewed in jobs_most_viewed_this_week %}
-											<div class="job-info">
-												<div class="job-details">
-													<a href="{% url 'comment-jobs' most_viewed.job_id %}">
-														<h3>{{ most_viewed.name_jobs }}</h3>
-													</a>
-													<p>{{ most_viewed.description_job | truncatechars:45 }}</p>
-												</div>
-												<div class="hr-rate">
-													<span>${{ most_viewed.price }}/hr</span>
-												</div>
-											</div><!--job-info end-->
-											{% endfor %}
-										</div><!--jobs-list end-->
+										{% for most_viewed in jobs_most_viewed_this_week %}
+										<div class="job-info">
+											<div class="job-details">
+												<a href="{% url 'comment-jobs' most_viewed.job_id %}">
+													<h3>{{ most_viewed.name_jobs }}</h3>
+												</a>
+												<p>{{ most_viewed.description_job | truncatechars:45 }}</p>
+											</div>
+											<div class="hr-rate">
+												<span>${{ most_viewed.price }}/hr</span>
+											</div>
+										</div><!--job-info end-->
+										{% endfor %}
+									</div><!--jobs-list end-->
 								</div><!--widget-jobs end-->
 								<div class="widget suggestions full-width">
 										<div class="sd-title">
