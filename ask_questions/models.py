@@ -21,6 +21,8 @@ class Ask_questions(models.Model):
     updated_question = models.DateTimeField(auto_now=True)
 
     tag_question = models.ManyToManyField(TagsQuestions, blank=True, related_name='tag_question')
+    likes = models.ManyToManyField(Account, blank=True, related_name='likes_question')
+    viewers = models.ManyToManyField(Account, blank=True, related_name='viewers_questions')
 
     class Meta:
         verbose_name = 'question'
