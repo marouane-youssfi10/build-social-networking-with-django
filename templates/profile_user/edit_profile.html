@@ -154,8 +154,8 @@
                                                         </div>
 
                                                         <div class="form-group col-md-3">
+                                                            <a href="{% url 'edit-user-experience' experience.id %}" class="btn btn-light">Update</a>
                                                             <a href="{% url 'delete-user-experience' experience.id %}" onclick="return confirm('Are you sure')" class="btn btn-danger">Delete</a>
-                                                            <a href="{% url 'edit-user-experience' experience.id %}" class="btn btn-primary">Update</a>
                                                         </div>
                                                         <div class="form-group col-md-12"><hr></div>
                                                     {% endif %}
@@ -235,7 +235,6 @@
                                         <form action="{% url 'create-links-media' %}" method="POST" enctype="multipart/form-data">
                                             {% csrf_token %}
                                             <div class="form-row">
-
                                                 <!-- title  -->
                                                 {% for link in user_links_media %}
                                                     {% if link.name != None %}
@@ -246,12 +245,11 @@
                                                             <p>{{ link.link }}</p>
                                                         </div>
                                                         <div class="form-group col-md-3">
-                                                            <a href="{% url 'edit-links-media' link.id %}" class="btn btn-primary">Updated</a>
+                                                            <a href="{% url 'edit-links-media' link.id %}" class="btn btn-light">Update</a>
                                                             <a href="{% url 'delete-links-media' link.id %}" onclick="return confirm('Are you sure you want te delete this link')" class="btn btn-danger">Delete</a>
                                                         </div>
                                                     {% endif %}
                                                 {% endfor %}
-
                                             </div>
                                         </form>
                                         <a href="{% url 'create-links-media' %}" class="btn btn-danger" style="background-color:#e44d3a; color:white;">Create</a>

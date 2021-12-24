@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from .models import NotificationProjects
 from posting.models import PostProject, PostJobs
-from conversations.models import Message
 
 def show_notifications(request):
     notifications = NotificationProjects.objects.filter(to_user=request.user)
@@ -27,11 +26,12 @@ def count_notifications(request):
         ids_project = list(ids_project)
 
         # get notifications "follow" not seeing and count them
-        count_follow = NotificationProjects.objects.filter(notification_type=3, is_seen=False).count()
+        count_follow = NotificationProjects.objects.filter(to_user=request.user, notification_type=3, is_seen=False).count()
 
         # get all notifications "like, comment" not seeing and count them
         count_notifications_projects = NotificationProjects.objects.filter(post_project__in=ids_project, is_seen=False).count()
         count_notifications_jobs = NotificationProjects.objects.filter(post_job__in=ids_job, is_seen=False).count()
+        print('count_notifications_projects = ', count_notifications_projects, 'count_notifications_jobs = ', count_notifications_jobs, 'count_follow = ', count_follow)
         count_notifications = int(count_notifications_projects) + int(count_notifications_jobs) + int(count_follow)
 
 

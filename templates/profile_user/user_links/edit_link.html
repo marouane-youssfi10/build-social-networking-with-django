@@ -2,18 +2,22 @@
 
 {% block content %}
 
-    <div class="container col-lg-6">
-        <form method="POST" action="{% url 'edit-links-media' user_links_media.id %}" >
-            {% csrf_token %}
-            <label class="topic_label">name</label>
-            {{ link_media_form.name }}
+    <section class="section-content padding-y" style="min-height:84vh">
+        <div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
+            <div class="card-body">
+                <form method="POST" action="{% url 'edit-links-media' user_links_media.id %}" >
+                    {% csrf_token %}
+                    <label class="topic_label">name</label>
+                    {{ link_media_form.name }}
 
-            <label class="topic_label">link</label>
-            {{ link_media_form.link }}
-            <br>
-            <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-primary">Go Back</a>
-            <input type="submit" class="btn btn-primary" value="Update">
-            <br><br><br><br><br><br><br><br><br><br><br>
-        </form>
-    </div>
+                    <label class="topic_label">link</label>
+                    {{ link_media_form.link }}
+                    <br>
+                    <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-danger" style="background-color:#e44d3a; color:white;">Go Back</a>
+                    <input type="submit" class="btn btn-danger" style="background-color:#e44d3a; color:white;" value="Update">
+                </form>
+            </div>
+        </div>
+    </section>
+
 {% endblock content %}
