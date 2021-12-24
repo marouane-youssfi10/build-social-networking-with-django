@@ -1,13 +1,22 @@
 from django.shortcuts import render, redirect
-from accounts.models import UserProfile
+from posting.models import PostProject
+# pagination
+from django.core.paginator import Paginator
 def home(request):
 
     # check if user is authenticated
     if request.user.is_authenticated:
         return redirect('index')
 
-    user_profile = UserProfile.objects.all()
+    """post_projects = PostProject.objects.all()
+
+    # for projects page
+    paginator_project = Paginator(post_projects, 5)
+    page_number_projects = request.GET.get('page')
+    page_projects = paginator_project.get_page(page_number_projects)"""
+
     context = {
-        'user_profile': user_profile
+        'projects': 'page_projects'
     }
-    return render(request, 'home.html', context)
+
+    return render(request, 'home.html')

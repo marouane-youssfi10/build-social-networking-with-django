@@ -1,7 +1,7 @@
 {% load static %}
 	{% if request.user.is_authenticated %}
 		<header>
-		<div class="container">
+			<div class="container">
 			<div class="header-data">
 				<div class="logo">
 					<a href="{% url 'index' %}" title=""><img src="{% static 'images/logo.png' %}" alt=""></a>
@@ -85,7 +85,7 @@
 				</div>
 			</div><!--header-data end-->
 		</div>
-	</header>
+		</header>
 	{% else %}
 		<header>
 			<div class="container">
@@ -95,6 +95,9 @@
 					</div><!--logo end-->
 					<div class="forum-bar">
 						<h2>Forum</h2>
+						<ul>
+							<li><a href="#" title="" class="ask-question">Ask a question</a></li>
+						</ul>
 					</div><!--search-bar end-->
 					<div class="login_register">
 						<ul>
