@@ -1,12 +1,333 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
 
 {% block content %}
-    {% load static %}
-    {% load humanize %}
+{% if request.user.is_authenticated %}
+<div class="wrapper">
+    <main>
+        {% include 'includes/alerts.html' %}
+        <div class="main-section">
+            <div class="container">
+                <div class="main-section-data">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-4 pd-left-none no-pd">
+                            <div class="main-left-sidebar no-margin">
+                                <div class="user-data full-width">
+                                    <div class="user-profile">
+                                        <div class="username-dt">
+                                            <div class="usr-pic">
+                                                <img src="{{ my_profile.user.photo_profile.url }}" width="100" height="100">
+                                            </div>
+                                        </div><!--username-dt end-->
+                                        <div class="user-specs">
+                                            <h3>{{ my_profile.user.full_name}}</h3>
+                                            {% if my_profile.title %}
+                                                <span>{{ my_profile.title }}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div><!--user-profile end-->
+                                    <ul class="user-fw-status">
+                                        <li>
+                                            <h4>Following</h4>
+                                            <span>{{ followers_count }}</span>
+                                        </li>
+                                        <li>
+                                            <h4>Followers</h4>
+                                            <span>{{ following_count }}</span>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'user-profile' my_profile.user.username my_profile.id %}">View Profile</a>
+                                        </li>
+                                    </ul>
+                                </div><!--user-data end-->
+                                <div class="suggestions full-width">
+                                    <div class="sd-title">
+                                        <h3>Suggestions</h3>
+                                    </div><!--sd-title end-->
 
-    {% if request.user.is_authenticated %}
-        {% include 'body_content/home_login.html' %}
-    {% else %}
-        {% include 'body_content/home_not_login.html' %}
-    {% endif %}
+                                    <div class="suggestions-list">
+                                        {% for user_profile in all_user_profile %}
+                                            {% if user_profile.title and user_profile.user.username != request.user.username %}
+                                                <div class="suggestion-usd">
+                                                <img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
+                                                <div class="sgt-text">
+                                                    <a href="{% url 'user-profile' user_profile.user.username user_profile.user.id %}">
+                                                        <h4>{{ user_profile.user.full_name }}</h4>
+                                                    </a>
+                                                    <span>{{ user_profile.title }}</span>
+                                                </div>
+                                                {% if user_profile.user in follow_user.following.all %}
+                                                    <span>
+                                                        <a href="{% url 'unfollow' user_profile.user.follow_user.id %}">
+                                                            <i class="la la-check"></i>
+                                                        </a>
+                                                    </span>
+                                                {% else %}
+                                                    <span>
+                                                        <a href="{% url 'follow' user_profile.user.follow_user.id %}">
+                                                            <i class="la la-plus"></i>
+                                                        </a>
+                                                    </span>
+                                                {% endif %}
+                                            </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div><!--suggestions-list end-->
+                                </div><!--suggestions end-->
+                            </div><!--main-left-sidebar end-->
+                        </div>
+                        <div class="col-lg-6 col-md-8 no-pd">
+                            <div class="main-ws-sec">
+                                <div class="post-topbar">
+                                    <div class="user-picy">
+                                        <img src="{{ my_profile.user.photo_profile.url }}" width="100" height="50">
+                                    </div>
+                                    <div class="post-st">
+                                        <ul>
+                                            <li><a class="post_project" href="{% url 'post-project' %}">Post a Project</a></li>
+                                            <li><a class="post-jb" href="{% url 'post-job' %}" title="">Post a Job</a></li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                                <div class="posts-section">
+                                    <!-- post all profile user -->
+                                    {% for user_job in all_user_jobs %}
+                                        {% if request.user.username != user_job.user.username and user_job.hide %}
+                                            <!-- if the user hide his job -->
+                                        {% else %}
+                                            <div class="post-bar">
+                                            <div class="post_topbar">
+                                                <div class="usy-dt">
+                                                    <img src="{{ user_job.user.photo_profile.url }}" width="50" height="50">
+                                                    <div class="usy-name">
+                                                        <a href="{% url 'user-profile' user_job.user user_job.user.id %}">
+                                                            <h3>{{ user_job.user.full_name }}</h3>
+                                                        </a>
+                                                        <span><img src="{% static 'images/clock.png' %}" alt="">{{ user_job.created_job | naturaltime }}</span>
+                                                    </div>
+                                                </div>
+
+                                                <!-- check if request.user = user for not hiding div.ed-opts -->
+                                                {% if request.user == user_job.user %}
+                                                    <div class="ed-opts">
+                                                        <a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+                                                        <ul class="ed-options">
+                                                            <li><a href="{% url 'edit-post-job' user_job.id %}">Edit Post</a></li>
+                                                            <li>
+                                                                <a href="{% url 'delete-post-job' user_job.id %}" onclick="return confirm('Are you sure to Delete this post')">
+                                                                    Delete Post
+                                                                </a>
+                                                            </li>
+                                                            {% if user_job.hide %}
+                                                                <li><a href="{% url 'unhide-job' user_job.id %}">unhide</a></li>
+                                                            {% else %}
+                                                                <li><a href="{% url 'hide-job' user_job.id %}">Hide</a></li>
+                                                            {% endif %}
+                                                            <li><a href="" class="close-ed-opts">close</a></li>
+                                                        </ul>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="epi-sec">
+                                                <ul class="descp">
+                                                    <li><img src="{% static 'images/icon8.png' %}" alt=""><span>{{ user_job.epic_coder }}</span></li>
+                                                    <li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ user_job.location }}</span></li>
+                                                </ul> <!-- Country and city -->
+                                                <ul class="bk-links">
+                                                    {% if request.user != user_job.user %} <!-- check if request.user true for hiding saved_jobs and message button -->
+                                                        <li>
+                                                            {% if user_job in my_profile.saved_jobs.all %}<!-- get the id of UserProfile -->
+                                                                <a href="{% url 'unsaved-jobs' user_job.id %}">
+                                                                    <i class="la la-check"></i>
+                                                                </a>
+                                                            {% else %}
+                                                                <a href="{% url 'saved-jobs' user_job.id %}">
+                                                                    <i class="la la-bookmark"></i>
+                                                                </a>
+                                                            {% endif %}
+                                                        </li>
+                                                        <li>
+                                                            <a href="{% url 'add-user-to-conversation' user_job.user.id %}">
+                                                                <i class="la la-envelope"></i>
+                                                            </a>
+                                                        </li>
+                                                    {% endif %}
+                                                </ul> <!-- Send message -->
+                                                <!-- check if post project is hiding then show Hiding-->
+                                                {% if user_job.hide == True %}
+                                                    <ul class="bk-links">
+                                                        <li>
+                                                            <a class="bid_now" style="background-color:gray;">Hiding</a>
+                                                        </li>
+                                                    </ul>
+                                                {% endif %}
+                                            </div>
+                                            <div class="job_descp">
+                                                <h3>{{ user_job.name_jobs }}</h3>
+                                                <ul class="job-dt">
+                                                    <li><a href="#" title="">{{ user_job.type_work_job }}</a></li>
+                                                    <li><span>${{ user_job.price }} / hr</span></li>
+                                                </ul> <!-- type work and hourly work -->
+                                                <p>{{ user_job.description_job | truncatechars:250 }}</p>
+                                                <ul class="skill-tags">
+                                                    {% for tag in user_job.skills_tags_jobs.all %}
+                                                        <li><a>{{ tag }}</a></li>
+                                                    {% endfor %}
+                                                </ul> <!-- tags -->
+                                            </div>
+                                            <div class="job-status-bar">
+                                                <ul class="like-com">
+                                                    <li>
+                                                        <!-- check the user if do a like -->
+                                                        {% if request.user in user_job.likes.all %}
+                                                            <a href="{% url 'remove-like-post-jobs' user_job.id %}" class="active"><i class="la la-heart"></i> Like</a>
+                                                            <img src="{% static 'images/liked-img.png' %}">
+                                                            <span>{{ user_job.likes.all.count }}</span>
+                                                        {% else %}
+                                                            <a href="{% url 'add-like-post-jobs' user_job.id %}"><i class="la la-heart"></i> Like</a>
+                                                            <img src="{% static 'images/liked-img.png' %}">
+                                                            <span>{{ user_job.likes.all.count }}</span>
+                                                        {% endif %}
+                                                    </li> <!-- Like -->
+                                                    <li>
+                                                        <a class="com" href="{% url 'comment-jobs' user_job.id %}">
+                                                            <img src="{% static 'images/com.png' %}"> Comment {{ user_job.post_job_comment.all.count }}
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <a><i class="la la-eye"></i>Views {{ user_job.viewers_job.all.count }}</a>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <nav class="full-pagi">
+                                        <!-- --------------------------- Pagination --------------------------- -->
+                                        {% if all_user_jobs.has_other_pages %}
+                                            <ul class="pagination justify-content-center">
+                                                {% if all_user_jobs.has_previous %}
+                                                    <li class="page-item">
+                                                        <a class="page-link pvr" href="?page={{ all_user_jobs.previous_page_number }}">Previous</a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="page-item disabled">
+                                                        <a class="page-link pvr">Previous</a>
+                                                    </li>
+                                                {% endif %}
+
+                                                {% for i in all_user_jobs.paginator.page_range %}
+                                                    {% if all_user_jobs.number == i %}
+                                                        <li class="page-item">
+                                                            <a class="page-link active">{{ i }}</a>
+                                                        </li>
+                                                    {% elif i > all_user_jobs.number|add:'-4' and i < all_user_jobs.number|add:'4' %}
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                                                        </li>
+                                                    {% endif %}
+                                                {% endfor %}
+
+                                                {% if all_user_jobs.has_next %}
+                                                    <li class="page-item">
+                                                        <a class="page-link pvr" href="?page={{ all_user_jobs.next_page_number }}">Next</a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="page-item disabled">
+                                                        <a class="page-link pvr">Next</a>
+                                                    </li>
+                                                {% endif %}
+                                            </ul>
+                                        {% endif %}
+                                        <!-- --------------------------- end Pagination --------------------------- -->
+                                    </nav>
+                                </div><!--posts-section end-->
+                            </div><!--main-ws-sec end-->
+                        </div>
+                        <div class="col-lg-3 pd-right-none no-pd">
+                            <div class="right-sidebar">
+                                <div class="widget widget-jobs">
+                                    <div class="sd-title">
+                                        <h3>Top Jobs</h3>
+                                    </div>
+                                    <div class="jobs-list">
+                                        {% for top in top_jobs %}
+                                            <div class="job-info">
+                                                <div class="job-details">
+                                                    <a href="{% url 'comment-jobs' top.job_id %}">
+                                                        <h3>{{ top.name_jobs }}</h3>
+                                                    </a>
+                                                    <p>{{ top.description_job | truncatechars:45 }}</p>
+                                                </div>
+                                                <div class="hr-rate">
+                                                    <span>${{ top.price }}/hr</span>
+                                                </div>
+                                            </div><!--job-info end-->
+                                        {% endfor %}
+                                    </div><!--jobs-list end-->
+                                </div><!--widget-jobs end-->
+                                <div class="widget widget-jobs">
+                                    <div class="sd-title">
+                                        <h3>Most Viewed This Week</h3>
+                                    </div>
+                                    <div class="jobs-list">
+                                        {% for most_viewed in jobs_most_viewed_this_week %}
+                                        <div class="job-info">
+                                            <div class="job-details">
+                                                <a href="{% url 'comment-jobs' most_viewed.job_id %}">
+                                                    <h3>{{ most_viewed.name_jobs }}</h3>
+                                                </a>
+                                                <p>{{ most_viewed.description_job | truncatechars:45 }}</p>
+                                            </div>
+                                            <div class="hr-rate">
+                                                <span>${{ most_viewed.price }}/hr</span>
+                                            </div>
+                                        </div><!--job-info end-->
+                                        {% endfor %}
+                                    </div><!--jobs-list end-->
+                                </div><!--widget-jobs end-->
+                                <div class="widget suggestions full-width">
+                                    <div class="sd-title">
+                                        <h3>Most Viewed People</h3>
+                                    </div><!--sd-title end-->
+                                    <div class="suggestions-list">
+                                        {% for user_profile in most_viewed_user_people %}
+                                            {% if user_profile.title and user_profile.user.username != request.user.username %} <!-- check if the user has a title & user_profile != request.user-->
+                                                <div class="suggestion-usd">
+                                                <img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
+                                                <div class="sgt-text">
+                                                    <a href="{% url 'user-profile' user_profile.user.username user_profile.user.id %}">
+                                                        <h4>{{ user_profile.user.full_name }}</h4>
+                                                    </a>
+                                                    <span>{{ user_profile.title }}</span>
+                                                          <!-- user_profile.counting -->
+                                                </div>
+                                                {% if user_profile.user in follow_user.following.all %}
+                                                    <span>
+                                                        <a href="{% url 'unfollow' user_profile.user.follow_user.id %}">
+                                                            <i class="la la-check"></i>
+                                                        </a>
+                                                    </span>
+                                                {% else %}
+                                                    <span>
+                                                        <a href="{% url 'follow' user_profile.user.follow_user.id %}">
+                                                            <i class="la la-plus"></i>
+                                                        </a>
+                                                    </span>
+                                                {% endif %}
+                                            </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div><!--suggestions-list end-->
+                                </div>
+                            </div><!--right-sidebar end-->
+                        </div>
+                    </div>
+                </div><!-- main-section-data end-->
+            </div>
+        </div>
+    </main>
+</div><!--theme-layout end-->
+{% endif %}
 {% endblock content %}
