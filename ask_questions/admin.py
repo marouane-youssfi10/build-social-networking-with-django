@@ -1,3 +1,12 @@
 from django.contrib import admin
+from .models import Ask_questions, TagsQuestions
 
-# Register your models here.
+
+class Ask_questionsAdmin(admin.ModelAdmin):
+    list_display = ['id', 'user', 'question', 'description', 'created_question', 'updated_question']
+
+class TagsQuestionsAdmin(admin.ModelAdmin):
+    list_display = ['id', 'tags_user', 'tag']
+
+admin.site.register(Ask_questions, Ask_questionsAdmin)
+admin.site.register(TagsQuestions, TagsQuestionsAdmin)

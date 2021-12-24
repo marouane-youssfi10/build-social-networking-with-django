@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'comment.apps.CommentConfig',
     'notifications.apps.NotificationsConfig',
     'conversations.apps.ConversationsConfig',
+    'ask_questions.apps.AskQuestionsConfig',
 ]
 
 MIDDLEWARE = [
