@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db.models import Q
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 # models
 from .models import PostProject, TagsProjects, TagsJobs, PostJobs
 from accounts.models import UserProfile
@@ -10,6 +11,8 @@ from .forms import PostProjectForm, TagsProjectsForm, PostJobForm, TagsJobForm
 # pagination
 from django.core.paginator import Paginator
 
+
+@login_required(login_url='login')
 def projects(request):
     print('-----------------  projects ---------------------')
     # get all user who posting projects and user profile
@@ -27,6 +30,7 @@ def projects(request):
     }
     return render(request, 'pages/projects.html', context)
 
+@login_required(login_url='login')
 def jobs(request):
     print('-----------------  jobs ---------------------')
     # get all jobs users and my profile
@@ -44,6 +48,7 @@ def jobs(request):
     }
     return render(request, 'pages/jobs.html', context)
 
+@login_required(login_url='login')
 def search_jobs(request):
     print('------------------ search jobs ------------------')
     q = request.GET.get('q') if request.GET.get('q') is not None else ''
@@ -60,6 +65,7 @@ def search_jobs(request):
     }
     return render(request, 'pages/jobs.html', context)
 
+@login_required(login_url='login')
 def filter_jobs(request):
     print('---------------------- filter jobs -------------------------')
     all_user_profile = PostJobs.objects.all()
@@ -104,6 +110,7 @@ def filter_jobs(request):
     return render(request, 'pages/jobs.html', context)
 
 # this method for posting a project
+@login_required(login_url='login')
 def post_projects(request):
     if request.method == 'POST':
         form_post_project = PostProjectForm(request.POST)
@@ -155,6 +162,7 @@ def post_projects(request):
     return render(request, 'post/post_project.html', context)
 
 # this method for posting a job
+@login_required(login_url='login')
 def post_job(request):
     if request.method == 'POST':
         form_post_job = PostJobForm(request.POST)
@@ -205,6 +213,7 @@ def post_job(request):
     }
     return render(request, 'post/post_job.html', context)
 
+@login_required(login_url='login')
 def search_projects(request):
     print('-------------search projects -------------------------')
     q = request.GET.get('q') if request.GET.get('q') is not None else ''
@@ -223,6 +232,7 @@ def search_projects(request):
     }
     return render(request, 'pages/projects.html', context)
 
+@login_required(login_url='login')
 def filter_project(request):
     print('---------------------- filter projects -------------------------')
     projects = PostProject.objects.all()
@@ -271,6 +281,7 @@ def filter_project(request):
     return render(request, 'pages/projects.html', context)
 
 # this method for update on post
+@login_required(login_url='login')
 def edit_post_project(request, pk):
     # get post_project
     post_project = PostProject.objects.get(id=pk)
@@ -295,6 +306,7 @@ def edit_post_project(request, pk):
     return render(request, 'post/edit_post_project.html', context)
 
 # this method for update on post
+@login_required(login_url='login')
 def edit_post_job(request, pk):
     # get post_project
     post_job = PostJobs.objects.get(id=pk)
@@ -317,6 +329,7 @@ def edit_post_job(request, pk):
     }
     return render(request, 'post/edit_post_job.html', context)
 
+@login_required(login_url='login')
 def delete_post_projects(request, project_id):
     print('------- delete_post_projects -------')
     post_project = PostProject.objects.get(id=project_id)
@@ -324,6 +337,7 @@ def delete_post_projects(request, project_id):
     messages.success(request, 'your project post is delete successfully')
     return redirect(request.META.get('HTTP_REFERER'))
 
+@login_required(login_url='login')
 def delete_post_jobs(request, job_id):
     print('------- delete_post_jobs -------')
     post_job = PostJobs.objects.get(id=job_id)
@@ -332,12 +346,14 @@ def delete_post_jobs(request, job_id):
     return redirect(request.META.get('HTTP_REFERER'))
 
 # this method for delete tags on post you want to update
+@login_required(login_url='login')
 def delete_tag_post_project(request, project_post_id, pk):
     tag = TagsProjects.objects.get(id=pk)
     tag.delete()
     messages.success(request, 'your tag is delete successfully')
     return redirect('/projects/edit-post/'+ str(project_post_id))
 
+@login_required(login_url='login')
 def delete_tag_post_job(request, job_post_id, pk):
     tag = TagsJobs.objects.get(id=pk)
     tag.delete()
@@ -345,6 +361,7 @@ def delete_tag_post_job(request, job_post_id, pk):
     return redirect('/jobs/edit-post/' + str(job_post_id))
 
 # this method for create tags on post you want to update
+@login_required(login_url='login')
 def create_tags_post_project(request, project_post_id):
     post_project = PostProject.objects.get(id=project_post_id)
 
@@ -365,6 +382,7 @@ def create_tags_post_project(request, project_post_id):
     return redirect('/projects/edit-post/' + str(project_post_id))
 
 # this method for create tags on post you want to update
+@login_required(login_url='login')
 def create_tags_post_job(request, job_post_id):
     post_job = PostJobs.objects.get(id=job_post_id)
 
@@ -384,24 +402,28 @@ def create_tags_post_job(request, job_post_id):
     messages.success(request, 'your tag is created successfully')
     return redirect('/jobs/edit-post/' + str(job_post_id))
 
+@login_required(login_url='login')
 def hide_projects(request, pk):
     post_project = PostProject.objects.get(id=pk)
     post_project.hide = True
     post_project.save()
     return redirect(request.META.get('HTTP_REFERER'))
 
+@login_required(login_url='login')
 def unhide_projects(request, pk):
     post_project = PostProject.objects.get(id=pk)
     post_project.hide = False
     post_project.save()
     return redirect(request.META.get('HTTP_REFERER'))
 
+@login_required(login_url='login')
 def hide_jobs(request, job_id):
     post_job = PostJobs.objects.get(id=job_id)
     post_job.hide = True
     post_job.save()
     return redirect(request.META.get('HTTP_REFERER'))
 
+@login_required(login_url='login')
 def unhide_jobs(request, job_id):
     post_job = PostJobs.objects.get(id=job_id)
     post_job.hide = False
