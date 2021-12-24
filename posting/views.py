@@ -395,3 +395,15 @@ def unhide_projects(request, pk):
     post_project.hide = False
     post_project.save()
     return redirect(request.META.get('HTTP_REFERER'))
+
+def hide_jobs(request, job_id):
+    post_job = PostJobs.objects.get(id=job_id)
+    post_job.hide = True
+    post_job.save()
+    return redirect(request.META.get('HTTP_REFERER'))
+
+def unhide_jobs(request, job_id):
+    post_job = PostJobs.objects.get(id=job_id)
+    post_job.hide = False
+    post_job.save()
+    return redirect(request.META.get('HTTP_REFERER'))
