@@ -1,8 +1,9 @@
 from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
 # models
 from .models import Follow
 from posting.models import PostProject, PostJobs
-
+@login_required(login_url='login')
 def follow_profile(request, pk):
     my_profile_follow = Follow.objects.get(user=request.user)
     obj = Follow.objects.get(id=pk)
@@ -12,6 +13,7 @@ def follow_profile(request, pk):
 
     return redirect(request.META.get('HTTP_REFERER'))
 
+@login_required(login_url='login')
 def unfollow_profile(request, pk):
     my_profile_follow = Follow.objects.get(user=request.user)
     obj = Follow.objects.get(id=pk)
@@ -21,24 +23,29 @@ def unfollow_profile(request, pk):
 
     return redirect(request.META.get('HTTP_REFERER'))
 
+@login_required(login_url='login')
 def add_like_projects(request, pk):
     project = PostProject.objects.get(id=pk)
     project.likes.add(request.user)
     project.save()
     return redirect(request.META.get('HTTP_REFERER'))
 
+@login_required(login_url='login')
 def remove_like_projects(request, pk):
     project = PostProject.objects.get(id=pk)
     project.likes.remove(request.user)
     project.save()
     return redirect(request.META.get('HTTP_REFERER'))
 
+@login_required(login_url='login')
 def add_like_jobs(request, pk):
     jobs = PostJobs.objects.get(id=pk)
     jobs.likes.add(request.user)
     return redirect(request.META.get('HTTP_REFERER'))
 
+@login_required(login_url='login')
 def remove_like_jobs(request, pk):
     jobs = PostJobs.objects.get(id=pk)
     jobs.likes.remove(request.user)
     return redirect(request.META.get('HTTP_REFERER'))
+

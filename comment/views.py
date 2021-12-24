@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 # models
 from posting.models import PostProject, PostJobs
 from accounts.models import UserProfile, Account
@@ -12,6 +13,7 @@ from .forms import CommentProjectsForm, CommentJobsForm
 # Create your views here.
 
 # ----------------------- project ----------------------------
+@login_required(login_url='login')
 def comment_project(request, project_id):
     # get project post and their comments
     post_project = PostProject.objects.get(id=project_id)
@@ -35,7 +37,7 @@ def comment_project(request, project_id):
     }
     return render(request, 'comment/comment_post_project.html', context)
 
-
+@login_required(login_url='login')
 def post_comment_project(request, project_id):
     post_project = PostProject.objects.get(id=project_id)
 
@@ -51,13 +53,13 @@ def post_comment_project(request, project_id):
             comment.save()
     return redirect(reverse('comment', args=[project_id]))
 
-
+@login_required(login_url='login')
 def delete_comment_project(request, comment_id):
     comment_project = CommentProjects.objects.get(id=comment_id)
     comment_project.delete()
     return redirect(request.META.get('HTTP_REFERER'))
 
-
+@login_required(login_url='login')
 def edit_comment_project(request, comment_id):
     comment_project = CommentProjects.objects.get(id=comment_id)
     project_id = comment_project.post_project.id
@@ -75,10 +77,10 @@ def edit_comment_project(request, comment_id):
     }
     return render(request, 'comment/edit_comment.html', context)
 
-
 # ----------------------- end project ------------------------
 
 # ----------------------- jobs ------------------------
+@login_required(login_url='login')
 def comment_jobs(request, jobs_id):
     # get job post and their comments
     user_profile_job = PostJobs.objects.get(id=jobs_id)
@@ -102,7 +104,7 @@ def comment_jobs(request, jobs_id):
     }
     return render(request, 'comment/comment_post_job.html', context)
 
-
+@login_required(login_url='login')
 def post_comment_jobs(request, jobs_id):
     post_job = PostJobs.objects.get(id=jobs_id)
     if request.method == 'POST':
@@ -117,13 +119,13 @@ def post_comment_jobs(request, jobs_id):
             comment.save()
     return redirect(reverse('comment-jobs', args=[jobs_id]))
 
-
+@login_required(login_url='login')
 def delete_comment_jobs(request, comment_id):
     comment_jobs = CommentJobs.objects.get(id=comment_id)
     comment_jobs.delete()
     return redirect(request.META.get('HTTP_REFERER'))
 
-
+@login_required(login_url='login')
 def edit_comment_jobs(request, comment_id):
     comment_jobs = CommentJobs.objects.get(id=comment_id)
     jobs_id = comment_jobs.post_job.id

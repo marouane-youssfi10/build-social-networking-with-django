@@ -4,6 +4,8 @@ from django.db.models import Q
 from django.http import HttpResponse
 from accounts.models import UserProfile
 from django.contrib.auth.decorators import login_required
+
+@login_required(login_url='login')
 def inbox(request):
     print('-------- inbox --------')
     # get all message of users  who send message
@@ -42,6 +44,7 @@ def inbox(request):
     }
     return render(request, 'conversations/messages.html', context)
 
+@login_required(login_url='login')
 def conversations(request, message_user, message_user_id):
     print('-------- conversations --------')
     # # get all message of users  who send message
@@ -88,6 +91,7 @@ def conversations(request, message_user, message_user_id):
     }
     return render(request, 'conversations/messages.html', context)
 
+@login_required(login_url='login')
 def send_message(request, to_user):
     print('-------- send_message --------')
     the_user = Message.objects.get(id=to_user)
@@ -99,6 +103,7 @@ def send_message(request, to_user):
         Message.objects.create(user=the_user.user, sender=request.user, recipient=the_user.user, body=body, is_read=False)
         return redirect(request.META.get('HTTP_REFERER'))
 
+@login_required(login_url='login')
 def add_user_to_conversation(request, pk):
     print('--------------- add_user_to_conversation ---------------')
     user_profile = UserProfile.objects.get(id=pk)
@@ -121,6 +126,7 @@ def add_user_to_conversation(request, pk):
         user_profile_id = Message.objects.filter(user=user_profile.user).latest('user')
         return redirect('conversation', user_profile.user, user_profile_id.id)
 
+@login_required(login_url='login')
 def check_message(request):
     directs_count = 0
     if request.user.is_authenticated:
