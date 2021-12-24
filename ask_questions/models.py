@@ -16,7 +16,6 @@ class TagsQuestions(models.Model):
 class Ask_questions(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE, related_name='user_ask')
     question = models.CharField(max_length=100)
-    description = models.TextField(max_length=100)
 
     created_question = models.DateTimeField(auto_now_add=True)
     updated_question = models.DateTimeField(auto_now=True)

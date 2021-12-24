@@ -16,13 +16,13 @@
 										<ul class="react-links">
 											<li><a href="#" title=""><i class="fa fa-heart"></i> Vote 150</a></li>
 											<li><a href="#" title=""><i class="fa fa-comment"></i> Comments  15</a></li>
-											<li><a href="#" title=""><i class="fa fa-eye"></i> Views  50</a></li>
+											<li><a href="#" title=""><i class="fa fa-
+												<li><a>{{ tag }}</a></li>
+											{% endfor %}
+										</ul>eye"></i> Views  50</a></li>
 										</ul>
 										<ul class="quest-tags">
 											{% for tag in question.tag_question.all %}
-												<li><a href="#" title="">{{ tag }}</a></li>
-											{% endfor %}
-										</ul>
 									</div><!--usr_quest end-->
 									<span class="quest-posted-time"><i class="fa fa-clock-o"></i>{{ question.created_question | naturaltime }}</span>
 								</div><!--usr-question end-->

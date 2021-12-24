@@ -3,7 +3,7 @@ from .models import Ask_questions, TagsQuestions
 
 
 class Ask_questionsAdmin(admin.ModelAdmin):
-    list_display = ['id', 'user', 'question', 'description', 'created_question', 'updated_question']
+    list_display = ['id', 'user', 'question', 'created_question', 'updated_question']
 
 class TagsQuestionsAdmin(admin.ModelAdmin):
     list_display = ['id', 'tags_user', 'tag']
