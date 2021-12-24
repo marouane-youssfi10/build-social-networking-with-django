@@ -90,7 +90,10 @@
 								<div class="posts-section">
 									<!-- post all profile user -->
 									{% for user_job in all_user_jobs %}
-										<div class="post-bar">
+										{% if request.user.username != user_job.user.username and user_job.hide %}
+											<!-- if the user hide his job -->
+										{% else %}
+											<div class="post-bar">
 											<div class="post_topbar">
 												<div class="usy-dt">
 													<img src="{{ user_job.user.photo_profile.url }}" width="50" height="50">
@@ -113,6 +116,11 @@
 																	Delete Post
 																</a>
 															</li>
+															{% if user_job.hide %}
+																<li><a href="{% url 'unhide-job' user_job.id %}">unhide</a></li>
+															{% else %}
+																<li><a href="{% url 'hide-job' user_job.id %}">Hide</a></li>
+															{% endif %}
 															<li><a href="" class="close-ed-opts">close</a></li>
 														</ul>
 													</div>
@@ -143,6 +151,14 @@
 														</li>
 													{% endif %}
 												</ul> <!-- Send message -->
+												<!-- check if post project is hiding then show Hiding-->
+												{% if user_job.hide == True %}
+													<ul class="bk-links">
+														<li>
+															<a class="bid_now" style="background-color:gray;">Hiding</a>
+														</li>
+													</ul>
+												{% endif %}
 											</div>
 											<div class="job_descp">
 												<h3>{{ user_job.name_jobs }}</h3>
@@ -180,6 +196,7 @@
 												<a><i class="la la-eye"></i>Views {{ user_job.viewers_job.all.count }}</a>
 											</div>
 										</div>
+										{% endif %}
 									{% endfor %}
 									<nav class="full-pagi">
 										<!-- --------------------------- Pagination --------------------------- -->
