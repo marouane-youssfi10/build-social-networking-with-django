@@ -44,7 +44,7 @@
 
 									<div class="suggestions-list">
 										{% for user_profile in all_user_profile %}
-											{% if user_profile.title %}
+											{% if user_profile.title and user_profile.user.username != request.user.username %}
 												<div class="suggestion-usd">
 												<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
 												<div class="sgt-text">
