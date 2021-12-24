@@ -77,7 +77,7 @@
 							<div class="main-ws-sec">
 								<div class="post-topbar">
 									<div class="user-picy">
-										<img src="{{ my_profile.user.photo_profile.url }}" alt="">
+										<img src="{{ my_profile.user.photo_profile.url }}" width="100" height="50">
 									</div>
 									<div class="post-st">
 										<ul>
@@ -288,7 +288,7 @@
 										</div><!--sd-title end-->
 										<div class="suggestions-list">
 											{% for user_profile in most_viewed_user_people %}
-												{% if user_profile.title %} <!-- check if the user has a title -->
+												{% if user_profile.title and user_profile.user.username != request.user.username %} <!-- check if the user has a title & user_profile != request.user-->
 													<div class="suggestion-usd">
 													<img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
 													<div class="sgt-text">
