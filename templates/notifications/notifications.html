@@ -24,6 +24,7 @@
                                         <a href="{% url 'comment' notification.post_job.id %}" style="color:black">
                                             like your post job "{{ notification.post_job.description_job | truncatechars:50 }}"
                                         </a>
+                                        Start following you
                                     {% endif %}
                                 </p>
                                 <span>{{ notification.created | naturaltime }}</span>
@@ -68,11 +69,11 @@
 
                                 <div class="notification-info">
                                     <p>
-                                        <a href="{%  url 'user-profile' notification.sender notification.sender.id %}">
+                                        <a href="{%  url 'user-profile' notification.sender.username notification.sender.id %}">
                                             {{ notification.sender }}
                                         </a>
-                                        <a href="" style="color:black">
-                                        Start following you
+                                        <a style="color:black">
+                                            Start following you
                                         </a>
                                     </p>
                                     <span>{{ notification.created | naturaltime }}</span>
