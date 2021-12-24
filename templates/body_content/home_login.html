@@ -33,7 +33,7 @@
 											<span>{{ following_count }}</span>
 										</li>
 										<li>
-											<a href="{% url 'user-profile' my_profile.user my_profile.id %}">View Profile</a>
+											<a href="{% url 'user-profile' my_profile.user.username my_profile.id %}">View Profile</a>
 										</li>
 									</ul>
 								</div><!--user-data end-->

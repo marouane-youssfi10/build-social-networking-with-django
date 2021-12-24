@@ -67,22 +67,19 @@
     </div>
 
     <!-- tags -->
-    <!-- if current_user_profile has tag then display it else don't show it -->
-	{% if current_user_profile.skills_tags_user.all %}
-		<div class="user-profile-ov">
-			<h3>
-				<a>Skills</a>
-                <!-- if request.user in his profile then show him the modification links -->
-                {% if request.user == current_user_profile.user %}
-				    <a href="{% url 'edit-profile' %}"><i class="fa fa-pencil"></i></a>
-				    <a href="{% url 'edit-profile' %}"><i class="fa fa-plus-square"></i></a>
-                {% endif %}
-			</h3>
-			<ul>
-                <!-- display tags if exits -->
-				{% for tag in current_user_profile.skills_tags_user.all %}
-					<li><a>{{ tag }}</a></li>
-				{% endfor %}
-			</ul>
-		</div><!--user-profile-ov end-->
-	{% endif %}
+    <div class="user-profile-ov">
+        <h3>
+            <a>Skills</a>
+            <!-- if request.user in his profile then show him the modification links -->
+            {% if request.user == current_user_profile.user %}
+                <a href="{% url 'edit-profile' %}"><i class="fa fa-pencil"></i></a>
+                <a href="{% url 'edit-profile' %}"><i class="fa fa-plus-square"></i></a>
+            {% endif %}
+        </h3>
+        <ul>
+            <!-- display tags if exits -->
+            {% for tag in current_user_profile.skills_tags_user.all %}
+                <li><a>{{ tag }}</a></li>
+            {% endfor %}
+        </ul>
+    </div><!--user-profile-ov end-->

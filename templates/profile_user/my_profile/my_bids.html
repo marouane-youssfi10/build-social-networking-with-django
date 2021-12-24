@@ -1,63 +1,74 @@
 {% load static %}
 {% load humanize %}
 <div class="posts-section">
-    {% for project in my_profile.my_bids_projects.all %}
+
+    {% if my_profile.my_bids_projects.all.count == 0%}
         <div class="post-bar">
             <div class="post_topbar">
                 <div class="usy-dt">
-                    <img src="{{ project.user.photo_profile.url }}" width="50" height="50">
-                    <div class="usy-name">
-                        <h3>John Doe</h3>
-                        <span><img src="images/clock.png" alt="">{{ project.created_project | naturaltime }}</span>
-                    </div>
+                    there's no bids projects
                 </div>
             </div>
-            <div class="epi-sec">
-                <ul class="descp">
-                    <li><img src="{% static 'images/icon8.png' %}" alt=""><span>Frontend Developer</span></li>
-                    <li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ project.location }}</span></li>
-                </ul>
-                <ul class="bk-links">
-                    <li><a href="#"><i class="la la-envelope"></i></a></li>
-                    {% if project in my_profile.my_bids_projects.all %}
-                        <li>
-                            <a href="{% url 'unbid-project' project.id %}" class="bid_now">UnBid</a>
-                        </li>
-                    {% else %}
-                        <li>
-                            <a href="{% url 'bid-project' project.id %}" class="bid_now">Bid Now</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
-            <div class="job_descp">
-                <h3>{{ project.name_project }}</h3>
-                <ul class="job-dt">
-                    <li><span>${{ project.start_price }} - ${{ project.end_price }}</span></li>
-                </ul>
-                <p>{{ project.description_project }} <a href="#" title="">view more</a></p>
-                <ul class="skill-tags">
-                    {% for tag in project.skills_tags_projects.all %}
-                        <li><a>{{ tag }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="job-status-bar">
-            <ul class="like-com">
-                <li>
-                    <!-- check the user if do a like -->
-                    {% if request.user in project.likes.all %}
-                        <a href="{% url 'remove-like-post-projects' project.id %}" class="active"><i class="la la-heart"></i> Like</a>
-                        <img src="{% static 'images/liked-img.png' %}">
-                        <span>{{ project.likes.all.count }}</span>
-                    {% else %}
-                        <a href="{% url 'add-like-post-projects' project.id %}"><i class="la la-heart"></i> Like</a>
-                        <img src="{% static 'images/liked-img.png' %}">
-                        <span>{{ project.likes.all.count }}</span>
-                    {% endif %}
-                </li>
-            </ul>
         </div>
-        </div><!--post-bar end-->
-    {% endfor %}
+    {% else %}
+        {% for project in my_profile.my_bids_projects.all %}
+            <div class="post-bar">
+                <div class="post_topbar">
+                    <div class="usy-dt">
+                        <img src="{{ project.user.photo_profile.url }}" width="50" height="50">
+                        <div class="usy-name">
+                            <h3>John Doe</h3>
+                            <span><img src="images/clock.png" alt="">{{ project.created_project | naturaltime }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="epi-sec">
+                    <ul class="descp">
+                        <li><img src="{% static 'images/icon8.png' %}" alt=""><span>Frontend Developer</span></li>
+                        <li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ project.location }}</span></li>
+                    </ul>
+                    <ul class="bk-links">
+                        <li><a href="#"><i class="la la-envelope"></i></a></li>
+                        {% if project in my_profile.my_bids_projects.all %}
+                            <li>
+                                <a href="{% url 'unbid-project' project.id %}" class="bid_now">UnBid</a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="{% url 'bid-project' project.id %}" class="bid_now">Bid Now</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="job_descp">
+                    <h3>{{ project.name_project }}</h3>
+                    <ul class="job-dt">
+                        <li><span>${{ project.start_price }} - ${{ project.end_price }}</span></li>
+                    </ul>
+                    <p>{{ project.description_project }} <a href="#" title="">view more</a></p>
+                    <ul class="skill-tags">
+                        {% for tag in project.skills_tags_projects.all %}
+                            <li><a>{{ tag }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="job-status-bar">
+                <ul class="like-com">
+                    <li>
+                        <!-- check the user if do a like -->
+                        {% if request.user in project.likes.all %}
+                            <a href="{% url 'remove-like-post-projects' project.id %}" class="active"><i class="la la-heart"></i> Like</a>
+                            <img src="{% static 'images/liked-img.png' %}">
+                            <span>{{ project.likes.all.count }}</span>
+                        {% else %}
+                            <a href="{% url 'add-like-post-projects' project.id %}"><i class="la la-heart"></i> Like</a>
+                            <img src="{% static 'images/liked-img.png' %}">
+                            <span>{{ project.likes.all.count }}</span>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+            </div><!--post-bar end-->
+        {% endfor %}
+    {% endif %}
 </div><!--posts-section end-->

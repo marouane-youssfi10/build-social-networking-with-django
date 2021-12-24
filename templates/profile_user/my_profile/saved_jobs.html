@@ -2,119 +2,89 @@
 {% load humanize %}
 <div class="posts-section">
     <!-- get all users you are saved their jobs-->
-    {% for profile in my_profile.saved_jobs.all %}
+    {% if my_profile.saved_jobs.all.count == 0 %}
         <div class="post-bar">
             <div class="post_topbar">
                 <div class="usy-dt">
-                    <img src="{{ profile.user.photo_profile.url }}" width="50" height="50">
-                    <div class="usy-name">
-                        <h3>{{ profile.user.full_name }}</h3>
-                        <span><img src="images/clock.png" alt="">{{ profile.updated_job | naturaltime }}</span>
-                    </div>
+                    there's no saved jobs
                 </div>
             </div>
-            <div class="epi-sec">
-                <ul class="descp">
-                    <li><img src="{% static 'images/icon8.png' %}" alt=""><span>{{ profile.epic_coder }}</span></li>
-                    <li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ profile.location }}</span></li>
-                </ul>
-                <ul class="bk-links">
-                    <li>
-                        <!-- get the users saved in UserProfile -->
-                        {% if profile in my_profile.saved_jobs.all %}
-                            <a href="{% url 'unsaved-jobs' profile.id %}">
-                                <i class="la la-check"></i>
-                            </a>
-                        {% else %}
-                            <a href="{% url 'saved-jobs' profile.id %}">
-                                <i class="la la-bookmark"></i>
-                            </a>
-                        {% endif %}
-                    </li>
-                    <li><a href="#" title=""><i class="la la-envelope"></i></a></li>
-                </ul>
-            </div>
-            <div class="job_descp">
-                <h3>{{ profile.name_jobs }}</h3>
-                <ul class="job-dt">
-                    <li><a>{{ profile.type_work_job }}</a></li>
-                    <li><span>${{ profile.price }} / hr</span></li>
-                </ul>
-                <p>
-                    {{ profile.description_job | truncatechars:150 }}
-                    {% if profile.description_job|length > 150 %}
-                        ....<a href="{% url 'comment-jobs' profile.id %}">view more</a>
-                    {% endif %}
-                </p>
-                <ul class="skill-tags">
-                    {% for tag in profile.skills_tags_jobs.all %}
-                        <li><a>{{ tag }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="job-status-bar">
-                <ul class="like-com">
-                    <li>
-                        <!-- check the user if do a like -->
-                        {% if request.user in profile.likes.all %}
-                            <a href="{% url 'remove-like-post-jobs' profile.id %}" class="active"><i class="la la-heart"></i> Like</a>
-                            <img src="{% static 'images/liked-img.png' %}">
-                            <span>{{ profile.likes.all.count }}</span>
-                        {% else %}
-                            <a href="{% url 'add-like-post-jobs' profile.id %}"><i class="la la-heart"></i> Like</a>
-                            <img src="{% static 'images/liked-img.png' %}">
-                            <span>{{ profile.likes.all.count }}</span>
-                        {% endif %}
-                    </li> <!-- Like -->
-                    <li>
-                        <a class="com" href="{% url 'comment-jobs' profile.id %}">
-                            <img src="{% static 'images/com.png' %}">
-                            Comment {{ profile.post_job_comment.all.count }}
-                        </a>
-                    </li> <!-- Comment -->
-                </ul>
-                <a><i class="la la-eye"></i>Views {{ profile.viewers_job.all.count }}</a>
-            </div>
         </div>
-    {% endfor %}
-
-    <!-- =============== Pagination =============== -->
-    <nav class="full-pagi">
-        {% if my_profile.saved_jobs.all.has_other_pages %}
-            <ul class="pagination justify-content-center">
-                {% if my_profile.saved_jobs.all.has_previous %}
-                    <li class="page-item">
-                        <a class="page-link pvr" href="?page={{ my_profile.saved_jobs.all.previous_page_number }}">Previous</a>
-                    </li>
-                {% else %}
-                    <li class="page-item disabled">
-                        <a class="page-link pvr">Previous</a>
-                    </li>
-                {% endif %}
-
-                {% for i in my_profile.saved_jobs.all.paginator.page_range %}
-                    {% if my_profile.saved_jobs.all.number == i %}
-                        <li class="page-item">
-                            <a class="page-link active">{{ i }}</a>
+    {% else %}
+        {% for profile in my_profile.saved_jobs.all %}
+            <div class="post-bar">
+                <div class="post_topbar">
+                    <div class="usy-dt">
+                        <img src="{{ profile.user.photo_profile.url }}" width="50" height="50">
+                        <div class="usy-name">
+                            <h3>{{ profile.user.full_name }}</h3>
+                            <span><img src="images/clock.png" alt="">{{ profile.updated_job | naturaltime }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="epi-sec">
+                    <ul class="descp">
+                        <li><img src="{% static 'images/icon8.png' %}" alt=""><span>{{ profile.epic_coder }}</span></li>
+                        <li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ profile.location }}</span></li>
+                    </ul>
+                    <ul class="bk-links">
+                        <li>
+                            <!-- get the users saved in UserProfile -->
+                            {% if profile in my_profile.saved_jobs.all %}
+                                <a href="{% url 'unsaved-jobs' profile.id %}">
+                                    <i class="la la-check"></i>
+                                </a>
+                            {% else %}
+                                <a href="{% url 'saved-jobs' profile.id %}">
+                                    <i class="la la-bookmark"></i>
+                                </a>
+                            {% endif %}
                         </li>
-                    {% elif i > my_profile.saved_jobs.all.number|add:'-4' and i < my_profile.saved_jobs.all.number|add:'4' %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
-                        </li>
-                    {% endif %}
-                {% endfor %}
-
-                {% if my_profile.saved_jobs.all.has_next %}
-                    <li class="page-item">
-                        <a class="page-link pvr" href="?page={{ my_profile.saved_jobs.all.next_page_number }}">Next</a>
-                    </li>
-                {% else %}
-                    <li class="page-item disabled">
-                        <a class="page-link pvr">Next</a>
-                    </li>
-                {% endif %}
-            </ul>
-        {% endif %}
-    </nav>
-    <!-- =============== end Pagination =============== -->
+                        <li><a href="#" title=""><i class="la la-envelope"></i></a></li>
+                    </ul>
+                </div>
+                <div class="job_descp">
+                    <h3>{{ profile.name_jobs }}</h3>
+                    <ul class="job-dt">
+                        <li><a>{{ profile.type_work_job }}</a></li>
+                        <li><span>${{ profile.price }} / hr</span></li>
+                    </ul>
+                    <p>
+                        {{ profile.description_job | truncatechars:150 }}
+                        {% if profile.description_job|length > 150 %}
+                            ....<a href="{% url 'comment-jobs' profile.id %}">view more</a>
+                        {% endif %}
+                    </p>
+                    <ul class="skill-tags">
+                        {% for tag in profile.skills_tags_jobs.all %}
+                            <li><a>{{ tag }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="job-status-bar">
+                    <ul class="like-com">
+                        <li>
+                            <!-- check the user if do a like -->
+                            {% if request.user in profile.likes.all %}
+                                <a href="{% url 'remove-like-post-jobs' profile.id %}" class="active"><i class="la la-heart"></i> Like</a>
+                                <img src="{% static 'images/liked-img.png' %}">
+                                <span>{{ profile.likes.all.count }}</span>
+                            {% else %}
+                                <a href="{% url 'add-like-post-jobs' profile.id %}"><i class="la la-heart"></i> Like</a>
+                                <img src="{% static 'images/liked-img.png' %}">
+                                <span>{{ profile.likes.all.count }}</span>
+                            {% endif %}
+                        </li> <!-- Like -->
+                        <li>
+                            <a class="com" href="{% url 'comment-jobs' profile.id %}">
+                                <img src="{% static 'images/com.png' %}">
+                                Comment {{ profile.post_job_comment.all.count }}
+                            </a>
+                        </li> <!-- Comment -->
+                    </ul>
+                    <a><i class="la la-eye"></i>Views {{ profile.viewers_job.all.count }}</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
 </div><!--posts-section end-->
