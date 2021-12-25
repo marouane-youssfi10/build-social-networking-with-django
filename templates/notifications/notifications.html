@@ -44,13 +44,13 @@
                                         </a>
                                         {% if notification.post_project %}
                                             <a href="{% url 'comment' notification.post_project.id %}" style="color:black">
-                                                comment on your post project "{{ notification.post_project }}"
+                                                comment on your post project "{{ notification.post_project | truncatechars:50  }}"<br>
                                                 {{ notification.body | truncatechars:50 }}
                                             </a>
                                         {% else %}
                                             <a href="{% url 'comment' notification.post_job.id %}" style="color:black">
                                                 comment on your post job "{{ notification.post_job.description_job | truncatechars:50 }}"<br>
-                                                {{ notification.body | truncatechars:50}}
+                                                {{ notification.body | truncatechars:50 }}
                                             </a>
                                         {% endif %}
                                     </p>

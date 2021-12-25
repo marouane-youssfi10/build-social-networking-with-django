@@ -49,7 +49,12 @@
                     <ul class="job-dt">
                         <li><span>${{ project.start_price }} - ${{ project.end_price }}</span></li>
                     </ul>
-                    <p>{{ project.description_project }} <a href="#" title="">view more</a></p>
+                    <p>
+                        {{ project.description_project | truncatechars:180 }}
+                        {% if project.description_project|length > 150 %}
+                            .....<a href="{% url 'comment' project.id %}">view more</a>
+                        {% endif %}
+                    </p>
                     <ul class="skill-tags">
                         {% for tag in project.skills_tags_projects.all %}
                             <li><a>{{ tag }}</a></li>
