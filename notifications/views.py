@@ -6,10 +6,6 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url='login')
 def show_notifications(request):
     notifications = NotificationProjects.objects.filter(to_user=request.user)
-    print('--------------------------')
-    print('notifications      = ', notifications)
-    print('--------------------------')
-
 
     context = {
         'notifications': notifications
@@ -18,7 +14,6 @@ def show_notifications(request):
     NotificationProjects.objects.filter(to_user=request.user, is_seen=False).update(is_seen=True)
     return response
 
-@login_required(login_url='login')
 def count_notifications(request):
     count_notifications = 0
     if request.user.is_authenticated:

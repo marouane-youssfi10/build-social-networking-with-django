@@ -49,12 +49,14 @@ def conversations(request, message_user, message_user_id):
     print('-------- conversations --------')
     # # get all message of users  who send message
     message_user = Message.objects.get(id=message_user_id)
+
     # check if message_user.user == message_user.sender for modified is_read to true.
     if message_user.user == message_user.sender:
         Message.objects.filter(sender=message_user.sender, recipient=message_user.recipient, is_read=False).update(is_read=True)
 
     # get all Message
     messages_users = Message.objects.all()
+
     # filter message with request.user whatever in sender or recipient
     messages_users = messages_users.filter(Q(recipient=request.user) | Q(sender=request.user)).order_by('user', '-updated').distinct('user')
 
@@ -126,7 +128,6 @@ def add_user_to_conversation(request, pk):
         user_profile_id = Message.objects.filter(user=user_profile.user).latest('user')
         return redirect('conversation', user_profile.user, user_profile_id.id)
 
-@login_required(login_url='login')
 def check_message(request):
     directs_count = 0
     if request.user.is_authenticated:

@@ -64,4 +64,3 @@ class UserProfileForm(forms.ModelForm):
         self.fields['education_description'].widget = forms.Textarea(attrs={'rows': '5', 'cols': '5'})
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
-            # self.fields[field].strip = False

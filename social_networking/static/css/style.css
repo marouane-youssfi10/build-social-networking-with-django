@@ -4829,7 +4829,7 @@ a:hover {
 }
 .message-dt > span {
 	color: #b2b2b2;
-	font-size: 14px;
+	font-size: 12px;  /* font-size: 14px; */
 	float: left;
 	width: 100%;
 	margin-top: 7px;
