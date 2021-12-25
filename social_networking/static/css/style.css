@@ -4772,6 +4772,7 @@ a:hover {
 	width: 100%;
 	position: relative;
 	margin-bottom: 15.5px;
+	/* -- new --- */
 }
 .messg-usr-img {
 	position: absolute;
@@ -4791,6 +4792,8 @@ a:hover {
 	float: left;
 	width: auto;
 	padding-left: 85px;
+
+	/* --- new --- */
 }
 .main-message-box.ta-right {
 	float: right;
@@ -4847,6 +4850,7 @@ a:hover {
 	-ms-border-radius: 15px;
 	-o-border-radius: 15px;
 	border-radius: 15px;
+	/* new */
 }
 .message-dt.st3 .message-inner-dt > p {
 	background-color: #efefef;
@@ -4868,6 +4872,8 @@ a:hover {
 	float: left;
 	width: 100%;
 	height: 436px; /* height: 604px; */
+    /* --- new --- */
+
 }
 
 /* ============== message-send-area ============ */
@@ -5423,17 +5429,14 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 /* scroll */
-/*.comment-section {
-  height: 400px;
-  overflow-y: scroll;
-  scrollbar-color: rebeccapurple green;
-  scrollbar-width: thin;
-}*/
+
 .messages-line{
   height: 436px; /* height: 640px; */
   overflow-y: scroll;
   scrollbar-color: rebeccapurple green;
   scrollbar-width: thin;
+   /* -- new --- */
+
 }
 .messages-list{
   height: 444px; /* height: 637px; */
@@ -5491,6 +5494,7 @@ input[type=number] {
     position:relative;
     top:14px;
     left:22px;
+    /**/
 }
 
 .start_a_conversation{
@@ -5504,18 +5508,6 @@ input[type=number] {
    background-color:#e44d3a;
    color:white;
 }
-
-/*.form-control{
-    background-color:#e44d3a;
-}*/
-/*.go_back{
-    position:absolute;
-    top:30px;
-}
-.go_back .checky-sec a .fa {
-    color:#e44d3a;
-    font-size:20px;
-}*/
 
 pre {
     white-space: pre-wrap;       /* Since CSS 2.1 */

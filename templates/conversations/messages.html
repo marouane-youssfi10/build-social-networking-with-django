@@ -28,7 +28,6 @@
                         <div class="messages-list">
                             <ul>
                                 {% for message_user in users %}
-                                    {# message_user.id = {{message_user.id}} -- {{message_user.user}} #}
                                     {% if request.user != message_user.user %} <!-- exclude request.user -->
                                         {% if message_user.user == message_user.sender or message_user.user == message_user.recipient %}
                                             <li class="{% if to_user.user == message_user.user %}active{% endif %}">
@@ -70,16 +69,16 @@
                                 {% if conversation.body != None %}
                                     {% if conversation.user == conversation.sender %}
                                         <div class="main-message-box st3">
-                                                <div class="message-dt st3">
-                                                    <div class="message-inner-dt">
-                                                        <p>{{ conversation.body }}</p>
-                                                    </div><!--message-inner-dt end-->
-                                                    <span>{{ conversation.created }}</span>
-                                                </div><!--message-dt end-->
-                                                <div class="messg-usr-img">
-                                                    <img src="{{ conversation.user.photo_profile.url }}" width="50" height="50">
-                                                </div><!--messg-usr-img end-->
-                                            </div>
+                                            <div class="message-dt st3">
+                                                <div class="message-inner-dt">
+                                                    <p>{{ conversation.body }}</p>
+                                                </div><!--message-inner-dt end-->
+                                                <span>{{ conversation.created }}</span>
+                                            </div><!--message-dt end-->
+                                            <div class="messg-usr-img">
+                                                <img src="{{ conversation.user.photo_profile.url }}" width="50" height="50">
+                                            </div><!--messg-usr-img end-->
+                                        </div>
                                     {% else %}
                                         <div class="main-message-box st3">
                                             <div class="message-dt st3">
