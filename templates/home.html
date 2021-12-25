@@ -103,7 +103,7 @@
                                                 <div class="usy-dt">
                                                     <img src="{{ user_job.user.photo_profile.url }}" width="50" height="50">
                                                     <div class="usy-name">
-                                                        <a href="{% url 'user-profile' user_job.user user_job.user.id %}">
+                                                        <a href="{% url 'user-profile' user_job.user.username user_job.user.id %}">
                                                             <h3>{{ user_job.user.full_name }}</h3>
                                                         </a>
                                                         <span><img src="{% static 'images/clock.png' %}" alt="">{{ user_job.created_job | naturaltime }}</span>
