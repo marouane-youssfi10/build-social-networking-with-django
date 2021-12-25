@@ -3,7 +3,8 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 # models
 from user_profile.models import Experience_user, TagsUser, Social_media
 from posting.models import PostProject, PostJobs
-from comment.models import CommentJobs, CommentProjects
+
+from ckeditor.fields import RichTextField
 
 class MyAccountManager(BaseUserManager):
 
@@ -95,6 +96,8 @@ class UserProfile(models.Model):
     location_city = models.CharField(blank=True, max_length=100)
     hourly_work = models.IntegerField(blank=True, null=True)
     type_work = models.CharField(blank=True, choices=STATUS_CHOICES, max_length=50, null=True, default=None)
+
+    # body = RichTextField(blank=True, null=True)
 
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)

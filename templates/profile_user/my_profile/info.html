@@ -9,7 +9,7 @@
             {% endif %}
         </h3>
         {% if current_user_profile.overview %}
-            <p>{{ current_user_profile.overview }}</p>
+            <pre>{{ current_user_profile.overview }}</pre>
         {% endif %}
     </div>
 
@@ -50,7 +50,7 @@
         {% endif %}
 
         {% if current_user_profile.education_description != None %}
-            <p>{{ current_user_profile.education_description }}</p>
+            <pre>{{ current_user_profile.education_description }}</pre>
         {% endif %}
     </div>
 
