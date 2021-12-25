@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-j6-jk%n+zyledbq&wh*qzp*9$q9dz41iihz1at#eb@28fu351-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['mighty-sea-45705.herokuapp.com', 'workwise-youssfi.co', 'www.workwise-youssfi.co']
 
