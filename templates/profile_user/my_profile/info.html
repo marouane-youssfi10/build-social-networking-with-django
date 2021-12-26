@@ -45,7 +45,7 @@
             <h4>{{ current_user_profile.education_title }}</h4>
         {% endif %}
 
-        {% if current_user_profile.education_year_start != None and education_year_end != None %}
+        {% if current_user_profile.education_year_start != None and current_user_profile.education_year_end != None %}
             <span>{{ current_user_profile.full_year }}</span>
         {% endif %}
 

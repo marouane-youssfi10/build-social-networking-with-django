@@ -4,6 +4,9 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from user_profile.models import Experience_user, TagsUser, Social_media
 from posting.models import PostProject, PostJobs
 
+from PIL import Image
+from django.core.files.storage import default_storage as storage
+
 class MyAccountManager(BaseUserManager):
 
     def create_user(self, first_name, last_name, username, email, password=None):
@@ -61,9 +64,6 @@ class Account(AbstractBaseUser):
 
     def __str__(self):
         return self.first_name if self.first_name else ''
-
-    """def __int__(self):
-        return self.pk"""
 
     def full_name(self):
         return f'{self.first_name} {self.last_name}'

@@ -5517,3 +5517,7 @@ pre {
     word-wrap: break-word;       /* Internet Explorer 5.5+ */
     overflow-y:hidden;
 }
+
+.photo_profile_info{
+    font-size:12px;
+}

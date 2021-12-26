@@ -36,6 +36,8 @@ class SocialMediaForm(forms.ModelForm):
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].required = True
 
+
+
 class UserForm(forms.ModelForm):
     photo_profile = forms.ImageField(required=False, error_messages={'invalid': "Image files only"}, widget=forms.FileInput)
     class Meta:
@@ -63,3 +65,5 @@ class UserProfileForm(forms.ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].required = False
+
+
