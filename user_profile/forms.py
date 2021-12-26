@@ -49,8 +49,6 @@ class UserForm(forms.ModelForm):
 
 class UserProfileForm(forms.ModelForm):
     photo_cover = forms.ImageField(required=False, error_messages={'invalid': "Image files only"}, widget=forms.FileInput)
-    overview = forms.CharField(strip=False, widget=forms.Textarea)
-    education_description = forms.CharField(strip=False, widget=forms.Textarea)
 
     class Meta:
         model = UserProfile
@@ -64,3 +62,4 @@ class UserProfileForm(forms.ModelForm):
         self.fields['education_description'].widget = forms.Textarea(attrs={'rows': '5', 'cols': '5'})
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
+            self.fields[field].required = False
