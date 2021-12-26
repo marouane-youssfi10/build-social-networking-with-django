@@ -13,19 +13,21 @@ import os
 from pathlib import Path
 import dj_database_url
 import django_heroku
-
+import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env(SECRET_KEY=str,)
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-j6-jk%n+zyledbq&wh*qzp*9$q9dz41iihz1at#eb@28fu351-'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['workwise-youssfi.co', 'www.workwise-youssfi.co']
 
@@ -98,16 +100,17 @@ AUTH_USER_MODEL = 'accounts.Account'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'social_networking',
-        'USER': 'postgres',
-        'PASSWORD': 'marouane123EE',
-        'HOST': 'localhost',
-    }
-}
-# DATABASE = {'default': dj_database_url.config(default='postgresql://postgres:marouane123EE@localhost/social_networking')}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': env('NAME'),
+#         'USER': env('USER'),
+#         'PASSWORD': env('PASSWORD'),
+#         'HOST': env('HOST'),
+#     }
+# }
+DATABASE = {'default': dj_database_url.config(default='postgresql://postgres:marouane123EE@localhost/social_networking')}
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -165,11 +168,11 @@ MESSAGE_TAGS = {
 }
 
 # SMTP configuration
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'work.wise010@gmail.com'
-EMAIL_HOST_PASSWORD = 'workwise123EE_*'
-EMAIL_USE_TLS = True
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = env('EMAIL_USE_TLS')
 
 
 # Whitenoise settings
@@ -178,8 +181,8 @@ EMAIL_USE_TLS = True
 django_heroku.settings(locals())
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'marouane',
-    'API_KEY': '775243127871516',
-    'API_SECRET': '2dkarn-JezXyC3LBVVbxnHg9qpY'
+    'CLOUD_NAME': env('CLOUD_NAME'),
+    'API_KEY': env('API_KEY'),
+    'API_SECRET': env('API_SECRET')
 }
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'

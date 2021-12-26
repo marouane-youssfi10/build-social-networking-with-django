@@ -42,23 +42,19 @@ def index(request):
     return render(request, 'home.html', context)
 
 @login_required(login_url='login')
-def user_profile(request, username, pk):
+def user_profile(request, name_user, pk):
     print('------------ user_profile -----------------')
     # get all user_profile for Suggestions div
     all_user_profile = UserProfile.objects.all().order_by('created')[0:5]
 
     # get all experience of request.user
-    user_experience = Experience_user.objects.filter(experience_user__username=username).exclude(experince_title=None, experince_description=None)
-
-    print('user_experience = ', user_experience)
-    print('slug_user = ', username)
-    print('pk        = ', pk)
+    user_experience = Experience_user.objects.filter(experience_user__pk=pk).exclude(experince_title=None, experince_description=None)
 
     # get currently user profile
-    current_user_profile = UserProfile.objects.get(user__username=username)
+    current_user_profile = UserProfile.objects.get(user__pk=pk)
 
     # get info of follow current user
-    current_follow_user = Follow.objects.get(user__username=username)
+    current_follow_user = Follow.objects.get(user__pk=pk)
 
     # get following & followers current_user
     following_count = current_follow_user.following.all().count()

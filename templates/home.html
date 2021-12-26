@@ -38,7 +38,7 @@
                                             <span>{{ following_count }}</span>
                                         </li>
                                         <li>
-                                            <a href="{% url 'user-profile' my_profile.user.username my_profile.id %}">View Profile</a>
+                                            <a href="{% url 'user-profile' my_profile.user my_profile.id %}">View Profile</a>
                                         </li>
                                     </ul>
                                 </div><!--user-data end-->
@@ -53,7 +53,7 @@
                                                 <div class="suggestion-usd">
                                                 <img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
                                                 <div class="sgt-text">
-                                                    <a href="{% url 'user-profile' user_profile.user.username user_profile.user.id %}">
+                                                    <a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
                                                         <h4>{{ user_profile.user.full_name }}</h4>
                                                     </a>
                                                     <span>{{ user_profile.title }}</span>
@@ -103,7 +103,7 @@
                                                 <div class="usy-dt">
                                                     <img src="{{ user_job.user.photo_profile.url }}" width="50" height="50">
                                                     <div class="usy-name">
-                                                        <a href="{% url 'user-profile' user_job.user.username user_job.user.id %}">
+                                                        <a href="{% url 'user-profile' user_job.user user_job.user.id %}">
                                                             <h3>{{ user_job.user.full_name }}</h3>
                                                         </a>
                                                         <span><img src="{% static 'images/clock.png' %}" alt="">{{ user_job.created_job | naturaltime }}</span>
@@ -297,7 +297,7 @@
                                                 <div class="suggestion-usd">
                                                 <img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
                                                 <div class="sgt-text">
-                                                    <a href="{% url 'user-profile' user_profile.user.username user_profile.user.id %}">
+                                                    <a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
                                                         <h4>{{ user_profile.user.full_name }}</h4>
                                                     </a>
                                                     <span>{{ user_profile.title }}</span>
