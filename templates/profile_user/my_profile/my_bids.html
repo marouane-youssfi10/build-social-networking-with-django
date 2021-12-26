@@ -17,7 +17,9 @@
                     <div class="usy-dt">
                         <img src="{{ project.user.photo_profile.url }}" width="50" height="50">
                         <div class="usy-name">
-                            <h3>John Doe</h3>
+                            <a href="{% url 'user-profile' project.user project.user.id %}">
+                                <h3>{{ project.user.full_name }}</h3>
+                            </a>
                             <span><img src="images/clock.png" alt="">{{ project.created_project | naturaltime }}</span>
                         </div>
                     </div>
@@ -62,21 +64,28 @@
                     </ul>
                 </div>
                 <div class="job-status-bar">
-                <ul class="like-com">
-                    <li>
-                        <!-- check the user if do a like -->
-                        {% if request.user in project.likes.all %}
-                            <a href="{% url 'remove-like-post-projects' project.id %}" class="active"><i class="la la-heart"></i> Like</a>
-                            <img src="{% static 'images/liked-img.png' %}">
-                            <span>{{ project.likes.all.count }}</span>
-                        {% else %}
-                            <a href="{% url 'add-like-post-projects' project.id %}"><i class="la la-heart"></i> Like</a>
-                            <img src="{% static 'images/liked-img.png' %}">
-                            <span>{{ project.likes.all.count }}</span>
-                        {% endif %}
-                    </li>
-                </ul>
-            </div>
+                    <ul class="like-com">
+                        <li>
+                            <!-- check the user if do a like -->
+                            {% if request.user in project.likes.all %}
+                                <a href="{% url 'remove-like-post-projects' project.id %}" class="active"><i class="la la-heart"></i> Like</a>
+                                <img src="{% static 'images/liked-img.png' %}">
+                                <span>{{ project.likes.all.count }}</span>
+                            {% else %}
+                                <a href="{% url 'add-like-post-projects' project.id %}"><i class="la la-heart"></i> Like</a>
+                                <img src="{% static 'images/liked-img.png' %}">
+                                <span>{{ project.likes.all.count }}</span>
+                            {% endif %}
+                        </li>
+                        <li>
+                            <a class="com" href="{% url 'comment' project.id %}">
+                                <img src="{% static 'images/com.png' %}"> Comment
+                                {{ project.post_project_comment.all.count }}
+                            </a>
+                        </li>
+                    </ul>
+                    <a><i class="la la-eye"></i>Views {{ project.viewers_project.all.count }}</a>
+                </div>
             </div><!--post-bar end-->
         {% endfor %}
     {% endif %}

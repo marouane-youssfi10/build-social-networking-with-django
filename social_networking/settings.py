@@ -98,15 +98,15 @@ AUTH_USER_MODEL = 'accounts.Account'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-"""DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'social_networking',
-        'USER': 'postgres',
-        'PASSWORD': 'marouane123EE',
-        'HOST': 'localhost',
-    }
-}"""
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'social_networking',
+#         'USER': 'postgres',
+#         'PASSWORD': 'marouane123EE',
+#         'HOST': 'localhost',
+#     }
+# }
 DATABASE = {'default': dj_database_url.config(default='postgresql://postgres:marouane123EE@localhost/social_networking')}
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
