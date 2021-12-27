@@ -16,7 +16,7 @@ from django.core.paginator import Paginator
 def projects(request):
     print('-----------------  projects ---------------------')
     # get all user who posting projects and user profile
-    projects = PostProject.objects.all()
+    projects = PostProject.objects.filter(hide=False)
     my_profile = UserProfile.objects.get(user=request.user)
 
     # for projects page
@@ -34,7 +34,7 @@ def projects(request):
 def jobs(request):
     print('-----------------  jobs ---------------------')
     # get all jobs users and my profile
-    all_user_profile = PostJobs.objects.all()
+    all_user_profile = PostJobs.objects.filter(hide=False)
     my_profile = UserProfile.objects.get(user=request.user)
 
     # for jobs page
@@ -55,6 +55,7 @@ def search_jobs(request):
     all_user_profile = PostJobs.objects.filter(
             Q(name_jobs__icontains=q) | Q(description_job__icontains=q) | Q(skills_tags_jobs__tag__iexact=q)
         ).distinct()
+    all_user_profile = all_user_profile.filter(hide=False)
 
     paginator_jobs = Paginator(all_user_profile, 3)
     page_number_jobs = request.GET.get('page')
@@ -68,7 +69,7 @@ def search_jobs(request):
 @login_required(login_url='login')
 def filter_jobs(request):
     print('---------------------- filter jobs -------------------------')
-    all_user_profile = PostJobs.objects.all()
+    all_user_profile = PostJobs.objects.filter(hide=False)
     print('all_user_profile = ', all_user_profile)
 
     if request.method == 'POST':
@@ -218,11 +219,12 @@ def search_projects(request):
     print('-------------search projects -------------------------')
     q = request.GET.get('q') if request.GET.get('q') is not None else ''
     if q =='':
-        projects = PostProject.objects.all()
+        projects = PostProject.objects.filter(hide=False)
     else:
         projects = PostProject.objects.filter(
             Q(name_project__icontains=q) | Q(description_project__icontains=q) | Q(skills_tags_projects__tag__icontains=q)
         ).distinct()
+        projects = projects.filter(hide=False)
 
     paginator_projects = Paginator(projects, 3)
     page_number_projects = request.GET.get('page')

@@ -72,7 +72,7 @@
 				<div class="user-account">
 					<div class="user-info">
 						<img src="{{ request.user.photo_profile.url }}" width="35" height="35">
-						<a title="{{ request.user.full_name }}">{{ request.user.first_name }}</a>
+						<a title="{{ request.user.full_name }}">{{ request.user.first_name | truncatechars:11 }}</a>
 						<i class="la la-sort-down"></i>
 					</div>
 					<div class="user-account-settingss">

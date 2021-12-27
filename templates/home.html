@@ -54,9 +54,9 @@
                                                 <img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
                                                 <div class="sgt-text">
                                                     <a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
-                                                        <h4>{{ user_profile.user.full_name }}</h4>
+                                                        <h4>{{ user_profile.user.full_name | truncatechars:22 }}</h4>
                                                     </a>
-                                                    <span>{{ user_profile.title }}</span>
+                                                    <span>{{ user_profile.title  | truncatechars:22 }}</span>
                                                 </div>
                                                 {% if user_profile.user in follow_user.following.all %}
                                                     <span>
@@ -298,9 +298,9 @@
                                                 <img src="{{ user_profile.user.photo_profile.url }}" width="35" height="35">
                                                 <div class="sgt-text">
                                                     <a href="{% url 'user-profile' user_profile.user user_profile.user.id %}">
-                                                        <h4>{{ user_profile.user.full_name }}</h4>
+                                                        <h4>{{ user_profile.user.full_name | truncatechars:22 }}</h4>
                                                     </a>
-                                                    <span>{{ user_profile.title }}</span>
+                                                    <span>{{ user_profile.title | truncatechars:22 }}</span>
                                                           <!-- user_profile.counting -->
                                                 </div>
                                                 {% if user_profile.user in follow_user.following.all %}
