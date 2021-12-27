@@ -47,7 +47,7 @@ class Account(AbstractBaseUser):
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=100, unique=True)
     phone_number = models.CharField(max_length=50, blank=True)
-    photo_profile = models.ImageField(null=True, upload_to='userprofile/%Y/%m/%d', default="avatar/avatar.png")
+    photo_profile = models.ImageField(null=True, upload_to='userprofile/%Y/%m/%d', default="avatar/avatar_ixe80o.png")
 
     # required
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -84,7 +84,7 @@ class UserProfile(models.Model):
     slug = models.SlugField(max_length=100, unique=True)
     title = models.CharField(blank=True, max_length=100)
     overview = models.TextField(blank=True)
-    photo_cover = models.ImageField(null=True, upload_to='cover/%Y/%m/%d', blank=True, default="avatar/cover.jpg")
+    photo_cover = models.ImageField(null=True, upload_to='cover/%Y/%m/%d', blank=True, default="avatar/cover_kgtasa.jpg")
     education_title = models.CharField(blank=True, max_length=100)
     education_year_start = models.IntegerField(blank=True, null=True)
     education_year_end = models.IntegerField(blank=True, null=True)

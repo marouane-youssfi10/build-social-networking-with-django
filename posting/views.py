@@ -16,11 +16,11 @@ from django.core.paginator import Paginator
 def projects(request):
     print('-----------------  projects ---------------------')
     # get all user who posting projects and user profile
-    projects = PostProject.objects.filter(hide=False)
+    projects = PostProject.objects.all()
     my_profile = UserProfile.objects.get(user=request.user)
 
     # for projects page
-    paginator_project = Paginator(projects, 3)
+    paginator_project = Paginator(projects, 7)
     page_number_projects = request.GET.get('page')
     page_projects = paginator_project.get_page(page_number_projects)
 
@@ -34,11 +34,11 @@ def projects(request):
 def jobs(request):
     print('-----------------  jobs ---------------------')
     # get all jobs users and my profile
-    all_user_profile = PostJobs.objects.filter(hide=False)
+    all_user_profile = PostJobs.objects.all()
     my_profile = UserProfile.objects.get(user=request.user)
 
     # for jobs page
-    paginator_jobs = Paginator(all_user_profile, 3)
+    paginator_jobs = Paginator(all_user_profile, 7)
     page_number_jobs = request.GET.get('page')
     page_all_user_profile = paginator_jobs.get_page(page_number_jobs)
 
@@ -55,9 +55,8 @@ def search_jobs(request):
     all_user_profile = PostJobs.objects.filter(
             Q(name_jobs__icontains=q) | Q(description_job__icontains=q) | Q(skills_tags_jobs__tag__iexact=q)
         ).distinct()
-    all_user_profile = all_user_profile.filter(hide=False)
 
-    paginator_jobs = Paginator(all_user_profile, 3)
+    paginator_jobs = Paginator(all_user_profile, 7)
     page_number_jobs = request.GET.get('page')
     page_all_user_profile = paginator_jobs.get_page(page_number_jobs)
 
@@ -69,7 +68,7 @@ def search_jobs(request):
 @login_required(login_url='login')
 def filter_jobs(request):
     print('---------------------- filter jobs -------------------------')
-    all_user_profile = PostJobs.objects.filter(hide=False)
+    all_user_profile = PostJobs.objects.all()
     print('all_user_profile = ', all_user_profile)
 
     if request.method == 'POST':
@@ -219,14 +218,13 @@ def search_projects(request):
     print('-------------search projects -------------------------')
     q = request.GET.get('q') if request.GET.get('q') is not None else ''
     if q =='':
-        projects = PostProject.objects.filter(hide=False)
+        projects = PostProject.objects.all()
     else:
         projects = PostProject.objects.filter(
             Q(name_project__icontains=q) | Q(description_project__icontains=q) | Q(skills_tags_projects__tag__icontains=q)
         ).distinct()
-        projects = projects.filter(hide=False)
 
-    paginator_projects = Paginator(projects, 3)
+    paginator_projects = Paginator(projects, 7)
     page_number_projects = request.GET.get('page')
     page_all_projects = paginator_projects.get_page(page_number_projects)
     context = {
@@ -271,10 +269,7 @@ def filter_project(request):
                 print('experience_level = ', experience_level)
                 projects = projects.filter(description_project__icontains=experience_level)
 
-    # get the project not hiding
-    projects = projects.filter(hide=False)
-
-    paginator_projects = Paginator(projects, 1)
+    paginator_projects = Paginator(projects, 7)
     page_number_projects = request.GET.get('page')
     page_all_projects = paginator_projects.get_page(page_number_projects)
     context = {
