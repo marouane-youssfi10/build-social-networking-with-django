@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 import dj_database_url
 import django_heroku
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,12 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '***'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = '***'
+DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = '***'
+ALLOWED_HOSTS = ['workwise-youssfi.co', 'www.workwise-youssfi.co']
 
 LOGIN_REDIRECT_URL = "index"
 # Application definition
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
 
     'cloudinary_storage',
     'cloudinary',
+    'admin_honeypot',
 
     'accounts.apps.AccountsConfig',
     'user_profile.apps.UserProfileConfig',
@@ -62,7 +64,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django_session_timeout.middleware.SessionTimeoutMiddleware',
 ]
+# for logout after 1 hour without activity
+SESSION_EXPIRE_SECONDS = 3600  # 1 hour
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+SESSION_TIMEOUT_REDIRECT = 'accounts/login'
 
 ROOT_URLCONF = 'social_networking.urls'
 
@@ -101,13 +108,14 @@ AUTH_USER_MODEL = 'accounts.Account'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': '***',
-        'USER': 'postgres',
-        'PASSWORD': '***',
-        'HOST': 'localhost',
+        'NAME': config('NAME'),
+        'USER': config('USER'),
+        'PASSWORD': config('PASSWORD'),
+        'HOST': config('HOST'),
     }
 }
-# DATABASE = ***
+# DATABASE = {'default': dj_database_url.config(default='postgresql://postgres:marouane123EE@localhost/social_networking')}
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -165,11 +173,11 @@ MESSAGE_TAGS = {
 }
 
 # SMTP configuration
-EMAIL_HOST = '***'
-EMAIL_PORT = '***'
-EMAIL_HOST_USER =' ***'
-EMAIL_HOST_PASSWORD = '***'
-EMAIL_USE_TLS = '***'
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 
 
 # Whitenoise settings
@@ -178,8 +186,8 @@ EMAIL_USE_TLS = '***'
 django_heroku.settings(locals())
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': '***',
-    'API_KEY': '***',
-    'API_SECRET': '***'
+    'CLOUD_NAME': config('CLOUD_NAME'),
+    'API_KEY': config('API_KEY'),
+    'API_SECRET': config('API_SECRET')
 }
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
