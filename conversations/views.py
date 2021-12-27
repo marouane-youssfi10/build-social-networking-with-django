@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Message
 from django.db.models import Q
-from django.http import HttpResponse
 from accounts.models import UserProfile
 from django.contrib.auth.decorators import login_required
 
