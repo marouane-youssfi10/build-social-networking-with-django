@@ -11,7 +11,7 @@
                         {% if notification.notification_type == 1 %}
                             <div class="notfication-details" {% if notification.is_seen %} {% else %} style="background-color:#eeeeee;" {% endif %} >
                                 <div class="noty-user-img">
-                                    <img src="{{ notification.sender.photo_profile.url }}" alt="">
+                                    <img src="{{ notification.sender.photo_profile.url }}" width="40" height="40">
                                 </div>
                                 <div class="notification-info">
                                     <p>
@@ -34,7 +34,7 @@
                         {% if notification.notification_type == 2 %}
                             <div class="notfication-details" {% if notification.is_seen %} {% else %} style="background-color:#eeeeee;" {% endif %}>
                                 <div class="noty-user-img">
-                                    <img src="{{ notification.sender.photo_profile.url }}" height="40">
+                                    <img src="{{ notification.sender.photo_profile.url }}" width="40" height="40">
                                 </div>
 
                                 <div class="notification-info">
@@ -63,7 +63,7 @@
                         {% if notification.notification_type == 3 %}
                             <div class="notfication-details" {% if notification.is_seen %} {% else %} style="background-color:#eeeeee;" {% endif %}>
                                     <div class="noty-user-img">
-                                        <img src="{{ notification.sender.photo_profile.url }}" height="40">
+                                        <img src="{{ notification.sender.photo_profile.url }}" width="40" height="40">
                                     </div>
 
                                     <div class="notification-info">
