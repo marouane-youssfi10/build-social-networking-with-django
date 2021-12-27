@@ -51,7 +51,7 @@ def post_comment_project(request, project_id):
             comment.user_post = request.user
             comment.body = request.POST['body']
             comment.save()
-    return redirect(reverse('comment', args=[project_id]))
+    return redirect(reverse('comment-projects', args=[project_id]))
 
 @login_required(login_url='login')
 def delete_comment_project(request, comment_id):

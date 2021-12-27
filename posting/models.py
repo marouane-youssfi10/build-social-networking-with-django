@@ -48,7 +48,6 @@ class PostProject(models.Model):
     def __str__(self):
         return self.name_project
 
-
 class PostJobs(models.Model):
     STATUS_CHOICES = (
         (1, 'Select Type Work'),
