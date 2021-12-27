@@ -22,12 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-j6-jk%n+zyledbq&wh*qzp*9$q9dz41iihz1at#eb@28fu351-'
+SECRET_KEY = '***'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = '***'
 
-ALLOWED_HOSTS = ['workwise-youssfi.co', 'www.workwise-youssfi.co']
+ALLOWED_HOSTS = '***'
 
 LOGIN_REDIRECT_URL = "index"
 # Application definition
@@ -101,13 +101,13 @@ AUTH_USER_MODEL = 'accounts.Account'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'social_networking',
+        'NAME': '***',
         'USER': 'postgres',
-        'PASSWORD': 'marouane123EE',
+        'PASSWORD': '***',
         'HOST': 'localhost',
     }
 }
-# DATABASE = {'default': dj_database_url.config(default='postgresql://postgres:marouane123EE@localhost/social_networking')}
+# DATABASE = ***
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -165,11 +165,11 @@ MESSAGE_TAGS = {
 }
 
 # SMTP configuration
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'work.wise010@gmail.com'
-EMAIL_HOST_PASSWORD = 'workwise123EE_*'
-EMAIL_USE_TLS = True
+EMAIL_HOST = '***'
+EMAIL_PORT = '***'
+EMAIL_HOST_USER =' ***'
+EMAIL_HOST_PASSWORD = '***'
+EMAIL_USE_TLS = '***'
 
 
 # Whitenoise settings
@@ -178,8 +178,8 @@ EMAIL_USE_TLS = True
 django_heroku.settings(locals())
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'marouane',
-    'API_KEY': '775243127871516',
-    'API_SECRET': '2dkarn-JezXyC3LBVVbxnHg9qpY'
+    'CLOUD_NAME': '***',
+    'API_KEY': '***',
+    'API_SECRET': '***'
 }
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
