@@ -32,7 +32,7 @@ class PostJobForm(forms.ModelForm):
         super(PostJobForm, self).__init__(*args, **kwargs)
         self.fields['name_jobs'].widget.attrs['placeholder'] = 'Title Job'
         # self.fields['type_work_job'].widget.attrs['1'] = 'Full time, Part Time, Hourly'
-        self.fields['epic_coder'].widget.attrs['placeholder'] = 'Category :Category: programming, Designer...'
+        self.fields['epic_coder'].widget.attrs['placeholder'] = 'Category : programming, Designer...'
         self.fields['location'].widget.attrs['placeholder'] = 'Country'
         self.fields['price'].widget.attrs['placeholder'] = 'Price'
         self.fields['description_job'].widget.attrs['placeholder'] = 'Description'
