@@ -108,7 +108,7 @@ def send_message(request, to_user):
 @login_required(login_url='login')
 def add_user_to_conversation(request, pk):
     print('--------------- add_user_to_conversation ---------------')
-    user_profile = UserProfile.objects.get(id=pk)
+    user_profile = UserProfile.objects.get(user__pk=pk)
 
     var = Message.objects.filter(
         Q(user=request.user, sender=user_profile.user) | Q(user=request.user, recipient=user_profile.user))

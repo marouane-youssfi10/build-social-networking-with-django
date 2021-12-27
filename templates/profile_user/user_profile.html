@@ -5,7 +5,7 @@
 <section class="cover-sec">
 	<img src="{{ current_user_profile.photo_cover.url }}" width="1600" height="400">
 	{% if request.user == current_user_profile.user %}
-		<a href="{% url 'edit-profile' %}" title=""><i class="fa fa-camera"></i> Change Image</a>
+		<a href="{% url 'edit-profile' %}"><i class="fa fa-camera"></i> Change Image</a>
 	{% endif %}
 </section>
 

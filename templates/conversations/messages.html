@@ -37,7 +37,7 @@
                                                             <img src="{{ message_user.user.photo_profile.url }}" width="50" height="50">
                                                         </div>
                                                         <div class="usr-mg-info">
-                                                            <h3>{{ message_user.user }}</h3>
+                                                            <h3>{{ message_user.user.full_name }}</h3>
                                                             <!-- check if message has a None -->
                                                             {% if message_user.body != None %}
                                                                 <p>{{ message_user.body }}</p>
