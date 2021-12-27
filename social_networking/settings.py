@@ -100,7 +100,6 @@ WSGI_APPLICATION = 'social_networking.wsgi.application'
 # Tell setting we are using custom user model
 AUTH_USER_MODEL = 'accounts.Account'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
