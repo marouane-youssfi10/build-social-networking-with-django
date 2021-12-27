@@ -181,7 +181,7 @@
 															<p>
 																{{ project.description_project | truncatechars:180 }}
 																{% if project.description_project|length > 150 %}
-																	.....<a href="{% url 'comment' project.id %}">view more</a>
+																	.....<a href="{% url 'comment-projects' project.id %}">view more</a>
 																{% endif %}
 															</p>
 															<ul class="skill-tags">
@@ -208,7 +208,7 @@
 																	{% endif %}
 																</li>
 																<li>
-																	<a class="com" href="{% url 'comment' project.id %}">
+																	<a class="com" href="{% url 'comment-projects' project.id %}">
 																		<img src="{% static 'images/com.png' %}"> Comment
 																		{{ project.post_project_comment.all.count }}
 																	</a>
