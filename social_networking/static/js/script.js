@@ -298,16 +298,19 @@ $(window).on("load", function() {
     // =============== tags space ======================
 
     $("#tags").on("click", function(){
-         var field = document.getElementById('tags');
-            field.addEventListener('keypress', function ( event ) {
-               var key = event.keyCode;
-                if (key === 32) {
-                  event.preventDefault();
-                }
-            });
+        const input = document.getElementById('tags');
+
+        // for not allow space as a first input
+        input.addEventListener('keydown', function (e) {
+            if (this.value.length === 0 && e.which === 32) e.preventDefault();
+        });
+
+        // for remove double spaces in between text
+        input.addEventListener('keyup', () => {
+            input.value = input.value.replace(/  +/g, ' ');
+        });
         return false;
     });
 
 });
-
 
