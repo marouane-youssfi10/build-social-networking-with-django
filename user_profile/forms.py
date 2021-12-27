@@ -39,7 +39,6 @@ class SocialMediaForm(forms.ModelForm):
             self.fields[field].required = True
 
 
-
 class UserForm(forms.ModelForm):
     photo_profile = forms.ImageField(required=False, error_messages={'invalid': "Image files only"}, widget=forms.FileInput)
     class Meta:

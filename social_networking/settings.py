@@ -44,7 +44,6 @@ INSTALLED_APPS = [
 
     'cloudinary_storage',
     'cloudinary',
-    'admin_honeypot',
 
     'accounts.apps.AccountsConfig',
     'user_profile.apps.UserProfileConfig',
