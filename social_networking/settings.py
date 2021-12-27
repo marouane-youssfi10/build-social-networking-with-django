@@ -114,7 +114,6 @@ DATABASES = {
         'HOST': config('HOST'),
     }
 }
-# DATABASE = {'default': dj_database_url.config(default='postgresql://postgres:marouane123EE@localhost/social_networking')}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
