@@ -17,11 +17,11 @@
                                     <p>
                                         <a href="{%  url 'user-profile' notification.sender notification.sender.id %}">{{ notification.sender }}</a>
                                         {% if notification.post_project %}
-                                            <a href="{% url 'comment' notification.post_project.id %}" style="color:black">
+                                            <a href="{% url 'comment-projects' notification.post_project.id %}" style="color:black">
                                                 like your post project "{{ notification.post_project.description_project | truncatechars:50 }}"
                                             </a>
                                         {% else %}
-                                            <a href="{% url 'comment' notification.post_job.id %}" style="color:black">
+                                            <a href="{% url 'comment-projects' notification.post_job.id %}" style="color:black">
                                                 like your post job "{{ notification.post_job.description_job | truncatechars:50 }}"
                                             </a>
                                         {% endif %}
@@ -43,12 +43,12 @@
                                             {{ notification.sender }}
                                         </a>
                                         {% if notification.post_project %}
-                                            <a href="{% url 'comment' notification.post_project.id %}" style="color:black">
+                                            <a href="{% url 'comment-projects' notification.post_project.id %}" style="color:black">
                                                 comment on your post project "{{ notification.post_project | truncatechars:50  }}"<br>
                                                 {{ notification.body | truncatechars:50 }}
                                             </a>
                                         {% else %}
-                                            <a href="{% url 'comment' notification.post_job.id %}" style="color:black">
+                                            <a href="{% url 'comment-projects' notification.post_job.id %}" style="color:black">
                                                 comment on your post job "{{ notification.post_job.description_job | truncatechars:50 }}"<br>
                                                 {{ notification.body | truncatechars:50 }}
                                             </a>
