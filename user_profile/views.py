@@ -53,6 +53,15 @@ def user_profile(request, name_user, pk):
     # get currently user profile
     current_user_profile = UserProfile.objects.get(user__pk=pk)
 
+    # get user_tags
+    user_tags = TagsUser.objects.filter(tags_user=request.user)
+
+    # print('-------------------------------------------')
+    # print('current_user_profile.id = ', current_user_profile.id)
+    # print('current_user_profile.user = ', current_user_profile.user.id)
+    # print('current_user_profile.skills_tags_user.all() = ', current_user_profile.skills_tags_user.all())
+    # print('-------------------------------------------')
+
     # get info of follow current user
     current_follow_user = Follow.objects.get(user__pk=pk)
 
@@ -77,6 +86,7 @@ def user_profile(request, name_user, pk):
     context = {
         'current_user_profile': current_user_profile,
         'user_experience': user_experience,
+        'user_tags': user_tags,
         'all_user_profile': all_user_profile,
         'links_media': links_media,
         'current_follow_user': current_follow_user,
@@ -202,7 +212,11 @@ def create_tags_user(request):
         if user_tags_form.is_valid():
             tags = user_tags_form.cleaned_data['tag']
             tags_list = list(tags.split(','))
-
+            print('tags_list = ', tags_list)
+            tags_list = ' '.join(tags_list).split()
+            print('----------------------------------------------')
+            print('tags_list = ', tags_list)
+            print('----------------------------------------------')
             # add tags to list and check if tag exists of exists.
             for tag in tags_list:
                 # save the information updated

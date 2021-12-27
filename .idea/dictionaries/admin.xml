@@ -61,6 +61,7 @@
       <w>kamoun</w>
       <w>kana</w>
       <w>kayn</w>
+      <w>keydown</w>
       <w>kgtasa</w>
       <w>laayouni</w>
       <w>lconf</w>
@@ -88,6 +89,7 @@
       <w>nott</w>
       <w>noty</w>
       <w>objs</w>
+      <w>onkeydown</w>
       <w>onload</w>
       <w>onresize</w>
       <w>pagi</w>

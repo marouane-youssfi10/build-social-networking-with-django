@@ -295,6 +295,36 @@ $(window).on("load", function() {
       $('#message').fadeOut('slow')
     }, 4000)
 
+    // =============== tags space ======================
+
+    $("#tags").on("click", function(){
+         var field = document.getElementById('tags');
+            field.addEventListener('keypress', function ( event ) {
+               var key = event.keyCode;
+                if (key === 32) {
+                  event.preventDefault();
+                }
+            });
+        return false;
+    });
+
+    // =============== input number ======================
+
+    /*$("input[type='number']").on("click", function(){
+        var inputBox = document.getElementsByClassName("form-control");
+        var invalidChars = [
+          "-","+","e",",",".",
+        ];
+
+        inputBox.addEventListener("keydown", function(e) {
+          if (invalidChars.includes(e.key)) {
+            e.preventDefault();
+          }
+        });
+        return false;
+    }); */
+
+
 });
 
 

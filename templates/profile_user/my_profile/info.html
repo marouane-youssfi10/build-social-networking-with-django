@@ -78,8 +78,10 @@
         </h3>
         <ul>
             <!-- display tags if exits -->
-            {% for tag in current_user_profile.skills_tags_user.all %}
-                <li><a>{{ tag }}</a></li>
+            {% for tag in user_tags %}
+                {% if tag.tag %}
+                    <li><a>{{ tag }}</a></li>
+                {% endif %}
             {% endfor %}
         </ul>
     </div><!--user-profile-ov end-->
