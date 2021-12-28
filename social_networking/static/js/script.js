@@ -248,15 +248,13 @@ $(window).on("load", function() {
         // settings: "unslick"
         // instead of a settings object
       ]
-
-
     });
 
     // ================ Message ===============
 
     setTimeout(function(){
       $('#message').fadeOut('slow')
-    }, 4000)
+    }, 4000);
 
     // =============== tags space ======================
 
