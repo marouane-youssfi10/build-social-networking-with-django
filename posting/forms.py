@@ -17,6 +17,9 @@ class PostProjectForm(forms.ModelForm):
         self.fields['end_price'].widget.attrs['placeholder'] = 'Max Price'
         self.fields['description_project'].widget.attrs['placeholder'] = 'Description'
 
+        self.fields['start_price'].widget.attrs['onkeydown'] = 'javascript: return event.keyCode === 8 ||event.keyCode === 46 ? true : !isNaN(Number(event.key))'
+        self.fields['end_price'].widget.attrs['onkeydown'] = 'javascript: return event.keyCode === 8 ||event.keyCode === 46 ? true : !isNaN(Number(event.key))'
+
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].required = True
@@ -31,11 +34,12 @@ class PostJobForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(PostJobForm, self).__init__(*args, **kwargs)
         self.fields['name_jobs'].widget.attrs['placeholder'] = 'Title Job'
-        # self.fields['type_work_job'].widget.attrs['1'] = 'Full time, Part Time, Hourly'
         self.fields['epic_coder'].widget.attrs['placeholder'] = 'Category : programming, Designer...'
         self.fields['location'].widget.attrs['placeholder'] = 'Country'
         self.fields['price'].widget.attrs['placeholder'] = 'Price'
         self.fields['description_job'].widget.attrs['placeholder'] = 'Description'
+
+        self.fields['price'].widget.attrs['price'] = 'javascript: return event.keyCode === 8 ||event.keyCode === 46 ? true : !isNaN(Number(event.key))'
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].required = True

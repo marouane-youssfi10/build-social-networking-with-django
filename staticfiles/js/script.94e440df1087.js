@@ -250,7 +250,7 @@ $(window).on("load", function() {
       ]
     });
 
-    // ================ Message ===============
+    // ================ Alert Message ===============
 
     setTimeout(function(){
       $('#message').fadeOut('slow')
@@ -258,7 +258,7 @@ $(window).on("load", function() {
 
     // =============== tags space ======================
 
-    $("#tags").on("click", function(){
+    /*$("#tags").on("click", function(){
         const input = document.getElementById('tags');
 
         // for not allow space as a first input
@@ -271,6 +271,5 @@ $(window).on("load", function() {
             input.value = input.value.replace(/  +/g, ' ');
         });
         return false;
-    });
+    });*/
 });
-
