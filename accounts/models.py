@@ -96,8 +96,6 @@ class UserProfile(models.Model):
     education_title = models.CharField(blank=True, max_length=100)
     education_year_start = models.IntegerField('year', choices=year_choices(), default=datetime.datetime.now().year, blank=True, null=True)
     education_year_end = models.IntegerField('year', choices=year_choices(), default=datetime.datetime.now().year, blank=True, null=True)
-    # education_year_start = models.IntegerField(blank=True, null=True)
-    # education_year_end = models.IntegerField(blank=True, null=True)
     education_description = models.TextField(blank=True, null=True)
     location_country = models.CharField(blank=True, max_length=100)
     location_city = models.CharField(blank=True, max_length=100)
