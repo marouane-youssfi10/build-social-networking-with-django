@@ -9,6 +9,7 @@
       <w>autoplay</w>
       <w>availabilty</w>
       <w>bouncedelay</w>
+      <w>callout</w>
       <w>chatbox</w>
       <w>checky</w>
       <w>chownk</w>
@@ -67,6 +68,7 @@
       <w>keydown</w>
       <w>keyup</w>
       <w>kgtasa</w>
+      <w>khtml</w>
       <w>laayouni</w>
       <w>lconf</w>
       <w>leftbar</w>
