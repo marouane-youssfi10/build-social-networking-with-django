@@ -231,4 +231,19 @@ $(window).on("load", function() {
         });
         return false;
     });
+
+    // ========================= start and end year inputs ================
+
+    $(".form-control").on("click", function(){
+        const hourly_work = document.getElementById('hourly_work');
+
+        hourly_work.onkeydown = function(e) {
+            console.log('onkeydown start')
+            if(!((e.keyCode > 95 && e.keyCode < 106) || (e.keyCode > 47 && e.keyCode < 58) || e.keyCode == 8)) {
+                return false;
+            }
+        }
+        return false;
+    });
+
 });

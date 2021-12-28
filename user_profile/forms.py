@@ -73,14 +73,8 @@ class UserProfileForm(forms.ModelForm):
         super(UserProfileForm, self).__init__(*args, **kwargs)
         self.fields['overview'].widget = forms.Textarea(attrs={'rows': '5', 'cols': '5'})
         self.fields['education_description'].widget = forms.Textarea(attrs={'rows': '5', 'cols': '5'})
-
-        self.fields['education_year_start'].widget.attrs['onkeydown'] = 'javascript: return event.keyCode === 8 ||event.keyCode === 46 ? true : !isNaN(Number(event.key))'
-        self.fields['education_year_end'].widget.attrs['onkeydown'] = 'javascript: return event.keyCode === 8 ||event.keyCode === 46 ? true : !isNaN(Number(event.key))'
-
-        self.fields['education_year_start'].widget.attrs['onKeyPress'] = 'if(this.value.length==4) return false'
-        self.fields['education_year_end'].widget.attrs['onKeyPress'] = 'if(this.value.length==4) return false'
-
-        self.fields['hourly_work'].widget.attrs['onkeydown'] = 'javascript: return event.keyCode === 8 ||event.keyCode === 46 ? true : !isNaN(Number(event.key))'
+        self.fields['hourly_work'].widget.attrs['id'] = 'hourly_work'
+        # self.fields['hourly_work'].widget.attrs['onkeydown'] = 'javascript: return event.keyCode === 8 ||event.keyCode === 46 ? true : !isNaN(Number(event.key))'
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].required = False

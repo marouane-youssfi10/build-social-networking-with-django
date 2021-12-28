@@ -3,9 +3,8 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 # models
 from user_profile.models import Experience_user, TagsUser, Social_media
 from posting.models import PostProject, PostJobs
+import datetime
 
-from PIL import Image
-from django.core.files.storage import default_storage as storage
 
 class MyAccountManager(BaseUserManager):
 
@@ -74,20 +73,31 @@ class Account(AbstractBaseUser):
     def has_module_perms(self, add_label):
         return True
 
+
+
+def year_choices():
+    YEAR_CHOICES = []
+    for r in range(1980, (datetime.datetime.now().year + 1)):
+        YEAR_CHOICES.append((r, r))
+    return YEAR_CHOICES
+
 class UserProfile(models.Model):
     STATUS_CHOICES = (
         ('Hourly', 'Hourly'),
         ('Part time', 'Part time'),
         ('Full time', 'Full time'),
     )
+
     user = models.OneToOneField(Account, on_delete=models.CASCADE, related_name='user_profile')
     slug = models.SlugField(max_length=100, unique=True)
     title = models.CharField(blank=True, max_length=100)
     overview = models.TextField(blank=True)
     photo_cover = models.ImageField(null=True, upload_to='cover/%Y/%m/%d', blank=True, default="avatar/cover_kgtasa.jpg")
     education_title = models.CharField(blank=True, max_length=100)
-    education_year_start = models.IntegerField(blank=True, null=True)
-    education_year_end = models.IntegerField(blank=True, null=True)
+    education_year_start = models.IntegerField('year', choices=year_choices(), default=datetime.datetime.now().year, blank=True, null=True)
+    education_year_end = models.IntegerField('year', choices=year_choices(), default=datetime.datetime.now().year, blank=True, null=True)
+    # education_year_start = models.IntegerField(blank=True, null=True)
+    # education_year_end = models.IntegerField(blank=True, null=True)
     education_description = models.TextField(blank=True, null=True)
     location_country = models.CharField(blank=True, max_length=100)
     location_city = models.CharField(blank=True, max_length=100)

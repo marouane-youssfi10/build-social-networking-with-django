@@ -222,13 +222,30 @@ $(window).on("load", function() {
 
         // for not allow space as a first input
         input.addEventListener('keydown', function (e) {
+            console.log('input keydown')
             if (this.value.length === 0 && e.which === 32) e.preventDefault();
         });
 
         // for remove double spaces in between text
         input.addEventListener('keyup', () => {
+            console.log('input keyup')
             input.value = input.value.replace(/  +/g, ' ');
         });
+        return false;
+    });
+
+    // ========================= start and end year inputs ================
+
+    $(".form-control").on("click", function(){
+        const hourly_work = document.getElementById('hourly_work');
+
+        hourly_work.onkeydown = function(e) {
+            console.log('onkeydown start')
+            if(!((e.keyCode > 95 && e.keyCode < 106) || (e.keyCode > 47 && e.keyCode < 58) || e.keyCode == 8)) {
+                return false;
+            }
+        }
+
         return false;
     });
 });
