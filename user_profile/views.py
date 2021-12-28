@@ -212,11 +212,8 @@ def create_tags_user(request):
         if user_tags_form.is_valid():
             tags = user_tags_form.cleaned_data['tag']
             tags_list = list(tags.split(','))
-            print('tags_list = ', tags_list)
             tags_list = ' '.join(tags_list).split()
-            print('----------------------------------------------')
-            print('tags_list = ', tags_list)
-            print('----------------------------------------------')
+
             # add tags to list and check if tag exists of exists.
             for tag in tags_list:
                 # save the information updated

@@ -250,7 +250,7 @@ $(window).on("load", function() {
       ]
     });
 
-    // ================ Message ===============
+    // ================ Alert Message ===============
 
     setTimeout(function(){
       $('#message').fadeOut('slow')
