@@ -236,7 +236,7 @@ $(window).on("load", function() {
 
     // ========================= start and end year inputs ================
 
-    $(".form-control").on("click", function(){
+    $("#hourly_work").on("click", function(){
         const hourly_work = document.getElementById('hourly_work');
 
         hourly_work.onkeydown = function(e) {

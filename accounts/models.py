@@ -46,7 +46,7 @@ class Account(AbstractBaseUser):
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=100, unique=True)
     phone_number = models.IntegerField(blank=True, null=True)
-    photo_profile = models.ImageField(null=True, upload_to='userprofile/%Y/%m/%d', default="avatar/avatar_ixe80o.png")
+    photo_profile = models.ImageField(upload_to='userprofile/%Y/%m/%d', default="avatar/avatar_ixe80o.png", null=True)
 
     # required
     date_joined = models.DateTimeField(auto_now_add=True)
