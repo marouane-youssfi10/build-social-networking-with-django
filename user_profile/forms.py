@@ -19,8 +19,8 @@ class TagsUserForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(TagsUserForm, self).__init__(*args, **kwargs)
         self.fields['tag'].widget.attrs['id'] = 'tags'
-        self.fields['tag'].widget.attrs['onclick'] = 'javascript:addEventListener("keydown", function (e) {if (this.value.length === 0 && e.which === 32) e.preventDefault(); });' \
-                                                     ' addEventListener("keyup", () => {this.value = this.value.replace(/  +/g, " "); });'
+        # self.fields['tag'].widget.attrs['onclick'] = 'javascript:addEventListener("keydown", function (e) {if (this.value.length === 0 && e.which === 32) e.preventDefault(); });' \
+        #                                             ' addEventListener("keyup", () => {this.value = this.value.replace(/  +/g, " "); });'
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].widget.attrs['placeholder'] = 'add tags, separated by commas. example: design, programmation, photographe, .....'
