@@ -183,3 +183,4 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': config('API_SECRET')
 }
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
