@@ -1,43 +1,6 @@
 $(window).on("load", function() {
     "use strict";
 
-    //  ============= POST PROJECT POPUP FUNCTION =========
-    /*
-    $(".post_project").on("click", function(){
-        $(".post-popup.pst-pj").addClass("active");
-        $(".wrapper").addClass("overlay");
-        return false;
-    });
-    $(".post-project > a").on("click", function(){
-        $(".post-popup.pst-pj").removeClass("active");
-        $(".wrapper").removeClass("overlay");
-        return false;
-    });
-
-    //  ============= POST JOB POPUP FUNCTION =========
-
-    $(".post-jb").on("click", function(){
-        $(".post-popup.job_post").addClass("active");
-        $(".wrapper").addClass("overlay");
-        return false;
-    });
-    $(".post-project > a").on("click", function(){
-        $(".post-popup.job_post").removeClass("active");
-        $(".wrapper").removeClass("overlay");
-        return false;
-    });*/
-
-    //  ============= SIGNIN CONTROL FUNCTION =========
-
-    /*$('.sign-control li').on("click", function(){
-        var tab_id = $(this).attr('data-tab');
-        $('.sign-control li').removeClass('current');
-        $('.sign_in_sec').removeClass('current');
-        $(this).addClass('current animated fadeIn');
-        $("#"+tab_id).addClass('current animated fadeIn');
-        return false;
-    });*/
-
     //  ============= SIGNIN TAB FUNCTIONALITY =========
 
     $('.signup-tab ul li').on("click", function(){

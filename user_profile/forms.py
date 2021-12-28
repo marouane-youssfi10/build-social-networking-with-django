@@ -1,7 +1,6 @@
 from django import forms
 from accounts.models import Account, UserProfile, Experience_user, TagsUser, Social_media
 
-
 class ExperienceUserForm(forms.ModelForm):
     class Meta:
         model = Experience_user
@@ -11,7 +10,6 @@ class ExperienceUserForm(forms.ModelForm):
         super(ExperienceUserForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
-
 
 class TagsUserForm(forms.ModelForm):
     class Meta:
@@ -36,7 +34,6 @@ class SocialMediaForm(forms.ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].required = True
-
 
 class UserForm(forms.ModelForm):
     photo_profile = forms.ImageField(required=False, error_messages={'invalid': "Image files only"}, widget=forms.FileInput)
@@ -74,5 +71,3 @@ class UserProfileForm(forms.ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].required = False
-
-
