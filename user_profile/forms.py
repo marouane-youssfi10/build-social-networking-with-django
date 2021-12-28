@@ -46,6 +46,15 @@ class UserForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
         self.fields['phone_number'].widget.attrs['onkeydown'] = 'javascript: return event.keyCode === 8 ||event.keyCode === 46 ? true : !isNaN(Number(event.key))'
+        self.fields['first_name'].widget.attrs['onkeydown'] = 'javascript: return (event.keyCode!=188 && event.keyCode!=189 &&' \
+                                                              '                    event.keyCode!=187 && event.keyCode!=191 &&' \
+                                                              '                    event.keyCode!=221 && event.keyCode!=186 &&' \
+                                                              '                    event.keyCode!=219 && event.keyCode!=226);'
+
+        self.fields['last_name'].widget.attrs['onkeydown'] = 'javascript: return (event.keyCode!=188 && event.keyCode!=189 &&' \
+                                                              '                    event.keyCode!=187 && event.keyCode!=191 &&' \
+                                                              '                    event.keyCode!=221 && event.keyCode!=186 &&' \
+                                                              '                    event.keyCode!=219 && event.keyCode!=226);'
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
 
