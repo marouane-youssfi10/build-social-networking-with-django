@@ -43,7 +43,7 @@
                                                                 <p>{{ message_user.body }}</p>
                                                             {% endif %}
                                                         </div><!--usr-mg-info end-->
-                                                        <span class="posted_time">{{ message_user.updated | date:"h:i A" }}</span>
+                                                        <span class="posted_time">{{ message_user.updated | date:"M d, Y/h:i A" }}</span>
                                                         {% if request.user == message_user.recipient %}
                                                             {% if message_user.count != 0 %}
                                                                 <span class="msg-notifc">{{ message_user.count }}</span>
