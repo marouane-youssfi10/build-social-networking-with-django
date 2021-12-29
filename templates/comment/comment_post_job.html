@@ -25,12 +25,17 @@
                                 <a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
                                 <ul class="ed-options">
                                     <li><a href="{% url 'edit-post-job' user_profile_job.id %}">Edit Post</a></li>
-                                    <li><a href="#" class="close-ed-opts">Close</a></li>
+                                    <li>
+                                        <a href="{% url 'delete-post-job' user_profile_job.id %}" onclick="return confirm('Are you sure to Delete this post')">
+                                            Delete Post
+                                        </a>
+                                    </li>
                                     {% if user_profile_job.hide %}
                                         <li><a href="{% url 'unhide-job' user_profile_job.id %}">unhide</a></li>
                                     {% else %}
                                         <li><a href="{% url 'hide-job' user_profile_job.id %}">Hide</a></li>
                                     {% endif %}
+                                    <li><a href="" class="close-ed-opts">Close</a></li>
                                 </ul>
                             </div>
                         {% endif %}
@@ -53,14 +58,14 @@
                     <div class="job_descp">
                         <h3>{{ user_profile_job.name_jobs }}</h3>
                         <ul class="job-dt">
-                            <li><a href="#" title="">{{ user_profile_job.type_work_job }}</a></li>
-                            <li><span>${{ user_profile_job.price }} / hr</span></li>
+                            <li><a title="type work">{{ user_profile_job.type_work_job }}</a></li>
+                            <li><span title="price">${{ user_profile_job.price }} / hr</span></li>
                         </ul> <!-- type work and hourly work -->
-                        <p>{{ user_profile_job.description_job | truncatechars:150 }}
+                        <p title="description">{{ user_profile_job.description_job | truncatechars:150 }}
                         <!-- <a href="#" title="">view More</a>-->
                         <ul class="skill-tags">
                             {% for tag in user_profile_job.skills_tags_jobs.all %}
-                                <li><a>{{ tag }}</a></li>
+                                <li><a title="tag">{{ tag }}</a></li>
                             {% endfor %}
                         </ul> <!-- tags -->
                     </div>

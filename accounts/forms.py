@@ -24,7 +24,6 @@ class RegistrationForm(forms.ModelForm):
         self.fields['last_name'].widget.attrs['placeholder'] = 'Enter last name'
         self.fields['phone_number'].widget.attrs['placeholder'] = 'Enter phone number'
         self.fields['email'].widget.attrs['placeholder'] = 'Enter email address'
-        # self.fields['photo_profile'].widget.attrs['placeholder'] = ''
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
 

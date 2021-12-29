@@ -19,8 +19,7 @@ class TagsUserForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(TagsUserForm, self).__init__(*args, **kwargs)
         self.fields['tag'].widget.attrs['id'] = 'tags'
-        # self.fields['tag'].widget.attrs['onclick'] = 'javascript:addEventListener("keydown", function (e) {if (this.value.length === 0 && e.which === 32) e.preventDefault(); });' \
-        #                                             ' addEventListener("keyup", () => {this.value = this.value.replace(/  +/g, " "); });'
+
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].widget.attrs['placeholder'] = 'add tags, separated by commas. example: design, programmation, photographe, .....'
@@ -49,15 +48,6 @@ class UserForm(forms.ModelForm):
         self.fields['first_name'].widget.attrs['onkeypress'] = 'javascript: return event.charCode != 32'
         self.fields['last_name'].widget.attrs['onkeypress'] = 'javascript: return event.charCode != 32'
 
-        # self.fields['first_name'].widget.attrs['onkeydown'] = 'javascript: return (event.keyCode!=188 && event.keyCode!=189 &&' \
-        #                                                       '                    event.keyCode!=187 && event.keyCode!=191 &&' \
-        #                                                       '                    event.keyCode!=221 && event.keyCode!=186 &&' \
-        #                                                       '                    event.keyCode!=219 && event.keyCode!=226);'
-#
-        # self.fields['last_name'].widget.attrs['onkeydown'] = 'javascript: return (event.keyCode!=188 && event.keyCode!=189 &&' \
-        #                                                       '                    event.keyCode!=187 && event.keyCode!=191 &&' \
-        #                                                       '                    event.keyCode!=221 && event.keyCode!=186 &&' \
-        #                                                       '                    event.keyCode!=219 && event.keyCode!=226);'
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
 
@@ -75,7 +65,6 @@ class UserProfileForm(forms.ModelForm):
         self.fields['overview'].widget = forms.Textarea(attrs={'rows': '5', 'cols': '5'})
         self.fields['education_description'].widget = forms.Textarea(attrs={'rows': '5', 'cols': '5'})
         self.fields['hourly_work'].widget.attrs['id'] = 'hourly_work'
-        # self.fields['hourly_work'].widget.attrs['onkeydown'] = 'javascript: return event.keyCode === 8 ||event.keyCode === 46 ? true : !isNaN(Number(event.key))'
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].required = False

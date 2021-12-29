@@ -20,7 +20,7 @@
                                     {{ post_job_form.location }}
                                 </div>
 
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     {{ post_job_form.epic_coder }}
                                 </div>
 
@@ -62,12 +62,11 @@
                             </ul>
                         </div>
                     </form>
-                    <!-- url 'create-tags-post' post_project.id -->
                     <form method="POST" action="{% url 'create-tags-post-job' post_job.id %}">
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-lg-8">
-                                <input type="text" class="form-control" name="post_tags_job" placeholder="add tags, separated by commas">
+                                <input type="text" id="tags_job" class="form-control" name="post_tags_job" placeholder="add tags, separated by commas">
                             </div>
                             <div class="col-lg-4">
                                 <input type="submit" class="form-control" value="add tags" style="background-color:#e44d3a; color:white;">

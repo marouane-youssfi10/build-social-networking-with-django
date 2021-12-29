@@ -232,7 +232,39 @@ $(window).on("load", function() {
         return false;
     });
 
-    // ========================= hourly_work input ================
+    // tags post job
+    $("#tags_job").on("click", function(){
+        const input = document.getElementById('tags_job');
+
+        // for not allow space as a first input
+        input.addEventListener('keydown', function (e) {
+            if (this.value.length === 0 && e.which === 32) e.preventDefault();
+        });
+
+        // for remove double spaces in between text
+        input.addEventListener('keyup', () => {
+            input.value = input.value.replace(/  +/g, ' ');
+        });
+        return false;
+    });
+
+    // tags post project
+    $("#tags_project").on("click", function(){
+        const input = document.getElementById('tags_project');
+
+        // for not allow space as a first input
+        input.addEventListener('keydown', function (e) {
+            if (this.value.length === 0 && e.which === 32) e.preventDefault();
+        });
+
+        // for remove double spaces in between text
+        input.addEventListener('keyup', () => {
+            input.value = input.value.replace(/  +/g, ' ');
+        });
+        return false;
+    });
+
+    // ==================== hourly_work input =====================
 
     $("#hourly_work").on("click", function(){
         const hourly_work = document.getElementById('hourly_work');
@@ -246,7 +278,8 @@ $(window).on("load", function() {
         return false;
     });
 
-    // =============== Last_name ===============
+    // ======================= Last_name ===========================
+
     $("#id_first_name").on("click", function(){
         const first_name = document.getElementById('id_first_name');
         console.log('test')
@@ -280,6 +313,7 @@ $(window).on("load", function() {
     });
 
     // =============== Last_name ===============
+
     $("#id_last_name").on("click", function(){
         const last_name = document.getElementById('id_last_name');
         console.log('test')
@@ -313,6 +347,7 @@ $(window).on("load", function() {
 
         return false;
     });
+
     // =================== email ===============================
 
     $("#id_email").on("click", function(){
@@ -361,6 +396,105 @@ $(window).on("load", function() {
 
         // prevent letters
         phone_number.addEventListener("keypress", function (evt) {
+            if (evt.which < 48 || evt.which > 57)
+            {
+                evt.preventDefault();
+            }
+        });
+        return false;
+    });
+
+    // =================== start year ===========================
+
+    $("#id_start_price").on("click", function(){
+        const start_price = document.getElementById('id_start_price');
+
+        start_price.onkeydown =  function Check(e) {
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+
+            // prevent space
+            if (keyCode == 32)
+            {
+                e.preventDefault();
+            }
+        }
+        start_price.onkeyup =  function Check(e) {
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+
+            // prevent space
+            if (keyCode == 32) {
+                e.preventDefault();
+            }
+        }
+
+        // prevent letters
+        start_price.addEventListener("keypress", function (evt) {
+            if (evt.which < 48 || evt.which > 57)
+            {
+                evt.preventDefault();
+            }
+        });
+        return false;
+    });
+
+    // ===================  end year ===========================
+
+    $("#id_end_price").on("click", function(){
+        const start_price = document.getElementById('id_end_price');
+
+        start_price.onkeydown =  function Check(e) {
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+
+            // prevent space
+            if (keyCode == 32)
+            {
+                e.preventDefault();
+            }
+        }
+        start_price.onkeyup =  function Check(e) {
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+
+            // prevent space
+            if (keyCode == 32) {
+                e.preventDefault();
+            }
+        }
+
+        // prevent letters
+        start_price.addEventListener("keypress", function (evt) {
+            if (evt.which < 48 || evt.which > 57)
+            {
+                evt.preventDefault();
+            }
+        });
+        return false;
+    });
+
+    // ===================  price job ===========================
+
+    $("#id_price").on("click", function(){
+        const start_price = document.getElementById('id_price');
+
+        start_price.onkeydown =  function Check(e) {
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+
+            // prevent space
+            if (keyCode == 32)
+            {
+                e.preventDefault();
+            }
+        }
+        start_price.onkeyup =  function Check(e) {
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+
+            // prevent space
+            if (keyCode == 32) {
+                e.preventDefault();
+            }
+        }
+
+        // prevent letters
+        start_price.addEventListener("keypress", function (evt) {
             if (evt.which < 48 || evt.which > 57)
             {
                 evt.preventDefault();
