@@ -222,19 +222,17 @@ $(window).on("load", function() {
 
         // for not allow space as a first input
         input.addEventListener('keydown', function (e) {
-            console.log('input keydown')
             if (this.value.length === 0 && e.which === 32) e.preventDefault();
         });
 
         // for remove double spaces in between text
         input.addEventListener('keyup', () => {
-            console.log('input keyup')
             input.value = input.value.replace(/  +/g, ' ');
         });
         return false;
     });
 
-    // ========================= start and end year inputs ================
+    // ========================= hourly_work input ================
 
     $("#hourly_work").on("click", function(){
         const hourly_work = document.getElementById('hourly_work');
@@ -245,6 +243,129 @@ $(window).on("load", function() {
                 return false;
             }
         }
+        return false;
+    });
+
+    // =============== Last_name ===============
+    $("#id_first_name").on("click", function(){
+        const first_name = document.getElementById('id_first_name');
+        console.log('test')
+
+        first_name.onkeydown =  function Check(e) {
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+
+            // prevent number
+            if (keyCode > 47 && keyCode < 58) {
+                e.preventDefault();
+            }
+
+            // prevent space
+            if (keyCode == 32) {
+                e.preventDefault();
+            }
+            // prevent some caracter
+            if (keyCode == 188 || keyCode == 189 || keyCode == 187 || keyCode == 191 || keyCode == 221 || keyCode == 186 || keyCode == 219 || keyCode == 226 || keyCode == 190){
+                e.preventDefault();
+            }
+
+        }
+        first_name.onkeyup =  function Check(e) {
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+            // prevent number
+            if (keyCode > 47 && keyCode < 58) {
+                e.preventDefault();
+            }
+        }
+        return false;
+    });
+
+    // =============== Last_name ===============
+    $("#id_last_name").on("click", function(){
+        const last_name = document.getElementById('id_last_name');
+        console.log('test')
+
+        last_name.onkeydown =  function Check(e) {
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+
+            // prevent number
+            if (keyCode > 47 && keyCode < 58) {
+                e.preventDefault();
+            }
+            // prevent space
+            if (keyCode == 32) {
+                e.preventDefault();
+            }
+
+            // prevent some caracter
+            if (keyCode == 188 || keyCode == 189 || keyCode == 187 || keyCode == 191 || keyCode == 221 || keyCode == 186 || keyCode == 219 || keyCode == 226 || keyCode == 190){
+                e.preventDefault();
+            }
+        }
+
+        last_name.onkeyup =  function Check(e) {
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+
+            // prevent number
+            if (keyCode > 47 && keyCode < 58) {
+                e.preventDefault();
+            }
+        }
+
+        return false;
+    });
+    // =================== email ===============================
+
+    $("#id_email").on("click", function(){
+        const email = document.getElementById('id_email');
+
+        email.onkeydown =  function Check(e) {
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+
+            // prevent space
+            if (keyCode == 32) {
+                e.preventDefault();
+            }
+        }
+        email.onkeyup =  function Check(e) {
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+
+            // prevent space
+            if (keyCode == 32) {
+                e.preventDefault();
+            }
+        }
+        return false;
+    });
+
+    // =================== phone_number ===============================
+
+    $("#id_phone_number").on("click", function(){
+        const phone_number = document.getElementById('id_phone_number');
+
+        phone_number.onkeydown =  function Check(e) {
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+
+            // prevent space
+            if (keyCode == 32) {
+                e.preventDefault();
+            }
+        }
+        phone_number.onkeyup =  function Check(e) {
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+
+            // prevent space
+            if (keyCode == 32) {
+                e.preventDefault();
+            }
+        }
+
+        // prevent letters
+        phone_number.addEventListener("keypress", function (evt) {
+            if (evt.which < 48 || evt.which > 57)
+            {
+                evt.preventDefault();
+            }
+        });
         return false;
     });
 });

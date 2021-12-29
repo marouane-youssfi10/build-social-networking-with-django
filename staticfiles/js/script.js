@@ -232,9 +232,9 @@ $(window).on("load", function() {
         return false;
     });
 
-    // ========================= start and end year inputs ================
+    // ========================= hourly_work input ================
 
-    $(".form-control").on("click", function(){
+    $("#hourly_work").on("click", function(){
         const hourly_work = document.getElementById('hourly_work');
 
         hourly_work.onkeydown = function(e) {
@@ -246,4 +246,55 @@ $(window).on("load", function() {
         return false;
     });
 
+    // =============== Last_name ===============
+    $("#id_first_name").on("click", function(){
+        const first_name = document.getElementById('id_first_name');
+        console.log('test')
+
+        first_name.onkeydown =  function Check(e) {
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+            if (keyCode > 47 && keyCode < 58) {
+                e.preventDefault();
+            }
+            if (keyCode == 32) {
+                e.preventDefault();
+            }
+        }
+        first_name.onkeyup =  function Check(e) {
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+            if (keyCode > 47 && keyCode < 58) {
+                e.preventDefault();
+            }
+        }
+        return false;
+    });
+
+    // =============== Last_name ===============
+    $("#id_last_name").on("click", function(){
+        const last_name = document.getElementById('id_last_name');
+        console.log('test')
+
+        last_name.onkeydown =  function Check(e) {
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+
+            // prevent number
+            if (keyCode > 47 && keyCode < 58) {
+                e.preventDefault();
+            }
+            // prevent space
+            if (keyCode == 32) {
+                e.preventDefault();
+            }
+        }
+
+        last_name.onkeyup =  function Check(e) {
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+
+            // prevent number
+            if (keyCode > 47 && keyCode < 58) {
+                e.preventDefault();
+            }
+        }
+        return false;
+    });
 });

@@ -5,7 +5,6 @@ from user_profile.models import Experience_user, TagsUser, Social_media
 from posting.models import PostProject, PostJobs
 import datetime
 
-
 class MyAccountManager(BaseUserManager):
 
     def create_user(self, first_name, last_name, username, email, password=None):
@@ -45,7 +44,7 @@ class Account(AbstractBaseUser):
     last_name = models.CharField(max_length=50)
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=100, unique=True)
-    phone_number = models.IntegerField(blank=True, null=True)
+    phone_number = models.CharField(blank=True, null=True, max_length=14)
     photo_profile = models.ImageField(upload_to='userprofile/%Y/%m/%d', default="avatar/avatar_ixe80o.png", null=True)
 
     # required

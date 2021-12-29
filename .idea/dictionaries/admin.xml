@@ -10,6 +10,8 @@
       <w>availabilty</w>
       <w>bouncedelay</w>
       <w>callout</w>
+      <w>caracter</w>
+      <w>charval</w>
       <w>chatbox</w>
       <w>checky</w>
       <w>chownk</w>
@@ -66,6 +68,7 @@
       <w>kana</w>
       <w>kayn</w>
       <w>keydown</w>
+      <w>keyispressed</w>
       <w>keyup</w>
       <w>kgtasa</w>
       <w>khtml</w>
@@ -102,6 +105,7 @@
       <w>objs</w>
       <w>onkeydown</w>
       <w>onkeypress</w>
+      <w>onkeyup</w>
       <w>onload</w>
       <w>onresize</w>
       <w>pagi</w>
