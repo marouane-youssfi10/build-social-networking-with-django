@@ -1,47 +1,52 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="post-project col-lg-6">
+    <section class="section-content padding-y" style="min-height:84vh">
+        <div class="card mx-auto" style="max-width: 680px; margin-top:40px;">
+            <div class="post-project col-lg-12">
+            <br>
+            <h3>Post a Job</h3>
+            <div class="post-project-fields">
+                <form method="POST" action="{% url 'post-job' %}">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-lg-6">
+                            {{ form_post_job.name_jobs }}
+                        </div>
+                        <div class="col-lg-6">
+                            {{ form_post_job.type_work_job }}
+                        </div>
+                        <div class="col-lg-6">
+                            {{ form_post_job.location }}
+                        </div>
+
+                        <div class="col-lg-6">
+                            {{ form_post_job.price }}
+                        </div>
+
+                        <div class="col-lg-12">
+                            {{ form_post_job.epic_coder }}
+                        </div>
+
+
+
+                        <div class="col-lg-12">
+                            {{ form_post_job.description_job }}
+                        </div>
+
+                        <div class="col-lg-12">
+                            {{ form_tags_post_job.tag }}
+                        </div>
+                        <div class="col-lg-12">
+                            <ul>
+                                <li><button class="active" type="submit" value="post">Post</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div><!--post-project-fields end-->
+        </div><!--post-project end-->
+        </div>
         <br>
-        <h3>Post a Job</h3>
-        <div class="post-project-fields">
-            <form method="POST" action="{% url 'post-job' %}">
-                {% csrf_token %}
-                <div class="row">
-                    <div class="col-lg-6">
-                        {{ form_post_job.name_jobs }}
-                    </div>
-                    <div class="col-lg-6">
-                        {{ form_post_job.type_work_job }}
-                    </div>
-                    <div class="col-lg-6">
-                        {{ form_post_job.location }}
-                    </div>
-
-                    <div class="col-lg-6">
-                        {{ form_post_job.price }}
-                    </div>
-
-                    <div class="col-lg-12">
-                        {{ form_post_job.epic_coder }}
-                    </div>
-
-
-
-                    <div class="col-lg-12">
-                        {{ form_post_job.description_job }}
-                    </div>
-
-                    <div class="col-lg-12">
-                        {{ form_tags_post_job.tag }}
-                    </div>
-                    <div class="col-lg-12">
-                        <ul>
-                            <li><button class="active" type="submit" value="post">Post</button></li>
-                        </ul>
-                    </div>
-                </div>
-            </form>
-        </div><!--post-project-fields end-->
-    </div><!--post-project end-->
+    </section>
 {% endblock content %}

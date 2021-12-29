@@ -26,14 +26,6 @@ def registerPage(request):
             password = form.cleaned_data['password']
             username = email.split('@')[0]
 
-            # print('-------------------------------------')
-            # print('first_name = ', first_name)
-            # print('last_name = ', last_name)
-            # print('phone_number = ', phone_number)
-            # print('email = ', email)
-            # print('password = ', password)
-            # print('username = ', username)
-            # print('-------------------------------------')
             # create user and save the information user
             user = Account.objects.create_user(first_name=first_name, last_name=last_name,
                                                email=email, username=username, password=password)

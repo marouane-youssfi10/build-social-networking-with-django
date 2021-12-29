@@ -25,10 +25,12 @@
                                 <a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
                                 <ul class="ed-options">
                                     <li><a href="{% url 'edit-post-job' user_profile_job.id %}">Edit Post</a></li>
-                                    <li><a href="#">Unsaved</a></li>
-                                    <li><a href="#">Unbid</a></li>
                                     <li><a href="#" class="close-ed-opts">Close</a></li>
-                                    <li><a href="#">Hide</a></li>
+                                    {% if user_profile_job.hide %}
+                                        <li><a href="{% url 'unhide-job' user_profile_job.id %}">unhide</a></li>
+                                    {% else %}
+                                        <li><a href="{% url 'hide-job' user_profile_job.id %}">Hide</a></li>
+                                    {% endif %}
                                 </ul>
                             </div>
                         {% endif %}
@@ -39,24 +41,14 @@
                             <li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ user_profile_job.location }}</span></li>
                         </ul> <!-- Country and city -->
 
-                        <ul class="bk-links">
-                            <li>
-                                {% if user_profile_job in my_profile.saved_jobs.all %}
-                                    <a href="{% url 'unsaved-jobs' user_profile_job.id %}">
-                                        <i class="la la-check"></i>
-                                    </a>
-                                {% else %}
-                                    <a href="{% url 'saved-jobs' user_profile_job.id %}">
-                                        <i class="la la-bookmark"></i>
-                                    </a>
-                                {% endif %}
-                            </li>
-                            <li>
-                                <a href="{% url 'add-user-to-conversation' user_profile_job.user.id %}">
-                                    <i class="la la-envelope"></i>
-                                </a>
-                            </li>
-                        </ul> <!-- Send message -->
+                        <!-- check if post job is hiding then show Hiding message-->
+                        {% if user_profile_job.hide == True %}
+                            <ul class="bk-links">
+                                <li>
+                                    <a class="bid_now" style="background-color:gray;">Hiding</a>
+                                </li>
+                            </ul>
+                        {% endif %}
                     </div>
                     <div class="job_descp">
                         <h3>{{ user_profile_job.name_jobs }}</h3>

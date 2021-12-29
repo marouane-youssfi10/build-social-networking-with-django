@@ -1,74 +1,80 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <section class="section-content padding-y" style="min-height:84vh">
+        <div class="card mx-auto" style="max-width: 680px; margin-top:40px;">
+            <div class="post-project col-lg-12"><br>
+                {% include 'includes/alerts.html' %}
+                <h3>Updated Post</h3>
+                <div class="post-project-fields">
+                     <form method="POST" action="{% url 'edit-post-job' post_job.id %}">
+                         {% csrf_token %}
+                         <div class="row">
+                                <div class="col-lg-6">
+                                    {{ post_job_form.name_jobs }}
+                                </div>
+                                <div class="col-lg-6">
+                                    {{ post_job_form.type_work_job }}
+                                </div>
+                                <div class="col-lg-12">
+                                    {{ post_job_form.location }}
+                                </div>
 
-    <div class="post-project col-lg-6"><br>
-        {% include 'includes/alerts.html' %}
-        <h3>Updated Post</h3>
-        <div class="post-project-fields">
-             <form method="POST" action="{% url 'edit-post-job' post_job.id %}">
-                 {% csrf_token %}
-                 <div class="row">
-                        <div class="col-lg-6">
-                            {{ post_job_form.name_jobs }}
-                        </div>
-                        <div class="col-lg-6">
-                            {{ post_job_form.type_work_job }}
-                        </div>
-                        <div class="col-lg-12">
-                            {{ post_job_form.location }}
-                        </div>
+                                <div class="col-lg-12">
+                                    {{ post_job_form.epic_coder }}
+                                </div>
 
-                        <div class="col-lg-12">
-                            {{ post_job_form.epic_coder }}
-                        </div>
+                                <div class="col-lg-6">
+                                    {{ post_job_form.price }}
+                                </div>
 
-                        <div class="col-lg-6">
-                            {{ post_job_form.price }}
-                        </div>
+                                <div class="col-lg-12">
+                                    {{ post_job_form.description_job }}
+                                </div>
 
-                        <div class="col-lg-12">
-                            {{ post_job_form.description_job }}
-                        </div>
+                                <div class="col-lg-12">
+                                    <ul>
+                                        <li><a href="{{ request.META.HTTP_REFERER }}" class="active">Go Back</a></li>
+                                        <li><button class="active" type="submit">Update</button></li>
+                                    </ul>
+                                </div>
+                            </div>
+                     </form>
+                </div>
 
+            </div>
+        </div>
+    </section>
+
+    <section class="section-content padding-y" style="min-height:84vh">
+        <div class="card mx-auto" style="max-width: 680px; margin-top:40px;">
+            <div class="post-project-fields">
+                    <form>
                         <div class="col-lg-12">
                             <ul>
-                                <li><a href="{{ request.META.HTTP_REFERER }}" class="active">Go Back</a></li>
-                                <li><button class="active" type="submit">Update</button></li>
+                                {% for tag_post in post_job.skills_tags_jobs.all %}
+                                <li class="form-group">
+                                    <a href="{% url 'delete-tag-post-job' tag_post.id post_job.id %}" style="background-color:#f2f2f2; color:black;">
+                                         {{ tag_post }}<i class="la la-close"></i>
+                                    </a>
+                                </li>
+                                {% endfor %}
                             </ul>
                         </div>
-                    </div>
-             </form>
-        </div>
-
-        <div class="post-project-fields">
-            <form>
-                <div class="col-lg-12">
-                    <ul>
-                        {% for tag_post in post_job.skills_tags_jobs.all %}
-                        <li class="form-group">
-                            <a href="{% url 'delete-tag-post-job' tag_post.id post_job.id %}" style="background-color:#f2f2f2; color:black;">
-                                 {{ tag_post }}<i class="la la-close"></i>
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
+                    </form>
+                    <!-- url 'create-tags-post' post_project.id -->
+                    <form method="POST" action="{% url 'create-tags-post-job' post_job.id %}">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control" name="post_tags_job" placeholder="add tags, separated by commas">
+                            </div>
+                            <div class="col-lg-4">
+                                <input type="submit" class="form-control" value="add tags" style="background-color:#e44d3a; color:white;">
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </form>
-            <!-- url 'create-tags-post' post_project.id -->
-            <form method="POST" action="{% url 'create-tags-post-job' post_job.id %}">
-                {% csrf_token %}
-                <div class="row">
-                    <div class="col-lg-8">
-                        <input type="text" class="form-control" name="post_tags_job" placeholder="add tags, separated by commas">
-                    </div>
-                    <div class="col-lg-4">
-                        <input type="submit" class="form-control" value="add tags" style="background-color:#e44d3a; color:white;">
-                    </div>
-                </div>
-            </form>
         </div>
-
-    </div>
-
+    </section>
 {% endblock content %}
