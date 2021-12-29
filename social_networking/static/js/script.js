@@ -559,6 +559,19 @@ $(window).on("load", function() {
         return false;
     });
 
+    // ===================  title job ===========================
+
+    $("#id_name_jobs").on("click", function(){
+        const name_jobs = document.getElementById('id_name_jobs');
+
+        // for not allow space as a first input
+        name_jobs.addEventListener('keydown', function (e) {
+            if (this.value.length === 0 && e.which === 32) e.preventDefault();
+        });
+
+        return false;
+    });
+
     // ===================  Category project ===========================
 
     $("#id_epic_coder").on("click", function(){
