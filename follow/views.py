@@ -26,26 +26,33 @@ def unfollow_profile(request, pk):
 @login_required(login_url='login')
 def add_like_projects(request, pk):
     project = PostProject.objects.get(id=pk)
-    project.likes.add(request.user)
-    project.save()
+    if not request.user in project.likes.all():
+        print('-- if not --')
+        project.likes.add(request.user)
+        project.save()
     return redirect(request.META.get('HTTP_REFERER'))
 
 @login_required(login_url='login')
 def remove_like_projects(request, pk):
     project = PostProject.objects.get(id=pk)
-    project.likes.remove(request.user)
-    project.save()
+    if request.user in project.likes.all():
+        project.likes.remove(request.user)
+        project.save()
     return redirect(request.META.get('HTTP_REFERER'))
 
 @login_required(login_url='login')
 def add_like_jobs(request, pk):
     jobs = PostJobs.objects.get(id=pk)
-    jobs.likes.add(request.user)
+    if not request.user in jobs.likes.all():
+        jobs.likes.add(request.user)
+        jobs.save()
     return redirect(request.META.get('HTTP_REFERER'))
 
 @login_required(login_url='login')
 def remove_like_jobs(request, pk):
     jobs = PostJobs.objects.get(id=pk)
-    jobs.likes.remove(request.user)
+    if request.user in jobs.likes.all():
+        jobs.likes.remove(request.user)
+        jobs.save()
     return redirect(request.META.get('HTTP_REFERER'))
 
