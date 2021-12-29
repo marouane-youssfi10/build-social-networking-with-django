@@ -171,7 +171,12 @@
                                                     <li><a title="type work">{{ user_job.type_work_job }}</a></li>
                                                     <li><span title="price">${{ user_job.price }} / hr</span></li>
                                                 </ul> <!-- type work and hourly work -->
-                                                <p title="Description">{{ user_job.description_job | truncatechars:250 }}</p>
+                                                <p title="description job">
+                                                    {{ user_job.description_job | truncatechars:150 }}
+                                                    {% if user_job.description_job|length > 150 %}
+                                                        ....<a href="{% url 'comment-jobs' user_job.id %}">view more</a>
+                                                    {% endif %}
+                                                </p>
                                                 <ul class="skill-tags">
                                                     {% for tag in user_job.skills_tags_jobs.all %}
                                                         <li><a title="tag">{{ tag }}</a></li>
