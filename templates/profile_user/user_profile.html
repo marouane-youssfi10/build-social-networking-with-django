@@ -19,9 +19,6 @@
 							<div class="user_profile">
 								<div class="user-pro-img">
 									<img src="{{ current_user_profile.user.photo_profile.url }}" width="170" height="170">
-									{% if request.user == current_user_profile.user %}
-										<a href="{% url 'edit-profile' %}"><i class="fa fa-camera"></i></a>
-									{% endif %}
 								</div><!--user-pro-img end-->
 								<div class="user_pro_status">
 									{% if request.user != current_user_profile.user %}
