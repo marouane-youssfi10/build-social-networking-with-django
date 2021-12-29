@@ -48,32 +48,35 @@
 
     <section class="section-content padding-y" style="min-height:84vh">
         <div class="card mx-auto" style="max-width: 680px; margin-top:40px;">
+            <div class="job_desc">
+                <form>
+                    <div class="col-lg-12">
+                        <ul class="skill-tags">
+                            {% for tag_post in post_job.skills_tags_jobs.all %}
+                            <li class="form-group">
+                                <a href="{% url 'delete-tag-post-job' tag_post.id post_job.id %}" class="tags_job_project">
+                                     {{ tag_post }}  <i class="la la-close"></i>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </form>
+            </div>
             <div class="post-project-fields">
-                    <form>
-                        <div class="col-lg-12">
-                            <ul>
-                                {% for tag_post in post_job.skills_tags_jobs.all %}
-                                <li class="form-group">
-                                    <a href="{% url 'delete-tag-post-job' tag_post.id post_job.id %}" style="background-color:#f2f2f2; color:black;">
-                                         {{ tag_post }}<i class="la la-close"></i>
-                                    </a>
-                                </li>
-                                {% endfor %}
-                            </ul>
+                <form method="POST" action="{% url 'create-tags-post-job' post_job.id %}">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <input type="text" id="tags_job" class="form-control" name="post_tags_job" placeholder="add tags, separated by commas">
                         </div>
-                    </form>
-                    <form method="POST" action="{% url 'create-tags-post-job' post_job.id %}">
-                        {% csrf_token %}
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <input type="text" id="tags_job" class="form-control" name="post_tags_job" placeholder="add tags, separated by commas">
-                            </div>
-                            <div class="col-lg-4">
-                                <input type="submit" class="form-control" value="add tags" style="background-color:#e44d3a; color:white;">
-                            </div>
+                        <div class="col-lg-4">
+                            <input type="submit" class="form-control" value="add tags" style="background-color:#e44d3a; color:white;">
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
+            </div>
+
         </div>
     </section>
 {% endblock content %}

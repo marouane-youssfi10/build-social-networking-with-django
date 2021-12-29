@@ -5521,3 +5521,15 @@ pre {
 .photo_profile_info{
     font-size:12px;
 }
+/* fot tags project and jobs */
+.tags_job_project{
+    position:relative;
+    top:20px;
+    left:20px;
+}
+/* tags close */
+.la.la-close{
+    position:relative;
+    top:1px;
+    left:5px;
+}

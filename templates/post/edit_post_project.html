@@ -46,13 +46,13 @@
     </section>
     <section class="section-content padding-y" style="min-height:84vh">
         <div class="card mx-auto" style="max-width: 680px; margin-top:40px;">
-            <div class="post-project-fields">
+            <div class="job_desc">
                 <form>
                     <div class="col-lg-12">
-                        <ul>
+                        <ul class="skill-tags">
                             {% for tag_post in post_project.skills_tags_projects.all %}
                             <li class="form-group">
-                                <a href="{% url 'delete-tag-post' tag_post.id post_project.id %}" style="background-color:#f2f2f2; color:black;">
+                                <a href="{% url 'delete-tag-post' tag_post.id post_project.id %}" class="tags_job_project">
                                      {{ tag_post }}<i class="la la-close"></i>
                                 </a>
                             </li>
@@ -60,6 +60,8 @@
                         </ul>
                     </div>
                 </form>
+            </div>
+            <div class="post-project-fields">
                 <form method="POST" action="{% url 'create-tags-post' post_project.id %}" >
                     {% csrf_token %}
                     <div class="row">
