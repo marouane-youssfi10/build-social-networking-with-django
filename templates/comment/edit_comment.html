@@ -1,19 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="post-project col-lg-6"><br>
-    <h3>Edit Comment</h3>
-    <div class="post-project-fields">
+    <section class="section-content padding-y" style="min-height:84vh">
+        <div class="card mx-auto" style="max-width: 680px; margin-top:40px;">
+            <div class="post-project col-lg-12"><br>
+                <h3>Edit Comment</h3>
+                <div class="post-project-fields">
+                    <form action="{% url 'edit-comment' comment_project.id %}" method="POST">
+                        {% csrf_token %}
+                        {{ comment_project_form.body }}
+                        <ul>
+                            <li><a href="{{ request.META.HTTP_REFERER }}">Go Back</a></li>
+                            <li><button class="active" type="submit">Update</button></li>
+                        </ul>
 
-        <form action="{% url 'edit-comment' comment_project.id %}" method="POST">
-            {% csrf_token %}
-            {{ comment_project_form.body }}
-            <ul>
-                <li><a href="{{ request.META.HTTP_REFERER }}">Go Back</a></li>
-                <li><button class="active" type="submit">Update</button></li>
-            </ul>
-
-        </form>
-    </div>
-</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock content %}

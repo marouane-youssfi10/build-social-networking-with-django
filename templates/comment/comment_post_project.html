@@ -71,9 +71,9 @@
                         <ul class="job-dt">
                             <li><span>${{ project.start_price }} - ${{ project.end_price }}</span></li>
                         </ul>
-                        <p>
-                            {{ project.description_project }}
-                        </p>
+                        <div class="job-dt">
+                            <pre>{{ project.description_project }}</pre>
+                        </div>
                         <ul class="skill-tags">
                             <!-- display all tags of this project-->
                             {% for tags in project.skills_tags_projects.all %}

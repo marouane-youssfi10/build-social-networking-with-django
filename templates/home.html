@@ -61,13 +61,13 @@
                                                 {% if user_profile.user in follow_user.following.all %}
                                                     <span>
                                                         <a href="{% url 'unfollow' user_profile.user.follow_user.id %}">
-                                                            <i class="la la-check"></i>
+                                                            <i class="la la-check" title="unfollow"></i>
                                                         </a>
                                                     </span>
                                                 {% else %}
                                                     <span>
                                                         <a href="{% url 'follow' user_profile.user.follow_user.id %}">
-                                                            <i class="la la-plus"></i>
+                                                            <i class="la la-plus" title="follow"></i>
                                                         </a>
                                                     </span>
                                                 {% endif %}
@@ -133,25 +133,25 @@
                                             </div>
                                             <div class="epi-sec">
                                                 <ul class="descp">
-                                                    <li><img src="{% static 'images/icon8.png' %}" alt=""><span>{{ user_job.epic_coder }}</span></li>
-                                                    <li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ user_job.location }}</span></li>
+                                                    <li><img src="{% static 'images/icon8.png' %} "title="Epic coder"><span>{{ user_job.epic_coder }}</span></li>
+                                                    <li><img src="{% static 'images/icon9.png' %} "title="Country"><span>{{ user_job.location }}</span></li>
                                                 </ul> <!-- Country and city -->
                                                 <ul class="bk-links">
                                                     {% if request.user != user_job.user %} <!-- check if request.user true for hiding saved_jobs and message button -->
                                                         <li>
                                                             {% if user_job in my_profile.saved_jobs.all %}<!-- get the id of UserProfile -->
                                                                 <a href="{% url 'unsaved-jobs' user_job.id %}">
-                                                                    <i class="la la-check"></i>
+                                                                    <i class="la la-check" title="unsaved job"></i>
                                                                 </a>
                                                             {% else %}
                                                                 <a href="{% url 'saved-jobs' user_job.id %}">
-                                                                    <i class="la la-bookmark"></i>
+                                                                    <i class="la la-bookmark" title="saved job"></i>
                                                                 </a>
                                                             {% endif %}
                                                         </li>
                                                         <li>
                                                             <a href="{% url 'add-user-to-conversation' user_job.user.id %}">
-                                                                <i class="la la-envelope"></i>
+                                                                <i class="la la-envelope" title="message"></i>
                                                             </a>
                                                         </li>
                                                     {% endif %}
@@ -166,15 +166,15 @@
                                                 {% endif %}
                                             </div>
                                             <div class="job_descp">
-                                                <h3>{{ user_job.name_jobs }}</h3>
+                                                <h3 title="title job">{{ user_job.name_jobs }}</h3>
                                                 <ul class="job-dt">
-                                                    <li><a href="#" title="">{{ user_job.type_work_job }}</a></li>
-                                                    <li><span>${{ user_job.price }} / hr</span></li>
+                                                    <li><a title="type work">{{ user_job.type_work_job }}</a></li>
+                                                    <li><span title="price">${{ user_job.price }} / hr</span></li>
                                                 </ul> <!-- type work and hourly work -->
-                                                <p>{{ user_job.description_job | truncatechars:250 }}</p>
+                                                <p title="Description">{{ user_job.description_job | truncatechars:250 }}</p>
                                                 <ul class="skill-tags">
                                                     {% for tag in user_job.skills_tags_jobs.all %}
-                                                        <li><a>{{ tag }}</a></li>
+                                                        <li><a title="tag">{{ tag }}</a></li>
                                                     {% endfor %}
                                                 </ul> <!-- tags -->
                                             </div>
@@ -193,12 +193,12 @@
                                                         {% endif %}
                                                     </li> <!-- Like -->
                                                     <li>
-                                                        <a class="com" href="{% url 'comment-jobs' user_job.id %}">
+                                                        <a class="com" href="{% url 'comment-jobs' user_job.id %}" title="Comment">
                                                             <img src="{% static 'images/com.png' %}"> Comment {{ user_job.post_job_comment.all.count }}
                                                         </a>
                                                     </li>
                                                 </ul>
-                                                <a><i class="la la-eye"></i>Views {{ user_job.viewers_job.all.count }}</a>
+                                                <a><i class="la la-eye" title="viewers"></i>Views {{ user_job.viewers_job.all.count }}</a>
                                             </div>
                                         </div>
                                         {% endif %}
@@ -256,12 +256,12 @@
                                             <div class="job-info">
                                                 <div class="job-details">
                                                     <a href="{% url 'comment-jobs' top.job_id %}">
-                                                        <h3>{{ top.name_jobs }}</h3>
+                                                        <h3 title="post job">{{ top.name_jobs }}</h3>
                                                     </a>
-                                                    <p>{{ top.description_job | truncatechars:45 }}</p>
+                                                    <p title="description job">{{ top.description_job | truncatechars:45 }}</p>
                                                 </div>
                                                 <div class="hr-rate">
-                                                    <span>${{ top.price }}/hr</span>
+                                                    <span title="price job">${{ top.price }}/hr</span>
                                                 </div>
                                             </div><!--job-info end-->
                                         {% endfor %}
