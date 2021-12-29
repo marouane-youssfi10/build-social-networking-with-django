@@ -17,9 +17,6 @@ class PostProjectForm(forms.ModelForm):
         self.fields['end_price'].widget.attrs['placeholder'] = 'Max Price'
         self.fields['description_project'].widget.attrs['placeholder'] = 'Description'
 
-        # self.fields['start_price'].widget.attrs['onkeydown'] = 'javascript: return event.keyCode === 8 ||event.keyCode === 46 ? true : !isNaN(Number(event.key))'
-        # self.fields['end_price'].widget.attrs['onkeydown'] = 'javascript: return event.keyCode === 8 ||event.keyCode === 46 ? true : !isNaN(Number(event.key))'
-
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].required = True
@@ -52,10 +49,10 @@ class TagsProjectsForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(TagsProjectsForm, self).__init__(*args, **kwargs)
         self.fields['tag'].widget.attrs['placeholder'] = 'Tags'
-        self.fields['tag'].widget.attrs['id'] = 'tag_project'
+        self.fields['tag'].widget.attrs['id'] = 'tags_project'
+        self.fields['tag'].widget.attrs['placeholder'] = 'add tags, separated by commas. example: design, programmation, photographe, .....'
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
-            # self.fields[field].widget.attrs['placeholder'] = 'add tags, separated by commas. example: design, programmation, photographe, .....'
             self.fields[field].required = True
 
 class TagsJobForm(forms.ModelForm):
@@ -66,7 +63,8 @@ class TagsJobForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(TagsJobForm, self).__init__(*args, **kwargs)
         self.fields['tag'].widget.attrs['placeholder'] = 'Tags'
+        self.fields['tag'].widget.attrs['id'] = 'tags_job'
+        self.fields['tag'].widget.attrs['placeholder'] = 'add tags, separated by commas. example: design, programmation, photographe, .....'
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
-            # self.fields[field].widget.attrs['placeholder'] = 'add tags, separated by commas. example: design, programmation, photographe, .....'
             self.fields[field].required = True

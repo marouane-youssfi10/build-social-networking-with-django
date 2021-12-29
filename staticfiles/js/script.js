@@ -502,4 +502,47 @@ $(window).on("load", function() {
         });
         return false;
     });
+
+    // ===================  location project ===========================
+
+    $("#id_location").on("click", function(){
+        const location = document.getElementById('id_location');
+
+        // for not allow space as a first input
+        location.addEventListener('keydown', function (e) {
+            if (this.value.length === 0 && e.which === 32) e.preventDefault();
+        });
+
+        // for remove double spaces in between text
+        location.addEventListener('keyup', () => {
+            location.value = location.value.replace(/  +/g, ' ');
+        });
+        return false;
+    });
+
+    // ===================  description project ===========================
+
+    $("#id_description_project").on("click", function(){
+        const description_project = document.getElementById('id_description_project');
+
+        // for not allow space as a first input
+        description_project.addEventListener('keydown', function (e) {
+            if (this.value.length === 0 && e.which === 32) e.preventDefault();
+        });
+
+        return false;
+    });
+
+    // ===================  title project ===========================
+
+    $("#id_name_project").on("click", function(){
+        const name_project = document.getElementById('id_name_project');
+
+        // for not allow space as a first input
+        name_project.addEventListener('keydown', function (e) {
+            if (this.value.length === 0 && e.which === 32) e.preventDefault();
+        });
+
+        return false;
+    });
 });
