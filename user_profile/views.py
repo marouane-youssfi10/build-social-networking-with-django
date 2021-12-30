@@ -195,10 +195,13 @@ def create_experience_user(request):
 
 @login_required(login_url='login')
 def delete_experience_user(request, pk):
-    experience = Experience_user.objects.get(id=pk)
-    experience.delete()
-    messages.success(request, 'your experience is deleted')
-    return redirect('/accounts-setting/edit-profile/', request.user)
+    try:
+        experience = Experience_user.objects.get(id=pk)
+        experience.delete()
+        messages.success(request, 'your experience is deleted')
+        return redirect(reverse('/accounts-setting/edit-profile/', args=[request.user]))
+    except:
+        return redirect('/accounts-setting/edit-profile/', request.user)
 
 @login_required(login_url='login')
 def create_tags_user(request):
@@ -323,8 +326,9 @@ def saved_jobs(request, pk):
 
     # get the jobs you want to saved
     user_job = PostJobs.objects.get(id=pk)
+    if not user_job in my_job.saved_jobs.all():
+        my_job.saved_jobs.add(user_job.id)
 
-    my_job.saved_jobs.add(user_job.id)
     return redirect(request.META.get('HTTP_REFERER'))
 
 # unsaved jobs to my_profile
@@ -335,8 +339,9 @@ def unsaved_jobs(request, pk):
 
     # get the jobs you want to unsaved
     user_job = PostJobs.objects.get(id=pk)
+    if user_job in my_job.saved_jobs.all():
+        my_job.saved_jobs.remove(user_job.id)
 
-    my_job.saved_jobs.remove(user_job.id)
     return redirect(request.META.get('HTTP_REFERER'))
 
 # bid a project to my_profile
@@ -347,8 +352,9 @@ def bid_project(request, pk):
 
     # get the jobs you want to saved
     post_projects = PostProject.objects.get(id=pk)
+    if not post_projects in my_profile.my_bids_projects.all():
+        my_profile.my_bids_projects.add(post_projects.id)
 
-    my_profile.my_bids_projects.add(post_projects.id)
     return redirect(request.META.get('HTTP_REFERER'))
 
 # unbid a project to my_profile
@@ -359,6 +365,7 @@ def unbid_project(request, pk):
 
     # get the jobs you want to saved
     post_projects = PostProject.objects.get(id=pk)
+    if post_projects in my_profile.my_bids_projects.all():
+        my_profile.my_bids_projects.remove(post_projects.id)
 
-    my_profile.my_bids_projects.remove(post_projects.id)
     return redirect(request.META.get('HTTP_REFERER'))
