@@ -131,6 +131,9 @@ def post_projects(request):
             # get the value of tags_post_values list
             tags_projects = form_tags_post_project.cleaned_data['tag']
             tags_list = list(tags_projects.split(',')) # separate values with commas
+            tags_list = [item.strip() for item in tags_list] # strip all words
+            while '' in tags_list: tags_list.remove('') # remove '' from list
+
             for tag in tags_list:
                 # save the information updated
                 tag, created = TagsProjects.objects.get_or_create(tags_users_projects=request.user, tag=tag)
@@ -183,6 +186,8 @@ def post_job(request):
             # get the value of tags_post_values list
             tags_jobs = form_tags_post_job.cleaned_data['tag']
             tags_list = list(tags_jobs.split(','))  # separate values with commas
+            tags_list = [item.strip() for item in tags_list]  # strip all words
+            while '' in tags_list: tags_list.remove('')  # remove '' from list
             for tag in tags_list:
                 # save the information updated
                 tag, created = TagsJobs.objects.get_or_create(tags_users_jobs=request.user, tag=tag)
@@ -329,33 +334,45 @@ def edit_post_job(request, pk):
 @login_required(login_url='login')
 def delete_post_projects(request, project_id):
     print('------- delete_post_projects -------')
-    post_project = PostProject.objects.get(id=project_id)
-    post_project.delete()
-    messages.success(request, 'your project post is delete successfully')
-    return redirect(request.META.get('HTTP_REFERER'))
+    try:
+        post_project = PostProject.objects.get(id=project_id)
+        post_project.delete()
+        messages.success(request, 'your project post is delete successfully')
+        return redirect(request.META.get('HTTP_REFERER'))
+    except:
+        return redirect(request.META.get('HTTP_REFERER'))
 
 @login_required(login_url='login')
 def delete_post_jobs(request, job_id):
     print('------- delete_post_jobs -------')
-    post_job = PostJobs.objects.get(id=job_id)
-    post_job.delete()
-    messages.success(request, 'your job post is delete successfully')
-    return redirect(request.META.get('HTTP_REFERER'))
+    try:
+        post_job = PostJobs.objects.get(id=job_id)
+        post_job.delete()
+        messages.success(request, 'your job post is delete successfully')
+        return redirect(request.META.get('HTTP_REFERER'))
+    except:
+        return redirect(request.META.get('HTTP_REFERER'))
 
 # this method for delete tags on post you want to update
 @login_required(login_url='login')
 def delete_tag_post_project(request, project_post_id, pk):
-    tag = TagsProjects.objects.get(id=pk)
-    tag.delete()
-    messages.success(request, 'your tag is delete successfully')
-    return redirect('/projects/edit-post/'+ str(project_post_id))
+    try:
+        tag = TagsProjects.objects.get(id=pk)
+        tag.delete()
+        messages.success(request, 'your tag is delete successfully')
+        return redirect('/projects/edit-post/' + str(project_post_id))
+    except:
+        return redirect('/projects/edit-post/'+ str(project_post_id))
 
 @login_required(login_url='login')
 def delete_tag_post_job(request, job_post_id, pk):
-    tag = TagsJobs.objects.get(id=pk)
-    tag.delete()
-    messages.success(request, 'your tag is delete successfully')
-    return redirect('/jobs/edit-post/' + str(job_post_id))
+    try:
+        tag = TagsJobs.objects.get(id=pk)
+        tag.delete()
+        messages.success(request, 'your tag is delete successfully')
+        return redirect('/jobs/edit-post/' + str(job_post_id))
+    except:
+        return redirect('/jobs/edit-post/' + str(job_post_id))
 
 # this method for create tags on post you want to update
 @login_required(login_url='login')
@@ -369,6 +386,9 @@ def create_tags_post_project(request, project_post_id):
     if request.method == 'POST':
         post_tags_project = request.POST['post_tags_project']
         tags_list = list(post_tags_project.split(','))
+        tags_list = [item.strip() for item in tags_list]  # strip all words
+        while '' in tags_list: tags_list.remove('')  # remove '' from list
+
         for tag in tags_list:
             # save the information updated
             tag, created = TagsProjects.objects.get_or_create(tags_users_projects=request.user, tag=tag)
@@ -390,6 +410,9 @@ def create_tags_post_job(request, job_post_id):
     if request.method == 'POST':
         post_tags_job = request.POST['post_tags_job']
         tags_list = list(post_tags_job.split(','))
+        tags_list = [item.strip() for item in tags_list]  # strip all words
+        while '' in tags_list: tags_list.remove('')  # remove '' from list
+
         for tag in tags_list:
             # save the information updated
             tag, created = TagsJobs.objects.get_or_create(tags_users_jobs=request.user, tag=tag)
