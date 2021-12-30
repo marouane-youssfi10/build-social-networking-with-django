@@ -131,7 +131,6 @@ def post_projects(request):
             # get the value of tags_post_values list
             tags_projects = form_tags_post_project.cleaned_data['tag']
             tags_list = list(tags_projects.split(',')) # separate values with commas
-            tags_list = ' '.join(tags_list).split()
             for tag in tags_list:
                 # save the information updated
                 tag, created = TagsProjects.objects.get_or_create(tags_users_projects=request.user, tag=tag)
@@ -184,7 +183,6 @@ def post_job(request):
             # get the value of tags_post_values list
             tags_jobs = form_tags_post_job.cleaned_data['tag']
             tags_list = list(tags_jobs.split(','))  # separate values with commas
-            tags_list = ' '.join(tags_list).split()
             for tag in tags_list:
                 # save the information updated
                 tag, created = TagsJobs.objects.get_or_create(tags_users_jobs=request.user, tag=tag)
