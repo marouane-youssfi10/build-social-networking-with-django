@@ -229,6 +229,7 @@ $(window).on("load", function() {
         input.addEventListener('keyup', () => {
             input.value = input.value.replace(/  +/g, ' ');
         });
+
         return false;
     });
 
@@ -239,12 +240,23 @@ $(window).on("load", function() {
         // for not allow space as a first input
         input.addEventListener('keydown', function (e) {
             if (this.value.length === 0 && e.which === 32) e.preventDefault();
+            // prevent tab
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+            if (keyCode == 9) {
+                e.preventDefault();
+            }
         });
 
         // for remove double spaces in between text
-        input.addEventListener('keyup', () => {
+        input.addEventListener('keyup', (e) => {
             input.value = input.value.replace(/  +/g, ' ');
+            // prevent tab
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+            if (keyCode == 9) {
+                e.preventDefault();
+            }
         });
+
         return false;
     });
 
@@ -255,12 +267,25 @@ $(window).on("load", function() {
         // for not allow space as a first input
         input.addEventListener('keydown', function (e) {
             if (this.value.length === 0 && e.which === 32) e.preventDefault();
+
+            // prevent tab
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+            if (keyCode == 9) {
+                e.preventDefault();
+            }
         });
 
         // for remove double spaces in between text
-        input.addEventListener('keyup', () => {
+        input.addEventListener('keyup', (e) => {
             input.value = input.value.replace(/  +/g, ' ');
+
+            // prevent tab
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+            if (keyCode == 9) {
+                e.preventDefault();
+            }
         });
+
         return false;
     });
 
@@ -270,9 +295,13 @@ $(window).on("load", function() {
         const hourly_work = document.getElementById('hourly_work');
 
         hourly_work.onkeydown = function(e) {
-            console.log('onkeydown start')
             if(!((e.keyCode > 95 && e.keyCode < 106) || (e.keyCode > 47 && e.keyCode < 58) || e.keyCode == 8)) {
                 return false;
+            }
+            // prevent tab
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+            if (keyCode == 9) {
+                e.preventDefault();
             }
         }
         return false;
@@ -282,8 +311,6 @@ $(window).on("load", function() {
 
     $("#id_first_name").on("click", function(){
         const first_name = document.getElementById('id_first_name');
-        console.log('test')
-
         first_name.onkeydown =  function Check(e) {
             var keyCode = (e.keyCode ? e.keyCode : e.which);
 
@@ -291,7 +318,10 @@ $(window).on("load", function() {
             if (keyCode > 47 && keyCode < 58) {
                 e.preventDefault();
             }
-
+            // prevent tab
+            if (keyCode == 9) {
+                e.preventDefault();
+            }
             // prevent space
             if (keyCode == 32) {
                 e.preventDefault();
@@ -306,6 +336,10 @@ $(window).on("load", function() {
             var keyCode = (e.keyCode ? e.keyCode : e.which);
             // prevent number
             if (keyCode > 47 && keyCode < 58) {
+                e.preventDefault();
+            }
+            // prevent tab
+            if (keyCode == 9) {
                 e.preventDefault();
             }
         }
@@ -323,6 +357,10 @@ $(window).on("load", function() {
 
             // prevent number
             if (keyCode > 47 && keyCode < 58) {
+                e.preventDefault();
+            }
+            // prevent tab
+            if (keyCode == 9) {
                 e.preventDefault();
             }
             // prevent space
@@ -343,6 +381,10 @@ $(window).on("load", function() {
             if (keyCode > 47 && keyCode < 58) {
                 e.preventDefault();
             }
+            // prevent tab
+            if (keyCode == 9) {
+                e.preventDefault();
+            }
         }
 
         return false;
@@ -360,12 +402,20 @@ $(window).on("load", function() {
             if (keyCode == 32) {
                 e.preventDefault();
             }
+            // prevent tab
+            if (keyCode == 9) {
+                e.preventDefault();
+            }
         }
         email.onkeyup =  function Check(e) {
             var keyCode = (e.keyCode ? e.keyCode : e.which);
 
             // prevent space
             if (keyCode == 32) {
+                e.preventDefault();
+            }
+            // prevent tab
+            if (keyCode == 9) {
                 e.preventDefault();
             }
         }
@@ -384,6 +434,10 @@ $(window).on("load", function() {
             if (keyCode == 32) {
                 e.preventDefault();
             }
+            // prevent tab
+            if (keyCode == 9) {
+                e.preventDefault();
+            }
         }
         phone_number.onkeyup =  function Check(e) {
             var keyCode = (e.keyCode ? e.keyCode : e.which);
@@ -392,13 +446,20 @@ $(window).on("load", function() {
             if (keyCode == 32) {
                 e.preventDefault();
             }
+            // prevent tab
+            if (keyCode == 9) {
+                e.preventDefault();
+            }
         }
 
         // prevent letters
         phone_number.addEventListener("keypress", function (evt) {
-            if (evt.which < 48 || evt.which > 57)
-            {
+            if (evt.which < 48 || evt.which > 57) {
                 evt.preventDefault();
+            }
+            // prevent tab
+            if (keyCode == 9) {
+                e.preventDefault();
             }
         });
         return false;
@@ -417,6 +478,10 @@ $(window).on("load", function() {
             {
                 e.preventDefault();
             }
+            // prevent tab
+            if (keyCode == 9) {
+                e.preventDefault();
+            }
         }
         start_price.onkeyup =  function Check(e) {
             var keyCode = (e.keyCode ? e.keyCode : e.which);
@@ -425,13 +490,21 @@ $(window).on("load", function() {
             if (keyCode == 32) {
                 e.preventDefault();
             }
+            // prevent tab
+            if (keyCode == 9) {
+                e.preventDefault();
+            }
         }
 
         // prevent letters
-        start_price.addEventListener("keypress", function (evt) {
-            if (evt.which < 48 || evt.which > 57)
-            {
-                evt.preventDefault();
+        start_price.addEventListener("keypress", function (e) {
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+            if (e.which < 48 || e.which > 57){
+                e.preventDefault();
+            }
+            // prevent tab
+            if (keyCode == 9) {
+                e.preventDefault();
             }
         });
         return false;
@@ -446,8 +519,11 @@ $(window).on("load", function() {
             var keyCode = (e.keyCode ? e.keyCode : e.which);
 
             // prevent space
-            if (keyCode == 32)
-            {
+            if (keyCode == 32){
+                e.preventDefault();
+            }
+            // prevent tab
+            if (keyCode == 9) {
                 e.preventDefault();
             }
         }
@@ -458,13 +534,26 @@ $(window).on("load", function() {
             if (keyCode == 32) {
                 e.preventDefault();
             }
+            // prevent tab
+            if (keyCode == 9) {
+                e.preventDefault();
+            }
         }
 
         // prevent letters
         start_price.addEventListener("keypress", function (evt) {
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
             if (evt.which < 48 || evt.which > 57)
             {
                 evt.preventDefault();
+            }
+            // prevent space
+            if (keyCode == 32) {
+                evt.preventDefault();
+            }
+            // prevent tab
+            if (keyCode == 9) {
+                e.preventDefault();
             }
         });
         return false;
@@ -483,6 +572,10 @@ $(window).on("load", function() {
             {
                 e.preventDefault();
             }
+            // prevent tab
+            if (keyCode == 9) {
+                e.preventDefault();
+            }
         }
         start_price.onkeyup =  function Check(e) {
             var keyCode = (e.keyCode ? e.keyCode : e.which);
@@ -491,13 +584,25 @@ $(window).on("load", function() {
             if (keyCode == 32) {
                 e.preventDefault();
             }
+            // prevent tab
+            if (keyCode == 9) {
+                e.preventDefault();
+            }
         }
 
         // prevent letters
-        start_price.addEventListener("keypress", function (evt) {
-            if (evt.which < 48 || evt.which > 57)
-            {
-                evt.preventDefault();
+        start_price.addEventListener("keypress", function (e) {
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+            if (e.which < 48 || e.which > 57){
+                e.preventDefault();
+            }
+            // prevent space
+            if (keyCode == 32) {
+                e.preventDefault();
+            }
+            // prevent tab
+            if (keyCode == 9) {
+                e.preventDefault();
             }
         });
         return false;
@@ -510,12 +615,31 @@ $(window).on("load", function() {
 
         // for not allow space as a first input
         location.addEventListener('keydown', function (e) {
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
             if (this.value.length === 0 && e.which === 32) e.preventDefault();
+            // prevent space
+            if (keyCode == 32) {
+                e.preventDefault();
+            }
+            // prevent tab
+            if (keyCode == 9) {
+                e.preventDefault();
+            }
         });
 
         // for remove double spaces in between text
         location.addEventListener('keyup', () => {
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
             location.value = location.value.replace(/  +/g, ' ');
+
+            // prevent space
+            if (keyCode == 32) {
+                e.preventDefault();
+            }
+            // prevent tab
+            if (keyCode == 9) {
+                e.preventDefault();
+            }
         });
         return false;
     });
@@ -528,6 +652,29 @@ $(window).on("load", function() {
         // for not allow space as a first input
         description_project.addEventListener('keydown', function (e) {
             if (this.value.length === 0 && e.which === 32) e.preventDefault();
+             var keyCode = (e.keyCode ? e.keyCode : e.which);
+            // prevent tab
+            if (keyCode == 9) {
+                e.preventDefault();
+            }
+        });
+
+        return false;
+    });
+
+    // ===================  description job ===========================
+
+    $("#id_description_job").on("click", function(){
+        const description_job = document.getElementById('id_description_job');
+
+        // for not allow space as a first input
+        description_job.addEventListener('keydown', function (e) {
+            if (this.value.length === 0 && e.which === 32) e.preventDefault();
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+            // prevent tab
+            if (keyCode == 9) {
+                e.preventDefault();
+            }
         });
 
         return false;
@@ -541,6 +688,47 @@ $(window).on("load", function() {
         // for not allow space as a first input
         name_project.addEventListener('keydown', function (e) {
             if (this.value.length === 0 && e.which === 32) e.preventDefault();
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+            // prevent tab
+            if (keyCode == 9) {
+                e.preventDefault();
+            }
+        });
+
+        return false;
+    });
+
+    // ===================  title job ===========================
+
+    $("#id_name_jobs").on("click", function(){
+        const name_jobs = document.getElementById('id_name_jobs');
+
+        // for not allow space as a first input
+        name_jobs.addEventListener('keydown', function (e) {
+            if (this.value.length === 0 && e.which === 32) e.preventDefault();
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+            // prevent tab
+            if (keyCode == 9) {
+                e.preventDefault();
+            }
+        });
+
+        return false;
+    });
+
+    // ===================  Category project ===========================
+
+    $("#id_epic_coder").on("click", function(){
+        const epic_coder = document.getElementById('id_epic_coder');
+
+        // for not allow space as a first input
+        epic_coder.addEventListener('keydown', function (e) {
+            if (this.value.length === 0 && e.which === 32) e.preventDefault();
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+            // prevent tab
+            if (keyCode == 9) {
+                e.preventDefault();
+            }
         });
 
         return false;
