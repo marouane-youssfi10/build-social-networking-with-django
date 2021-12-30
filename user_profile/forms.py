@@ -65,6 +65,14 @@ class UserProfileForm(forms.ModelForm):
         self.fields['overview'].widget = forms.Textarea(attrs={'rows': '5', 'cols': '5'})
         self.fields['education_description'].widget = forms.Textarea(attrs={'rows': '5', 'cols': '5'})
         self.fields['hourly_work'].widget.attrs['id'] = 'hourly_work'
+        self.fields['education_title'].widget.attrs['placeholder'] = 'example:Master of Development'
+        self.fields['title'].widget.attrs['placeholder'] = 'Title'
+        self.fields['overview'].widget.attrs['placeholder'] = 'Overview'
+        self.fields['hourly_work'].widget.attrs['placeholder'] = 'Hourly Work'
+        self.fields['type_work'].widget.attrs['placeholder'] = 'Type Work'
+        self.fields['education_description'].widget.attrs['placeholder'] = 'Description'
+        self.fields['location_country'].widget.attrs['placeholder'] = 'Country'
+        self.fields['location_city'].widget.attrs['placeholder'] = 'City'
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].required = False

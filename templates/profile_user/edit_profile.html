@@ -19,6 +19,11 @@
                                             <form action="{% url 'edit-profile' %}" method="POST" enctype="multipart/form-data">
                                             {% csrf_token %}
                                                 <div class="form-row">
+
+                                                    <!-- ======================= Personal information ======================== -->
+                                                    <div class="post-project col-lg-12">
+                                                        <h3 style="color:white;">Personal information</h3>
+                                                    </div>
                                                     <!-- first_name  -->
                                                     <div class="form-group col-md-4">
                                                         <label class="topic_label">First Name</label>
@@ -37,6 +42,18 @@
                                                         {{ user_form.phone_number }}
                                                     </div>
 
+                                                    <!-- location_country -->
+                                                    <div class="form-group col-md-6">
+                                                        <label class="topic_label">Country</label>
+                                                        {{ profile_form.location_country }}
+                                                    </div>
+
+                                                    <!-- location_city -->
+                                                    <div class="form-group col-md-6">
+                                                        <label class="topic_label">City</label>
+                                                        {{ profile_form.location_city }}
+                                                    </div>
+
                                                     <!-- photo profile -->
                                                     <div class="form-group col-md-6">
                                                         <label class="topic_label">Photo profile</label>
@@ -51,16 +68,15 @@
                                                         {{ profile_form.photo_cover }}
                                                     </div>
 
-                                                    <!-- education_title -->
-                                                    <div class="form-group col-md-4">
-                                                        <label class="topic_label">education title</label>
-                                                        {{ profile_form.education_title }}
+                                                    <!-- ======================= Education ======================== -->
+                                                    <div class="post-project col-lg-12">
+                                                        <h3 style="color:white;">Education</h3>
                                                     </div>
 
-                                                    <!-- title -->
-                                                    <div class="form-group col-md-4">
-                                                        <label class="topic_label">profile title</label>
-                                                        {{ profile_form.title }}
+                                                    <!-- education_title -->
+                                                    <div class="form-group col-md-8">
+                                                        <label class="topic_label">education title</label>
+                                                        {{ profile_form.education_title }}
                                                     </div>
 
                                                     <!-- education_year_start -->
@@ -75,35 +91,37 @@
                                                         {{ profile_form.education_year_end }}
                                                     </div>
 
-                                                    <!-- location_country -->
-                                                    <div class="form-group col-md-4">
-                                                        <label class="topic_label">Country</label>
-                                                        {{ profile_form.location_country }}
-                                                    </div>
-
-                                                    <!-- location_city -->
-                                                    <div class="form-group col-md-4">
-                                                        <label class="topic_label">City</label>
-                                                        {{ profile_form.location_city }}
-                                                    </div>
-
-                                                    <!-- hourly_work -->
-                                                    <div class="form-group col-md-2">
-                                                        <label class="topic_label">hourly work</label>
-                                                        {{ profile_form.hourly_work }}
-                                                    </div>
-
-                                                    <!-- type_work -->
-                                                    <div class="form-group col-md-2">
-                                                        <label class="topic_label">type work</label>
-                                                        {{ profile_form.type_work }}
-                                                    </div>
-
                                                     <!-- education description -->
                                                     <div class="form-group col-md-12">
                                                         <label class="topic_label">education description</label>
                                                         {{ profile_form.education_description}}
                                                     </div>
+
+                                                    <!-- ======================= info ======================== -->
+                                                    <div class="post-project col-lg-12">
+                                                        <h3 style="color:white;">Practical information</h3>
+                                                    </div>
+
+                                                    <!-- title -->
+                                                    <div class="form-group col-md-4">
+                                                        <label class="topic_label">profile title</label>
+                                                        {{ profile_form.title }}
+                                                    </div>
+
+
+                                                    <!-- hourly_work -->
+                                                    <div class="form-group col-md-4">
+                                                        <label class="topic_label">hourly work</label>
+                                                        {{ profile_form.hourly_work }}
+                                                    </div>
+
+                                                    <!-- type_work -->
+                                                    <div class="form-group col-md-4">
+                                                        <label class="topic_label">type work</label>
+                                                        {{ profile_form.type_work }}
+                                                    </div>
+
+
                                                     <!-- education Overview -->
                                                     <div class="form-group col-md-12">
                                                         <label class="topic_label">Overview</label>
