@@ -88,9 +88,3 @@ def post_save_comment_jobs(instance, **kwargs):
                                           body=body,
                                           notification_type=2)
             notify.save()
-
-
-# NOTIFICATION_TYPES  ,post_project ,sender  ,to_user ,notification_type ,text_preview ,created
-# post_project : noti_post_project
-# sender       : noti_project_from_user | me
-# to_user      : noti_project_to_user   | to

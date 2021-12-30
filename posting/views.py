@@ -347,8 +347,11 @@ def delete_post_projects(request, project_id):
 def delete_post_jobs(request, job_id):
     print('------- delete_post_jobs -------')
     try:
+        print('1 : ---')
         post_job = PostJobs.objects.get(id=job_id)
+        print('2 : ---')
         post_job.delete()
+        print('3 : ---')
         messages.success(request, 'your job post is delete successfully')
         return redirect(request.META.get('HTTP_REFERER'))
     except:
