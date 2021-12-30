@@ -10,8 +10,6 @@ from .models import CommentProjects, CommentJobs
 from .forms import CommentProjectsForm, CommentJobsForm
 
 
-# Create your views here.
-
 # ----------------------- project ----------------------------
 @login_required(login_url='login')
 def comment_project(request, project_id):
@@ -39,43 +37,54 @@ def comment_project(request, project_id):
 
 @login_required(login_url='login')
 def post_comment_project(request, project_id):
-    post_project = PostProject.objects.get(id=project_id)
-
-    if request.method == 'POST':
-        comment_post_project_form = CommentProjectsForm(request.POST)
-        print('comment_post_project_form.is_valid(): = ', comment_post_project_form.is_valid())
-        print('--------------------')
-        if comment_post_project_form.is_valid():
-            comment = comment_post_project_form.save(commit=False)
-            comment.post_project = post_project
-            comment.user_post = request.user
-            comment.body = request.POST['body']
-            comment.save()
-    return redirect(reverse('comment-projects', args=[project_id]))
+    try:
+        post_project = PostProject.objects.get(id=project_id)
+        if request.method == 'POST':
+            comment_post_project_form = CommentProjectsForm(request.POST)
+            print('comment_post_project_form.is_valid(): = ', comment_post_project_form.is_valid())
+            print('--------------------')
+            if comment_post_project_form.is_valid():
+                comment = comment_post_project_form.save(commit=False)
+                comment.post_project = post_project
+                comment.user_post = request.user
+                comment.body = request.POST['body']
+                comment.save()
+        return redirect(reverse('comment-projects', args=[project_id]))
+    except:
+        return redirect(reverse('comment-projects', args=[project_id]))
 
 @login_required(login_url='login')
 def delete_comment_project(request, comment_id):
-    comment_project = CommentProjects.objects.get(id=comment_id)
-    comment_project.delete()
-    return redirect(request.META.get('HTTP_REFERER'))
+    try:
+        comment_project = CommentProjects.objects.get(id=comment_id)
+        comment_project.delete()
+        return redirect(request.META.get('HTTP_REFERER'))
+    except:
+        return redirect(request.META.get('HTTP_REFERER'))
 
 @login_required(login_url='login')
 def edit_comment_project(request, comment_id):
-    comment_project = CommentProjects.objects.get(id=comment_id)
-    project_id = comment_project.post_project.id
-    if request.method == 'POST':
-        comment_project_form = CommentProjectsForm(request.POST, request.FILES, instance=comment_project)
-        if comment_project_form.is_valid():
-            comment_project_form.save()
-            return redirect('post-comment-project', project_id)
-    else:
-        comment_project_form = CommentProjectsForm(instance=comment_project)
+    try:
+        comment_project = CommentProjects.objects.get(id=comment_id)
+        project_id = comment_project.post_project.id
 
-    context = {
-        'comment_project_form': comment_project_form,
-        'comment_project': comment_project,
-    }
-    return render(request, 'comment/edit_comment.html', context)
+        if request.method == 'POST':
+            comment_project_form = CommentProjectsForm(request.POST, request.FILES, instance=comment_project)
+            if comment_project_form.is_valid():
+                comment_project_form.save()
+                return redirect('post-comment-project', project_id)
+        else:
+            comment_project_form = CommentProjectsForm(instance=comment_project)
+
+        context = {
+            'comment_project_form': comment_project_form,
+            'comment_project': comment_project,
+        }
+        return render(request, 'comment/edit_comment.html', context)
+
+    except:
+        return redirect(request.META.get('HTTP_REFERER'))
+
 
 # ----------------------- end project ------------------------
 
@@ -106,40 +115,49 @@ def comment_jobs(request, jobs_id):
 
 @login_required(login_url='login')
 def post_comment_jobs(request, jobs_id):
-    post_job = PostJobs.objects.get(id=jobs_id)
-    if request.method == 'POST':
-        comment_post_job_form = CommentJobsForm(request.POST)
-        print('comment_post_job_form.is_valid(): = ', comment_post_job_form.is_valid())
-        print('--------------------')
-        if comment_post_job_form.is_valid():
-            comment = comment_post_job_form.save(commit=False)
-            comment.post_job = post_job
-            comment.user_job = request.user
-            comment.body = request.POST['body']
-            comment.save()
-    return redirect(reverse('comment-jobs', args=[jobs_id]))
+    try:
+        post_job = PostJobs.objects.get(id=jobs_id)
+        if request.method == 'POST':
+            comment_post_job_form = CommentJobsForm(request.POST)
+            print('comment_post_job_form.is_valid(): = ', comment_post_job_form.is_valid())
+            print('--------------------')
+            if comment_post_job_form.is_valid():
+                comment = comment_post_job_form.save(commit=False)
+                comment.post_job = post_job
+                comment.user_job = request.user
+                comment.body = request.POST['body']
+                comment.save()
+        return redirect(reverse('comment-jobs', args=[jobs_id]))
+    except:
+        return redirect(reverse('comment-jobs', args=[jobs_id]))
 
 @login_required(login_url='login')
 def delete_comment_jobs(request, comment_id):
-    comment_jobs = CommentJobs.objects.get(id=comment_id)
-    comment_jobs.delete()
-    return redirect(request.META.get('HTTP_REFERER'))
+    try:
+        comment_jobs = CommentJobs.objects.get(id=comment_id)
+        comment_jobs.delete()
+        return redirect(request.META.get('HTTP_REFERER'))
+    except:
+        return redirect(request.META.get('HTTP_REFERER'))
 
 @login_required(login_url='login')
 def edit_comment_jobs(request, comment_id):
-    comment_jobs = CommentJobs.objects.get(id=comment_id)
-    jobs_id = comment_jobs.post_job.id
-    if request.method == 'POST':
-        comment_jobs_form = CommentJobsForm(request.POST, request.FILES, instance=comment_jobs)
-        if comment_jobs_form.is_valid():
-            comment_jobs_form.save()
-            return redirect('post-comment-jobs', jobs_id)
-    else:
-        comment_jobs_form = CommentJobsForm(instance=comment_jobs)
-    context = {
-        'comment_jobs_form': comment_jobs_form,
-        'comment_jobs': comment_jobs,
-    }
-    return render(request, 'comment/edit_comment_jobs.html', context)
+    try:
+        comment_jobs = CommentJobs.objects.get(id=comment_id)
+        jobs_id = comment_jobs.post_job.id
+        if request.method == 'POST':
+            comment_jobs_form = CommentJobsForm(request.POST, request.FILES, instance=comment_jobs)
+            if comment_jobs_form.is_valid():
+                comment_jobs_form.save()
+                return redirect('post-comment-jobs', jobs_id)
+        else:
+            comment_jobs_form = CommentJobsForm(instance=comment_jobs)
+        context = {
+            'comment_jobs_form': comment_jobs_form,
+            'comment_jobs': comment_jobs,
+        }
+        return render(request, 'comment/edit_comment_jobs.html', context)
+    except:
+        return redirect(request.META.get('HTTP_REFERER'))
 
 # ----------------------- end jobs ------------------------
