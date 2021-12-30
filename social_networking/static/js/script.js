@@ -229,6 +229,7 @@ $(window).on("load", function() {
         input.addEventListener('keyup', () => {
             input.value = input.value.replace(/  +/g, ' ');
         });
+
         return false;
     });
 
@@ -245,6 +246,8 @@ $(window).on("load", function() {
         input.addEventListener('keyup', () => {
             input.value = input.value.replace(/  +/g, ' ');
         });
+
+
         return false;
     });
 
@@ -255,12 +258,27 @@ $(window).on("load", function() {
         // for not allow space as a first input
         input.addEventListener('keydown', function (e) {
             if (this.value.length === 0 && e.which === 32) e.preventDefault();
+
+
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+            // prevent tab
+            if (keyCode == 9) {
+                e.preventDefault();
+            }
         });
 
         // for remove double spaces in between text
         input.addEventListener('keyup', () => {
             input.value = input.value.replace(/  +/g, ' ');
+
+            var keyCode = (e.keyCode ? e.keyCode : e.which);
+            // prevent tab
+            if (keyCode == 9) {
+                console.log('marouane')
+                e.preventDefault();
+            }
         });
+
         return false;
     });
 

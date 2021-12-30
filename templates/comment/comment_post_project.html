@@ -124,7 +124,9 @@
                                                 <img src="{{ comment.user_post.photo_profile.url }}" width="40" height="40">
                                             </div>
                                             <div class="comment">
-                                                <h3>{{ comment.user_post.full_name }}</h3>
+                                                <a href="{% url 'user-profile' comment.user_post comment.user_post.id %}">
+                                                    <h3>{{ comment.user_post.full_name }}</h3>
+                                                </a>
                                                 <span>
                                                     <img src="{% static 'images/clock.png' %}"> {{ comment.updated | naturaltime }}
                                                 </span>
