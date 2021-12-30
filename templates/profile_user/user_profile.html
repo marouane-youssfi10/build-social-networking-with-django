@@ -52,9 +52,9 @@
 									{% for link in links_media %}
 										{% if link.name != None %}
 											{% if link.name == 'facebook' %}
-												<li><a href="{{link.link}}" title=""><i class="fa fa-{{link.name}}-square"></i> {{ link.link | truncatechars:32}}</a></li>
+												<li><a href="{{link.link}}" title=""><i class="fa fa-{{link.name}}-square"></i> {{ link.link | truncatechars:31 }}</a></li>
 											{% else %}
-												<li><a href="{{link.link}}" title=""><i class="fa fa-{{link.name}}"></i> {{ link.link | truncatechars:32 }}</a></li>
+												<li><a href="{{link.link}}" title=""><i class="fa fa-{{link.name}}"></i> {{ link.link | truncatechars:31 }}</a></li>
 											{% endif %}
 										{% endif %}
 									{% endfor %}

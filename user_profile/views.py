@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.urls import reverse
 # models
 from accounts.models import UserProfile, Experience_user, TagsUser, Social_media
 from follow.models import Follow
@@ -239,13 +240,15 @@ def create_tags_user(request):
 
 @login_required(login_url='login')
 def delete_tags_user(request, pk):
-    user_profile = UserProfile.objects.get(user=request.user)
-    tag = TagsUser.objects.get(id=pk, tags_user=user_profile.user)
-
-    tag_name = tag.tag
-    tag.delete()
-    messages.success(request, 'your tag "' + tag_name + '" is delete')
-    return redirect('/accounts-setting/edit-profile/', request.user)
+    try:
+        user_profile = UserProfile.objects.get(user=request.user)
+        tag = TagsUser.objects.get(id=pk, tags_user=user_profile.user)
+        tag_name = tag.tag
+        tag.delete()
+        messages.success(request, 'your tag "' + tag_name + '" is delete')
+        return redirect(reverse('/accounts-setting/edit-profile/', args=[request.user]))
+    except:
+        return redirect('/accounts-setting/edit-profile/', request.user)
 
 @login_required(login_url='login')
 def create_links_media(request):
@@ -302,13 +305,15 @@ def edit_links_media(request, pk):
 
 @login_required(login_url='login')
 def delete_links_media(request, pk):
-    user_profile = UserProfile.objects.get(user=request.user)
-    links = Social_media.objects.get(id=pk, social_media_user=user_profile.user)
-
-    link_name = links.link
-    links.delete()
-    messages.success(request, 'your link "' + link_name + '" is delete')
-    return redirect('/accounts-setting/edit-profile/', request.user)
+    try:
+        user_profile = UserProfile.objects.get(user=request.user)
+        links = Social_media.objects.get(id=pk, social_media_user=user_profile.user)
+        link_name = links.link
+        links.delete()
+        messages.success(request, 'your link "' + link_name + '" is delete')
+        return redirect(reverse('/accounts-setting/edit-profile/', args=[request.user]))
+    except:
+        return redirect('/accounts-setting/edit-profile/', request.user)
 
 # save jobs to my_profile
 @login_required(login_url='login')
