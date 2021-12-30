@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}
+	<title>{{ current_user_profile.user.full_name }} | Workwise</title>
+{% endblock title %}
+
 {% block content %}
 <section class="cover-sec">
 	<img src="{{ current_user_profile.photo_cover.url }}" width="1600" height="400">

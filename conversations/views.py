@@ -88,7 +88,6 @@ def conversations(request, message_user, message_user_id):
         'users': users,
         'conversations': conversations,
         'to_user': to_user,
-        'the_user': message_user
     }
     return render(request, 'conversations/messages.html', context)
 

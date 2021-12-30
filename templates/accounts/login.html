@@ -1,5 +1,9 @@
 {% extends 'base_login_register.html' %}
 
+{% block title %}
+	<title> Login </title>
+{% endblock title %}
+
 {% block login %}
 
     {% if request.GET.command == 'verification' %}

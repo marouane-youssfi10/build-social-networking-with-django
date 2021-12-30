@@ -2,6 +2,9 @@
 {% load static %}
 {% load humanize %}
 
+{% block title %}
+	<title> Feed </title>
+{% endblock title %}
 
 {% block content %}
 {% if request.user.is_authenticated %}
