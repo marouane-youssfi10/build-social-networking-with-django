@@ -46,6 +46,15 @@
                             <li><img src="{% static 'images/icon9.png' %}" alt=""><span>{{ project.location }}</span></li>
                         </ul>
                         <ul class="bk-links">
+                            <!-- check if request.user for not showing message button -->
+                            {% if request.user != project.user %}
+                                <li>
+                                <a href="{% url 'add-user-to-conversation' project.user.id %}">
+                                    <i class="la la-envelope"></i>
+                                </a>
+                            </li>
+                            {% endif %}
+
                             {% if request.user != project.user %}
                                 {% if project in my_profile.my_bids_projects.all %}
                                     <li>
