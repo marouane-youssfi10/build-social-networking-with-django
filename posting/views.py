@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db.models import Q
 from django.http import HttpResponse
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 # models
 from .models import PostProject, TagsProjects, TagsJobs, PostJobs
@@ -360,7 +361,7 @@ def delete_tag_post_project(request, project_post_id, pk):
         tag = TagsProjects.objects.get(id=pk)
         tag.delete()
         messages.success(request, 'your tag is delete successfully')
-        return redirect('/projects/edit-post/' + str(project_post_id))
+        return redirect(reverse('/projects/edit-post/', args=[project_post_id]))
     except:
         return redirect('/projects/edit-post/'+ str(project_post_id))
 
@@ -370,7 +371,7 @@ def delete_tag_post_job(request, job_post_id, pk):
         tag = TagsJobs.objects.get(id=pk)
         tag.delete()
         messages.success(request, 'your tag is delete successfully')
-        return redirect('/jobs/edit-post/' + str(job_post_id))
+        return redirect(reverse('/jobs/edit-post/', args=[job_post_id]))
     except:
         return redirect('/jobs/edit-post/' + str(job_post_id))
 
