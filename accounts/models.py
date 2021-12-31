@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+
 # models
 from user_profile.models import Experience_user, TagsUser, Social_media
 from posting.models import PostProject, PostJobs
@@ -98,8 +99,6 @@ class UserProfile(models.Model):
     education_description = models.TextField(blank=True, null=True)
     location_country = models.CharField(blank=True, max_length=100)
     location_city = models.CharField(blank=True, max_length=100)
-    hourly_work = models.IntegerField(blank=True, null=True)
-    type_work = models.CharField(blank=True, choices=STATUS_CHOICES, max_length=50, null=True, default=None)
 
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
