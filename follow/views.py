@@ -8,6 +8,7 @@ from posting.models import PostProject, PostJobs
 def follow_profile(request, pk):
     my_profile_follow = Follow.objects.get(user=request.user)
     obj = Follow.objects.get(id=pk)
+
     if not obj.user in my_profile_follow.following.all():
         my_profile_follow.following.add(obj.user) # add to my_profile.followers the user who follow him
         obj.followers.add(my_profile_follow.user)  # add to obj.following profile my profile
