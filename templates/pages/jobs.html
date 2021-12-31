@@ -188,7 +188,7 @@
 													</ul>
 													<p title="description job">
 														{{ user_profile_job.description_job | truncatechars:150 }}
-														{% if user_profile_job.description_job|length > 150 %}
+														{% if user_profile_job.description_job|length > 30 %}
 															....<a href="{% url 'comment-jobs' user_profile_job.id %}">view more</a>
 														{% endif %}
 													</p>

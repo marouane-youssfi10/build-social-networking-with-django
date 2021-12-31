@@ -241,6 +241,7 @@ def search_projects(request):
 @login_required(login_url='login')
 def filter_project(request):
     print('---------------------- filter projects -------------------------')
+    my_profile = UserProfile.objects.get(user=request.user)
     projects = PostProject.objects.all()
     if request.method == 'POST':
         if 'search_skills' in request.POST:
@@ -280,6 +281,7 @@ def filter_project(request):
     page_all_projects = paginator_projects.get_page(page_number_projects)
     context = {
         'projects': page_all_projects,
+        'my_profile': my_profile,
     }
     return render(request, 'pages/projects.html', context)
 
@@ -347,11 +349,8 @@ def delete_post_projects(request, project_id):
 def delete_post_jobs(request, job_id):
     print('------- delete_post_jobs -------')
     try:
-        print('1 : ---')
         post_job = PostJobs.objects.get(id=job_id)
-        print('2 : ---')
         post_job.delete()
-        print('3 : ---')
         messages.success(request, 'your job post is delete successfully')
         return redirect(request.META.get('HTTP_REFERER'))
     except:

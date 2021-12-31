@@ -66,7 +66,7 @@
                             <li><span title="price">${{ user_profile_job.price }} / hr</span></li>
                         </ul> <!-- type work and hourly work -->
                         <div class="job-dt">
-                            <pre title="description">{{ user_profile_job.description_job }}</pre>
+                            <pre title="description job">{{ user_profile_job.description_job }}</pre>
                         </div>
                         <!-- <a href="#" title="">view More</a>-->
                         <ul class="skill-tags">
@@ -107,7 +107,7 @@
                                                 <img src="{{ comment.user_job.photo_profile.url }}" width="40" height="40">
                                             </div>
                                             <div class="comment">
-                                                <h3>{{ comment.user_post.full_name }}</h3>
+                                                <h3>{{ comment.user_job.full_name }}</h3>
                                                 <span>
                                                     <img src="{% static 'images/clock.png' %}"> {{ comment.updated | naturaltime }}
                                                 </span>
