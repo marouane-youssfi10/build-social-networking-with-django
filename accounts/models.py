@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-
 # models
 from user_profile.models import Experience_user, TagsUser, Social_media
 from posting.models import PostProject, PostJobs
