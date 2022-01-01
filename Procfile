@@ -1,2 +1,3 @@
 release: python manage.py migrate
-web: gunicorn social_networking.wsgi
+web: python project/manage.py collectstatic --noinput;
+gunicorn social_networking.wsgi
