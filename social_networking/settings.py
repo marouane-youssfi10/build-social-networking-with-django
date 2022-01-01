@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = ['workwise-youssfi.co', 'www.workwise-youssfi.co']
+ALLOWED_HOSTS = ['workwise-youssfi.com', 'www.workwise-youssfi.com']
 
 LOGIN_REDIRECT_URL = "index"
 # Application definition
