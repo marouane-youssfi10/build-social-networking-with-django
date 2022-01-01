@@ -25,7 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+# DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = False
+DEBUG404 = True
 
 ALLOWED_HOSTS = ['workwise-youssfi.co', 'www.workwise-youssfi.co']
 
