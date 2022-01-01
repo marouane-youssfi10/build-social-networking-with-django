@@ -34,9 +34,3 @@ urlpatterns = [
     path('', include('conversations.urls')),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-if settings.DEBUG404:
-    urlpatterns += urlpatterns('',
-        (r'^static/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': os.path.join(os.path.dirname(__file__), 'static')} ),
-    )
