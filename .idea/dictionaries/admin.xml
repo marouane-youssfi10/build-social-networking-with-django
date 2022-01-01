@@ -5,7 +5,6 @@
       <w>aliquam</w>
       <w>allauth</w>
       <w>amet</w>
-      <w>asctime</w>
       <w>autoescape</w>
       <w>autoplay</w>
       <w>availabilty</w>
@@ -27,7 +26,6 @@
       <w>cras</w>
       <w>datalist</w>
       <w>datefm</w>
-      <w>datefmt</w>
       <w>datepicker</w>
       <w>datepicky</w>
       <w>democlass</w>
@@ -58,14 +56,11 @@
       <w>fiel</w>
       <w>flatpickr</w>
       <w>flww</w>
-      <w>formatters</w>
-      <w>funcname</w>
       <w>garamond</w>
       <w>glyphicon</w>
       <w>gmail</w>
       <w>gunicorn</w>
       <w>hendrerit</w>
-      <w>heroku</w>
       <w>herokuapp</w>
       <w>icontains</w>
       <w>iihz</w>
@@ -84,9 +79,7 @@
       <w>laayouni</w>
       <w>lconf</w>
       <w>leftbar</w>
-      <w>levelname</w>
       <w>ligula</w>
-      <w>lineno</w>
       <w>linkedin</w>
       <w>lpost</w>
       <w>luctus</w>
@@ -155,7 +148,6 @@
       <w>tabindex</w>
       <w>taille</w>
       <w>tempor</w>
-      <w>testlogger</w>
       <w>textarea</w>
       <w>topbar</w>
       <w>truncatechars</w>
