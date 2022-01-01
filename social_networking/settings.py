@@ -32,6 +32,8 @@ ALLOWED_HOSTS = ['workwise-youssfi.com', 'www.workwise-youssfi.com']
 LOGIN_REDIRECT_URL = "index"
 # Application definition
 
+COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -162,7 +164,7 @@ MEDIA_URL = '/media/'
 
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 # STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 
 
