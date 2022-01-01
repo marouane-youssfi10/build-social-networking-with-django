@@ -166,7 +166,7 @@ MEDIA_URL = '/media/'
 # STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
-
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
