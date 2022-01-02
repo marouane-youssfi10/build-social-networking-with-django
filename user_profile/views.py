@@ -364,3 +364,8 @@ def unbid_project(request, pk):
         my_profile.my_bids_projects.remove(post_projects.id)
 
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+
+def error_404(request, exception):
+    return render(request, 'accounts/not_found.html')

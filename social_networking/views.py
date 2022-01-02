@@ -1,4 +1,4 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 
 def home(request):
     # check if user is authenticated
@@ -6,3 +6,4 @@ def home(request):
         return redirect('index')
     else:
         return redirect('login')
+
