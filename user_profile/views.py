@@ -365,7 +365,3 @@ def unbid_project(request, pk):
 
     return redirect(request.META.get('HTTP_REFERER'))
 
-
-
-def error_404(request, exception):
-    return render(request, 'accounts/not_found.html')
