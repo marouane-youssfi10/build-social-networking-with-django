@@ -46,7 +46,7 @@ def index(request):
 def user_profile(request, name_user, pk):
     print('------------ user_profile -----------------')
     # get all user_profile for Suggestions div
-    all_user_profile = UserProfile.objects.all().order_by('created')[0:5]
+    all_user_profile = UserProfile.objects.all()[0:5] # for "Suggestions" part in home_login page
 
     # get all experience of request.user
     user_experience = Experience_user.objects.filter(experience_user__pk=pk).exclude(experince_title=None, experince_description=None)
