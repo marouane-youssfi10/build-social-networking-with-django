@@ -55,7 +55,7 @@ def user_profile(request, name_user, pk):
     current_user_profile = UserProfile.objects.get(user__pk=pk)
 
     # get user_tags
-    user_tags = TagsUser.objects.filter(tags_user=request.user)
+    user_tags = TagsUser.objects.filter(tags_user__pk=pk)
 
     # get info of follow current user
     current_follow_user = Follow.objects.get(user__pk=pk)
