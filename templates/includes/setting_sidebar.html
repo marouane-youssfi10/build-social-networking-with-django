@@ -11,6 +11,12 @@
                 <i class="fa fa-lock"></i>
                 Change Password
             </a>
+
+            <a class="nav-item nav-link {% if '/remove-account' in request.path %}active{% endif %}"
+               href="{% url 'remove-account' %}" aria-selected="false">
+                <i class="fa fa-lock"></i>
+                Delete your Account
+            </a>
           </div>
     </div><!--acc-leftbar end-->
 </div>

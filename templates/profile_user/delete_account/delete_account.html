@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	<title> delete account </title>
+{% endblock title %}
+
+{% block content %}
+    <section class="profile-account-setting">
+        <div class="container">
+            <div class="account-tabs-setting">
+                {% include 'includes/alerts.html' %}
+                <div class="row">
+                    {% include 'includes/setting_sidebar.html' %}
+                    <div class="col-lg-9">
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active">
+                                <div class="acc-setting">
+
+                                     <form action="{% url 'remove-account' %}" method="POST">
+                                         {% csrf_token %}
+                                           <div class="save-stngs pd2">
+                                               <h1>are you sure to delete your account??</h1><br>
+                                                <ul>
+                                                    <li><button type="submit">Delete your account</button></li>
+                                                </ul>
+                                           </div>
+                                     </form>
+
+                                </div><!--acc-setting end-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--account-tabs-setting end-->
+        </div>
+    </section>
+
+{% endblock content %}

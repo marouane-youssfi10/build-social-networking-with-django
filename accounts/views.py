@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from .forms import RegistrationForm
-from .models import Account
+from .models import Account, UserProfile
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 
@@ -178,3 +178,14 @@ def change_password(request):
             return redirect('change-password')
     return render(request, 'profile_user/password/change_password.html')
 
+"""@login_required(login_url='login')
+def remove_account(request):
+    if request.method == 'POST':
+        if Account.objects.filter(username=request.user.username).exists():
+            print('exists')
+            my_account = Account.objects.get(username=request.user.username)
+            my_account.delete()
+            messages.success(request, 'your account has deleted')
+            return redirect('login')
+
+    return render(request, 'profile_user/delete_account/delete_account.html')"""

@@ -12,4 +12,6 @@ urlpatterns = [
     path('reset-password/', views.reset_password, name='reset-password'),
 
     path('accounts-setting/change-password/', views.change_password, name="change-password"),
+
+    # path('accounts-setting/remove-account/', views.remove_account, name="remove-account"),
 ]
