@@ -1,0 +1,21 @@
+compte : youssfi1195@gmail.com
+paswword : marouane123EE_*
+----------------------
+
+SECRET_KEY = 'django-insecure-j6-jk%n+zyledbq&wh*qzp*9$q9dz41iihz1at#eb@28fu351-'
+
+
+DEBUG = True
+
+ALLOWED_HOSTS = ['workwise-youssfi.co', 'www.workwise-youssfi.co']
+
+env = environ.Env(SECRET_KEY=str,)
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+
+SECRET_KEY = env('DJANGO_SECRET_KEY')

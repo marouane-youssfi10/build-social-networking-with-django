@@ -5,6 +5,7 @@
       <w>aliquam</w>
       <w>allauth</w>
       <w>amet</w>
+      <w>authtoken</w>
       <w>autoescape</w>
       <w>autoplay</w>
       <w>availabilty</w>
@@ -130,12 +131,14 @@
       <w>quisque</w>
       <w>rebeccapurple</w>
       <w>resetpassword</w>
+      <w>restapi</w>
       <w>rgba</w>
       <w>sajib</w>
       <w>securelogin</w>
       <w>settingss</w>
       <w>showmore</w>
       <w>signin</w>
+      <w>simplejwt</w>
       <w>slck</w>
       <w>smley</w>
       <w>smtp</w>
@@ -166,6 +169,7 @@
       <w>vbxn</w>
       <w>vehicula</w>
       <w>vestibulum</w>
+      <w>viewsets</w>
       <w>vivamus</w>
       <w>wach</w>
       <w>webkit</w>
