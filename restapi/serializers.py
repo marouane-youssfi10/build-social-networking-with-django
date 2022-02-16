@@ -27,17 +27,11 @@ class RegistrationSerializer(serializers.ModelSerializer):
         return Account.objects.create_user(**validate_data)
 
 class PostingProjectSerializer(serializers.ModelSerializer):
-    skills_tags_projects = serializers.StringRelatedField(many=True)
-    likes = serializers.StringRelatedField(many=True)
-    viewers_project = serializers.StringRelatedField(many=True)
     class Meta:
         model = PostProject
-        fields = ('id', 'user', 'name_project', 'epic_coder', 'location', 'start_price', 'end_price',
-                   'hide', 'skills_tags_projects', 'likes', 'viewers_project')
+        fields = ('user', 'name_project', 'epic_coder', 'location', 'start_price', 'end_price', 'description_project')
 
-
-"""class PostingJobSerializer(serializers.ModelSerializer):
+class PostingJobSerializer(serializers.ModelSerializer):
     class Meta:
         model = PostJobs
-        fields = ('id', 'first_name', 'last_name', 'email', 'username', 'password)
-"""
+        fields = ('user', 'name_jobs', 'type_work_job', 'epic_coder', 'location', 'price', 'description_job')
