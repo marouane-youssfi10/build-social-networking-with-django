@@ -1,7 +1,10 @@
-from rest_framework import serializers, status
 from accounts.models import Account
 from posting.models import PostProject, PostJobs, TagsProjects, TagsJobs
+from comment.models import CommentProjects, CommentJobs
+
+from rest_framework import serializers, status
 from rest_framework.response import Response
+
 
 class RegistrationSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(max_length=50, min_length=6)
@@ -26,9 +29,15 @@ class RegistrationSerializer(serializers.ModelSerializer):
     def create(self, validate_data):
         return Account.objects.create_user(**validate_data)
 
+# ----------------------- Post section -----------------------------
 class TagsProjectsSerializer(serializers.ModelSerializer):
     class Meta:
         model = TagsProjects
+        fields = ('tag',)
+
+class TagsJobsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TagsJobs
         fields = ('tag',)
 
 class PostingProjectSerializer(serializers.ModelSerializer):
@@ -45,8 +54,13 @@ class PostingJobSerializer(serializers.ModelSerializer):
         fields = ('user', 'name_jobs', 'type_work_job', 'epic_coder', 'location', 'price', 'description_job',
          'skills_tags_jobs')
 
-
-class TagsJobsSerializer(serializers.ModelSerializer):
+# --------------------- Comment section ---------------------------------
+class CommentProjectSerializer(serializers.ModelSerializer):
     class Meta:
-        model = TagsJobs
-        fields = ('tag',)
+        model = CommentProjects
+        fields = ('post_project', 'user_post', 'body')
+
+class CommentJobSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CommentJobs
+        fields = ('post_job', 'user_job', 'body')

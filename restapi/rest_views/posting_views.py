@@ -5,12 +5,17 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import action
 from posting.models import PostProject, PostJobs, TagsProjects, TagsJobs
+from comment.models import CommentProjects, CommentJobs
 from accounts.models import UserProfile
 from restapi.serializers import (
     PostingProjectSerializer,
     PostingJobSerializer,
     TagsProjectsSerializer,
     TagsJobsSerializer,
+
+    # Comment
+    CommentProjectSerializer,
+    CommentJobSerializer
 )
 
 class PostingProjectViewsets(viewsets.ModelViewSet):
@@ -103,6 +108,37 @@ class PostingProjectViewsets(viewsets.ModelViewSet):
             user_profile.save()
             return Response({'message': 'the post project saved successfully'}, status=status.HTTP_200_OK)
         return Response({'message': 'the project post already saved'}, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['POST'], url_path='add_comment_project/(?P<pk>[^/.]+)')
+    def add_comment_project(self, request, pk=None, *args, **kwargs):
+        post_project = self.get_queryset(pk)
+        data = request.data
+        user = request.user
+        try:
+            comment_project = CommentProjects.objects.create(
+                post_project=post_project,
+                user_post=user,
+                body=data['body']
+            )
+            comment_project.save()
+            return Response({'message': 'Your Comment on project post is created Successfully'},
+                            status=status.HTTP_201_CREATED)
+        except:
+            return Response({'message': 'form is not valid'}, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['PUT'], url_path='update_comment_project/(?P<pk>[^/.]+)')
+    def update_comment_project(self, request, pk=None, *args, **kwargs):
+        data = request.data
+
+        try:
+            comment_project = CommentProjects.objects.get(id=pk)
+            comment_project.body = data['body']
+            comment_project.save()
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': 'Your Comment on project post is Updated Successfully'},
+                        status=status.HTTP_201_CREATED)
+
 
 class PostingProjectAPIView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -226,6 +262,36 @@ class PostingJobViewsets(viewsets.ModelViewSet):
             user_profile.save()
             return Response({'message': 'the post job saved successfully'}, status=status.HTTP_200_OK)
         return Response({'message': 'the job post already saved'}, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['POST'], url_path='add_comment_job/(?P<pk>[^/.]+)')
+    def add_comment_job(self, request, pk=None, *args, **kwargs):
+        post_job = self.get_queryset(pk)
+        data = request.data
+        user = request.user
+        try:
+            comment_job = CommentJobs.objects.create(
+                post_job=post_job,
+                user_job=user,
+                body=data['body']
+            )
+            comment_job.save()
+            return Response({'message': 'Your Comment on job post is created Successfully'},
+                            status=status.HTTP_201_CREATED)
+        except:
+            return Response({'message': 'form is not valid'}, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['PUT'], url_path='update_comment_job/(?P<pk>[^/.]+)')
+    def update_comment_job(self, request, pk=None, *args, **kwargs):
+        data = request.data
+
+        try:
+            comment_job = CommentJobs.objects.get(id=pk)
+            comment_job.body = data['body']
+            comment_job.save()
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': 'Your Comment on job post is Updated Successfully'},
+                        status=status.HTTP_201_CREATED)
 
 class PostingJobAPIView(APIView):
     permission_classes = (IsAuthenticated,)
