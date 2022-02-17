@@ -85,6 +85,14 @@ class PostingProjectViewsets(viewsets.ModelViewSet):
         post_project.save()
         return Response({'message': 'success'}, status=status.HTTP_200_OK)
 
+    @action(detail=False, methods=['GET'], url_path='viewers_project/(?P<pk>[^/.]+)')
+    def viewers_project(self, request, pk=None, *args, **kwargs):
+        print('--- viewers_project ---')
+        post_project = self.get_queryset(pk)
+        post_project.viewers_project.add(request.user)
+        post_project.save()
+        return Response({'message': 'success'}, status=status.HTTP_200_OK)
+
 class PostingProjectAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -187,6 +195,14 @@ class PostingJobViewsets(viewsets.ModelViewSet):
             post_job.likes.add(request.user)
         else:
             post_job.likes.remove(request.user)
+        post_job.save()
+        return Response({'message': 'success'}, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['GET'], url_path='viewers_job/(?P<pk>[^/.]+)')
+    def viewers_job(self, request, pk=None, *args, **kwargs):
+        print('--- viewers_project ---')
+        post_job = self.get_queryset(pk)
+        post_job.viewers_job.add(request.user)
         post_job.save()
         return Response({'message': 'success'}, status=status.HTTP_200_OK)
 
