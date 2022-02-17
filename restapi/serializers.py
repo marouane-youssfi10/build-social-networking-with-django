@@ -5,7 +5,6 @@ from comment.models import CommentProjects, CommentJobs
 from rest_framework import serializers, status
 from rest_framework.response import Response
 
-
 class RegistrationSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(max_length=50, min_length=6)
     username = serializers.CharField(max_length=50, min_length=6)
@@ -29,6 +28,11 @@ class RegistrationSerializer(serializers.ModelSerializer):
     def create(self, validate_data):
         return Account.objects.create_user(**validate_data)
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = ('id', 'username')
+
 # ----------------------- Post section -----------------------------
 class TagsProjectsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -41,18 +45,22 @@ class TagsJobsSerializer(serializers.ModelSerializer):
         fields = ('tag',)
 
 class PostingProjectSerializer(serializers.ModelSerializer):
-    # skills_tags_projects = serializers.StringRelatedField(many=False)
-    # skills_tags_projects = TagsProjectsSerializer(many=True)
+    likes = UserSerializer(many=True)
+    viewers_project = UserSerializer(many=True)
+    skills_tags_projects = TagsProjectsSerializer(many=True)
     class Meta:
         model = PostProject
         fields = ('user', 'name_project', 'epic_coder', 'location', 'start_price', 'end_price', 'description_project',
-                    'skills_tags_projects')
+                    'skills_tags_projects', 'likes', 'viewers_project')
 
 class PostingJobSerializer(serializers.ModelSerializer):
+    likes = UserSerializer(many=True)
+    viewers_job = UserSerializer(many=True)
+    skills_tags_jobs = TagsJobsSerializer(many=True)
     class Meta:
         model = PostJobs
         fields = ('user', 'name_jobs', 'type_work_job', 'epic_coder', 'location', 'price', 'description_job',
-         'skills_tags_jobs')
+         'skills_tags_jobs', 'likes', 'viewers_job')
 
 # --------------------- Comment section ---------------------------------
 class CommentProjectSerializer(serializers.ModelSerializer):
