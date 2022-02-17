@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import action
 from posting.models import PostProject, PostJobs, TagsProjects, TagsJobs
+from accounts.models import UserProfile
 from restapi.serializers import (
     PostingProjectSerializer,
     PostingJobSerializer,
@@ -92,6 +93,16 @@ class PostingProjectViewsets(viewsets.ModelViewSet):
         post_project.viewers_project.add(request.user)
         post_project.save()
         return Response({'message': 'success'}, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['GET'], url_path='saved_projects/(?P<pk>[^/.]+)')
+    def saved_projects(self, request, pk=None, *args, **kwargs):
+        post_project = self.get_queryset(pk)
+        user_profile = UserProfile.objects.get(user=request.user)
+        if not post_project in user_profile.my_bids_projects.all():
+            user_profile.my_bids_projects.add(post_project.id)
+            user_profile.save()
+            return Response({'message': 'the post project saved successfully'}, status=status.HTTP_200_OK)
+        return Response({'message': 'the project post already saved'}, status=status.HTTP_200_OK)
 
 class PostingProjectAPIView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -200,11 +211,21 @@ class PostingJobViewsets(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['GET'], url_path='viewers_job/(?P<pk>[^/.]+)')
     def viewers_job(self, request, pk=None, *args, **kwargs):
-        print('--- viewers_project ---')
+        print('--- viewers_job ---')
         post_job = self.get_queryset(pk)
         post_job.viewers_job.add(request.user)
         post_job.save()
         return Response({'message': 'success'}, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['GET'], url_path='saved_jobs/(?P<pk>[^/.]+)')
+    def saved_jobs(self, request, pk=None, *args, **kwargs):
+        post_job = self.get_queryset(pk)
+        user_profile = UserProfile.objects.get(user=request.user)
+        if not post_job in user_profile.saved_jobs.all():
+            user_profile.saved_jobs.add(post_job.id)
+            user_profile.save()
+            return Response({'message': 'the post job saved successfully'}, status=status.HTTP_200_OK)
+        return Response({'message': 'the job post already saved'}, status=status.HTTP_200_OK)
 
 class PostingJobAPIView(APIView):
     permission_classes = (IsAuthenticated,)
