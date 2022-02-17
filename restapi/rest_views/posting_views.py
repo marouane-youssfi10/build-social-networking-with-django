@@ -4,8 +4,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
-from restapi.serializers import PostingProjectSerializer, PostingJobSerializer
-from posting.models import PostProject, PostJobs
+from restapi.serializers import PostingProjectSerializer, PostingJobSerializer, TagsProjectsSerializer, TagsJobsSerializer
+from posting.models import PostProject, PostJobs, TagsProjects, TagsJobs
 
 class PostingProjectViewsets(viewsets.ModelViewSet):
     print('--- PostingProjectViewsets ---')
@@ -31,13 +31,32 @@ class PostingProjectAPIView(APIView):
         serializer = PostingProjectSerializer(projects, many=True)
         return Response(serializer.data,  status=status.HTTP_200_OK)
 
+    # add new post
     def post(self, request):
         print('--- post ---')
         data = request.data
+        # -------------------------------------
+        skills = data['skills_tags_projects']
+        print('skills = ', skills)
+        ids = []
+        for i in skills:
+            tag, created = TagsProjects.objects.get_or_create(tags_users_projects=request.user, tag=i)
+            print('tag = ', tag, '| created = ', created)
+            ids.append(tag.id)
+        print('ids = ', ids)
+        # -------------------------------------
         data['user'] = request.user.id
+        data['skills_tags_projects'] = ids
         project_form = PostingProjectSerializer(data=data)
+        # print('project_form = ', project_form.is_valid())
+        # print('tags_project_form = ', tags_project_form.is_valid())
+        # print('project_form.errors = ', project_form.errors)
+        # print('-----------------------------')
         if project_form.is_valid():
+            # print('project_form["tag"]', project_form['tag'])
+            # print('project_form["tag"]', project_form['skills_tags_projects'])
             project_form.save()
+            # tags_project_form.save()
             return Response({
                 "status": "post project created successfully",
                 "data": project_form.data
@@ -48,3 +67,4 @@ class PostingProjectAPIView(APIView):
         print('--- update ---')
         print('request.data = ', request.data)
         return Response({'message': 'ok'}, status=status.HTTP_200_OK)
+
