@@ -54,6 +54,20 @@ class PostingProjectViewsets(viewsets.ModelViewSet):
         except:
             return Response({'message': 'this post does not exist'})
 
+    @action(detail=False, methods=['GET'], url_path='hide_unhide_project/(?P<pk>[^/.]+)')
+    def hide_unhide_project(self, pk=None, *args):
+        print('--- hide_project ---')
+        print('pk = ', pk)
+        post_project = PostProject.objects.get(id=pk)
+        if post_project.hide is False:
+            print('True')
+            post_project.hide = True
+        else:
+            print('False')
+            post_project.hide = False
+        post_project.save()
+        return Response({'message': 'success'}, status=status.HTTP_200_OK)
+
 class PostingProjectAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 
