@@ -4,8 +4,13 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import action
-from restapi.serializers import PostingProjectSerializer, PostingJobSerializer, TagsProjectsSerializer, TagsJobsSerializer
 from posting.models import PostProject, PostJobs, TagsProjects, TagsJobs
+from restapi.serializers import (
+    PostingProjectSerializer,
+    PostingJobSerializer,
+    TagsProjectsSerializer,
+    TagsJobsSerializer,
+)
 
 class PostingProjectViewsets(viewsets.ModelViewSet):
     serializer_class = PostingProjectSerializer
@@ -157,3 +162,29 @@ class PostingJobAPIView(APIView):
                 "data": job_form.data
             }, status=status.HTTP_201_CREATED)
         return Response({'error': 'Form is not valid'}, status=status.HTTP_400_BAD_REQUEST)
+
+class DeleteTagsProjectsViewsets(viewsets.ModelViewSet):
+    serializer_class = TagsProjectsSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def destroy(self, request, pk=None, *args, **kwargs):
+        print('--- destroy ---')
+        try:
+            tag_project = TagsProjects.objects.get(id=pk)
+            tag_project.delete()
+            return Response({'message': 'your tag project is deleted successfully'})
+        except:
+            return Response({'message': 'this post is not exist'})
+
+class DeleteTagsJobsViewsets(viewsets.ModelViewSet):
+    serializer_class = TagsJobsSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def destroy(self, request, pk=None, *args, **kwargs):
+        print('--- destroy ---')
+        try:
+            tag_job = TagsJobs.objects.get(id=pk)
+            tag_job.delete()
+            return Response({'message': 'your tag job is deleted successfully'})
+        except:
+            return Response({'message': 'this tag is not exist'})
