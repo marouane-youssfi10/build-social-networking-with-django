@@ -19,7 +19,12 @@ class PostingProjectViewsets(viewsets.ModelViewSet):
     def get_queryset(self, pk=None):
         print('--- get_queryset ---')
         if pk is not None:
-            return PostProject.objects.get(id=pk)
+            try:
+                return PostProject.objects.get(id=pk)
+            except:
+                # return Response({'message': 'this post is not exists'}, status=status.HTTP_400_BAD_REQUEST)
+                raise serializers.ValidationError({'message': 'this post is not exists'})
+
         projects = PostProject.objects.all()
         return projects
 
@@ -55,7 +60,7 @@ class PostingProjectViewsets(viewsets.ModelViewSet):
             return Response({'message': 'this post does not exist'})
 
     @action(detail=False, methods=['GET'], url_path='hide_unhide_project/(?P<pk>[^/.]+)')
-    def hide_unhide_project(self, request, pk=None, *args):
+    def hide_unhide_project(self, request, pk=None, *args, **kwargs):
         print('--- hide_project ---')
         print('pk = ', pk)
         post_project = self.get_queryset(pk)
@@ -67,6 +72,18 @@ class PostingProjectViewsets(viewsets.ModelViewSet):
             post_project.hide = False
         post_project.save()
         return Response({'message': 'success', 'hide': post_project.hide}, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['GET'], url_path='add_remove_like_project/(?P<pk>[^/.]+)')
+    def add_remove_like_project(self, request, pk=None, *args, **kwargs):
+        print('--- add_remove_like_project ---')
+        post_project = self.get_queryset(pk)
+
+        if not request.user in post_project.likes.all():
+            post_project.likes.add(request.user)
+        else:
+            post_project.likes.remove(request.user)
+        post_project.save()
+        return Response({'message': 'success'}, status=status.HTTP_200_OK)
 
 class PostingProjectAPIView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -103,13 +120,15 @@ class PostingProjectAPIView(APIView):
 
 class PostingJobViewsets(viewsets.ModelViewSet):
     serializer_class = PostingJobSerializer
-    queryset = PostJobs.objects.all()
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self, pk=None):
         print('--- get_queryset ---')
         if pk is not None:
-            return PostJobs.objects.get(id=pk)
+            try:
+                return PostJobs.objects.get(id=pk)
+            except:
+                raise serializers.ValidationError({'message': 'this post is not exists'})
         jobs = PostJobs.objects.all()
         return jobs
 
@@ -158,6 +177,18 @@ class PostingJobViewsets(viewsets.ModelViewSet):
             post_job.hide = False
         post_job.save()
         return Response({'message': 'success', 'hide': post_job.hide}, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['GET'], url_path='add_remove_like_job/(?P<pk>[^/.]+)')
+    def add_remove_like_job(self, request, pk=None, *args):
+        print('--- add_remove_like_job ---')
+        post_job = self.get_queryset(pk)
+
+        if not request.user in post_job.likes.all():
+            post_job.likes.add(request.user)
+        else:
+            post_job.likes.remove(request.user)
+        post_job.save()
+        return Response({'message': 'success'}, status=status.HTTP_200_OK)
 
 class PostingJobAPIView(APIView):
     permission_classes = (IsAuthenticated,)
