@@ -55,10 +55,10 @@ class PostingProjectViewsets(viewsets.ModelViewSet):
             return Response({'message': 'this post does not exist'})
 
     @action(detail=False, methods=['GET'], url_path='hide_unhide_project/(?P<pk>[^/.]+)')
-    def hide_unhide_project(self, pk=None, *args):
+    def hide_unhide_project(self, request, pk=None, *args):
         print('--- hide_project ---')
         print('pk = ', pk)
-        post_project = PostProject.objects.get(id=pk)
+        post_project = self.get_queryset(pk)
         if post_project.hide is False:
             print('True')
             post_project.hide = True
@@ -66,7 +66,7 @@ class PostingProjectViewsets(viewsets.ModelViewSet):
             print('False')
             post_project.hide = False
         post_project.save()
-        return Response({'message': 'success'}, status=status.HTTP_200_OK)
+        return Response({'message': 'success', 'hide': post_project.hide}, status=status.HTTP_200_OK)
 
 class PostingProjectAPIView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -144,6 +144,20 @@ class PostingJobViewsets(viewsets.ModelViewSet):
             return Response({'message': 'your job post is deleted successfully'})
         except:
             return Response({'message': 'this post does not exist'})
+
+    @action(detail=False, methods=['GET'], url_path='hide_unhide_job/(?P<pk>[^/.]+)')
+    def hide_unhide_job(self, request, pk=None, *args):
+        print('--- hide_job ---')
+        print('pk = ', pk)
+        post_job = self.get_queryset(pk)
+        if post_job.hide is False:
+            print('True')
+            post_job.hide = True
+        else:
+            print('False')
+            post_job.hide = False
+        post_job.save()
+        return Response({'message': 'success', 'hide': post_job.hide}, status=status.HTTP_200_OK)
 
 class PostingJobAPIView(APIView):
     permission_classes = (IsAuthenticated,)
