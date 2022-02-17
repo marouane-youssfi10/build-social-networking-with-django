@@ -1,10 +1,9 @@
 from django.urls import path, include
-from .views import RegistrationNewUserAPI
-from .views import MyTokenObtainPairView
-from .rest_views.posting_views import PostingProjectAPIView, PostingProjectViewsets, PostingJobViewsets
+from .views import RegistrationNewUserAPI, MyTokenObtainPairView
+from .rest_views.posting_views import PostingProjectAPIView, PostingJobAPIView ,PostingProjectViewsets, PostingJobViewsets
 from rest_framework_simplejwt.views import TokenRefreshView
-
 from rest_framework import routers
+
 router = routers.DefaultRouter()
 router.register('projects', PostingProjectViewsets, basename='projects')
 router.register('jobs', PostingJobViewsets, basename='jobs')
@@ -17,6 +16,7 @@ urlpatterns = [
     path('refresh-token/', TokenRefreshView.as_view(), name='refresh-token'),
 
     path('posting-project/', PostingProjectAPIView.as_view(), name='posting'),
+    path('posting-job/', PostingJobAPIView.as_view(), name='job'),
 
 
 ]

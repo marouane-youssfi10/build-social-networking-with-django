@@ -52,7 +52,7 @@ class PostingProjectViewsets(viewsets.ModelViewSet):
 class PostingProjectAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 
-    # get all post user jobs
+    # get all post user project
     def get(self, request):
         print('--- get ---')
         projects = PostProject.objects.filter(user=request.user)
@@ -63,17 +63,17 @@ class PostingProjectAPIView(APIView):
     def post(self, request):
         print('--- post ---')
         data = request.data
-        skills = data['skills_tags_projects']
-        ids_of_tag = []
-        for tag in skills:
-            tag, created = TagsProjects.objects.get_or_create(tags_users_projects=request.user, tag=tag)
-            ids_of_tag.append(tag.id)
+        skills_tag_project = data['skills_tags_projects']
+        ids_of_tag_project = []
+        for tag in skills_tag_project:
+            tag_project, created = TagsProjects.objects.get_or_create(tags_users_projects=request.user, tag=tag)
+            ids_of_tag_project.append(tag_project.id)
 
         data['user'] = request.user.id
-        data['skills_tags_projects'] = ids_of_tag
+        data['skills_tags_projects'] = ids_of_tag_project
         project_form = PostingProjectSerializer(data=data)
-        print('project_form.is_valid() = ', project_form.is_valid())
-        print('project_form.errors = ', project_form.errors)
+        # print('project_form.is_valid() = ', project_form.is_valid())
+        # print('project_form.errors = ', project_form.errors)
         if project_form.is_valid():
             project_form.save()
             return Response({
@@ -125,3 +125,35 @@ class PostingJobViewsets(viewsets.ModelViewSet):
             return Response({'message': 'your job post is deleted successfully'})
         except:
             return Response({'message': 'this post does not exist'})
+
+class PostingJobAPIView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    # get all post user project
+    def get(self, request):
+        print('--- get ---')
+        jobs = PostJobs.objects.filter(user=request.user)
+        serializer = PostingJobSerializer(jobs, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        print('--- post ---')
+        data = request.data
+        skills_tag_job = data['skills_tags_jobs']
+        ids_of_tag_job = []
+        for tag in skills_tag_job:
+            tag_job, created = TagsJobs.objects.get_or_create(tags_users_jobs=request.user, tag=tag)
+            ids_of_tag_job.append(tag_job.id)
+
+        data['user'] = request.user.id
+        data['skills_tags_jobs'] = ids_of_tag_job
+        job_form = PostingJobSerializer(data=data)
+        # print('job_form.is_valid() = ', job_form.is_valid())
+        # print('job_form.errors = ', job_form.errors)
+        if job_form.is_valid():
+            job_form.save()
+            return Response({
+                "status": "post job created successfully",
+                "data": job_form.data
+            }, status=status.HTTP_201_CREATED)
+        return Response({'error': 'Form is not valid'}, status=status.HTTP_400_BAD_REQUEST)
