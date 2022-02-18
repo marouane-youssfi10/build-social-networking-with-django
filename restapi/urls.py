@@ -25,8 +25,8 @@ urlpatterns = [
     path('login/', MyTokenObtainPairView.as_view(), name='login'),
     path('refresh-token/', TokenRefreshView.as_view(), name='refresh-token'),
 
-    path('posting-project/', PostingProjectAPIView.as_view(), name='posting'),
-    path('posting-job/', PostingJobAPIView.as_view(), name='job'),
+    path('posting-user-project/', PostingProjectAPIView.as_view(), name='user-project'),
+    path('posting-user-job/', PostingJobAPIView.as_view(), name='user-job'),
 
 
 

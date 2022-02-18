@@ -157,7 +157,7 @@ class PostingProjectViewsets(viewsets.ModelViewSet):
 class PostingProjectAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 
-    # get all post user project
+    # get user posts projects
     def get(self, request):
         print('--- get ---')
         projects = PostProject.objects.filter(user=request.user)
@@ -323,7 +323,7 @@ class PostingJobViewsets(viewsets.ModelViewSet):
 class PostingJobAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 
-    # get all post user project
+    # get user posts job
     def get(self, request):
         print('--- get ---')
         jobs = PostJobs.objects.filter(user=request.user)
