@@ -1,9 +1,10 @@
-from accounts.models import Account
+from accounts.models import Account, UserProfile
 from posting.models import PostProject, PostJobs, TagsProjects, TagsJobs
 from comment.models import CommentProjects, CommentJobs
 from follow.models import Follow
 from notifications.models import NotificationProjects
 from conversations.models import Message
+from user_profile.models import Experience_user, Social_media, TagsUser
 
 from rest_framework import serializers, status
 from rest_framework.response import Response
@@ -38,6 +39,36 @@ class UserSerializer(serializers.ModelSerializer):
         model = Account
         fields = ('id', 'username')
 
+
+# ----------------------- User Profile section -------------------------
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ('id', 'user', 'title', 'overview', 'education_title', 'education_year_start',
+                  'education_year_end', 'education_description', 'location_country', 'location_city',
+                  'skills_tags_user', 'links_media', 'experience', 'likes', 'saved_jobs', 'my_bids_projects', 'viewers')
+
+# ----------------------- User Experience section --------------------------
+
+class UserExperienceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Experience_user
+        fields = ('id', 'experience_user', 'experince_title', 'experince_description')
+
+# ----------------------- Social Media section --------------------------
+
+class SocialMediaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Social_media
+        fields = ('id', 'social_media_user', 'name', 'link')
+
+# ----------------------- Social Media section --------------------------
+
+class TagsUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TagsUser
+        fields = ('id', 'tags_user', 'tag')
 
 # --------------------- Comment section ---------------------------------
 class CommentProjectSerializer(serializers.ModelSerializer):

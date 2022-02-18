@@ -48,11 +48,14 @@ class PostingProjectViewsets(viewsets.ModelViewSet):
         project = self.get_queryset(pk)
         data = request.data
 
-        project.name_project = data['name_project']
-        project.location = data['location']
-        project.start_price = data['start_price']
-        project.end_price = data['end_price']
-        project.description_project = data['description_project']
+        project.title = data['title']
+        project.overview = data['overview']
+        project.education_title = data['education_title']
+        project.education_year_start = data['education_year_start']
+        project.education_year_end = data['education_year_end']
+        project.education_description = data['education_description']
+        project.location_country = data['location_country']
+        project.location_city = data['location_city']
         project.save()
         return Response({
             'message': 'your project post is updated successfully',

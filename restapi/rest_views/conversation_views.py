@@ -35,10 +35,30 @@ class ConversationViewsets(viewsets.ModelViewSet):
         serializer = ConversationSerializer(messages, many=True)
         return Response({'messages': serializer.data}, status=status.HTTP_200_OK)
 
+    @action(detail=False, methods=['GET'], url_path='add_new_user_to_my_conversations/(?P<pk>[^/.]+)')
+    def add_new_user_to_my_conversations(self, request, pk=None, *args, **kwargs):
+        to_user = self.get_queryset(pk)
+        Message.objects.create(user=request.user, sender=request.user, recipient=to_user)
+        Message.objects.create(user=to_user, sender=request.user, recipient=to_user)
+
+        return Response({'messages': 'user added successfully'}, status=status.HTTP_201_CREATED)
+
+    @action(detail=False, methods=['POST'], url_path='send_message/(?P<pk>[^/.]+)')
+    def send_message(self, request, pk=None, *args, **kwargs):
+        to_user = self.get_queryset(pk)
+        data = request.data
+        try:
+            Message.objects.create(user=request.user, sender=request.user, recipient=to_user, body=data['body'])
+            Message.objects.create(user=to_user, sender=request.user, recipient=to_user, body=data['body'])
+            return Response({'messages': 'message sent successfully'}, status=status.HTTP_201_CREATED)
+        except:
+            return Response({'messages': 'Form is not valid'}, status=status.HTTP_400_BAD_REQUEST)
+
+
 class ConversationAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 
-    # get user messages + not reading
+    # get user messages
     def get(self, request):
         print('--- get ---')
         messages_not_reading = Message.objects.filter(user=request.user, is_read=False)
