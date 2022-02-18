@@ -29,7 +29,6 @@ urlpatterns = [
     path('', views.home, name='home'),
 
     path('accounts/', include('accounts.urls')),
-    path('api/', include('restapi.urls')),
     path('', include('user_profile.urls')),
     path('', include('posting.urls')),
     path('', include('follow.urls')),
@@ -37,6 +36,9 @@ urlpatterns = [
     path('', include('notifications.urls')),
     path('', include('conversations.urls')),
 
+    path('api/', include('restapi.rest_urls.authentications_urls')),
+    path('api/', include('restapi.rest_urls.follow_urls')),
+    path('api/', include('restapi.rest_urls.posting_urls')),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
