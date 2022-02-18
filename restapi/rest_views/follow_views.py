@@ -6,12 +6,14 @@ from rest_framework.views import APIView
 from rest_framework.decorators import action
 from follow.models import Follow
 from restapi.serializers import FollowSerializer
+from rest_framework.decorators import api_view, permission_classes
 
 
 class FollowViewsets(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self, pk=None):
+        print('--- get_queryset ---')
         if pk is not None:
             try:
                 return Follow.objects.get(id=pk)
@@ -42,3 +44,20 @@ class FollowViewsets(viewsets.ModelViewSet):
             obj.followers.remove(my_profile_follow.user)
             return Response({'message': 'unfollow'}, status=status.HTTP_200_OK)
 
+class FollowAPIView(APIView):
+    permission_classes = (IsAuthenticated,)
+    # get user follow
+    def get(self, request):
+        print('--- get ---')
+        follow = Follow.objects.filter(user=request.user)
+        serializer = FollowSerializer(follow, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_user_follow(request, pk):
+    print('--- get_user_follow ---')
+    print('pk = ', pk)
+    follow = Follow.objects.get(id=pk)
+    serializer = FollowSerializer(follow, many=False)
+    return Response(serializer.data, status=status.HTTP_200_OK)

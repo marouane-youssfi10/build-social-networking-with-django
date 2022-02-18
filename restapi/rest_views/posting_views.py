@@ -324,7 +324,7 @@ class PostingJobAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 
     # get user posts job
-    def get(self, request):
+    def get(self, request, pk=None):
         print('--- get ---')
         jobs = PostJobs.objects.filter(user=request.user)
         serializer = PostingJobSerializer(jobs, many=True)
