@@ -190,10 +190,12 @@ class PostingProjectAPIView(APIView):
 @permission_classes([IsAuthenticated])
 def get_user_post_project(request, pk):
     print('--- get_user_post_project ---')
-    print('pk = ', pk)
-    post_project = PostProject.objects.get(id=pk)
-    serializer = PostingProjectSerializer(post_project, many=False)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    try:
+        post_project = PostProject.objects.get(id=pk)
+        serializer = PostingProjectSerializer(post_project, many=False)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except:
+        return Response({'message': 'This project is not exists'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class PostingJobViewsets(viewsets.ModelViewSet):
@@ -365,10 +367,12 @@ class PostingJobAPIView(APIView):
 @permission_classes([IsAuthenticated])
 def get_user_post_job(request, pk):
     print('--- get_user_post_job ---')
-    print('pk = ', pk)
-    post_job = PostJobs.objects.get(id=pk)
-    serializer = PostingJobSerializer(post_job, many=False)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    try:
+        post_job = PostJobs.objects.get(id=pk)
+        serializer = PostingJobSerializer(post_job, many=False)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except:
+        return Response({'message': 'This job is not exists'}, status=status.HTTP_400_BAD_REQUEST)
 
 class DeleteTagsProjectsViewsets(viewsets.ModelViewSet):
     serializer_class = TagsProjectsSerializer

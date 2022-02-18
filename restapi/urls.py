@@ -39,8 +39,8 @@ urlpatterns = [
     path('posting-user-projects/', PostingProjectAPIView.as_view(), name='user-projects'),
     path('posting-user-jobs/', PostingJobAPIView.as_view(), name='user-jobs'),
 
-    path('projects/<int:pk>', get_user_post_project, name='user-post-project'),
-    path('jobs/<int:pk>', get_user_post_job, name='user-post-job'),
+    path('project/<int:pk>/', get_user_post_project, name='user-post-project'),
+    path('job/<int:pk>/', get_user_post_job, name='user-post-job'),
 
     path('get-user-follow/', FollowAPIView.as_view(), name='user-follow'),
     path('get-user-follow/<int:pk>/', get_user_follow, name='get-user-follow')
