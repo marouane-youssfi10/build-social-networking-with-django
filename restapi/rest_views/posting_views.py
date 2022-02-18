@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view, permission_classes
 from posting.models import PostProject, PostJobs, TagsProjects, TagsJobs
 from comment.models import CommentProjects, CommentJobs
 from accounts.models import UserProfile
@@ -153,7 +153,6 @@ class PostingProjectViewsets(viewsets.ModelViewSet):
         return Response({'message': 'Your Comment on project post is Updated Successfully'},
                         status=status.HTTP_201_CREATED)
 
-
 class PostingProjectAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -186,6 +185,16 @@ class PostingProjectAPIView(APIView):
                 "data": project_form.data
             }, status=status.HTTP_201_CREATED)
         return Response({'error': 'Form is not valid'}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_user_post_project(request, pk):
+    print('--- get_user_post_project ---')
+    print('pk = ', pk)
+    post_project = PostProject.objects.get(id=pk)
+    serializer = PostingProjectSerializer(post_project, many=False)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 class PostingJobViewsets(viewsets.ModelViewSet):
     serializer_class = PostingJobSerializer
@@ -351,6 +360,15 @@ class PostingJobAPIView(APIView):
                 "data": job_form.data
             }, status=status.HTTP_201_CREATED)
         return Response({'error': 'Form is not valid'}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_user_post_job(request, pk):
+    print('--- get_user_post_job ---')
+    print('pk = ', pk)
+    post_job = PostJobs.objects.get(id=pk)
+    serializer = PostingJobSerializer(post_job, many=False)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 class DeleteTagsProjectsViewsets(viewsets.ModelViewSet):
     serializer_class = TagsProjectsSerializer

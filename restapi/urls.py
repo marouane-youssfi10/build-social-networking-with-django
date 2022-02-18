@@ -8,11 +8,13 @@ from .rest_views.posting_views import (
     PostingProjectViewsets,
     PostingJobViewsets,
 
+    get_user_post_project,
+    get_user_post_job,
+
     DeleteTagsProjectsViewsets,
     DeleteTagsJobsViewsets
 )
-from .rest_views.follow_views import FollowViewsets, FollowAPIView
-from .rest_views.follow_views import get_user_follow
+from .rest_views.follow_views import FollowViewsets, FollowAPIView, get_user_follow
 
 router = routers.DefaultRouter()
 
@@ -36,6 +38,9 @@ urlpatterns = [
 
     path('posting-user-projects/', PostingProjectAPIView.as_view(), name='user-projects'),
     path('posting-user-jobs/', PostingJobAPIView.as_view(), name='user-jobs'),
+
+    path('projects/<int:pk>', get_user_post_project, name='user-post-project'),
+    path('jobs/<int:pk>', get_user_post_job, name='user-post-job'),
 
     path('get-user-follow/', FollowAPIView.as_view(), name='user-follow'),
     path('get-user-follow/<int:pk>/', get_user_follow, name='get-user-follow')
