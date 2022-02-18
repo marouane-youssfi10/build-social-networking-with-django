@@ -7,13 +7,17 @@ from .rest_views.posting_views import (
     PostingJobAPIView,
     PostingProjectViewsets,
     PostingJobViewsets,
+
     DeleteTagsProjectsViewsets,
     DeleteTagsJobsViewsets
 )
+from .rest_views.follow_views import FollowViewsets
 
 router = routers.DefaultRouter()
 router.register('projects', PostingProjectViewsets, basename='projects')
 router.register('jobs', PostingJobViewsets, basename='jobs')
+
+router.register('follow', FollowViewsets, basename='follow')
 
 router.register('delete-tags-project', DeleteTagsProjectsViewsets, basename='delete-tags-project')
 router.register('delete-tags-job', DeleteTagsJobsViewsets, basename='delete-tags-jobs')
@@ -25,8 +29,8 @@ urlpatterns = [
     path('login/', MyTokenObtainPairView.as_view(), name='login'),
     path('refresh-token/', TokenRefreshView.as_view(), name='refresh-token'),
 
-    path('posting-user-project/', PostingProjectAPIView.as_view(), name='user-project'),
-    path('posting-user-job/', PostingJobAPIView.as_view(), name='user-job'),
+    path('posting-user-projects/', PostingProjectAPIView.as_view(), name='user-projects'),
+    path('posting-user-jobs/', PostingJobAPIView.as_view(), name='user-jobs'),
 
 
 

@@ -1,6 +1,7 @@
 from accounts.models import Account
 from posting.models import PostProject, PostJobs, TagsProjects, TagsJobs
 from comment.models import CommentProjects, CommentJobs
+from follow.models import Follow
 
 from rest_framework import serializers, status
 from rest_framework.response import Response
@@ -79,3 +80,10 @@ class PostingJobSerializer(serializers.ModelSerializer):
         fields = ('user', 'name_jobs', 'type_work_job', 'epic_coder', 'location', 'price', 'description_job',
          'skills_tags_jobs', 'likes', 'viewers_job')
 
+# ----------------------- Follow section -----------------------------
+class FollowSerializer(serializers.ModelSerializer):
+    following = serializers.StringRelatedField(many=True)
+    followers = serializers.StringRelatedField(many=True)
+    class Meta:
+        model = Follow
+        fields = ('id', 'user', 'following', 'followers')
