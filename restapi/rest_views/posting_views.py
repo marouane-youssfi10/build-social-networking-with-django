@@ -19,16 +19,17 @@ from restapi.serializers import (
 )
 
 class PostingProjectViewsets(viewsets.ModelViewSet):
-    serializer_class = PostingProjectSerializer
+    # serializer_class = PostingProjectSerializer
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self, pk=None):
         print('--- get_queryset ---')
         if pk is not None:
             try:
-                return PostProject.objects.get(id=pk)
+                post_project = PostProject.objects.get(id=pk)
+                comments = post_project.post_project_comment.all()
+                return PostProject.objects.get(id=pk), comments
             except:
-                # return Response({'message': 'this post is not exists'}, status=status.HTTP_400_BAD_REQUEST)
                 raise serializers.ValidationError({'message': 'this post is not exists'})
 
         projects = PostProject.objects.all()
@@ -37,7 +38,9 @@ class PostingProjectViewsets(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         print('--- list ---')
         projects = self.get_queryset()
+        print('projects = ', projects)
         serializer = PostingProjectSerializer(projects, many=True)
+
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def update(self, request, pk=None, *args, **kwargs):
@@ -65,11 +68,22 @@ class PostingProjectViewsets(viewsets.ModelViewSet):
         except:
             return Response({'message': 'this post does not exist'})
 
+    @action(detail=False, methods=['GET'], url_path='get/(?P<pk>[^/.]+)')
+    def get(self, request, pk=None, *args):
+        post_project, comment = self.get_queryset(pk)
+        post_project = PostingProjectSerializer(post_project, many=False)
+        comment = CommentProjectSerializer(comment, many=True)
+        return Response({
+            'Post Project': post_project.data,
+            'Comment Project': comment.data},
+            status=status.HTTP_200_OK
+        )
+
     @action(detail=False, methods=['GET'], url_path='hide_unhide_project/(?P<pk>[^/.]+)')
     def hide_unhide_project(self, request, pk=None, *args, **kwargs):
         print('--- hide_project ---')
         print('pk = ', pk)
-        post_project = self.get_queryset(pk)
+        post_project, comment = self.get_queryset(pk)
         if post_project.hide is False:
             print('True')
             post_project.hide = True
@@ -82,7 +96,7 @@ class PostingProjectViewsets(viewsets.ModelViewSet):
     @action(detail=False, methods=['GET'], url_path='add_remove_like_project/(?P<pk>[^/.]+)')
     def add_remove_like_project(self, request, pk=None, *args, **kwargs):
         print('--- add_remove_like_project ---')
-        post_project = self.get_queryset(pk)
+        post_project, comment = self.get_queryset(pk)
 
         if not request.user in post_project.likes.all():
             post_project.likes.add(request.user)
@@ -94,14 +108,14 @@ class PostingProjectViewsets(viewsets.ModelViewSet):
     @action(detail=False, methods=['GET'], url_path='viewers_project/(?P<pk>[^/.]+)')
     def viewers_project(self, request, pk=None, *args, **kwargs):
         print('--- viewers_project ---')
-        post_project = self.get_queryset(pk)
+        post_project, comment = self.get_queryset(pk)
         post_project.viewers_project.add(request.user)
         post_project.save()
         return Response({'message': 'success'}, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=['GET'], url_path='saved_projects/(?P<pk>[^/.]+)')
     def saved_projects(self, request, pk=None, *args, **kwargs):
-        post_project = self.get_queryset(pk)
+        post_project, comment = self.get_queryset(pk)
         user_profile = UserProfile.objects.get(user=request.user)
         if not post_project in user_profile.my_bids_projects.all():
             user_profile.my_bids_projects.add(post_project.id)
@@ -111,7 +125,7 @@ class PostingProjectViewsets(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['POST'], url_path='add_comment_project/(?P<pk>[^/.]+)')
     def add_comment_project(self, request, pk=None, *args, **kwargs):
-        post_project = self.get_queryset(pk)
+        post_project, comment = self.get_queryset(pk)
         data = request.data
         user = request.user
         try:
@@ -181,7 +195,9 @@ class PostingJobViewsets(viewsets.ModelViewSet):
         print('--- get_queryset ---')
         if pk is not None:
             try:
-                return PostJobs.objects.get(id=pk)
+                post_job = PostJobs.objects.get(id=pk)
+                comments = post_job.post_job_comment.all()
+                return post_job, comments
             except:
                 raise serializers.ValidationError({'message': 'this post is not exists'})
         jobs = PostJobs.objects.all()
@@ -219,11 +235,22 @@ class PostingJobViewsets(viewsets.ModelViewSet):
         except:
             return Response({'message': 'this post does not exist'})
 
+    @action(detail=False, methods=['GET'], url_path='get/(?P<pk>[^/.]+)')
+    def get(self, request, pk=None, *args):
+        post_job, comment = self.get_queryset(pk)
+        post_job = PostingJobSerializer(post_job, many=False)
+        comment = CommentJobSerializer(comment, many=True)
+        return Response({
+            'Post Job': post_job.data,
+            'Comment Job': comment.data},
+            status=status.HTTP_200_OK
+        )
+
     @action(detail=False, methods=['GET'], url_path='hide_unhide_job/(?P<pk>[^/.]+)')
     def hide_unhide_job(self, request, pk=None, *args):
         print('--- hide_job ---')
         print('pk = ', pk)
-        post_job = self.get_queryset(pk)
+        post_job, comment = self.get_queryset(pk)
         if post_job.hide is False:
             print('True')
             post_job.hide = True
@@ -236,7 +263,7 @@ class PostingJobViewsets(viewsets.ModelViewSet):
     @action(detail=False, methods=['GET'], url_path='add_remove_like_job/(?P<pk>[^/.]+)')
     def add_remove_like_job(self, request, pk=None, *args):
         print('--- add_remove_like_job ---')
-        post_job = self.get_queryset(pk)
+        post_job, comment = self.get_queryset(pk)
 
         if not request.user in post_job.likes.all():
             post_job.likes.add(request.user)
@@ -248,14 +275,14 @@ class PostingJobViewsets(viewsets.ModelViewSet):
     @action(detail=False, methods=['GET'], url_path='viewers_job/(?P<pk>[^/.]+)')
     def viewers_job(self, request, pk=None, *args, **kwargs):
         print('--- viewers_job ---')
-        post_job = self.get_queryset(pk)
+        post_job, comment = self.get_queryset(pk)
         post_job.viewers_job.add(request.user)
         post_job.save()
         return Response({'message': 'success'}, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=['GET'], url_path='saved_jobs/(?P<pk>[^/.]+)')
     def saved_jobs(self, request, pk=None, *args, **kwargs):
-        post_job = self.get_queryset(pk)
+        post_job, comment = self.get_queryset(pk)
         user_profile = UserProfile.objects.get(user=request.user)
         if not post_job in user_profile.saved_jobs.all():
             user_profile.saved_jobs.add(post_job.id)
@@ -265,7 +292,7 @@ class PostingJobViewsets(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['POST'], url_path='add_comment_job/(?P<pk>[^/.]+)')
     def add_comment_job(self, request, pk=None, *args, **kwargs):
-        post_job = self.get_queryset(pk)
+        post_job, comment = self.get_queryset(pk)
         data = request.data
         user = request.user
         try:

@@ -33,6 +33,22 @@ class UserSerializer(serializers.ModelSerializer):
         model = Account
         fields = ('id', 'username')
 
+
+# --------------------- Comment section ---------------------------------
+class CommentProjectSerializer(serializers.ModelSerializer):
+    # post_project = serializers.StringRelatedField(many=False)
+    user_post = serializers.StringRelatedField(many=False)
+    class Meta:
+        model = CommentProjects
+        fields = ('user_post', 'body')
+
+class CommentJobSerializer(serializers.ModelSerializer):
+    # post_job = serializers.StringRelatedField(many=False)
+    user_job = serializers.StringRelatedField(many=False)
+    class Meta:
+        model = CommentJobs
+        fields = ('user_job', 'body')
+
 # ----------------------- Post section -----------------------------
 class TagsProjectsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -48,9 +64,10 @@ class PostingProjectSerializer(serializers.ModelSerializer):
     likes = UserSerializer(many=True)
     viewers_project = UserSerializer(many=True)
     skills_tags_projects = TagsProjectsSerializer(many=True)
+    # comment_project = CommentProjectSerializer(many=True, read_only=True)
     class Meta:
         model = PostProject
-        fields = ('user', 'name_project', 'epic_coder', 'location', 'start_price', 'end_price', 'description_project',
+        fields = ('id', 'user', 'name_project', 'epic_coder', 'location', 'start_price', 'end_price', 'description_project',
                     'skills_tags_projects', 'likes', 'viewers_project')
 
 class PostingJobSerializer(serializers.ModelSerializer):
@@ -62,13 +79,3 @@ class PostingJobSerializer(serializers.ModelSerializer):
         fields = ('user', 'name_jobs', 'type_work_job', 'epic_coder', 'location', 'price', 'description_job',
          'skills_tags_jobs', 'likes', 'viewers_job')
 
-# --------------------- Comment section ---------------------------------
-class CommentProjectSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CommentProjects
-        fields = ('post_project', 'user_post', 'body')
-
-class CommentJobSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CommentJobs
-        fields = ('post_job', 'user_job', 'body')
