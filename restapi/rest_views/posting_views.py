@@ -28,7 +28,7 @@ class PostingProjectViewsets(viewsets.ModelViewSet):
             try:
                 post_project = PostProject.objects.get(id=pk)
                 comments = post_project.post_project_comment.all()
-                return PostProject.objects.get(id=pk), comments
+                return post_project, comments
             except:
                 raise serializers.ValidationError({'message': 'this post is not exists'})
 

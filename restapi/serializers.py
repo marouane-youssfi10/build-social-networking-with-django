@@ -2,10 +2,14 @@ from accounts.models import Account
 from posting.models import PostProject, PostJobs, TagsProjects, TagsJobs
 from comment.models import CommentProjects, CommentJobs
 from follow.models import Follow
+from notifications.models import NotificationProjects
+from conversations.models import Message
 
 from rest_framework import serializers, status
 from rest_framework.response import Response
 
+
+# --------------------- Authentications section ---------------------------------
 class RegistrationSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(max_length=50, min_length=6)
     username = serializers.CharField(max_length=50, min_length=6)
@@ -87,3 +91,18 @@ class FollowSerializer(serializers.ModelSerializer):
     class Meta:
         model = Follow
         fields = ('id', 'user', 'following', 'followers')
+
+
+# ----------------------- Notifications section -----------------------------
+
+class NotificationsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NotificationProjects
+        fields = ('id', 'post_job', 'post_project', 'sender', 'to_user', 'notification_type', 'body', 'is_seen')
+
+# ----------------------- conversation section -----------------------------
+
+class ConversationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = ('id', 'user', 'sender', 'recipient', 'body', 'is_read', 'created', 'updated')
