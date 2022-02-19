@@ -48,14 +48,14 @@ class PostingProjectViewsets(viewsets.ModelViewSet):
         project = self.get_queryset(pk)
         data = request.data
 
-        project.title = data['title']
-        project.overview = data['overview']
-        project.education_title = data['education_title']
-        project.education_year_start = data['education_year_start']
-        project.education_year_end = data['education_year_end']
-        project.education_description = data['education_description']
-        project.location_country = data['location_country']
-        project.location_city = data['location_city']
+        project.title = data.get('title', project.title)
+        project.overview = data.get('overview', project.overview)
+        project.education_title = data.get('education_title', project.education_title)
+        project.education_year_start = data.get('education_year_start', project.education_year_start)
+        project.education_year_end = data.get('education_year_end', project.education_year_end)
+        project.education_description = data.get('education_description', project.education_description)
+        project.location_country = data.get('location_country', project.location_country)
+        project.location_city = data.get('location_city', project.location_city)
         project.save()
         return Response({
             'message': 'your project post is updated successfully',
@@ -219,21 +219,21 @@ class PostingJobViewsets(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         print('--- list ---')
-        jobs = self.get_queryset()
+        jobs, comments = self.get_queryset()
         serializer = PostingJobSerializer(jobs, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def update(self, request, pk=None, *args, **kwargs):
         print('--- update ---')
-        job = self.get_queryset(pk)
+        job, comments = self.get_queryset(pk)
         data = request.data
 
-        job.name_jobs = data['name_jobs']
-        job.type_work_job = data['type_work_job']
-        job.epic_coder = data['epic_coder']
-        job.location = data['location']
-        job.price = data['price']
-        job.description_job = data['description_job']
+        job.name_jobs = data.get('name_jobs', job.name_jobs)
+        job.type_work_job = data.get('type_work_job', job.type_work_job)
+        job.epic_coder = data.get('epic_coder', job.epic_coder)
+        job.location = data.get('location', job.location)
+        job.price = data.get('price', job.price)
+        job.description_job = data.get('description_job', job.description_job)
         job.save()
         return Response({
             'message': 'your job post is updated successfully',
@@ -306,7 +306,9 @@ class PostingJobViewsets(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['POST'], url_path='add_comment_job/(?P<pk>[^/.]+)')
     def add_comment_job(self, request, pk=None, *args, **kwargs):
+        print('--- add_comment_job ---')
         post_job, comment = self.get_queryset(pk)
+        print('post_job = ', post_job)
         data = request.data
         user = request.user
         try:
@@ -318,8 +320,8 @@ class PostingJobViewsets(viewsets.ModelViewSet):
             comment_job.save()
             return Response({'message': 'Your Comment on job post is created Successfully'},
                             status=status.HTTP_201_CREATED)
-        except:
-            return Response({'message': 'form is not valid'}, status=status.HTTP_200_OK)
+        except Exception as err:
+            return Response({'message': 'form is not valid', 'error':  f'{err}'}, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=['PUT'], url_path='update_comment_job/(?P<pk>[^/.]+)')
     def update_comment_job(self, request, pk=None, *args, **kwargs):
