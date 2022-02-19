@@ -58,7 +58,7 @@ class UserExperienceSerializer(serializers.ModelSerializer):
 
 # ----------------------- Social Media section --------------------------
 
-class SocialMediaSerializer(serializers.ModelSerializer):
+class SocialMediaLinksSerializer(serializers.ModelSerializer):
     class Meta:
         model = Social_media
         fields = ('id', 'social_media_user', 'name', 'link')

@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import action, api_view, permission_classes
 from accounts.models import UserProfile, Account, TagsUser, Social_media, Experience_user
-from restapi.serializers import UserProfileSerializer
+from restapi.serializers import UserProfileSerializer, UserExperienceSerializer, SocialMediaLinksSerializer, TagsUserSerializer
 
 
 class UserProfileViewsets(viewsets.ModelViewSet):
@@ -66,7 +66,7 @@ class UserProfileViewsets(viewsets.ModelViewSet):
             tag_user.delete()
             return Response({'message': 'your tag is deleted successfully'})
         except:
-            return Response({'message': 'this tag does not exist'})
+            return Response({'message': 'this tag does not exist'}, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=False, methods=['PUT'], url_path='update_experience_user/(?P<pk>[^/.]+)')
     def update_experience_user(self, request, pk=None, *args):
@@ -99,6 +99,36 @@ class UserProfileViewsets(viewsets.ModelViewSet):
             'message': 'your links is updated successfully',
             'data': data
         }, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['GET'])
+    def get_user_experience(self, request, *args):
+        print('--- get_user_experience ---')
+        try:
+            experience_user = Experience_user.objects.filter(experience_user=request.user)
+            serializer = UserExperienceSerializer(experience_user, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as err:
+            return Response({'message': 'this user does not exists', 'error': f'{err}'}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, methods=['GET'])
+    def get_user_links(self, request, *args):
+        print('--- get_user_links ---')
+        try:
+            tags_user = Social_media.objects.filter(social_media_user=request.user)
+            serializer = SocialMediaLinksSerializer(tags_user, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except:
+            return Response({'message': 'this user does not exists'}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, methods=['GET'])
+    def get_user_skills_tags(self, request, *args):
+        print('--- get_user_links ---')
+        try:
+            tags_user = TagsUser.objects.filter(tags_user=request.user)
+            serializer = TagsUserSerializer(tags_user, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except:
+            return Response({'message': 'this user does not exists'}, status=status.HTTP_400_BAD_REQUEST)
 
 class UserProfileAPIView(APIView):
     permission_classes = (IsAuthenticated,)
