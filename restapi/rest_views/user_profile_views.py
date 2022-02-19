@@ -23,6 +23,19 @@ class UserProfileViewsets(viewsets.ModelViewSet):
 
         return UserProfile.objects.all()
 
+    def create(self, request, *args, **kwargs):
+        print('--- create skills user---')
+        data = request.data
+
+        if data['tag'] == '' or data['tag'] is None:
+            return Response({'message': 'there is no value of tag'}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            tag_user = TagsUser.objects.create(tags_user=request.user, tag=data['tag'])
+            tag_user.save()
+            return Response({'message': 'your tag is created successfully'})
+        except:
+            return Response({'message': 'this user is not exists'})
+
     def update(self, request, pk=None, *args, **kwargs):
         print('--- update ---')
         user_profile = self.get_queryset(pk)
@@ -47,7 +60,7 @@ class UserProfileViewsets(viewsets.ModelViewSet):
         }, status=status.HTTP_200_OK)
 
     def destroy(self, request, pk=None, *args, **kwargs):
-        print('--- destroy ---')
+        print('--- destroy skills user---')
         try:
             tag_user = TagsUser.objects.get(id=pk)
             tag_user.delete()
