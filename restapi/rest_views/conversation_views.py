@@ -54,7 +54,6 @@ class ConversationViewsets(viewsets.ModelViewSet):
         except:
             return Response({'messages': 'Form is not valid'}, status=status.HTTP_400_BAD_REQUEST)
 
-
 class ConversationAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 

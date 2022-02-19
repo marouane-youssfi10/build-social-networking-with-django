@@ -12,7 +12,6 @@ class NotificationsViewsets(viewsets.ModelViewSet):
 
     def get_queryset(self, pk=None):
         print('--- get_queryset ---')
-        print('pk = ', pk)
         if pk is not None:
             try:
                 notification = NotificationProjects.objects.get(id=pk)

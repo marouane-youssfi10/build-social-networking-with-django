@@ -20,15 +20,6 @@ class FollowViewsets(viewsets.ModelViewSet):
             except:
                 raise serializers.ValidationError({'message': 'this user is not exists'})
 
-        follow = Follow.objects.all()
-        return follow
-
-    def list(self, request, *args, **kwargs):
-        print('--- list ---')
-        follow = self.get_queryset()
-        serializer = FollowSerializer(follow, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
     @action(detail=False, methods=['GET'], url_path='follow_unfollow/(?P<pk>[^/.]+)')
     def follow_unfollow(self, request, pk=None, *args, **kwargs):
         print('--- follow_unfollow ---')
@@ -57,7 +48,9 @@ class FollowAPIView(APIView):
 @permission_classes([IsAuthenticated])
 def get_user_follow(request, pk):
     print('--- get_user_follow ---')
-    print('pk = ', pk)
-    follow = Follow.objects.get(id=pk)
-    serializer = FollowSerializer(follow, many=False)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    try:
+        follow = Follow.objects.get(id=pk)
+        serializer = FollowSerializer(follow, many=False)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except:
+        return Response({'message': 'not exists'}, status=status.HTTP_400_BAD_REQUEST)
