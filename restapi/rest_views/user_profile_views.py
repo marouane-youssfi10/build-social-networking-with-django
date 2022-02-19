@@ -46,6 +46,15 @@ class UserProfileViewsets(viewsets.ModelViewSet):
             'data': data
         }, status=status.HTTP_200_OK)
 
+    def destroy(self, request, pk=None, *args, **kwargs):
+        print('--- destroy ---')
+        try:
+            tag_user = TagsUser.objects.get(id=pk)
+            tag_user.delete()
+            return Response({'message': 'your tag is deleted successfully'})
+        except:
+            return Response({'message': 'this tag does not exist'})
+
     @action(detail=False, methods=['PUT'], url_path='update_experience_user/(?P<pk>[^/.]+)')
     def update_experience_user(self, request, pk=None, *args):
         user_experience = Experience_user.objects.get(id=pk)
