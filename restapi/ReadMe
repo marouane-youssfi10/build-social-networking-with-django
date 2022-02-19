@@ -1,0 +1,80 @@
+# Authentication
+method:POST   /api/register/      # registerition
+method:POST   /api/login/         # sign in
+method:POST   /api/refresh-token  # get refresh-token
+
+# user profile
+method:GET    /api/user-profile/get_user_experience/  # get user exprience
+method:GET    /api/user-profile/get_user_links/       # get user links
+method:GET    /api/user-profile/get_user_skills_tags/ # get user skills tags
+
+method:GET    /api/my-profile/   # get my user profile
+
+method:PUT    /api/user-profile/<int:pk>/                          # update your profle info
+method:PUT    /api/user-profile/update_experience_user/<int:pk>/   # update your experience info
+method:PUT    /api/user-profile/update_link_social_media/<int:pk>/ # update your links info
+method:POST   /api/user-profile/ # create skills user
+method:DELETE /api/user-profile/ # delete skills user
+
+
+# ------------------- post projects -------------------------
+
+method:GET    /api/projects/                                  # get all posts users projects
+method:GET    /api/projects/get/<int:pk>/                     # get a specific posts project with the comments
+method:GET    /api/projects/hide_unhide_project/<int:pk>/     # hide or unhide your project
+method:GET    /api/projects/add_remove_like_project/<int:pk>/ # add or remove like from your project
+method:GET    /api/projects/viewers_project/<int:pk>/         # add request user who see your posts
+method:GET    /api/projects/saved_projects/<int:pk>/          # save the project on your profile
+
+method:POST   /api/projects/add_comment_project/<int:pk>/    # add comment to projects
+method:PUT    /api/projects/add_comment_project/<int:pk>/    # update your comment on project
+
+method:PUT    /api/projects/<int:pk>/                      # update your post project
+method:DELETE /api/projects/<int:pk>/                      # delete your post project
+
+method:GET    /api/posting-user-projects/                    # get all your posts projects
+method:POST   /api/posting-user-projects/                    # post a new projects
+
+method:GET    /api/project/<int:pk>/                         # get a specific posts project without comments
+
+
+# ------------------- post job -----------------------------------
+
+method:GET    /api/jobs/                                  # get all posts users jobs
+method:GET    /api/jobs/get/<int:pk>/                     # get a specific posts job with the comments
+method:GET    /api/jobs/hide_unhide_job/<int:pk>/         # hide or unhide your job
+method:GET    /api/jobs/add_remove_like_job/<int:pk>/     # add or remove like from your job
+method:GET    /api/jobs/viewers_job/<int:pk>/             # add request user who see your posts
+method:GET    /api/jobs/saved_jobs/<int:pk>/              # save the job on your profile
+
+method:POST   /api/jobs/add_comment_job/<int:pk>/         # add comment to jobs
+method:PUT    /api/jobs/update_comment_job/<int:pk>/      # update your comment on job
+
+method:PUT    /api/jobs/<int:pk>/                         # update your post job
+method:DELETE /api/jobs/<int:pk>/                         # delete your post job
+
+method:GET    /api/posting-user-jobs/                     # get all your posts jobs
+method:POST   /api/posting-user-jobs/                     # post a new jobs
+
+method:GET    /api/job/<int:pk>/                         # get a specific posts job without comments
+
+
+# ------------------- Notifications -----------------------------------
+
+method:GET    /api/get-notifications/ # get all notifications user
+method:GET    /api/notification/is_seen/<int:pk>/ # update is_seen to True when user se the notification
+
+# ------------------- Follow -----------------------------------
+
+method:GET    /api/follow/follow_unfollow/<int:pk>/ # follow or unfollow the user
+method:GET    /api/get-user-follow/                 # get request user followers and following
+method:GET    /api/get-user-follow/<int:pk>/        # get the user followers and following
+
+
+# ------------------- Conversations -----------------------------------
+
+method:GET    /api/conversations/get_messages/<int:pk>/                     # get messages with your other users
+method:GET    /api/conversations/add_new_user_to_my_conversations/<int:pk>/ # add new user to your conversations
+method:POST   /api/conversations/send_message/<int:pk>/                     # send message
+
+method:GET    /api/get-user-conversations/                                  # get messages reading and not reading

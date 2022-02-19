@@ -32,15 +32,12 @@ class PostingProjectViewsets(viewsets.ModelViewSet):
             except:
                 raise serializers.ValidationError({'message': 'this post is not exists'})
 
-        projects = PostProject.objects.all()
-        return projects
+        return PostProject.objects.all()
 
     def list(self, request, *args, **kwargs):
         print('--- list ---')
         projects = self.get_queryset()
-        print('projects = ', projects)
         serializer = PostingProjectSerializer(projects, many=True)
-
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def update(self, request, pk=None, *args, **kwargs):
@@ -214,12 +211,11 @@ class PostingJobViewsets(viewsets.ModelViewSet):
                 return post_job, comments
             except:
                 raise serializers.ValidationError({'message': 'this post is not exists'})
-        jobs = PostJobs.objects.all()
-        return jobs
+        return PostJobs.objects.all()
 
     def list(self, request, *args, **kwargs):
         print('--- list ---')
-        jobs, comments = self.get_queryset()
+        jobs = self.get_queryset()
         serializer = PostingJobSerializer(jobs, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
