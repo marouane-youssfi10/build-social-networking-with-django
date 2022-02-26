@@ -1,7 +1,3 @@
-compte : youssfi1195@gmail.com
-paswword : marouane123EE_*
-----------------------
-
 SECRET_KEY = 'django-insecure-j6-jk%n+zyledbq&wh*qzp*9$q9dz41iihz1at#eb@28fu351-'
 
 
